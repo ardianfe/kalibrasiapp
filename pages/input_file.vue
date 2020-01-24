@@ -67,7 +67,7 @@
   </v-layout>
 </template>
 
-<style>
+<style scoped>
   #wrapper {
     overflow-x: scroll;
     /* overflow: scroll; */

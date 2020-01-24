@@ -31,7 +31,7 @@
   </v-layout>
 </template>
 
-<style>
+<style scoped>
   #wrapper {
     overflow-x: hidden;
     /* overflow: scroll; */

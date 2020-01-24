@@ -24,22 +24,27 @@
           <tr><td><div contenteditable>I'm editable</div></td><td><div contenteditable>I'm also editable</div></td></tr>
           <tr><td>I'm not editable</td></tr>
         </table> -->
-        <v-card-title>
-          <div id="wrapper">
-
+        <div id="printable">
+          <v-card-title style="z-index: 2; height: 130px; padding: 8px 24px">
+            <img v-if="$route.query.attribute == 'sertifikat'" contain src="/kemenperin.png" height="auto" width="120px" style="object-fit: contain;">
+            <v-spacer/>
+            <img v-if="$route.query.attribute == 'sertifikat'" contain src="/kan.png" height="auto" width="120px" style="object-fit: contain;">
+          </v-card-title>
+          <div id="wrapper" style="margin-top: -130px;"> 
           </div>
-        </v-card-title>
+        </div>
+        <!-- <v-card-title id="wrapper">
+        </v-card-title> -->
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 
-<style>
+<style scoped>
   #wrapper {
-    overflow-x: scroll;
+    overflow-x: scroll hidden;
   } table {
     border-collapse: collapse;
-  } table, th, td {
     border: 1px solid grey;
   }
 </style>
@@ -73,10 +78,28 @@ export default {
   methods: {
     createElement() {
       document.getElementById('wrapper').innerHTML += this.data.htmlstr;
+
+      if (this.$route.query.attribute == 'sertifikat') {
+        setTimeout(() => {
+          // console.log(');
+          
+          document.getElementsByTagName('table')[0].width = '100%'
+          console.log(document.getElementsByTagName('table')[0]);
+          
+          document.getElementById('sjs-B2').style = 'text-align: center'
+          document.getElementById('sjs-B3').style = 'text-align: center'
+          document.getElementById('sjs-B4').style = 'text-align: center'
+          document.getElementById('sjs-B5').style = 'text-align: center'
+          document.getElementById('sjs-B6').style = 'text-align: center'
+          document.getElementById('sjs-B9').style = 'text-align: center'
+          document.getElementById('sjs-B10').style = 'text-align: center; padding-bottom: 8px'
+        }, 1000);
+      }
+
     },
 
     printWrapper() {
-      var printContents = document.getElementById('wrapper').innerHTML;
+      var printContents = document.getElementById('printable').innerHTML;
       var originalContents = document.body.innerHTML;
 
       document.body.innerHTML = printContents;
