@@ -1,7 +1,7 @@
 {
-  "name": "oven-pdam",
+  "name": "b4t-prototype",
   "version": "1.0.0",
-  "description": "Prototype OVEN PDAM",
+  "description": "Prototype B4T",
   "author": "abdurahmanfz",
   "private": true,
   "scripts": {
