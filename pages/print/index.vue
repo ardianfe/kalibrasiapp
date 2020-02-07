@@ -24,9 +24,8 @@
           <tr><td><div contenteditable>I'm editable</div></td><td><div contenteditable>I'm also editable</div></td></tr>
           <tr><td>I'm not editable</td></tr>
         </table> -->
-        <!-- <v-card-title id="wrapper">
-        </v-card-title> -->
-        <v-card-text style="height: 300mm">
+        
+        <v-card-text style="height: 300mm" v-if="$route.query.attribute == 'sertifikat'">
           <div id="printable" style="margin: auto; margin-top: 20px; min-width: 190mm; max-width: 190mm; height: 280mm;">
             <v-card-title style="z-index: 2; height: 75px; padding: 0" v-if="$route.query.attribute == 'sertifikat'">
               <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
@@ -376,6 +375,9 @@
             <div style="margin-top: -130px;" > 
             </div>
         </v-card-text>
+        
+        <v-card-title id="wrapper" v-else>
+        </v-card-title> 
       </v-card>
     </v-flex>
   </v-layout>
@@ -427,11 +429,13 @@ export default {
     this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
 
     console.log(this.data);
-    // this.createElement()
+    if (this.$route.query.attribute == 'lampiran') {
+      this.createElement()
+    }
   },
 
   methods: {
-    /* createElement() {
+    createElement() {
       document.getElementById('wrapper').innerHTML += this.data.htmlstr;
 
       if (this.$route.query.attribute == 'sertifikat') {
@@ -451,7 +455,7 @@ export default {
         }, 1000);
       }
 
-    }, */
+    },
 
     printWrapper() {
       var printContents = document.getElementById('printable').innerHTML;
