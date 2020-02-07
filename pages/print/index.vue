@@ -7,7 +7,7 @@
       sm8
       md6
     >
-      <v-card>
+      <v-card width="210mm">
         <v-card-title class="headline">
           <v-btn icon large class="primary" @click="$router.go(-1)">
             <v-icon>keyboard_arrow_left</v-icon>
@@ -24,17 +24,322 @@
           <tr><td><div contenteditable>I'm editable</div></td><td><div contenteditable>I'm also editable</div></td></tr>
           <tr><td>I'm not editable</td></tr>
         </table> -->
-        <div id="printable">
-          <v-card-title style="z-index: 2; height: 130px; padding: 8px 24px">
-            <img v-if="$route.query.attribute == 'sertifikat'" contain src="/kemenperin.png" height="auto" width="120px" style="object-fit: contain;">
-            <v-spacer/>
-            <img v-if="$route.query.attribute == 'sertifikat'" contain src="/kan.png" height="auto" width="120px" style="object-fit: contain;">
-          </v-card-title>
-          <div id="wrapper" style="margin-top: -130px;"> 
-          </div>
-        </div>
         <!-- <v-card-title id="wrapper">
         </v-card-title> -->
+        <v-card-text>
+          <div id="printable" style="margin: auto; margin-top: 20px; min-width: 190mm; max-width: 190mm; height: 280mm;">
+            <v-card-title style="z-index: 2; height: 75px; padding: 0" v-if="$route.query.attribute == 'sertifikat'">
+              <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
+              <v-spacer/>
+              <img contain src="/kan.png" height="auto" width="95" style="object-fit: contain; margin: 3mm 5mm 0 0">
+            </v-card-title>
+            <div id="header" style="margin-top: -75px;">
+              <p class="helve c" style="margin-bottom: 1px; font-size: 9pt; margin-top: 3mm">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</p>
+              <p class="helve c b" style="margin-bottom: 1px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
+              <p class="helve c" style="margin-bottom: 1px; font-size: 7pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
+              <p class="helve c" style="margin-bottom: 1px; font-size: 7pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
+              <p class="helve c" style="margin-bottom: 1px; font-size: 7pt">E-mail : b4t@b4t.go.id  Website : http://www.b4t.go.id</p>
+            </div>
+            <div id="body-content" style="border: 1px solid black; background: white; margin-top: 3mm; padding: 2.7mm 4mm">
+              <p class="helve b c u" style="margin: 0; height: 4.2mm; font-size: 11pt;">SERTIFIKAT KALIBRASI</p>
+              <p class="helve i c" style="margin-bottom: 3mm; font-size: 10pt;">CALIBRATION CERTIFICATE</p>
+              <div style="margin: auto; width: 40mm;">
+                <v-layout>
+                  <v-flex>
+                    <p class="helve u c" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor</p>
+                    <p class="helve i c" style="font-size: 8pt; margin: 0; height: 18px;">Number</p>
+                  </v-flex>
+                  <v-flex>
+                    <p class="roman c" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: 3-01-19-00472</p>
+                  </v-flex>
+                </v-layout>
+              </div>
+
+              <!-- Alat / Equipment -->
+              <p class="helve u b" style="margin: 0; height: 4.2mm; font-size: 9pt;">A L A T</p>
+              <p class="helve i" style="margin-bottom: 1mm; font-size: 8pt;">Equipment</p>
+              <v-layout>
+                <v-flex xs6>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
+                    </v-flex>
+                    <v-flex xs3>
+                      <p class="helve u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
+                      <p class="helve i" style="font-size: 8pt; margin: 0; height: 18px;">Name</p>
+                    </v-flex>
+                    <v-flex xs8>
+                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: OVEN</p>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
+                    </v-flex>
+                    <v-flex xs3>
+                      <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Kapasitas</p>
+                      <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Capacity</p>
+                    </v-flex>
+                    <v-flex xs8>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: 220⁰C / Resolusi 2⁰C</p>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">3.</p>
+                    </v-flex>
+                    <v-flex xs3>
+                      <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Tipe/Model</p>
+                      <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Type/Model</p>
+                    </v-flex>
+                    <v-flex xs8>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: U 50</p>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
+                    </v-flex>
+                    <v-flex xs3>
+                      <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Nomor Seri</p>
+                      <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Serial Number</p>
+                    </v-flex>
+                    <v-flex xs8>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: 850594</p>
+                    </v-flex>
+                  </v-layout>
+
+                </v-flex>
+                <v-flex xs6>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">5.</p>
+                    </v-flex>
+                    <v-flex xs5>
+                      <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Merk/Buatan</p>
+                      <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Manufacture</p>
+                    </v-flex>
+                    <v-flex xs6>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: Memmert / Germany</p>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
+                    </v-flex>
+                    <v-flex xs5>
+                      <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
+                      <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Internal Dimension</p>
+                    </v-flex>
+                    <v-flex xs6>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: 460mm(l)x250mm(p) x340mm(t)</p>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
+                    </v-flex>
+                    <v-flex xs5>
+                      <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
+                      <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Temperature Control</p>
+                    </v-flex>
+                    <v-flex xs6>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: Analog, Bersatu dengan alat</p>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-layout>
+                    <v-flex xs1>
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">8.</p>
+                    </v-flex>
+                    <v-flex xs5>
+                      <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Lain-lain</p>
+                      <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Others</p>
+                    </v-flex>
+                    <v-flex xs6>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: -</p>
+                    </v-flex>
+                  </v-layout>
+
+                </v-flex>
+              </v-layout>
+
+              <!-- Pemilik / Owner -->
+              <p class="helve u b" style="margin: 2.5mm 0 0 0; height: 4.2mm; font-size: 9pt;">P E M I L I K</p>
+              <p class="helve i" style="margin-bottom: 1mm; font-size: 8pt">Owner</p>
+              <v-layout row>
+                <p style="width: 5mm; font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
+                <div style="width: 32mm">
+                  <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Nama</p>
+                  <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Name</p>
+                </div>
+                <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: PDAM TIRTA RAHARJA KABUPATEN BANDUNG</p>
+              </v-layout>
+              <v-layout>
+                <p style="width: 5mm; font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
+                <div style="width: 32mm">
+                  <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Alamat</p>
+                  <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Address</p>
+                </div>
+                <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: Jl. Kol Masturi Km. 3, Cimahi</p>
+              </v-layout>
+
+              <!-- Standard -->
+              <p style="font-family: Helvetica; margin: 2.5mm 0 0 0; height: 4.2mm; font-weight: 700; font-size: 9pt; text-decoration: underline;">S T A N D A R</p>
+              <p style="font-family: Helvetica; margin-bottom: 1mm; font-size: 8pt; font-style: italic">Standard</p>
+              <v-layout row>
+                <p style="width: 5mm; font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
+                <div style="width: 32mm">
+                  <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Nama</p>
+                  <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Name</p>
+                </div>
+                <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
+                <div>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">1. Memory HI Logger HIOKI LR 8431-20 S/N : 160513385</p>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">2. Thermocouple Wire Tipe K, S/N : K2</p>
+                </div>
+              </v-layout>
+              <v-layout>
+                <p style="width: 5mm; font-family: Helvetica; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
+                <div style="width: 32mm">
+                  <p style="font-family: Helvetica; font-size: 9pt; text-decoration: underline; margin: 0; height: 4.2mm;">Ketelusuran</p>
+                  <p style="font-family: Helvetica; font-size: 8pt; margin: 0; height: 18px; font-style: italic;">Traceability</p>
+                </div>
+                <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
+                <div>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">Hasil Kalibrasi yang dilaporkan tertelusur kesatuan pengukuran SI melalui</p>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">LK-032-IDN dan LK-172-IDN</p>
+                </div>
+              </v-layout>
+
+              <!-- Tanggal -->
+              <v-layout>
+                <v-flex xs6>
+                  <v-layout row style="margin-top: 3mm">
+                    <div style="width: 37mm">
+                      <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">TANGGAL DITERIMA</p>
+                      <p class="helve i" style="margin-bottom: 1mm; font-size: 8pt;">Date of acceptance</p>
+                    </div>
+                    <div>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: 04 Oktober 2019</p>
+                    </div>
+                  </v-layout>
+                </v-flex>
+                <v-flex xs6>
+                  <v-layout row style="margin-top: 3mm">
+                    <div style="width: 37mm">
+                      <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">TANGGAL KALIBRASI</p>
+                      <p class="helve i" style="margin-bottom: 1mm; font-size: 8pt;">Date of Calibration</p>
+                    </div>
+                    <div>
+                      <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: 04 Oktober 2019</p>
+                    </div>
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+
+              <!-- Kondisi -->
+              <p style="font-family: Helvetica; margin: 2.5mm 0 0 0; height: 4.2mm; font-weight: 700; font-size: 9pt; text-decoration: underline;">KONDISI LINGKUNGAN KALIBRASI</p>
+              <p style="font-family: Helvetica; margin-bottom: 1mm; font-size: 8pt; font-style: italic">Environtment condition of Calibration</p>
+              <v-layout>
+                <v-flex xs6>
+                  <v-layout row>
+                    <p style="width: 5mm; font-family: Helvetica; font-size: 9pt; margin: 0; height: 4.2mm;">1.</p>
+                    <div style="width: 32mm">
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
+                    </div>
+                    <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">: 26 ± 1 °C</p>
+                  </v-layout>
+                </v-flex>
+                <v-flex xs6>
+                  <v-layout row>
+                    <p style="width: 5mm; font-family: Helvetica; font-size: 9pt; margin: 0; height: 4.2mm;">2.</p>
+                    <div style="width: 32mm">
+                      <p style="font-family: Helvetica; font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
+                    </div>
+                    <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">: 69 ± 3 %RH</p>
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+
+              <!-- Lokasi -->
+              <v-layout row style="margin-top: 2.5mm">
+                <div style="width: 37mm">
+                  <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">LOKASI KALIBRASI</p>
+                  <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Location of Calibration</p>
+                </div>
+                <div>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: Laboratorium PDAM Tirtaraharja</p>
+                </div>
+              </v-layout>
+
+              <!-- Metoda -->
+              <v-layout row style="margin-top: 2.5mm">
+                <div style="width: 37mm">
+                  <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">METODA KALIBRASI</p>
+                  <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Calibration Method</p>
+                </div>
+                <div>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: PC-301-04</p>
+                </div>
+              </v-layout>
+
+              <!-- Acuan -->
+              <v-layout row style="margin-top: 2.5mm">
+                <div style="width: 37mm">
+                  <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
+                  <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Refference</p>
+                </div>
+                <p style="font-family: Times New Roman; font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
+                <div>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">Australian Standard 2538-1986</p>
+                  <p style="font-family: Times New Roman; font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p>
+                </div>
+              </v-layout>
+              
+              <!-- Hasil -->
+              <v-layout row style="margin-top: 2.5mm">
+                <div>
+                  <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">HASIL KALIBRASI DAN KETIDAKPASTIAN KALIBRASI</p>
+                  <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Result of Calibration and uncertainity of Calibration</p>
+                </div>
+                <div>
+                  <p class="helve u" style="margin: 0 15mm; height: 4.2mm; font-size: 9pt;">(Terlampir)</p>
+                  <p class="helve i" style="margin: 0 15mm; font-size: 8pt;">(Attached)</p>
+                </div>
+              </v-layout>
+
+              <!-- Diterbitkan dan Tanda Tangan -->
+              <v-layout style="margin-top: 1mm">
+                <v-flex xs8>
+                  <v-layout row>
+                    <p style="font-family: Helvetica; font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="roman"> 07 Oktober 2019</span></p>
+                  </v-layout>
+                </v-flex>
+                <v-flex xs4>
+                  <p class="helve c" style="font-size: 9pt; margin: 0; height: 4.2mm;">Bidang Standarisasi</p>
+                  <p class="helve c" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kepala Seksi Kalibrasi</p>
+                  <p class="helve c b u" style="font-size: 9pt; margin: 14mm 0 0 0; height: 4.2mm;">AJI MAHMUD SOLIH</p>
+                  <p class="helve c" style="font-size: 9pt; margin: 0; height: 4.2mm;">NIP. 19720802 200701 1 003</p>
+                </v-flex>
+              </v-layout>
+            </div>
+
+            <!-- Keterangan -->
+            <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 2.7mm 4mm">
+              <p class="helve" style="font-size: 8pt;">Keterangan</p>
+            </div>
+            <div id="wrapper" style="margin-top: -130px;" > 
+            </div>
+          </div>
+        </v-card-text>
       </v-card>
     </v-flex>
   </v-layout>
@@ -46,6 +351,20 @@
   } table {
     border-collapse: collapse;
     border: 1px solid grey;
+  } 
+
+  .b {
+    font-weight: bold;
+  } .i {
+    font-style: italic;
+  } .u {
+    text-decoration: underline;
+  } .roman {
+    font-family: 'Times New Roman', serif;
+  } .helve {
+    font-family: Helvetica, sans-serif;
+  } .c {
+    text-align: center;
   }
 </style>
 
@@ -72,11 +391,11 @@ export default {
     this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
 
     console.log(this.data);
-    this.createElement()
+    // this.createElement()
   },
 
   methods: {
-    createElement() {
+    /* createElement() {
       document.getElementById('wrapper').innerHTML += this.data.htmlstr;
 
       if (this.$route.query.attribute == 'sertifikat') {
@@ -86,17 +405,17 @@ export default {
           document.getElementsByTagName('table')[0].width = '100%'
           console.log(document.getElementsByTagName('table')[0]);
           
-          document.getElementById('sjs-B2').style = 'text-align: center'
-          document.getElementById('sjs-B3').style = 'text-align: center'
-          document.getElementById('sjs-B4').style = 'text-align: center'
-          document.getElementById('sjs-B5').style = 'text-align: center'
-          document.getElementById('sjs-B6').style = 'text-align: center'
-          document.getElementById('sjs-B9').style = 'text-align: center'
+          document.getElementById('sjs-B2').style = 'text-align: center; font-family: Helvetica; font-size: 9pt'
+          document.getElementById('sjs-B3').style = 'text-align: center; font-family: Helvetica; font-size: 10pt; font-weight: 600;'
+          document.getElementById('sjs-B4').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
+          document.getElementById('sjs-B5').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
+          document.getElementById('sjs-B6').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
+          document.getElementById('sjs-B9').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
           document.getElementById('sjs-B10').style = 'text-align: center; padding-bottom: 8px'
         }, 1000);
       }
 
-    },
+    }, */
 
     printWrapper() {
       var printContents = document.getElementById('printable').innerHTML;
@@ -104,7 +423,7 @@ export default {
 
       document.body.innerHTML = printContents;
       window.print();
-      document.body.innerHTML = originalContents;
+      document.body.innerHTML = originalContents; 
     }
   },
 }

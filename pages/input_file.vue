@@ -28,8 +28,8 @@
           <input type="file" id="input-excel" hidden @change="fileSelected"/>
 
           <v-spacer />
-          <v-btn class="primary" @click="$router.push('/print?content='+$route.query.content+'&attribute=sertifikat')" v-if="sertifikat.id">Cetak Sertifikat</v-btn>
-          <v-btn class="primary" @click="$router.push('/print?content='+$route.query.content+'&attribute=lampiran')" v-if="lampiran.id">Cetak Lampiran</v-btn>
+          <v-btn class="primary" :to="'/print?content='+$route.query.content+'&attribute=sertifikat'" v-if="sertifikat.id">Cetak Sertifikat</v-btn>
+          <v-btn class="primary" :to="'/print?content='+$route.query.content+'&attribute=lampiran'" v-if="lampiran.id">Cetak Lampiran</v-btn>
 
           <!-- <v-btn class="primary" @click="hideElement">tutup</v-btn>
           <v-btn class="primary" @click="showElement">buka</v-btn> -->
@@ -131,54 +131,61 @@ export default {
       // document.getElementById('input-excel').change((e) => {
         var reader = new FileReader();
         reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onload = (e) => {
-          var data = new Uint8Array(reader.result);
-          var wb = XLSX.read(data,{type:'array'});
+        console.log(e.target.files[0]);
 
-          var sheets = []
-
-          for (const x in wb.SheetNames) {
-            if (wb.SheetNames.hasOwnProperty(x)) {
-              const element = wb.SheetNames[x];
-              var worksheet = wb.Sheets[element];
-              // console.log(x+'', XLSX.utils.sheet_to_json(worksheet,{raw:true}));
-              
-              var htmlstr = XLSX.write(wb,{sheet:wb.SheetNames[x], type:'binary',bookType:'html'});
-              // console.log(htmlstr);
-
-              // var newEl = document.createElement('div')
-              // console.log(newEl);
-              
-              // newEl.setAttribute("id", x);
-              // var currentDiv = document.getElementById("wrapper"); 
-              // currentDiv.insertBefore(newEl, currentDiv.childNodes[0]);
-
-              if (x <= 2) {
-                this.sheetPush(x, wb.SheetNames[x], htmlstr.replace(/[Ââáµ]/g, ' '))
-              } else {
-                this.anotherSheets.push({'id': x, 'name': wb.SheetNames[x], 'htmlstr': htmlstr.replace(/[Ââáµ]/g, ' ')})
+        if (e.target.files[0].size > 10000005) {
+          alert('Ukuran Berkas Terlalu Besar!')
+        } else {
+          reader.onload = (e) => {
+            var data = new Uint8Array(reader.result);
+            var wb = XLSX.read(data,{type:'array'});
+  
+            var sheets = []
+  
+            for (const x in wb.SheetNames) {
+              if (wb.SheetNames.hasOwnProperty(x)) {
+                const element = wb.SheetNames[x];
+                var worksheet = wb.Sheets[element];
+                // console.log(x+' - JSON :', XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+                
+                var htmlstr = XLSX.write(wb,{sheet:wb.SheetNames[x], type:'binary',bookType:'html'});
+                // console.log(htmlstr);
+  
+                // var newEl = document.createElement('div')
+                // console.log(newEl);
+                
+                // newEl.setAttribute("id", x);
+                // var currentDiv = document.getElementById("wrapper"); 
+                // currentDiv.insertBefore(newEl, currentDiv.childNodes[0]);
+  
+                if (x == 2) {
+                  this.sheetPush(x, wb.SheetNames[x], htmlstr.replace(/[Ââáµ]/g, ' '))
+                } else {
+                  this.anotherSheets.push({'id': x, 'name': wb.SheetNames[x], 'htmlstr': htmlstr.replace(/[Ââáµ]/g, ' ')})
+                }
+  
               }
-
             }
+  
+            setTimeout(() => {
+              this.createElement()
+  
+              this.sertifikat = this.anotherSheets[3]
+              this.lampiran = this.anotherSheets[4]
+  
+              localStorage.setItem('sertifikat', JSON.stringify(this.anotherSheets[3]))
+              localStorage.setItem('lampiran', JSON.stringify(this.anotherSheets[4]))
+              // console.log("sertifikat : ", this.sertifikat);
+              // console.log("lampiran : ", this.lampiran);
+            }, 1000);
+  
+            // this.sheets = sheets
+  
+            // console.log(this.sheets[0].htmlstr);
+            // document.getElementById('0').innerHTML += this.sheets[0].htmlstr;
           }
-
-          setTimeout(() => {
-            this.createElement()
-
-            this.sertifikat = this.anotherSheets[1]
-            this.lampiran = this.anotherSheets[2]
-
-            localStorage.setItem('sertifikat', JSON.stringify(this.anotherSheets[1]))
-            localStorage.setItem('lampiran', JSON.stringify(this.anotherSheets[2]))
-            // console.log("sertifikat : ", this.sertifikat);
-            // console.log("lampiran : ", this.lampiran);
-          }, 1000);
-
-          // this.sheets = sheets
-
-          // console.log(this.sheets[0].htmlstr);
-          // document.getElementById('0').innerHTML += this.sheets[0].htmlstr;
         }
+        
 
       // });
     },
