@@ -68,10 +68,7 @@
 </template>
 
 <style scoped>
-  #wrapper {
-    overflow-x: scroll;
-    /* overflow: scroll; */
-  } table {
+  table {
     border-collapse: collapse;
   } table, th, td {
     border: 1px solid grey;

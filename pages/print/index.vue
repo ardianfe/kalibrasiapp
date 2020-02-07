@@ -26,7 +26,7 @@
         </table> -->
         <!-- <v-card-title id="wrapper">
         </v-card-title> -->
-        <v-card-text>
+        <v-card-text style="height: 300mm">
           <div id="printable" style="margin: auto; margin-top: 20px; min-width: 190mm; max-width: 190mm; height: 280mm;">
             <v-card-title style="z-index: 2; height: 75px; padding: 0" v-if="$route.query.attribute == 'sertifikat'">
               <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
@@ -40,9 +40,9 @@
               <p class="helve c" style="margin-bottom: 1px; font-size: 7pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
               <p class="helve c" style="margin-bottom: 1px; font-size: 7pt">E-mail : b4t@b4t.go.id  Website : http://www.b4t.go.id</p>
             </div>
-            <div id="body-content" style="border: 1px solid black; background: white; margin-top: 3mm; padding: 2.7mm 4mm">
+            <div id="body-content" style="border: 1px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm">
               <p class="helve b c u" style="margin: 0; height: 4.2mm; font-size: 11pt;">SERTIFIKAT KALIBRASI</p>
-              <p class="helve i c" style="margin-bottom: 3mm; font-size: 10pt;">CALIBRATION CERTIFICATE</p>
+              <p class="helve i c" style="margin-bottom: 2mm; font-size: 10pt;">CALIBRATION CERTIFICATE</p>
               <div style="margin: auto; width: 40mm;">
                 <v-layout>
                   <v-flex>
@@ -246,7 +246,7 @@
               </v-layout>
 
               <!-- Kondisi -->
-              <p style="font-family: Helvetica; margin: 2.5mm 0 0 0; height: 4.2mm; font-weight: 700; font-size: 9pt; text-decoration: underline;">KONDISI LINGKUNGAN KALIBRASI</p>
+              <p style="font-family: Helvetica; margin: 2mm 0 0 0; height: 4.2mm; font-weight: 700; font-size: 9pt; text-decoration: underline;">KONDISI LINGKUNGAN KALIBRASI</p>
               <p style="font-family: Helvetica; margin-bottom: 1mm; font-size: 8pt; font-style: italic">Environtment condition of Calibration</p>
               <v-layout>
                 <v-flex xs6>
@@ -333,12 +333,48 @@
             </div>
 
             <!-- Keterangan -->
-            <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 2.7mm 4mm">
-              <p class="helve" style="font-size: 8pt;">Keterangan</p>
+            <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 1mm 4mm">
+              <v-layout row>
+                <v-flex style="width: 37px">
+                  <p class="helve" style="font-size: 8pt;">Keterangan :</p>
+                </v-flex>
+                <v-flex>
+                  <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                    1. Dilarang memproduksi sertifikat ini tanpa izin tertulis dari B4T kecuali secara keseluruhan.
+                  </p>
+                  <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                    2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
+                  </p>
+                  <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                    3. Laboratorium ini diakreditasi KAN LK-022-IDN.
+                  </p>
+                </v-flex>
+              </v-layout>
             </div>
-            <div id="wrapper" style="margin-top: -130px;" > 
-            </div>
+            
+            <!-- Footer -->
+            <v-layout row style="margin-top: 2mm">
+              <v-flex>
+                <p class="helve" style="font-size: 8pt;">F. 02 b/05</p>
+              </v-flex>
+              <v-flex>
+                <v-layout right>
+                  <div>
+                    <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Halaman</p>
+                    <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Page</p>
+                  </div>
+                  <p class="roman" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">1</p>
+                  <div>
+                    <p class="helve b u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
+                    <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
+                  </div>
+                  <p class="roman" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">3</p>
+                </v-layout>
+              </v-flex>
+            </v-layout>
           </div>
+            <div style="margin-top: -130px;" > 
+            </div>
         </v-card-text>
       </v-card>
     </v-flex>
