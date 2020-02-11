@@ -143,7 +143,7 @@ export default {
               if (wb.SheetNames.hasOwnProperty(x)) {
                 const element = wb.SheetNames[x];
                 var worksheet = wb.Sheets[element];
-                // console.log(x+' - JSON :', XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+                console.log(x+' - JSON :', JSON.stringify(XLSX.utils.sheet_to_json(worksheet,{raw:true})));
                 
                 var htmlstr = XLSX.write(wb,{sheet:wb.SheetNames[x], type:'binary',bookType:'html'});
                 // console.log(htmlstr);
