@@ -45,7 +45,6 @@
       <v-text-field
         label="Password"
         outline type="password"
-        autofocus
       ></v-text-field>
 
       <v-btn block class="primary" large @click="()=> {$store.commit('login'), rightDrawer = false}">Login</v-btn>

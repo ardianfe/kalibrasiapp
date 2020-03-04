@@ -73,7 +73,7 @@ export default {
     ],
 
     fields: [
-      { id: 1, name: 'Oven', desc: '-', url: '/input_file?content=oven' },
+      { id: 1, name: 'Oven', desc: '-', url: '/temperatur/oven' },
     ],
 
     sheets: []
