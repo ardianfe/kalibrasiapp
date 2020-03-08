@@ -7,499 +7,157 @@
       sm8
       md6
     >
-      <v-card width="210mm">
+      <v-card>
         <v-card-title class="headline">
           <v-btn icon large class="primary" @click="$router.go(-1)">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn> &nbsp;
-          Cetak <span style="text-transform: capitalize;">&nbsp;{{ $route.query.attribute }} {{ $route.query.content }}</span>
-
-          <v-spacer />
-
-          <v-btn class="primary elevation-0" @click="printWrapper">
-            cetak <v-icon right>print</v-icon>
-          </v-btn> &nbsp;
+          Cetak
         </v-card-title>
-        <!-- <table>
-          <tr><td><div contenteditable>I'm editable</div></td><td><div contenteditable>I'm also editable</div></td></tr>
-          <tr><td>I'm not editable</td></tr>
-        </table> -->
-        
-        <v-card-text style="height: 300mm" v-if="$route.query.attribute == 'sertifikat'">
-          <div id="printable" style="margin: auto; margin-top: 20px; min-width: 190mm; max-width: 190mm; height: 280mm;">
-            <v-card-title style="z-index: 2; height: 75px; padding: 0" v-if="$route.query.attribute == 'sertifikat'">
-              <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
-              <v-spacer/>
-              <img contain src="/kan.png" height="auto" width="95" style="object-fit: contain; margin: 3mm 5mm 0 0">
-            </v-card-title>
-            <div id="header" style="margin-top: -75px;">
-              <p class="helve c" style="margin-bottom: 1px; font-size: 9pt; margin-top: 3mm">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</p>
-              <p class="helve c b" style="margin-bottom: 1px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
-              <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
-              <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
-              <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">E-mail : b4t@b4t.go.id  Website : http://www.b4t.go.id</p>
-            </div>
-            <div id="body-content" style="border: 1px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm">
-              <p class="roman b c u" style="margin: 0; height: 4.2mm; font-size: 11pt;">SERTIFIKAT KALIBRASI</p>
-              <p class="roman i c" style="margin-bottom: 2mm; font-size: 10pt;">CALIBRATION CERTIFICATE</p>
-              <div style="margin: auto; width: 40mm;">
-                <v-layout>
-                  <v-flex>
-                    <p class="roman u c" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor</p>
-                    <p class="roman i c" style="font-size: 7.5pt; margin: 0; height: 18px;">Number</p>
-                  </v-flex>
-                  <v-flex>
-                    <p class="roman c i" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate_number }}</p>
-                  </v-flex>
-                </v-layout>
-              </div>
-
-              <!-- Alat / Equipment -->
-              <p class="roman u" style="margin: 0; height: 4.2mm; font-size: 9pt;">A L A T</p>
-              <p class="roman i" style="margin-bottom: 1mm; font-size: 7.5pt;">Equipment</p>
-              <v-layout>
-                <v-flex xs6>
-
-                  <v-layout row>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
-                    <div style="width: 32mm">
-                      <p class="roman u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
-                    </div>
-                    <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.name }}</p>
-                  </v-layout>
-
-                  <v-layout>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
-                    <div style="width: 32mm">
-                      <p class="roman u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kapasitas</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Capacity</p>
-                    </div>
-                    <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.capacity }}</p>
-                  </v-layout>
-
-                  <v-layout>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">3.</p>
-                    <div style="width: 32mm">
-                      <p class="roman u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Tipe/Model</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Type/Model</p>
-                    </div>
-                    <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
-                  </v-layout>
-
-                  <v-layout>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
-                    <div style="width: 32mm">
-                      <p class="roman u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor Seri</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Serial Number</p>
-                    </div>
-                    <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.serial_number }}</p>
-                  </v-layout>
-
-                </v-flex>
-                <v-flex xs6>
-
-                  <v-layout>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">5.</p>
-                    <v-flex xs5>
-                      <p class="roman u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Merk/Buatan</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
-                    </v-flex>
-                    <v-flex xs6>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
-                    </v-flex>
-                  </v-layout>
-
-                  <v-layout>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
-                    <v-flex xs5>
-                      <p class="roman u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Internal Dimension</p>
-                    </v-flex>
-                    <v-flex xs6>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: <span contenteditable="true"> 460mm(l)x250mm(p) x340mm(t) </span></p>
-                    </v-flex>
-                  </v-layout>
-
-                  <v-layout>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
-                    <v-flex xs5>
-                      <p class="roman u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature Control</p>
-                    </v-flex>
-                    <v-flex xs6>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
-                    </v-flex>
-                  </v-layout>
-
-                  <v-layout>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">8.</p>
-                    <v-flex xs5>
-                      <p class="roman u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Lain-lain</p>
-                      <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Others</p>
-                    </v-flex>
-                    <v-flex xs6>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.others }}</p>
-                    </v-flex>
-                  </v-layout>
-
-                </v-flex>
-              </v-layout>
-
-              <!-- Pemilik / Owner -->
-              <p class="roman u" style="margin: 2.5mm 0 0 0; height: 4.2mm; font-size: 9pt;">P E M I L I K</p>
-              <p class="roman i" style="margin-bottom: 1mm; font-size: 7.5pt">Owner</p>
-              <v-layout row>
-                <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
-                <div style="width: 32mm">
-                  <p class="roman b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
-                  <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
-                </div>
-                <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.owner.name }}</p>
-              </v-layout>
-              <v-layout>
-                <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
-                <div style="width: 32mm">
-                  <p class="roman b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Alamat</p>
-                  <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Address</p>
-                </div>
-                <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.owner.address }}</p>
-              </v-layout>
-
-              <!-- Standard -->
-              <p class="roman u" style="margin: 2.5mm 0 0 0; height: 4.2mm; font-size: 9pt;">S T A N D A R</p>
-              <p class="roman i" style="margin-bottom: 1mm; font-size: 7.5pt;">Standard</p>
-              <v-layout row>
-                <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
-                <div style="width: 32mm">
-                  <p class="roman b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
-                  <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
-                </div>
-                <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
-                <div>
-                  <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;">{{certificate.standard.name}}</p>
-                  <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">2. Thermocouple Wire Tipe K, S/N : K2</p> -->
-                </div>
-              </v-layout>
-              <v-layout>
-                <p class="roman" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
-                <div style="width: 32mm">
-                  <p class="roman b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ketelusuran</p>
-                  <p class="roman i" style="font-size: 7pt; margin: 0; height: 18px;">Traceability</p>
-                </div>
-                <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
-                <div>
-                  <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 380px;">{{certificate.standard.traceability}}</p>
-                  <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">LK-032-IDN dan LK-172-IDN</p> -->
-                </div>
-              </v-layout>
-
-              <!-- Tanggal -->
-              <v-layout>
-                <v-flex xs6>
-                  <v-layout row style="margin-top: 3mm">
-                    <div style="width: 37mm">
-                      <p class="roman u" style="margin: 0; height: 4.2mm; font-size: 9pt;">TANGGAL DITERIMA</p>
-                      <p class="roman i" style="margin-bottom: 1mm; font-size: 7.5pt;">Date of acceptance</p>
-                    </div>
-                    <div>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.acceptance_date }}</p>
-                    </div>
-                  </v-layout>
-                </v-flex>
-                <v-flex xs6>
-                  <v-layout row style="margin-top: 3mm">
-                    <div style="width: 37mm">
-                      <p class="roman u" style="margin: 0; height: 4.2mm; font-size: 9pt;">TANGGAL KALIBRASI</p>
-                      <p class="roman i" style="margin-bottom: 1mm; font-size: 7.5pt;">Date of Calibration</p>
-                    </div>
-                    <div>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_date }}</p>
-                    </div>
-                  </v-layout>
-                </v-flex>
-              </v-layout>
-
-              <!-- Kondisi -->
-              <p class="roman u" style="margin: 2mm 0 0 0; height: 4.2mm; font-size: 9pt;">KONDISI LINGKUNGAN KALIBRASI</p>
-              <p class="roman i" style="margin-bottom: 1mm; font-size: 7.5pt;">Environtment condition of Calibration</p>
-              <v-layout>
-                <v-flex xs6>
-                  <v-layout row>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">1.</p>
-                    <div style="width: 32mm">
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
-                    </div>
-                    <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
-                  </v-layout>
-                </v-flex>
-                <v-flex xs6>
-                  <v-layout row>
-                    <p class="roman" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">2.</p>
-                    <div style="width: 32mm">
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
-                    </div>
-                    <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
-                  </v-layout>
-                </v-flex>
-              </v-layout>
-
-              <!-- Lokasi -->
-              <v-layout row style="margin-top: 2.5mm">
-                <div style="width: 37mm">
-                  <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">LOKASI KALIBRASI</p>
-                  <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Location of Calibration</p>
-                </div>
-                <div>
-                  <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_location }}</p>
-                </div>
-              </v-layout>
-
-              <!-- Metoda -->
-              <v-layout row style="margin-top: 2.5mm">
-                <div style="width: 37mm">
-                  <p class="roman u" style="margin: 0; height: 4.2mm; font-size: 9pt;">METODA KALIBRASI</p>
-                  <p class="roman i" style="margin-bottom: 0; font-size: 7.5pt;">Calibration Method</p>
-                </div>
-                <div>
-                  <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_method }} </p>
-                </div>
-              </v-layout>
-
-              <!-- Acuan -->
-              <v-layout row style="margin-top: 2.5mm">
-                <div style="width: 37mm">
-                  <p class="roman u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
-                  <p class="roman i" style="margin-bottom: 0; font-size: 7.5pt;">Refference</p>
-                </div>
-                <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
-                <div>
-                  <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Australian Standard 2538-1986</p>
-                  <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p>
-                </div>
-              </v-layout>
-              
-              <!-- Hasil -->
-              <v-layout row style="margin-top: 2.5mm">
-                <div>
-                  <p class="roman u" style="margin: 0; height: 4.2mm; font-size: 9pt;">HASIL KALIBRASI DAN KETIDAKPASTIAN KALIBRASI</p>
-                  <p class="roman i" style="margin-bottom: 0; font-size: 7.5pt;">Result of Calibration and uncertainity of Calibration</p>
-                </div>
-                <div>
-                  <p class="roman u" style="margin: 0 15mm; height: 4.2mm; font-size: 9pt;">(Terlampir)</p>
-                  <p class="roman i" style="margin: 0 15mm; font-size: 7.5pt;">(Attached)</p>
-                </div>
-              </v-layout>
-
-              <!-- Diterbitkan dan Tanda Tangan -->
-              <v-layout style="margin-top: 1mm">
-                <v-flex xs8>
-                  <v-layout row>
-                    <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="roman"> 07 Oktober 2019</span></p>
-                  </v-layout>
-                </v-flex>
-                <v-flex xs4>
-                  <p class="roman c" style="font-size: 8pt; margin: 0; height: 4.2mm;">Bidang Standarisasi</p>
-                  <p class="roman c" style="font-size: 8pt; margin: 0; height: 4.2mm;">Kepala Seksi Kalibrasi</p>
-                  <p class="roman c u" style="font-size: 8pt; margin: 14mm 0 0 0; height: 4.2mm;">AJI MAHMUD SOLIH</p>
-                  <p class="roman c" style="font-size: 8pt; margin: 0; height: 4.2mm;">NIP. 19720802 200701 1 003</p>
-                </v-flex>
-              </v-layout>
-            </div>
-
-            <!-- Keterangan -->
-            <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 1mm 4mm">
-              <v-layout row>
-                <v-flex style="width: 37px">
-                  <p class="roman" style="font-size: 8pt;">Keterangan :</p>
-                </v-flex>
-                <v-flex>
-                  <p class="roman" style="font-size: 8pt; height: 14px; margin: 0">
-                    1. Dilarang memproduksi sertifikat ini tanpa izin tertulis dari B4T kecuali secara keseluruhan.
-                  </p>
-                  <p class="roman" style="font-size: 8pt; height: 14px; margin: 0">
-                    2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
-                  </p>
-                  <p class="roman" style="font-size: 8pt; height: 14px; margin: 0">
-                    3. Laboratorium ini diakreditasi KAN LK-022-IDN.
-                  </p>
-                </v-flex>
-              </v-layout>
-            </div>
-            
-            <!-- Footer -->
-            <v-layout row style="margin-top: 2mm">
-              <v-flex>
-                <p class="roman" style="font-size: 8pt;">F. 02 b/05</p>
-              </v-flex>
-              <v-flex>
-                <v-layout right>
-                  <div>
-                    <p class="roman u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Halaman</p>
-                    <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Page</p>
-                  </div>
-                  <p class="roman" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">1</p>
-                  <div>
-                    <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
-                    <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
-                  </div>
-                  <p class="roman" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">3</p>
-                </v-layout>
-              </v-flex>
-            </v-layout>
-          </div>
-            <div style="margin-top: -130px;" > 
-            </div>
+        <v-card-text v-if="$store.state.isLoggedIn">
+          <v-layout row wrap>
+            <v-flex class="pa-3" xs6 sm3 v-for="(field, index) in fields" :key="index">
+              <v-card class="primary" style="padding: 40px 0; cursor: pointer" @click="$router.push(field.url)">
+                <v-card-text class="title">
+                  <p style="margin:0; color: white; text-align: center">{{field.name}}</p>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </v-layout>
+          <!-- <v-btn v-if="$store.state.isLoggedIn" class="primary" @click="$router.push('/input_file')">Input File</v-btn> -->
         </v-card-text>
-        
-        <v-card-title id="wrapper" v-else>
-        </v-card-title> 
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <style scoped>
-p{
-  letter-spacing: .1pt;
-}
   #wrapper {
-    overflow-x: scroll hidden;
+    overflow-x: hidden;
+    /* overflow: scroll; */
   } table {
     border-collapse: collapse;
+  } table, th, td {
     border: 1px solid grey;
-  } 
-
-  .b {
-    font-weight: bold;
-  } .i {
-    font-style: italic;
-  } .u {
-    text-decoration: underline;
-  } .roman {
-    font-family: 'Times New Roman', serif;
-  } .helve {
-    font-family: Helvetica, sans-serif;
-  } .c {
-    text-align: center;
   }
 </style>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-import cert_data from '~/static/data_cert_v2.json'
-
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
+  head: {
+    title: 'Temperatur',
+    meta: [
+      {
+        hid: 'temperature',
+        name: 'temperature',
+        content: 'Bidang Temperatur'
+      }
+    ]
   },
 
   data: () => ({
     active: null,
-    certificate_number: '3-01-19-00472',
-    certificate: {
-      equipment: {
-        name: '',
-        capacity: '',
-        model: '',
-        serial_number: '',
-        manufacture: '',
-        internal_dimension: '',
-        temperature: '',
-        others: '-',
-      },
-      owner: {
-        name: '',
-        address: ''
-      },
-      standard: {
-        name: '',
-        traceability: ''
-      },
-      acceptance_date: '',
-      calibration_date: '',
-      env_condition: {
-        room_temp: '',
-        humidity: ''
-      },
-      calibration_location: '',
-      calibration_method: '',
-      refference: '',
-      result: '',
-      published_date: '',
-      director_name: '',
-      director_nip: '',
-    },
-    data: {}
+    paketSoal: [
+      { id: 0, title: 'Ulangan Harian', status: 'undone' },
+      { id: 1, title: 'Ulangan Tengan Semester', status: 'done' },
+      { id: 2, title: 'Latihan', status: 'done' },
+      { id: 3, title: 'Quiz', status: 'undone' },
+    ],
+
+    fields: [
+      { id: 1, name: 'Sertifikat', desc: '-', url: '/print/sertifikat' },
+      { id: 2, name: 'Lampiran', desc: '-', url: '/print/lampiran' },
+    ],
+
+    sheets: []
   }),
 
   mounted() {
-    console.log(cert_data);
-
-    this.elementMapping()
-    
     if (!this.$store.state.isLoggedIn) {
-      // this.$router.push('/')
-    }
-
-    this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
-
-    console.log(this.data);
-    if (this.$route.query.attribute == 'lampiran') {
-      this.createElement()
+      this.$router.push('/')
     }
   },
 
   methods: {
-    elementMapping() {
-      this.certificate.equipment.name = cert_data['Nama Alat'][0]
-      this.certificate.equipment.capacity = cert_data['Kapasitas'][0] + '' + cert_data['Kapasitas'][1] + ' / Resolusi ' + cert_data['Resolusi'][0] + cert_data['Resolusi'][1]
-      this.certificate.equipment.model = cert_data['Tipe / Model'][0]
-      this.certificate.equipment.serial_number = cert_data['Nomor Seri'][0]
-      this.certificate.equipment.manufacture = cert_data['Merk / Buatan'][0] + ' ' + cert_data['Merk / Buatan'][1] 
-      this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = cert_data['Nama Perusahaan'][0]
-      this.certificate.owner.address = cert_data['Alamat'][0]
-      this.certificate.standard.name = cert_data['Standar Yang Dipakai'][0]
-      this.certificate.standard.traceability = cert_data['Ketertelusuran'][0]
-      this.certificate.acceptance_date = new Date(cert_data['Tanggal Diterima'][0].$date).toUTCString().slice(5,16)
-      this.certificate.calibration_date = new Date(cert_data['Tanggal Kalibrasi'][0].$date).toUTCString().slice(5,16)
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = cert_data['Lokasi Kalibrasi'][0]
-      this.certificate.calibration_method = cert_data['Metode Kalibrasi'][0]
+    triggerInput() {
+      // this.sheets.push({asd: 'asd'})
+      // console.log(this.sheets);
+      
+      document.getElementById("input-excel").click()
     },
-    createElement() {
-      document.getElementById('wrapper').innerHTML += this.data.htmlstr;
 
-      if (this.$route.query.attribute == 'sertifikat') {
-        setTimeout(() => {
-          // console.log(');
+    hideElement(id){
+      console.log(id);
+      
+      document.getElementById(''+id).style = "display: none;"
+    },
+    
+    showElement(id){      
+      document.getElementById(''+id).style = "display: block;"
+    },
+
+    fileSelected(e) {
+      // document.getElementById('input-excel').change((e) => {
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(e.target.files[0]);
+        reader.onload = (e) => {
+          var data = new Uint8Array(reader.result);
+          var wb = XLSX.read(data,{type:'array'});
+
+          var sheets = []
+
+          for (const x in wb.SheetNames) {
+            if (wb.SheetNames.hasOwnProperty(x)) {
+              const element = wb.SheetNames[x];
+              var worksheet = wb.Sheets[element];
+              // console.log(x+'', XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+              
+              var htmlstr = XLSX.write(wb,{sheet:wb.SheetNames[x], type:'binary',bookType:'html'});
+              // console.log(htmlstr);
+
+              // var newEl = document.createElement('div')
+              // console.log(newEl);
+              
+              // newEl.setAttribute("id", x);
+              // var currentDiv = document.getElementById("wrapper"); 
+              // currentDiv.insertBefore(newEl, currentDiv.childNodes[0]);
+
+              this.sheetPush(x, wb.SheetNames[x], htmlstr.replace(/[Â,â,áµ,]/g, ' '))
+            }
+          }
+
+          setTimeout(() => {
+            this.createElement()
+          }, 1000);
+
+          // this.sheets = sheets
+
+          // console.log(this.sheets[0].htmlstr);
+          // document.getElementById('0').innerHTML += this.sheets[0].htmlstr;
+        }
+
+      // });
+    },
+
+    sheetPush(id, name, str) {
+      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
+      // document.getElementById(''+id).innerHTML += str;
+    },
+
+    createElement() {
+      for (const key in this.sheets) {
+        if (this.sheets.hasOwnProperty(key)) {
+          const element = this.sheets[key];
           
-          document.getElementsByTagName('table')[0].width = '100%'
-          console.log(document.getElementsByTagName('table')[0]);
-          
-          document.getElementById('sjs-B2').style = 'text-align: center; font-family: Helvetica; font-size: 9pt'
-          document.getElementById('sjs-B3').style = 'text-align: center; font-family: Helvetica; font-size: 10pt; font-weight: 600;'
-          document.getElementById('sjs-B4').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
-          document.getElementById('sjs-B5').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
-          document.getElementById('sjs-B6').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
-          document.getElementById('sjs-B9').style = 'text-align: center; font-family: Helvetica; font-size: 7pt'
-          document.getElementById('sjs-B10').style = 'text-align: center; padding-bottom: 8px'
-        }, 1000);
+          document.getElementById(''+element.id).innerHTML += element.htmlstr;
+          console.log(document.getElementById(element.id));
+        }
       }
 
-    },
-
-    printWrapper() {
-      var printContents = document.getElementById('printable').innerHTML;
-      var originalContents = document.body.innerHTML;
-
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents; 
+      let tds = document.querySelectorAll('td')
+      // console.log(tds);
+      tds.remove()
+      
     }
   },
 }

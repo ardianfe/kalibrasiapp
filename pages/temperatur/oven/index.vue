@@ -12,7 +12,7 @@
           <v-btn icon large class="primary" @click="$router.go(-1)">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn> &nbsp;
-          Bidang Temperatur
+          Bidang Temperatur - Oven
         </v-card-title>
         <v-card-text v-if="$store.state.isLoggedIn">
           <v-layout row wrap>
@@ -50,7 +50,7 @@ export default {
       {
         hid: 'temperature',
         name: 'temperature',
-        content: 'Bidang Temperatur'
+        content: 'Bidang Temperatur - Oven'
       }
     ]
   },
@@ -65,7 +65,8 @@ export default {
     ],
 
     fields: [
-      { id: 1, name: 'Oven', desc: '-', url: '/temperatur/oven' },
+      { id: 1, name: '150', desc: '-', url: '/temperatur/oven/150' },
+      { id: 2, name: '110', desc: '-', url: '/temperatur/oven/110' },
     ],
 
     sheets: []
