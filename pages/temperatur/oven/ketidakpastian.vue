@@ -13,109 +13,122 @@
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn> &nbsp;
           <p class="ma-0">
-            Lembar Kerja | 
+            Lembar Kerja Ketidakpastian | 
             <span class="font-weight-bold">
               {{ $route.query.cert_no }}
             </span>
           </p>
           <v-spacer/>
-          <v-btn class="primary" :to="'/print/sertifikat?cert_no=' + $route.query.cert_no">Cetak Sertifikat</v-btn>
-          <v-btn class="primary" :to="'/print/lampiran?cert_no='  + $route.query.cert_no">Cetak Lampiran</v-btn>
-        </v-card-title>
-
-        <v-card-title>
-          <template v-for="(_suhu, index) in suhuheader">
-            <v-btn :key="index" :class="`${$route.query.suhu == _suhu ? 'grey' : 'primary'}`"
-              @click="()=>{
-                $router.push('/temperatur/OVEN/'+_suhu+'?cert_no=' + $route.query.cert_no),
-                getWorkSheet(_suhu)
-              }">
-              {{_suhu}}
-            </v-btn>
-          </template>
+          <v-btn class="primary" :to="'/print/sertifikat'">Cetak Sertifikat</v-btn>
+          <v-btn class="primary" :to="'/print/lampiran'">Cetak Lampiran</v-btn>
         </v-card-title>
 
         <v-card-text>
-          <p class="title">
-            Lembar Kerja
-          </p>
-          <div class="pa-1">
-            <p>Balai Besar Bahan dan Barang Teknik (B4T)</p> 
-
-            <p class="my-4">Suhu yang diukur : <span contenteditable="true"> 150°C</span></p>
-            <table width="100%">
-              <template v-if="sheets.tp">
-                <tr v-for="(tp_header, index) in tp_headers" :key="index">
-                  <th v-for="(header, index2) in tp_header" :key="index2" :colspan="header.cspan" :rowspan="header.rspan">{{header.text}}</th>
-                </tr>
-                <tr v-for="(tp_item, tp_index) in sheets.tp" :key="tp_index">
-                  <template v-if="tp_index >= 2">
-                    <td>
-                      {{tp_item['TITIK\nUJI']}}
-                    </td>
-                    <td>
-                      {{tp_item['PENGAMATAN KE ( °C )']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 10']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 3']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 2']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 5']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 6']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 7']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 8']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 9']}}
-                    </td>
-                    <td>
-                      {{tp_item['Unnamed: 10']}}
-                    </td>
-                    <td>
-                      {{Math.round((tp_item['MID\nRANGE\n(°C)'] + Number.EPSILON) * 100) / 100}}
-                    </td>
-                    <td>
-                      {{Math.round((tp_item['VARIASI\nTEMPORA\n(°C)'] + Number.EPSILON) * 100) / 100}}
-                    </td>
-                  </template>
-                </tr>
-              </template>
-            </table>
-            <br>
-
-            <p class="my-4">Setting Suhu : <span contenteditable="true"> 150°C</span></p>
-            <table v-if="sheets.ktp">
-              <tr>
-                <th v-for="(header, index) in header" :key="index">
-                  {{header}}
-                </th>
-              </tr>
-              <tr v-for="(item, index) in 4" :key="index">
-                <td>{{sheets.ktp[index]['Komponen']}}</td>
-                <td>{{sheets.ktp[index]['Satuan']}}</td>
-                <td>{{sheets.ktp[index]['UiCi']}}</td>
-                <td>{{sheets.ktp[index]['(UiCi)2'].toFixed(2)}}</td>
-              </tr>
-              <tr>
-                <th colspan="3">{{sheets.ktp[4]["Komponen"]}}</th>
-                <th>{{sheets.ktp[4]["(UiCi)2"]}}</th>
-              </tr>
-            </table>
-            <br>
-
-          </div>
+          <v-tabs
+            v-model="active"
+            color="cyan"
+            dark
+            slider-color="yellow"
+          >
+            <v-tab
+              ripple
+            >
+              Ketidakpastian
+            </v-tab>
+            <v-tab-item>
+              <v-card flat>
+                <v-card-text>
+                  <div class="pa-1">
+                    <p v-if="header[0] != 'Ketidakpastian'">Suhu yang diukur : <span contenteditable="true"> {{ header[0] }}</span></p>
+                    <table v-if="sheets2[0]">
+                      <tr>
+                        <th v-for="(header2, index) in header2" :key="index">
+                          {{header2}}
+                        </th>
+                      </tr>
+                      <tr>
+                        <th v-for="(header2, index) in header2" :key="index">
+                          ({{index+1}})
+                        </th>
+                      </tr>
+                      <tr v-for="(item, index) in sheets2[0]" :key="index">
+                        <template v-if="index >= 1 && index <= 7">
+                          <td>{{item['Komponen']}}</td>
+                          <td>{{item['Satuan']}}</td>
+                          <td>{{item['Distribusi']}}</td>
+                          <td>{{item['U'].toFixed(2)}}</td>
+                          <td>{{item['Pembagi'].toFixed(2)}}</td>
+                          <td>{{item['Ui'].toFixed(2)}}</td>
+                          <td>{{item['Ci'].toFixed(2)}}</td>
+                          <td>{{item['UiCi'].toFixed(2)}}</td>
+                          <td>{{item['(UiCi)2'].toFixed(3)}}</td>
+                        </template>
+                      </tr>
+                      <tr>
+                        <td colspan="7">{{sheets2[0][8]['Komponen']}}</td>
+                        <td colspan="2">{{sheets2[0][8]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="7">{{sheets2[0][9]['Komponen']}}</td>
+                        <td colspan="2">{{sheets2[0][9]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="7">{{sheets2[0][10]['Komponen']}}</td>
+                        <td colspan="2">{{sheets2[0][10]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: 600" colspan="7">{{sheets2[0][11]['Komponen']}}</td>
+                        <td style="font-weight: 600" colspan="2">{{sheets2[0][11]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                    </table>
+                    
+                    <!-- <p v-if="header[2] != 'Ketidakpastian'">Suhu yang diukur : <span contenteditable="true"> {{ header[2] }}</span></p>
+                    <table v-if="sheets2[2]">
+                      <tr>
+                        <th v-for="(header2, index) in header2" :key="index">
+                          {{header2}}
+                        </th>
+                      </tr>
+                      <tr>
+                        <th v-for="(header2, index) in header2" :key="index">
+                          ({{index+1}})
+                        </th>
+                      </tr>
+                      <tr v-for="(item, index) in sheets2[2]" :key="index">
+                        <template v-if="index >= 1 && index <= 7">
+                          <td>{{item['Komponen']}}</td>
+                          <td>{{item['Satuan']}}</td>
+                          <td>{{item['Distribusi']}}</td>
+                          <td>{{item['U'].toFixed(2)}}</td>
+                          <td>{{item['Pembagi'].toFixed(2)}}</td>
+                          <td>{{item['Ui'].toFixed(2)}}</td>
+                          <td>{{item['Ci'].toFixed(2)}}</td>
+                          <td>{{item['UiCi'].toFixed(2)}}</td>
+                          <td>{{item['(UiCi)2'].toFixed(3)}}</td>
+                        </template>
+                      </tr>
+                      <tr>
+                        <td colspan="7">{{sheets2[2][8]['Komponen']}}</td>
+                        <td colspan="2">{{sheets2[2][8]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="7">{{sheets2[2][9]['Komponen']}}</td>
+                        <td colspan="2">{{sheets2[2][9]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="7">{{sheets2[2][10]['Komponen']}}</td>
+                        <td colspan="2">{{sheets2[2][10]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: 600" colspan="7">{{sheets2[2][11]['Komponen']}}</td>
+                        <td style="font-weight: 600" colspan="2">{{sheets2[2][11]['(UiCi)2'].toFixed(2)}}</td>
+                      </tr>
+                    </table> -->
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
+          </v-tabs>
         </v-card-text>
 
         <v-card-actions class="pa-3" v-if="cert_data['Pemeriksa']">
@@ -129,8 +142,8 @@
           Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Kalibrasi'][0]}}</span>
           </p>
         </v-card-actions>
-
       </v-card>
+
     </v-flex>
   </v-layout>
 </template>
@@ -170,10 +183,9 @@ export default {
 
   data: () => ({
     active: null,
-    sheets: [],
-    sheets2: [],
-    data: [],
-    header: [ "Komponen", "Satuan", "UiCi", "(UiCi)2" ],
+    header: [ "90", "110", "150", "Ketidakpastian" ],
+    cert_data: [],
+
     header2: [ "Komponen", "Satuan", "Distribusi", "U", "Pembagi", "Ui", "Ci", "UiCi", "(UiCi)2" ],
     tp_headers: {
       0: [
@@ -202,27 +214,30 @@ export default {
         { text: 'MIN', cspan: 1, rspan: 1},
       ],
     },
-    tp_headers2: {},
-
-    suhuheader: [],
-    cert_data: {}
+    sheets2: []
   }),
 
   mounted() {
-    this.getWorkSheet(150)
-    this.getCert()
+    this.getCert(this.$route.query.cert_no)
+    // this.getWorkSheet(110)
   },
 
   methods: {
     async getCert(no_cert) {
       try {
         const request = await this.$calibrate.getCertData({
-          no_cert: this.$route.query.cert_no
+          no_cert: no_cert
         })
 
         console.log('req :', request);
+
+        this.header = request.suhu
+        request.suhu.forEach(element => {
+          this.getWorkSheet(element)
+          console.log(element);
+        });
+
         this.cert_data = request.data_perusahaan
-        this.suhuheader = request.suhu
         
       } catch (error) {
         console.log(error);
@@ -236,14 +251,8 @@ export default {
           no_cert: this.$route.query.cert_no, temperature: temp
         })
 
-        console.log('req ' +temp+ ' :' , request);
-
-
-        if (temp == 150) {
-          this.sheets = request
-        } else {
-          this.sheets2 = request
-        }
+        this.sheets2.push(request.ktp);
+        console.log(this.sheets2);
 
         // this.mapElement()
 
@@ -350,12 +359,6 @@ export default {
       // console.log(tds);
       tds.remove()
       
-    },
-
-    convertDate(date_string) {
-      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-      const options = { year: 'numeric', month: 'short', day: 'numeric' };
-      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
 }

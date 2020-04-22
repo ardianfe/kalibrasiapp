@@ -24,13 +24,13 @@
         </v-card-title>
 
         <v-card-title>
-          <template v-for="(_suhu, index) in suhuheader">
-            <v-btn :key="index" :class="`${$route.query.suhu == _suhu ? 'grey' : 'primary'}`"
+          <template v-for="(item, index) in suhuheader">
+            <v-btn :key="index" :class="`${$route.query.suhu == item ? 'grey' : 'primary'}`"
               @click="()=>{
-                $router.push('/temperatur/OVEN/'+_suhu+'?cert_no=' + $route.query.cert_no),
-                getWorkSheet(_suhu)
+                $router.push('/temperatur/OVEN/'+item+'?cert_no=' + $route.query.cert_no),
+                getWorkSheet(item)
               }">
-              {{_suhu}}
+              {{item}}
             </v-btn>
           </template>
         </v-card-title>
@@ -42,7 +42,7 @@
           <div class="pa-1">
             <p>Balai Besar Bahan dan Barang Teknik (B4T)</p> 
 
-            <p class="my-4">Suhu yang diukur : <span contenteditable="true"> 150°C</span></p>
+            <p class="my-4">Suhu yang diukur : <span contenteditable="true"> {{$route.params.suhu}}°C</span></p>
             <table width="100%">
               <template v-if="sheets.tp">
                 <tr v-for="(tp_header, index) in tp_headers" :key="index">
@@ -95,7 +95,7 @@
             </table>
             <br>
 
-            <p class="my-4">Setting Suhu : <span contenteditable="true"> 150°C</span></p>
+            <p class="my-4">Setting Suhu : <span contenteditable="true"> {{$route.params.suhu}}°C</span></p>
             <table v-if="sheets.ktp">
               <tr>
                 <th v-for="(header, index) in header" :key="index">
@@ -209,7 +209,9 @@ export default {
   }),
 
   mounted() {
-    this.getWorkSheet(150)
+    console.log(this.$route.params);
+    
+    this.getWorkSheet(this.$route.params.suhu)
     this.getCert()
   },
 
@@ -237,13 +239,7 @@ export default {
         })
 
         console.log('req ' +temp+ ' :' , request);
-
-
-        if (temp == 150) {
-          this.sheets = request
-        } else {
-          this.sheets2 = request
-        }
+        this.sheets = request
 
         // this.mapElement()
 

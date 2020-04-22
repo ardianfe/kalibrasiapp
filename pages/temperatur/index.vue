@@ -7,26 +7,50 @@
       sm8
       md6
     >
-      <v-card>
+      <v-card class="elevation-8 v-main-card">
         <v-card-title class="headline">
-          <v-btn icon large class="primary" @click="$router.go(-1)">
-            <v-icon>keyboard_arrow_left</v-icon>
-          </v-btn> &nbsp;
-          Bidang Temperatur
+          <v-hover>
+            <v-icon x-large
+              :color="`${ hover ? 'primary' : 'grey'}`" 
+              slot-scope="{ hover }" 
+              @click="$router.go(-1)"
+            >keyboard_arrow_left</v-icon>
+          </v-hover> &nbsp;
+          <p class="lato font-weight-bold title mt-3">
+            Bidang Temperatur
+          </p>
         </v-card-title>
+
         <v-card-text v-if="$store.state.isLoggedIn">
           <v-layout row wrap>
             <v-flex class="pa-3" xs6 sm3 v-for="(field, index) in fields" :key="index">
-              <v-card class="primary" style="padding: 40px 0; cursor: pointer" @click="$router.push(field.url)">
-                <v-card-text class="title">
-                  <p style="margin:0; color: white; text-align: center">{{field.name}}</p>
-                </v-card-text>
-              </v-card>
+              <v-hover>
+                <v-card
+                  slot-scope="{ hover }" 
+                  :class="`${field.name == selected || hover ? 'primary' : 'grey' }`" 
+                  class="d-flex v-main-card pointer pa-1" flat
+                  style="width: 100%; height: 120px; max-height: 120px;"
+                  @click="selected = field.name"
+                >
+                  <p class="text-xs-center white--text title" style="margin: auto">{{field.name}}</p>
+                </v-card>
+              </v-hover>
             </v-flex>
           </v-layout>
           <!-- <v-btn v-if="$store.state.isLoggedIn" class="primary" @click="$router.push('/input_file')">Input File</v-btn> -->
         </v-card-text>
+
+        <v-card-text v-if="$store.state.isLoggedIn">
+          <span>{{ filename ? filename : 'Input File CSV, XLS, XLSX'}}</span>
+          <v-btn class="primary" @click="triggerInput" v-if="file">Pilih File</v-btn>
+          <v-btn class="primary" @click="() => {file = {}, filename = ''}" v-else>Hapus</v-btn>
+          <input type="file" id="input-excel" hidden @change="fileSelected"/>
+          <v-btn class="primary" @click="fileUpload" v-if="file != null">Upload</v-btn>
+        </v-card-text>
+
       </v-card>
+
+
     </v-flex>
   </v-layout>
 </template>
@@ -52,36 +76,34 @@ export default {
         name: 'temperature',
         content: 'Bidang Temperatur'
       }
-    ]
+    ],
   },
 
   data: () => ({
     active: null,
-    paketSoal: [
-      { id: 0, title: 'Ulangan Harian', status: 'undone' },
-      { id: 1, title: 'Ulangan Tengan Semester', status: 'done' },
-      { id: 2, title: 'Latihan', status: 'done' },
-      { id: 3, title: 'Quiz', status: 'undone' },
-    ],
 
     fields: [
       { id: 1, name: 'Oven', desc: '-', url: '/temperatur/oven' },
+      { id: 2, name: 'Furnace', desc: '-', url: '' },
+      { id: 3, name: 'Chamber', desc: '-', url: '' },
+      { id: 4, name: 'Inkubator', desc: '-', url: '' },
     ],
+
+    filename: '',
+    file: {},
+    selected: '',
 
     sheets: []
   }),
 
   mounted() {
-    if (!this.$store.state.isLoggedIn) {
-      this.$router.push('/')
-    }
+    // if (!this.$store.state.isLoggedIn) {
+    //   this.$router.push('/')
+    // }
   },
 
   methods: {
-    triggerInput() {
-      // this.sheets.push({asd: 'asd'})
-      // console.log(this.sheets);
-      
+    triggerInput() {      
       document.getElementById("input-excel").click()
     },
 
@@ -96,46 +118,25 @@ export default {
     },
 
     fileSelected(e) {
-      // document.getElementById('input-excel').change((e) => {
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onload = (e) => {
-          var data = new Uint8Array(reader.result);
-          var wb = XLSX.read(data,{type:'array'});
+      var reader = new FileReader();
+      console.log(e.target.files[0]);
+      this.filename = e.target.files[0].name
 
-          var sheets = []
+      this.file = e.target.files[0]
+    },
 
-          for (const x in wb.SheetNames) {
-            if (wb.SheetNames.hasOwnProperty(x)) {
-              const element = wb.SheetNames[x];
-              var worksheet = wb.Sheets[element];
-              // console.log(x+'', XLSX.utils.sheet_to_json(worksheet,{raw:true}));
-              
-              var htmlstr = XLSX.write(wb,{sheet:wb.SheetNames[x], type:'binary',bookType:'html'});
-              // console.log(htmlstr);
+    async fileUpload() {
+      try {
+        const req = await this.$calibrate.upload({
+          file: this.file
+        })
 
-              // var newEl = document.createElement('div')
-              // console.log(newEl);
-              
-              // newEl.setAttribute("id", x);
-              // var currentDiv = document.getElementById("wrapper"); 
-              // currentDiv.insertBefore(newEl, currentDiv.childNodes[0]);
-
-              this.sheetPush(x, wb.SheetNames[x], htmlstr.replace(/[Â,â,áµ,]/g, ' '))
-            }
-          }
-
-          setTimeout(() => {
-            this.createElement()
-          }, 1000);
-
-          // this.sheets = sheets
-
-          // console.log(this.sheets[0].htmlstr);
-          // document.getElementById('0').innerHTML += this.sheets[0].htmlstr;
-        }
-
-      // });
+        // console.log(this.file);
+        this.$router.push('/temperatur/'+req.category+'?cert_no=' + req['no sertifikat']);
+        
+      } catch (error) {
+        alert('gagal mengupload file')
+      }
     },
 
     sheetPush(id, name, str) {

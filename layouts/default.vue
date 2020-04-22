@@ -1,12 +1,12 @@
 <template>
-  <v-app>
+  <v-app class="blue-grey lighten-5">
     <v-toolbar
       :clipped-left="clipped"
       fixed
-      app
+      app class="white elevation-3"
     >
       <template v-if="$store.state.isLoggedIn">
-        <v-btn icon large class="primary" to="/">
+        <v-btn icon large class="primary" style="border-radius: 50px !important" to="/">
           <span style="font-size: 24px"></span> {{$store.state.username.charAt(0)}}
         </v-btn>
         <v-toolbar-title v-text="$store.state.username" />
@@ -22,7 +22,7 @@
         @click.stop="rightDrawer = !rightDrawer"
       >
         Masuk <v-icon right>input</v-icon>
-      </v-btn>
+      </v-btn> 
     </v-toolbar>
     <v-content>
       <v-container>
@@ -33,7 +33,7 @@
       v-model="rightDrawer"
       right
       width="400px"
-      fixed temporary style="padding: 40px 16px; "
+      fixed style="padding: 40px 16px; "
     >
       <h3 style="text-align: center; margin-bottom: 15px;">Sign In</h3>
       <v-text-field
@@ -60,6 +60,44 @@
     </v-footer>
   </v-app>
 </template>
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Bebas+Neue|Lato:300,400,700,900&display=swap');
+
+  .v-main-card {
+    border-radius: 5px !important;
+  }
+
+  .v-card {
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+  }
+
+  .lato {
+    font-family: 'Lato', sans-serif !important;
+  }
+
+  .pt-sans {
+    font-family: 'PT Sans', sans-serif !important;
+  }
+
+  .bebas-neue {
+    font-family: 'Bebas Neue', cursive !important;
+  }
+
+  .pointer {
+    cursor: pointer
+  }
+
+  .v-btn {
+    text-transform: capitalize !important;
+    font-weight: 500 !important;
+    border-radius: 5px !important;
+
+  }
+  
+</style>
 
 <script>
 export default {

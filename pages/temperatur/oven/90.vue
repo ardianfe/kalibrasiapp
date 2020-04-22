@@ -42,7 +42,7 @@
           <div class="pa-1">
             <p>Balai Besar Bahan dan Barang Teknik (B4T)</p> 
 
-            <p class="my-4">Suhu yang diukur : <span contenteditable="true"> 150°C</span></p>
+            <p class="my-4">Suhu yang diukur : <span contenteditable="true"> 90°C</span></p>
             <table width="100%">
               <template v-if="sheets.tp">
                 <tr v-for="(tp_header, index) in tp_headers" :key="index">
@@ -94,8 +94,8 @@
               </template>
             </table>
             <br>
-
-            <p class="my-4">Setting Suhu : <span contenteditable="true"> 150°C</span></p>
+            
+            <p class="my-4">Setting Suhu : <span contenteditable="true"> 90°C</span></p>
             <table v-if="sheets.ktp">
               <tr>
                 <th v-for="(header, index) in header" :key="index">
@@ -209,7 +209,7 @@ export default {
   }),
 
   mounted() {
-    this.getWorkSheet(150)
+    this.getWorkSheet(90)
     this.getCert()
   },
 
@@ -239,7 +239,7 @@ export default {
         console.log('req ' +temp+ ' :' , request);
 
 
-        if (temp == 150) {
+        if (temp == 90) {
           this.sheets = request
         } else {
           this.sheets2 = request

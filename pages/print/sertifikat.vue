@@ -117,7 +117,7 @@
                       <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Internal Dimension</p>
                     </v-flex>
                     <v-flex xs6>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: <span contenteditable="true"> 460mm(l)x250mm(p) x340mm(t) </span></p>
+                      <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: 460mm(l)x250mm(p)x340mm(t)</p>
                     </v-flex>
                   </v-layout>
 
@@ -376,7 +376,8 @@ p{
   } .roman {
     font-family: 'Times New Roman', serif;
   } .helve {
-    font-family: Helvetica, sans-serif;
+    /* font-family: Helvetica, sans-serif; */
+    font-family: 'Times New Roman', serif;
   } .c {
     text-align: center;
   }
@@ -434,6 +435,7 @@ export default {
 
   mounted() {
     // console.log(cert_data);
+    this.certificate_number = this.$route.query.cert_no
 
     this.getCertData()
     
@@ -453,7 +455,7 @@ export default {
     async getCertData() {
       try {
         const req = await this.$calibrate.getCertificate({
-          no_cert : '3-01-19-00472'
+          no_cert : this.certificate_number
         })    
 
         console.log(req);
@@ -467,7 +469,7 @@ export default {
     },
 
     elementMapping() {
-      let cert_data = this.data
+      let cert_data = this.data.data_perusahaan
       this.certificate.equipment.name = cert_data['Nama Alat'][0]
       this.certificate.equipment.capacity = cert_data['Kapasitas'][0] + '' + cert_data['Kapasitas'][1] + ' / Resolusi ' + cert_data['Resolusi'][0] + cert_data['Resolusi'][1]
       this.certificate.equipment.model = cert_data['Tipe / Model'][0]
@@ -478,14 +480,14 @@ export default {
       this.certificate.owner.address = cert_data['Alamat'][0]
       this.certificate.standard.name = cert_data['Standar Yang Dipakai'][0]
       this.certificate.standard.traceability = cert_data['Ketertelusuran'][0]
-      this.certificate.acceptance_date = new Date(cert_data['Tanggal Diterima'][0].$date).toUTCString().slice(5,16)
-      this.certificate.calibration_date = new Date(cert_data['Tanggal Kalibrasi'][0].$date).toUTCString().slice(5,16)
+      this.certificate.acceptance_date = this.convertDate(cert_data['Tanggal Diterima'][0])
+      this.certificate.calibration_date = this.convertDate(cert_data['Tanggal Kalibrasi'][0])
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
       this.certificate.calibration_location = cert_data['Lokasi Kalibrasi'][0]
       this.certificate.calibration_method = cert_data['Metode Kalibrasi'][0]
       this.certificate.refference = cert_data['Standar Acuan'][0]
-      this.certificate.published_date = new Date(cert_data['Tanggal Terbit '][0].$date).toUTCString().slice(5,16)
+      this.certificate.published_date = this.convertDate(cert_data['Tanggal Terbit '][0])
     },
 
     printWrapper() {
@@ -495,6 +497,12 @@ export default {
       document.body.innerHTML = printContents;
       window.print();
       document.body.innerHTML = originalContents; 
+    },
+
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
 }

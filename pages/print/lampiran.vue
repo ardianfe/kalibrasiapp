@@ -27,7 +27,7 @@
 
         <div id="xprintable">
           <v-card-text style="height: 280mm" class="pa-0">
-            <div id="printable" style="margin: auto; margin-top: 20px; min-width: 190mm; max-width: 190mm; height: 280mm;">
+            <div id="printable" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 240mm;">
               <v-card-title style="z-index: 2; height: 75px; padding: 0">
                 <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
                 <v-spacer/>
@@ -216,12 +216,11 @@
                 </v-flex>
               </v-layout>
             </div>
-              <div style="margin-top: -130px;" > 
-              </div>
+
           </v-card-text>
 
           <v-card-text style="height: 260mm" class="pa-0">
-            <div id="printable2" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 250mm;">
+            <div id="printable2" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 240mm;">
               <v-card-title style="z-index: 2; height: 75px; padding: 0">
                 <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
                 <v-spacer/>
@@ -234,7 +233,7 @@
                 <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
                 <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">E-mail : b4t@b4t.go.id  Website : http://www.b4t.go.id</p>
               </div>
-              <div id="body-content" style="border: 1px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm; height: 231mm">
+              <div id="body-content" style="border: 1px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm; height: 220mm">
                 <p class="helve b c u" style="margin: 0; height: 4.2mm; font-size: 11pt;">LAMPIRAN SERTIFIKAT KALIBRASI</p>
                 <p class="roman i c" style="margin-bottom: 2mm; font-size: 12pt;">Attachment of Calibration Certificate</p>
 
@@ -382,8 +381,8 @@
                 </v-flex>
               </v-layout>
             </div>
-              <div style="margin-top: -130px;" > 
-              </div>
+            <div style="margin-top: -130px;" > 
+            </div>
           </v-card-text>
         </div>
       </v-card>
@@ -438,6 +437,8 @@ export default {
   }),
 
   mounted() {
+    this.certificate_number = this.$route.query.cert_no
+    
     this.getLampiran(110)
     this.getLampiran(150)
 
@@ -455,14 +456,14 @@ export default {
     async getCertData() {
       try {
         const req = await this.$calibrate.getCertificate({
-          no_cert : '3-01-19-00472'
+          no_cert : this.certificate_number
         })    
 
         console.log(req);
-        this.panjang = req['panjang'][0]
-        this.lebar = req['lebar'][0]
-        this.tinggi = req['tinggi'][0]
-        this.titik_uji = req['Jumlah Titik Uji'][0]
+        this.panjang = req.data_perusahaan['panjang'][0]
+        this.lebar = req.data_perusahaan['lebar'][0]
+        this.tinggi = req.data_perusahaan['tinggi'][0]
+        this.titik_uji = req.data_perusahaan['Jumlah Titik Uji'][0]
 
         
         

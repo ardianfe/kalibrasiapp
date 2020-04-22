@@ -15,6 +15,10 @@ const model = $axios => ({
     return $axios.$get(url + '/lembar_kerja/' + no_cert + '/' + temperature)
   },
 
+  getAllCertificate() {
+    return $axios.$get(url + '/data_cert/')
+  },
+
   getCertificate({no_cert}){
     return $axios.$get(url + '/data_cert/' + no_cert)
   },
