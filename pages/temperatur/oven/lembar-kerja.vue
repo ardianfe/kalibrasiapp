@@ -2,13 +2,12 @@
   <v-layout
     column
   >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-card style="overflow-x: scroll;">
-        <v-card-title class="headline">
+    <v-flex xs12 sm8 md6>
+      <ovenHeader></ovenHeader>
+
+      <p class="accent--text lato font-weight-bold title mt-5 mb-0">Lembar Kerja</p>
+      <v-card style="overflow-x: scroll;" class="mt-3 elevation-4 v-main-card">
+        <!-- <v-card-title class="headline">
           <v-btn icon large class="primary" @click="$router.go(-1)">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn> &nbsp;
@@ -21,7 +20,7 @@
           <v-spacer/>
           <v-btn class="primary" :to="'/print/sertifikat?cert_no=' + $route.query.cert_no">Cetak Sertifikat</v-btn>
           <v-btn class="primary" :to="'/print/lampiran?cert_no='  + $route.query.cert_no">Cetak Lampiran</v-btn>
-        </v-card-title>
+        </v-card-title> -->
 
         <v-card-title>
           <template v-for="(_suhu, index) in header">
@@ -187,13 +186,11 @@
 </style>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import ovenHeader from '~/components/oven.vue'
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo
+    ovenHeader
   },
 
   head: {

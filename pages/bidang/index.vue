@@ -28,23 +28,23 @@
         </v-card-title>
 
         <v-card-text>
-          <table style="width: 100%">
-            <tr>
-              <th style="height: 48px">Nama Alat</th>
-              <th style="height: 48px">Nama Pelanggan</th>
-              <th style="height: 48px">No. Sertifikat</th>
-              <th style="height: 48px">Tgl. Terima</th>
-              <th style="height: 48px">Tgl. Kalibrasi</th>
-              <th style="height: 48px">Aksi</th>
+          <table style="width: 100%" class="f-table">
+            <tr class="primary tr-head white--text pt-sans font-weight-bold">
+              <td class="td-header"><p class="text-truncate ma-0">Nama Alat</p></td>
+              <td class="td-header"><p class="text-truncate ma-0">Nama Pelanggan</p></td>
+              <td class="td-header"><p class="text-truncate ma-0">No. Sertifikat</p></td>
+              <td class="td-header"><p class="text-truncate ma-0">Tgl. Terima</p></td>
+              <td class="td-header"><p class="text-truncate ma-0">Tgl. Kalibrasi</p></td>
+              <td class="td-header"><p class="text-truncate ma-0">Aksi</p></td>
             </tr>
 
-            <tr v-for="(item, index) in processed" :key="index">
-              <td style="height: 24px">{{item.data_perusahaan['Nama Alat'][0]}}</td>
-              <td style="height: 24px">{{item.data_perusahaan['Nama Perusahaan'][0]}}</td>
-              <td style="height: 24px">{{index}}</td>
-              <td style="height: 24px">{{convertDate(item.data_perusahaan['Tanggal Diterima'][0].slice(0, 10))}}</td>
-              <td style="height: 24px">{{convertDate(item.data_perusahaan['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
-              <td style="height: 24px">
+            <tr class="tr-body" v-for="(item, index) in processed" :key="index">
+              <td class="td-body">{{item.data_perusahaan['Nama Alat'][0]}}</td>
+              <td class="td-body">{{item.data_perusahaan['Nama Perusahaan'][0]}}</td>
+              <td class="td-body">{{index}}</td>
+              <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Diterima'][0].slice(0, 10))}}</td>
+              <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
+              <td class="td-body">
                 <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' + item.data_perusahaan['Nama Alat'][0] + '?cert_no=' + index)">
                   <v-icon color="primary">edit</v-icon>
                 </v-btn>
@@ -72,8 +72,6 @@
     /* overflow: scroll; */
   } table {
     border-collapse: collapse;
-  } table, th, td {
-    border: 1px solid grey;
   }
 </style>
 

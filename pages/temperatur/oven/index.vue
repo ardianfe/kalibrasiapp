@@ -2,225 +2,207 @@
   <v-layout
     column
   >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-card>
-        <v-card-title class="headline">
-          <v-btn icon large class="primary" @click="$router.go(-1)">
-            <v-icon>keyboard_arrow_left</v-icon>
-          </v-btn> &nbsp;
-          <p class="ma-0">
-            Bidang Temperatur - Oven |  
-            <span class="font-weight-bold">
-              {{ $route.query.cert_no }}
-            </span>
-          </p>
-        </v-card-title>
-        <v-card-text v-if="$store.state.isLoggedIn">
-          <v-layout row wrap>
-            <v-flex class="pa-3" xs6 sm3>
-              <v-card class="grey" style="padding: 40px 0;">
-                <v-card-text class="title">
-                  <p style="margin:0; color: white; text-align: center">Identitas</p>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-            <v-flex class="pa-3" xs6 sm3>
-              <v-card class="primary" style="padding: 40px 0; cursor: pointer" @click="$router.push($route.path +'/lembar-kerja?cert_no='+ $route.query.cert_no)">
-                <v-card-text class="title">
-                  <p style="margin:0; color: white; text-align: center">Lembar Kerja</p>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-            <v-flex class="pa-3" xs6 sm3>
-              <v-card class="primary" style="padding: 40px 0; cursor: pointer" @click="$router.push('/print/sertifikat?cert_no='+ $route.query.cert_no)">
-                <v-card-text class="title">
-                  <p style="margin:0; color: white; text-align: center">Cetak Sertifikat</p>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-            <v-flex class="pa-3" xs6 sm3>
-              <v-card class="primary" style="padding: 40px 0; cursor: pointer" @click="$router.push('/print/lampiran?cert_no='+ $route.query.cert_no)">
-                <v-card-text class="title">
-                  <p style="margin:0; color: white; text-align: center">Cetak Lampiran</p>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-card-text>
+    <v-flex xs12 sm8 md6>
+      <ovenHeader></ovenHeader>
 
-        <v-card-text>
-          <table v-if="cert_data">
-            <tr>
-              <th colspan="3">REGISTRASI ORDER</th>
+      <p class="accent--text lato font-weight-bold title mt-5 mb-0">Identitas</p>
+      <v-layout column>
+        <v-flex class="py-3">
+          <table v-if="cert_data" class="elevation-4 f-table">
+            <tr class="primary tr-head white--text pt-sans font-weight-bold">
+              <td class="td-header" colspan="3">REGISTRASI ORDER</td>
             </tr>
             
-            <tr v-if="cert_data['Nama Perusahaan']">
-              <td class="b">Nama Perusahaan</td>
-              <td>:</td>
-              <td>{{cert_data['Nama Perusahaan'][0]}}</td>
+            <tr class="tr-body" v-if="cert_data['Nama Perusahaan']">
+              <td class="td-body b">Nama Perusahaan</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{cert_data['Nama Perusahaan'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Alamat']">
-              <td class="b">Alamat</td>
-              <td>:</td>
-              <td>{{cert_data['Alamat'][0]}}</td>
+            <tr class="tr-body" v-if="cert_data['Alamat']">
+              <td class="td-body b">Alamat</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{cert_data['Alamat'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Petugas Kalibrasi']">
-              <td class="b">Petugas Kalibrasi</td>
-              <td>:</td>
-              <td>{{cert_data['Petugas Kalibrasi'][0]}}</td>
+            <tr class="tr-body" v-if="cert_data['Petugas Kalibrasi']">
+              <td class="td-body b">Petugas Kalibrasi</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{cert_data['Petugas Kalibrasi'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Pemeriksa']">
-              <td class="b">Pemeriksa</td>
-              <td>:</td>
-              <td>{{cert_data['Pemeriksa'][0]}}</td>
+            <tr class="tr-body" v-if="cert_data['Pemeriksa']">
+              <td class="td-body b">Pemeriksa</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{cert_data['Pemeriksa'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Disiapkan Oleh']">
-              <td class="b">Disiapkan Oleh</td>
-              <td>:</td>
-              <td>{{cert_data['Disiapkan Oleh'][0]}}</td>
+            <tr class="tr-body" v-if="cert_data['Disiapkan Oleh']">
+              <td class="td-body b">Disiapkan Oleh</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{cert_data['Disiapkan Oleh'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Disetujui Oleh']">
-              <td class="b">Disetujui Oleh</td>
-              <td>:</td>
-              <td>{{cert_data['Disetujui Oleh'][0]}}</td>
+            <tr class="tr-body" v-if="cert_data['Disetujui Oleh']">
+              <td class="td-body b">Disetujui Oleh</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{cert_data['Disetujui Oleh'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Tanggal Diterima']">
-              <td class="b">Tanggal Diterima</td>
-              <td>:</td>
-              <td>{{convertDate(cert_data['Tanggal Diterima'][0].slice(0, 10))}}</td>
+            <tr class="tr-body" v-if="cert_data['Tanggal Diterima']">
+              <td class="td-body b">Tanggal Diterima</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{convertDate(cert_data['Tanggal Diterima'][0].slice(0, 10))}}</td>
             </tr>
 
-            <tr v-if="cert_data['Tanggal Kalibrasi']">
-              <td class="b">Tanggal Kalibrasi</td>
-              <td>:</td>
-              <td>{{convertDate(cert_data['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
+            <tr class="tr-body" v-if="cert_data['Tanggal Kalibrasi']">
+              <td class="td-body b">Tanggal Kalibrasi</td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{convertDate(cert_data['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
             </tr>
 
-            <tr v-if="cert_data['Tanggal Terbit ']">
-              <td class="b">Tanggal Terbit </td>
-              <td>:</td>
-              <td>{{convertDate(cert_data['Tanggal Terbit '][0].slice(0, 10))}}</td>
+            <tr class="tr-body" v-if="cert_data['Tanggal Terbit ']">
+              <td class="td-body b">Tanggal Terbit </td>
+              <td class="td-body">:</td>
+              <td class="td-body">{{convertDate(cert_data['Tanggal Terbit '][0].slice(0, 10))}}</td>
+            </tr>
+
+            <tr class="tr-body" v-else>
+              <td class="td-body" colspan="3">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
+              </td>
             </tr>
           </table>
-          <br>
+        </v-flex>
 
-          <table v-if="cert_data">
-            <tr>
-              <th colspan="8">IDENTITAS ALAT MASUK</th>
+        <v-flex class="py-3">
+          <table v-if="cert_data" class="elevation-4 f-table">
+            <tr class="tr-head primary">
+              <td class="td-header white--text pt-sans font-weight-bold" colspan="8">IDENTITAS ALAT MASUK</td>
             </tr>
             
-            <tr v-if="cert_data['Nama Alat']">
-              <td class="b">Nama Alat</td>
+            <tr class="tr-body" v-if="cert_data['Nama Alat']">
+              <td class="td-body b">Nama Alat</td>
               <td>:</td>
-              <td colspan="6">{{cert_data['Nama Alat'][0]}}</td>
+              <td class="td-body" colspan="6">{{cert_data['Nama Alat'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Kapasitas']">
-              <td class="b">Kapasitas</td>
+            <tr class="tr-body" v-if="cert_data['Kapasitas']">
+              <td class="td-body b">Kapasitas</td>
               <td>:</td>
-              <td>{{cert_data['Kapasitas'][0]}} {{cert_data['Kapasitas'][1]}}</td>
-              <td>/</td>
-              <td colspan="4">{{cert_data['Resolusi'][0]}} {{cert_data['Resolusi'][1]}}</td>
+              <td class="td-body">{{cert_data['Kapasitas'][0]}} {{cert_data['Kapasitas'][1]}}</td>
+              <td class="td-body">/</td>
+              <td class="td-body" colspan="4">{{cert_data['Resolusi'][0]}} {{cert_data['Resolusi'][1]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Tipe / Model']">
-              <td class="b">Tipe / Model</td>
+            <tr class="tr-body" v-if="cert_data['Tipe / Model']">
+              <td class="td-body b">Tipe / Model</td>
               <td>:</td>
-              <td colspan="6">{{cert_data['Tipe / Model'][0]}}</td>
+              <td class="td-body" colspan="6">{{cert_data['Tipe / Model'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Nomor Seri']">
-              <td class="b">Nomor Seri</td>
+            <tr class="tr-body" v-if="cert_data['Nomor Seri']">
+              <td class="td-body b">Nomor Seri</td>
               <td>:</td>
-              <td colspan="6">{{cert_data['Nomor Seri'][0]}}</td>
+              <td class="td-body" colspan="6">{{cert_data['Nomor Seri'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Merk / Buatan']">
-              <td class="b">Merk / Buatan</td>
+            <tr class="tr-body" v-if="cert_data['Merk / Buatan']">
+              <td class="td-body b">Merk / Buatan</td>
               <td>:</td>
-              <td colspan="6">{{cert_data['Merk / Buatan'][0]}} {{cert_data['Merk / Buatan'][1]}}</td>
+              <td class="td-body" colspan="6">{{cert_data['Merk / Buatan'][0]}} {{cert_data['Merk / Buatan'][1]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Dimensi Alat']">
-              <td class="b">Dimensi Alat</td>
+            <tr class="tr-body" v-if="cert_data['Dimensi Alat']">
+              <td class="td-body b">Dimensi Alat</td>
               <td>:</td>
-              <td>{{cert_data['lebar'][0]}}</td>
-              <td class="b">mm(l)X</td>
-              <td>{{cert_data['panjang'][0]}}</td>
-              <td class="b">mm(p)X</td>
-              <td>{{cert_data['tinggi'][0]}}</td>
-              <td class="b">mm(t)X</td>
+              <td class="">{{cert_data['lebar'][0]}}</td>
+              <td class=" b">mm(l)X</td>
+              <td class="">{{cert_data['panjang'][0]}}</td>
+              <td class=" b">mm(p)X</td>
+              <td class="">{{cert_data['tinggi'][0]}}</td>
+              <td class="td-body b">mm(t)X</td>
             </tr>
 
-            <tr v-if="cert_data['Pengontrol Suhu']">
-              <td class="b">Pengontrol Suhu</td>
+            <tr class="tr-body" v-if="cert_data['Pengontrol Suhu']">
+              <td class="td-body b">Pengontrol Suhu</td>
               <td>:</td>
-              <td colspan="6">{{cert_data['Pengontrol Suhu'][0]}}</td>
+              <td class="td-body" colspan="6">{{cert_data['Pengontrol Suhu'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Jumlah Titik Uji']">
-              <td class="b">Jumlah Titik Uji</td>
+            <tr class="tr-body" v-if="cert_data['Jumlah Titik Uji']">
+              <td class="td-body b">Jumlah Titik Uji</td>
               <td>:</td>
-              <td colspan="6">{{cert_data['Jumlah Titik Uji'][0]}} Titik</td>
+              <td class="td-body" colspan="6">{{cert_data['Jumlah Titik Uji'][0]}} Titik</td>
             </tr>
+
+            <tr class="tr-body" v-else>
+              <td class="td-body" colspan="8">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
+              </td>
+            </tr>
+
           </table>
-          <br>
+        </v-flex>
 
-          <table v-if="cert_data">
-            <tr>
-              <th colspan="3">IDENTITAS STANDAR</th>
+        <v-flex class="py-3">
+          <table v-if="cert_data" class="elevation-4 f-table">
+            <tr class="tr-head primary">
+              <td class="td-header white--text pt-sans font-weight-bold" colspan="3">IDENTITAS STANDAR</td>
             </tr>
             
-            <tr v-if="cert_data['Standar Yang Dipakai']">
-              <td class="b">Standar Yang Dipakai</td>
+            <tr class="tr-body" v-if="cert_data['Standar Yang Dipakai']">
+              <td class="td-body b">Standar Yang Dipakai</td>
               <td>:</td>
-              <td>{{cert_data['Standar Yang Dipakai'][0]}}</td>
+              <td class="td-body">{{cert_data['Standar Yang Dipakai'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Ketertelusuran']">
-              <td class="b">Ketertelusuran</td>
+            <tr class="tr-body" v-if="cert_data['Ketertelusuran']">
+              <td class="td-body b">Ketertelusuran</td>
               <td>:</td>
-              <td>{{cert_data['Ketertelusuran'][0]}}</td>
+              <td class="td-body">{{cert_data['Ketertelusuran'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Metode Kalibrasi']">
-              <td class="b">Metode Kalibrasi</td>
+            <tr class="tr-body" v-if="cert_data['Metode Kalibrasi']">
+              <td class="td-body b">Metode Kalibrasi</td>
               <td>:</td>
-              <td>{{cert_data['Metode Kalibrasi'][0]}}</td>
+              <td class="td-body">{{cert_data['Metode Kalibrasi'][0]}}</td>
             </tr>
 
-            <tr v-if="cert_data['Standar Acuan']">
-              <td class="b">Standar Acuan</td>
+            <tr class="tr-body" v-if="cert_data['Standar Acuan']">
+              <td class="td-body b">Standar Acuan</td>
               <td>:</td>
-              <td>{{cert_data['Standar Acuan'][0]}}</td>
+              <td class="td-body">{{cert_data['Standar Acuan'][0]}}</td>
+            </tr>
+
+            <tr class="tr-body" v-else>
+              <td class="td-body" colspan="3">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
+              </td>
             </tr>
           </table>
-          <br>
-          
-          <table v-if="cert_data">
-            <tr>
-              <th colspan="3">LOKASI</th>
+        </v-flex>
+
+        <v-flex class="py-3">
+          <table v-if="cert_data" class="elevation-4 f-table">
+            <tr class="tr-head">
+              <td class="td-header primary white--text pt-sans b" colspan="3">LOKASI</td>
             </tr>
             
-            <tr v-if="cert_data['Lokasi Kalibrasi']">
-              <td class="b">Lokasi Kalibrasi</td>
+            <tr class="tr-body" v-if="cert_data['Lokasi Kalibrasi']">
+              <td class="td-body b">Lokasi Kalibrasi</td>
               <td>:</td>
-              <td>{{cert_data['Lokasi Kalibrasi'][0]}}</td>
+              <td class="td-body">{{cert_data['Lokasi Kalibrasi'][0]}}</td>
+            </tr>
+
+            <tr class="tr-body" v-else>
+              <td class="td-body" colspan="3">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
+              </td>
             </tr>
           </table>
-          <br>
-        </v-card-text>
-      </v-card>
+        </v-flex>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -231,15 +213,14 @@
     /* overflow: scroll; */
   } table {
     border-collapse: collapse;
-  } table, th, td {
-    border: 1px solid grey;
-    padding: 4px 8px;
   } .b {
     font-weight: 600;
   }
 </style>
 
 <script>
+import ovenHeader from '~/components/oven.vue'
+
 export default {
   head: {
     title: 'Temperatur',
@@ -250,6 +231,10 @@ export default {
         content: 'Bidang Temperatur - Oven'
       }
     ]
+  },
+
+  components: {
+    ovenHeader
   },
 
   data: () => ({

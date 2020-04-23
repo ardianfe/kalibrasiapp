@@ -62,41 +62,7 @@
 </template>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&display=swap');
-  @import url('https://fonts.googleapis.com/css?family=Bebas+Neue|Lato:300,400,700,900&display=swap');
-
-  .v-main-card {
-    border-radius: 5px !important;
-  }
-
-  .v-card {
-    border-radius: 10px;
-    border: 1px solid #dcdcdc;
-  }
-
-  .lato {
-    font-family: 'Lato', sans-serif !important;
-  }
-
-  .pt-sans {
-    font-family: 'PT Sans', sans-serif !important;
-  }
-
-  .bebas-neue {
-    font-family: 'Bebas Neue', cursive !important;
-  }
-
-  .pointer {
-    cursor: pointer
-  }
-
-  .v-btn {
-    text-transform: capitalize !important;
-    font-weight: 500 !important;
-    border-radius: 5px !important;
-
-  }
-  
+  @import url('static/main.css');
 </style>
 
 <script>

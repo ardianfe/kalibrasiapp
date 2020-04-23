@@ -2,13 +2,21 @@
   <v-layout
     column
   >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-card width="210mm">
-        <v-card-title class="headline">
+    <v-flex xs12 sm8 md6>
+      <ovenHeader></ovenHeader>
+
+      <v-layout row class="mt-5">
+        <v-flex>
+          <p class="accent--text lato font-weight-bold title mt-3">Cetak Lampiran</p>
+        </v-flex>
+        <v-flex class="text-xs-right">
+          <v-btn class="primary elevation-0" @click="printWrapper">
+            cetak <v-icon right>print</v-icon>
+          </v-btn> &nbsp;
+        </v-flex>
+      </v-layout>
+      <v-card width="210mm" class="mt-3 pt-3 v-main-card elevation-8">
+        <!-- <v-card-title class="headline">
           <v-btn icon large class="primary" @click="$router.go(-1)">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn> &nbsp;
@@ -19,7 +27,7 @@
           <v-btn class="primary elevation-0" @click="printWrapper">
             cetak <v-icon right>print</v-icon>
           </v-btn> &nbsp;
-        </v-card-title>
+        </v-card-title> -->
         <!-- <table>
           <tr><td><div contenteditable>I'm editable</div></td><td><div contenteditable>I'm also editable</div></td></tr>
           <tr><td>I'm not editable</td></tr>
@@ -419,8 +427,13 @@ p{
 </style>
 
 <script>
+import ovenHeader from '~/components/oven.vue'
 
 export default {
+  components: {
+    ovenHeader
+  },
+
   data: () => ({
     active: null,
     certificate_number: '3-01-19-00472',

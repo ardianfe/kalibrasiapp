@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bebas+Neue|Lato:300,400,700,900&display=swap');
+
+.v-main-card {
+  border-radius: 5px !important;
+} .main-board {
+  background-image: linear-gradient(to right, #1A237E, #1976D2);
+  border: none !important;
+}
+
+.v-card {
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+}
+
+.lato {
+  font-family: 'Lato', sans-serif !important;
+}
+
+.pt-sans {
+  font-family: 'PT Sans', sans-serif !important;
+}
+
+.bebas-neue {
+  font-family: 'Bebas Neue', cursive !important;
+}
+
+.pointer {
+  cursor: pointer
+}
+
+.v-btn {
+  text-transform: capitalize !important;
+  font-weight: 500 !important;
+  border-radius: 5px !important;
+}
+
+.tr-head {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  text-transform: uppercase;
+} .tr-body {
+  height: 48px;
+  border: none; 
+  text-transform: none;
+} .tr-body:hover {
+  background: #e2e2e2;
+} .tr-body:nth-child(even) {
+  height: 48px;
+  border: none; 
+  background: #f5f5f5;
+  text-transform: none;
+} .tr-body:nth-child(even):hover {
+  background: #e2e2e2;
+} .td-header {
+  padding-left: 15px;
+  font-size: 16px;
+  padding: 15px;
+  letter-spacing: 1px;
+} .td-body {
+  padding: 0 15px;
+} .f-table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white !important;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  padding: 1px 4px;
+}
