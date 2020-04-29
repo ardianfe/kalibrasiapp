@@ -1,12 +1,6 @@
 <template>
-  <v-layout
-    column
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+  <v-layout column>
+    <v-flex xs12 sm8 md6>
       <v-card class="v-main-card elevation-8">
         <v-card-title class="headline">
           <v-hover>
@@ -46,13 +40,13 @@
               <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
               <td class="td-body">
                 <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' + item.data_perusahaan['Nama Alat'][0] + '?cert_no=' + index)">
-                  <v-icon color="primary">edit</v-icon>
+                  <v-icon small color="primary">edit</v-icon>
                 </v-btn>
-                <v-btn icon small class="transparent">
-                  <v-icon color="primary">print</v-icon>
+                <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index)">
+                  <v-icon small color="primary">print</v-icon>
                 </v-btn>
-                <v-btn icon small class="transparent">
-                  <v-icon color="error">delete</v-icon>
+                <v-btn icon small class="transparent">  
+                  <v-icon small color="error">delete</v-icon>
                 </v-btn>
               </td>
             </tr>

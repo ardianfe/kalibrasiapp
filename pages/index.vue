@@ -3,7 +3,7 @@
     <v-flex xs12 sm8 md6>
       <template v-if="$store.state.isLoggedIn">
         <p class="accent--text lato font-weight-bold title">Dashboard</p>
-        <v-card class="v-main-card elevation-9 main-board">
+        <v-card class="v-main-card elevation-9 primary">
           <v-card-text>
             <v-layout row wrap>
               <v-flex xs12 sm12 md6 class="pa-2">
@@ -18,7 +18,7 @@
                     slot-scope="{hover}" flat
                     style="width: 90%" 
                     class="pointer white--text v-main-card text-xs-center"
-                    :class="`${hover ? 'elevation-8 primary darken-2' : 'elevation-0 primary darken-3'}`"
+                    :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
                       <p color="yellow" class="yellow--text display-4 ma-0 bebas-neue">30</p>
@@ -40,7 +40,7 @@
                     slot-scope="{hover}" flat
                     style="width: 90%" 
                     class="pointer white--text v-main-card text-xs-center"
-                    :class="`${hover ? 'elevation-8 primary darken-2' : 'elevation-0 primary darken-3'}`"
+                    :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
                       <p class="yellow--text display-4 ma-0 bebas-neue">20</p>

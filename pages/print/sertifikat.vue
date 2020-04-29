@@ -11,7 +11,7 @@
             <p class="accent--text lato font-weight-bold title ma-0">Cetak Sertifikat</p>
           </v-card-title>
           <v-card-text class="py-0">
-            <v-checkbox v-model="kan" label="Logo KAN"></v-checkbox>
+            <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
 
             <v-layout row wrap>
               <v-select 
