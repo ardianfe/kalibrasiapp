@@ -28,25 +28,8 @@
       </v-layout>
       <v-layout row justify-center>
         <v-card width="210mm" class="mt-3 pt-3 v-main-card elevation-8">
-          <!-- <v-card-title class="headline">
-            <v-btn icon large class="primary" @click="$router.go(-1)">
-              <v-icon>keyboard_arrow_left</v-icon>
-            </v-btn> &nbsp;
-            Cetak Lampiran
-
-            <v-spacer />
-
-            <v-btn class="primary elevation-0" @click="printWrapper">
-              cetak <v-icon right>print</v-icon>
-            </v-btn> &nbsp;
-          </v-card-title> -->
-          <!-- <table>
-            <tr><td><div contenteditable>I'm editable</div></td><td><div contenteditable>I'm also editable</div></td></tr>
-            <tr><td>I'm not editable</td></tr>
-          </table> -->
-
           <div id="xprintable">
-            <v-card-text style="height: 280mm" class="pa-0">
+            <v-card-text style="height: 280mm" class="pa-0" v-for="(page, page_index) in pages" :key="page_index">
               <div id="printable" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 240mm;">
                 <v-card-title style="z-index: 2; height: 75px; padding: 0">
                   <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
@@ -116,8 +99,14 @@
                     </v-layout>
                   </div>
 
-                  <div>
-                    <table width="80%" border='1' v-if="data['110'].measure_value && data['150'].measure_value" style="margin-bottom: 60px">
+                  <!-- {{page.element}} -{{page.element2}}- {{page_index}} -->
+
+                  <!-- <pre v-if="data[page.element2]">
+                    {{data[page.element2].measure_value}}
+                  </pre> -->
+
+                  <div v-if="data[page.element] && data[page.element2]">
+                    <table width="80%" border='1' v-if="data[page.element].measure_value && data[page.element2].measure_value" style="margin-bottom: 60px">
                       <tr>
                         <td>PARAMETER</td>
                         <td>Posisi</td>
@@ -126,63 +115,63 @@
                       <tr>
                         <td class="i">Parameters</td>
                         <td class="i">Position</td>
-                        <td class="b">SET 110°C</td>
-                        <td class="b">SET 150°C</td>
+                        <td class="b">SET {{page.element}}°C</td>
+                        <td class="b">SET {{page.element2}}°C</td>
                       </tr>
 
-                      <tr v-for="(item, index) in data['110'].measure_value" :key="index">
-                        <td v-if="index == 0" :rowspan="data['110'].measure_value.length">Measured Value</td>
+                      <tr v-for="(item, index) in data[page.element].measure_value" :key="index">
+                        <td v-if="index == 0" :rowspan="data[page.element].measure_value.length">Measured Value</td>
                         <td>{{index+1 }}</td>
                         <td>{{item}}</td>
-                        <td>{{data['150'].measure_value[index]}}</td>
+                        <td>{{data[page.element2].measure_value[index]}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured Enclosure Temperature (MET)</td>
-                        <td>{{data['110'].met}}</td>
-                        <td>{{data['150'].met}}</td>
+                        <td>{{data[page.element].met}}</td>
+                        <td>{{data[page.element2].met}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Indicated enclosure temperature (IET)</td>
-                        <td>{{data['110'].iet}}</td>
-                        <td>{{data['150'].iet}}</td>
+                        <td>{{data[page.element].iet}}</td>
+                        <td>{{data[page.element2].iet}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured spatial variation (MSV)</td>
-                        <td>{{data['110'].msv}}</td>
-                        <td>{{data['150'].msv}}</td>
+                        <td>{{data[page.element].msv}}</td>
+                        <td>{{data[page.element2].msv}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured temporal variation (MTV)</td>
-                        <td>{{data['110'].mtv}}</td>
-                        <td>{{data['150'].mtv}}</td>
+                        <td>{{data[page.element].mtv}}</td>
+                        <td>{{data[page.element2].mtv}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Maximum measured temperature (MAX)</td>
-                        <td>{{data['110'].hasil_max}}</td>
-                        <td>{{data['150'].hasil_max}}</td>
+                        <td>{{data[page.element].hasil_max}}</td>
+                        <td>{{data[page.element2].hasil_max}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Minimum measured temperature (MIN)</td>
-                        <td>{{data['110'].hasil_min}}</td>
-                        <td>{{data['150'].hasil_min}}</td>
+                        <td>{{data[page.element].hasil_min}}</td>
+                        <td>{{data[page.element2].hasil_min}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Overall variation (OV)</td>
-                        <td>{{data['110'].ov}}</td>
-                        <td>{{data['150'].ov}}</td>
+                        <td>{{data[page.element].ov}}</td>
+                        <td>{{data[page.element2].ov}}</td>
                       </tr>
 
                       <tr>
                         <td class="b" colspan="2">Ketidakpastian</td>
-                        <td class="b">{{data['110'].ketidakpastian}}</td>
-                        <td class="b">{{data['150'].ketidakpastian}}</td>
+                        <td class="b">{{data[page.element].ketidakpastian}}</td>
+                        <td class="b">{{data[page.element2].ketidakpastian}}</td>
                       </tr>
                     </table>
                 
@@ -193,7 +182,6 @@
                 
                   </div>
                 </div>
-
 
                 <!-- Keterangan -->
                 <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 1mm 4mm">
@@ -236,10 +224,9 @@
                   </v-flex>
                 </v-layout>
               </div>
-
             </v-card-text>
 
-            <v-card-text style="height: 260mm" class="pa-0">
+            <v-card-text style="height: 300mm" class="pa-0">
               <div id="printable2" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 240mm;">
                 <v-card-title style="z-index: 2; height: 75px; padding: 0">
                   <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
@@ -460,18 +447,21 @@ export default {
     lebar: 0,
     tinggi: 0,
     titik_uji: 0,
-    kan: true
+    kan: true,
+
+    pages: []
   }),
 
   mounted() {
     this.certificate_number = this.$route.query.cert_no
     
-    this.getLampiran(110)
-    this.getLampiran(150)
+    // this.getLampiran(110)
+    // this.getLampiran(150)
 
     this.getCertData()
+    // this.groupLampiran()
 
-    console.log(this.data['110']);
+    // console.log(this.data['110']);
     
     
     if (!this.$store.state.isLoggedIn) {
@@ -486,17 +476,40 @@ export default {
           no_cert : this.certificate_number
         })    
 
-        console.log(req);
+        console.log('certificate', req);
         this.panjang = req.data_perusahaan['panjang'][0]
         this.lebar = req.data_perusahaan['lebar'][0]
         this.tinggi = req.data_perusahaan['tinggi'][0]
         this.titik_uji = req.data_perusahaan['Jumlah Titik Uji'][0]
 
         
+        this.groupLampiran(req.suhu);
+        
+        for (const key in req.suhu) {
+          if (req.suhu.hasOwnProperty(key)) {
+            const element = req.suhu[key];
+            this.getLampiran(element)
+          }
+        }
         
       } catch (error) {
         console.log(error);
       }
+    },
+
+    groupLampiran(_data) {
+      var data = _data
+      var length = Math.ceil(data.length / 2)
+
+      for (let index = 0; index < length; index++) {
+        const element = data[index];
+        const element2 = data[index+length];
+
+        this.pages.push({ element:element, element2:element2})
+      }
+
+      console.log(this.pages);
+      
     },
 
     async getLampiran(_temp) {
@@ -506,7 +519,8 @@ export default {
           temperature: _temp
         })
 
-        _temp == 110 ? this.data['110'] = req : this.data['150'] = req 
+        // _temp == 110 ? this.data['110'] = req : this.data['150'] = req 
+        this.data[_temp] = req
         console.log(this.data);
 
         // this.elementMapping()
@@ -529,4 +543,6 @@ export default {
     }
   },
 }
+
+    function isOdd(num) { return num % 2;}
 </script>

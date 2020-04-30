@@ -32,22 +32,30 @@
               <td class="td-header"><p class="text-truncate ma-0">Aksi</p></td>
             </tr>
 
-            <tr class="tr-body" v-for="(item, index) in processed" :key="index">
-              <td class="td-body">{{item.data_perusahaan['Nama Alat'][0]}}</td>
-              <td class="td-body">{{item.data_perusahaan['Nama Perusahaan'][0]}}</td>
-              <td class="td-body">{{index}}</td>
-              <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Diterima'][0].slice(0, 10))}}</td>
-              <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
-              <td class="td-body">
-                <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' + item.data_perusahaan['Nama Alat'][0] + '?cert_no=' + index)">
-                  <v-icon small color="primary">edit</v-icon>
-                </v-btn>
-                <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index)">
-                  <v-icon small color="primary">print</v-icon>
-                </v-btn>
-                <v-btn icon small class="transparent">  
-                  <v-icon small color="error">delete</v-icon>
-                </v-btn>
+            <template v-if="!loading">
+              <tr class="tr-body" v-for="(item, index) in processed" :key="index">
+                <td class="td-body">{{item.data_perusahaan['Nama Alat'][0]}}</td>
+                <td class="td-body">{{item.data_perusahaan['Nama Perusahaan'][0]}}</td>
+                <td class="td-body">{{index}}</td>
+                <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Diterima'][0].slice(0, 10))}}</td>
+                <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
+                <td class="td-body">
+                  <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' + item.data_perusahaan['Nama Alat'][0] + '?cert_no=' + index)">
+                    <v-icon small color="primary">edit</v-icon>
+                  </v-btn>
+                  <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index)">
+                    <v-icon small color="primary">print</v-icon>
+                  </v-btn>
+                  <v-btn icon small class="transparent">  
+                    <v-icon small color="error">delete</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </template>
+
+            <tr class="tr-body" v-else>
+              <td class="td-body" colspan="6">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
               </td>
             </tr>
           </table>
@@ -86,7 +94,9 @@ export default {
     active: null,
 
     processed: {},
-    keys: {}
+    keys: {},
+
+    loading: false
   }),
 
   mounted() {
@@ -103,6 +113,7 @@ export default {
     },
 
     async getAllCertificate() {
+      this.loading = true
       try {
         const req = await this.$calibrate.getAllCertificate()
 
@@ -111,8 +122,14 @@ export default {
         this.keys = Object.keys(req)
         console.log(req);
         
+        setTimeout(() => {
+          this.loading = false
+        }, 500);
       } catch (error) {
         alert('Gagal mendapatkan data certificate')
+        setTimeout(() => {
+          this.loading = false
+        }, 500);
       }
     },
 
