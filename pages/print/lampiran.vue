@@ -19,6 +19,12 @@
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
+          <!-- <v-card-title class="pt-0">
+            <v-spacer></v-spacer>
+            <v-btn class="success elevation-0" @click="refreshData">
+              refresh <v-icon right>print</v-icon>
+            </v-btn> &nbsp;
+          </v-card-title> -->
         </v-card>
       </v-layout>
 
@@ -99,11 +105,15 @@
                     </v-layout>
                   </div>
 
-                  <!-- {{page.element}} -{{page.element2}}- {{page_index}} -->
+                    <!-- {{page.element}} -{{page.element2}}- {{page_index}} -->
+                  <!-- 
 
-                  <!-- <pre v-if="data[page.element2]">
-                    {{data[page.element2].measure_value}}
-                  </pre> -->
+                  <p v-if="data[page.element]">
+                    {{page.element}} - {{data[page.element]}} <br><br>
+                  </p>
+                  <p v-if="data[page.element2]">
+                    {{page.element2}} - {{data[page.element2]}} <br><br>
+                  </p> -->
 
                   <div v-if="data[page.element] && data[page.element2]">
                     <table width="80%" border='1' v-if="data[page.element].measure_value && data[page.element2].measure_value" style="margin-bottom: 60px">
@@ -115,63 +125,63 @@
                       <tr>
                         <td class="i">Parameters</td>
                         <td class="i">Position</td>
-                        <td class="b">SET {{page.element}}°C</td>
-                        <td class="b">SET {{page.element2}}°C</td>
+                        <td class="b" v-if="page.element">SET {{page.element}}°C</td>
+                        <td class="b" v-if="page.element2 != 'kosong'">SET {{page.element2}}°C</td>
                       </tr>
 
                       <tr v-for="(item, index) in data[page.element].measure_value" :key="index">
                         <td v-if="index == 0" :rowspan="data[page.element].measure_value.length">Measured Value</td>
                         <td>{{index+1 }}</td>
-                        <td>{{item}}</td>
-                        <td>{{data[page.element2].measure_value[index]}}</td>
+                        <td v-if="item">{{item}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].measure_value[index]}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured Enclosure Temperature (MET)</td>
-                        <td>{{data[page.element].met}}</td>
-                        <td>{{data[page.element2].met}}</td>
+                        <td v-if="data[page.element]">{{data[page.element].met}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].met}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Indicated enclosure temperature (IET)</td>
-                        <td>{{data[page.element].iet}}</td>
-                        <td>{{data[page.element2].iet}}</td>
+                        <td v-if="data[page.element]">{{data[page.element].iet}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].iet}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured spatial variation (MSV)</td>
-                        <td>{{data[page.element].msv}}</td>
-                        <td>{{data[page.element2].msv}}</td>
+                        <td v-if="data[page.element]">{{data[page.element].msv}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].msv}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured temporal variation (MTV)</td>
-                        <td>{{data[page.element].mtv}}</td>
-                        <td>{{data[page.element2].mtv}}</td>
+                        <td v-if="data[page.element]">{{data[page.element].mtv}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].mtv}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Maximum measured temperature (MAX)</td>
-                        <td>{{data[page.element].hasil_max}}</td>
-                        <td>{{data[page.element2].hasil_max}}</td>
+                        <td v-if="data[page.element]">{{data[page.element].hasil_max}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].hasil_max}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Minimum measured temperature (MIN)</td>
-                        <td>{{data[page.element].hasil_min}}</td>
-                        <td>{{data[page.element2].hasil_min}}</td>
+                        <td v-if="data[page.element]">{{data[page.element].hasil_min}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].hasil_min}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Overall variation (OV)</td>
-                        <td>{{data[page.element].ov}}</td>
-                        <td>{{data[page.element2].ov}}</td>
+                        <td v-if="data[page.element]">{{data[page.element].ov}}</td>
+                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].ov}}</td>
                       </tr>
 
                       <tr>
                         <td class="b" colspan="2">Ketidakpastian</td>
-                        <td class="b">{{data[page.element].ketidakpastian}}</td>
-                        <td class="b">{{data[page.element2].ketidakpastian}}</td>
+                        <td class="b" v-if="data[page.element]">{{data[page.element].ketidakpastian}}</td>
+                        <td class="b" v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].ketidakpastian}}</td>
                       </tr>
                     </table>
                 
@@ -469,7 +479,18 @@ export default {
     }
   },
 
+  watch: {
+    data: {
+      handler() {
+        this.refreshData()
+      }
+    }
+  },
+
   methods: {
+    refreshData() {
+      this.data = this.data
+    },
     async getCertData() {
       try {
         const req = await this.$calibrate.getCertificate({
@@ -488,9 +509,34 @@ export default {
         for (const key in req.suhu) {
           if (req.suhu.hasOwnProperty(key)) {
             const element = req.suhu[key];
-            this.getLampiran(element)
+            setTimeout(() => {
+              this.getLampiran(element)
+            }, 100);
           }
         }
+
+        this.data['kosong'] = {
+          "hasil_max": 0.00, 
+          "hasil_min": 0.00, 
+          "iet": 0.00, 
+          "ketidakpastian": 0.00, 
+          "measure_value": [
+            0.00, 
+            0.00, 
+            0.00, 
+            0.00, 
+            0.00, 
+            0.00, 
+            0.00, 
+            0.00, 
+            0.00
+          ], 
+          "met": 0, 
+          "msv": 0, 
+          "mtv": 0, 
+          "ov": 0
+        }
+
         
       } catch (error) {
         console.log(error);
@@ -505,7 +551,15 @@ export default {
         const element = data[index];
         const element2 = data[index+length];
 
-        this.pages.push({ element:element, element2:element2})
+        console.log('element2', element2 == undefined);
+        
+
+        if (element2 == undefined) {
+          this.pages.push({ element:element, element2:'kosong' })  
+        } else {
+          this.pages.push({ element:element, element2:element2})  
+        }
+        // element2 ? this.pages.push({ element:element, element2:element2}) : this.pages.push({ element:element })
       }
 
       console.log(this.pages);
@@ -522,6 +576,7 @@ export default {
         // _temp == 110 ? this.data['110'] = req : this.data['150'] = req 
         this.data[_temp] = req
         console.log(this.data);
+
 
         // this.elementMapping()
         
