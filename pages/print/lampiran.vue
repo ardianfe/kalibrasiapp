@@ -19,14 +19,16 @@
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
-          <!-- <v-card-title class="pt-0">
+          <v-card-title class="pt-0">
             <v-spacer></v-spacer>
             <v-btn class="success elevation-0" @click="refreshData">
               refresh <v-icon right>print</v-icon>
             </v-btn> &nbsp;
-          </v-card-title> -->
+          </v-card-title>
         </v-card>
       </v-layout>
+
+      <pre>{{data[110]}}</pre>
 
       <v-layout row class="mt-5">
         <v-flex class="text-xs-right">
@@ -35,14 +37,14 @@
       <v-layout row justify-center>
         <v-card width="210mm" class="mt-3 pt-3 v-main-card elevation-8">
           <div id="xprintable">
-            <v-card-text style="height: 280mm" class="pa-0" v-for="(page, page_index) in pages" :key="page_index">
+            <v-card-text style="height: 300mm" class="pa-0" v-for="(page, page_index) in pages" :key="page_index">
               <div id="printable" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 240mm;">
-                <v-card-title style="z-index: 2; height: 75px; padding: 0">
+                <v-card-title style="z-index: 2; height: 75px; padding-top: 12mm">
                   <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
                   <v-spacer/>
                   <img v-if="kan" contain src="/kan.png" height="auto" width="95" style="object-fit: contain; margin: 3mm 5mm 0 0">
                 </v-card-title>
-                <div id="header" style="margin-top: -75px;">
+                <div id="header" style="margin-top: -75px; padding-top: 12mm">
                   <p class="helve c" style="margin-bottom: 1px; font-size: 9pt; margin-top: 3mm">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</p>
                   <p class="helve c b" style="margin-bottom: 1px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
                   <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
@@ -238,12 +240,12 @@
 
             <v-card-text style="height: 300mm" class="pa-0">
               <div id="printable2" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 240mm;">
-                <v-card-title style="z-index: 2; height: 75px; padding: 0">
+                <v-card-title style="z-index: 2; height: 75px; padding: 0; padding-top: 12mm">
                   <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
                   <v-spacer/>
                   <img v-if="kan" contain src="/kan.png" height="auto" width="95" style="object-fit: contain; margin: 3mm 5mm 0 0">
                 </v-card-title>
-                <div id="header" style="margin-top: -75px;">
+                <div id="header" style="margin-top: -75px; padding-top: 12mm">
                   <p class="helve c" style="margin-bottom: 1px; font-size: 9pt; margin-top: 3mm">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</p>
                   <p class="helve c b" style="margin-bottom: 1px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
                   <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
@@ -434,6 +436,13 @@ p{
   } .c {
     text-align: center;
   }
+
+  @page {
+    /* auto is the initial value */
+    size: auto;   
+    /* this affects the margin in the printer settings */
+    margin: 0mm 12mm 0mm 12mm;  
+  }
 </style>
 
 <script>
@@ -469,6 +478,8 @@ export default {
     // this.getLampiran(150)
 
     this.getCertData()
+    console.log('fetch', this.$fetchState);
+    
     // this.groupLampiran()
 
     // console.log(this.data['110']);
@@ -489,8 +500,10 @@ export default {
 
   methods: {
     refreshData() {
+      console.log(this.data);
       this.data = this.data
     },
+
     async getCertData() {
       try {
         const req = await this.$calibrate.getCertificate({
@@ -594,7 +607,8 @@ export default {
 
       document.body.innerHTML = printContents;
       window.print();
-      document.body.innerHTML = originalContents; 
+      // document.body.innerHTML = originalContents; 
+      location.reload()
     }
   },
 }
