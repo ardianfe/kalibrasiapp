@@ -30,6 +30,10 @@ const model = $axios => ({
   getListData({no_cert, temperature}){
     return $axios.$get(url + '/lampiran/' + no_cert + '/' + temperature)
   }, 
+  
+  dashboard(){
+    return $axios.$get('https://dev-kalibrasi.uc.r.appspot.com/dashboard/5ecf1968400b079d81e61140')
+  }, 
 
   
 });

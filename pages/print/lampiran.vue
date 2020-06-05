@@ -28,7 +28,7 @@
         </v-card>
       </v-layout>
 
-      <pre>{{data[110]}}</pre>
+      <!-- <pre>{{data[110]}}</pre> -->
 
       <v-layout row class="mt-5">
         <v-flex class="text-xs-right">

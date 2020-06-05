@@ -1,5 +1,6 @@
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import pkg from './package'
+require('dotenv').config();
 
 export default {
   mode: 'spa',
@@ -7,8 +8,44 @@ export default {
   /*
   ** Headers of the page
   */
+  env: {
+    base: process.env.base,
+    title: process.env.title,
+    desc: process.env.desc
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      // user: '/',
+      home: '/'
+    },
+    strategies: { 
+      local1: {
+        _scheme: 'local',
+        endpoints: {
+          login: {
+            url: process.env.base + '/login/',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: false,
+          // user: {
+          //   url: process.env.base + '/user/token/auth',
+          //   method: 'get',
+          //   propertyName: 'data'
+          // }
+        },
+        tokenRequired: true,
+        tokenType: 'bearer',
+      },
+    }
+  },
+
   head: {
-    title: "",
+    title: process.env.title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -29,6 +66,11 @@ export default {
   */
   loading: { color: '#fff' },
 
+  /* nuxt.js Router */ 
+  router: {
+    middleware: ['auth']
+  },
+
   /*
   ** Global CSS
   */
@@ -42,6 +84,7 @@ export default {
   plugins: [
     '@/plugins/vuetify',
     '@/plugins/axios',
+    '@/plugins/auth',
 
     // Models
     '@/models/calibrate',
@@ -54,6 +97,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/auth',
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration

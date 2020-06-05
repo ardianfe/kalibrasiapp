@@ -14,7 +14,7 @@
       <!-- <p>{{$store.state.title}}</p> -->
       <v-spacer />
       <v-btn v-if="$store.state.isLoggedIn" flat
-        @click="()=> {$router.push('/'); $store.commit('logout')}"
+        @click="logout"
       >
         Keluar <v-icon right>logout</v-icon>
       </v-btn>
@@ -45,9 +45,11 @@
       <v-text-field
         label="Password"
         outline type="password"
+        v-model="password"
       ></v-text-field>
 
-      <v-btn block class="primary" large @click="()=> {$store.commit('login'), rightDrawer = false}">Login</v-btn>
+      <v-btn block class="primary" large @click="login">Login</v-btn>
+      <v-btn block class="primary" large @click="dashboard">Cek API</v-btn>
       <p style="text-align: right" >
         <a href="register">belum punya akun? daftar disini !</a>
       </p>
@@ -74,6 +76,7 @@ export default {
       fixed: false,
       loggedIn: false,
       username: '',
+      password: '',
       items: [
         {
           icon: 'apps',
@@ -96,6 +99,37 @@ export default {
       modal: false,
       menu2: false
     }
+  },
+
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+      setTimeout(function(){ 
+        window.location.reload(); 
+      }, 500);
+    },
+    
+    async dashboard() {
+      const req = await this.$calibrate.dashboard()
+
+      console.log(req);
+    },
+
+    async login() {
+      try {
+        const request = await this.$auth.loginWith('local1', {
+          data: {
+            email: this.username,
+            password: this.password
+          },
+        });
+
+        console.log(request);
+        
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
   }
 }
 </script>
