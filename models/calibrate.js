@@ -1,4 +1,6 @@
 let url = 'https://kalibarasi-b4t.appspot.com'
+let base_url = process.env.base
+
 const model = $axios => ({
   upload({file}) {
     console.log(file);    
@@ -30,12 +32,44 @@ const model = $axios => ({
   getListData({no_cert, temperature}){
     return $axios.$get(url + '/lampiran/' + no_cert + '/' + temperature)
   }, 
+
+  // New APIs
   
-  dashboard(){
-    return $axios.$get('https://dev-kalibrasi.uc.r.appspot.com/dashboard/5ecf1968400b079d81e61140')
+  getDashboard(){
+    return $axios.$get(base_url + '/dashboard/')
+  }, 
+  
+  getCompanyCount(){
+    return $axios.$get(base_url + '/dashboard/co/')
+  }, 
+  
+  getDataCertificate({id}){
+    return $axios.$get(base_url + '/data_cert/' + id)
+  }, 
+  
+  getWorkSheet({id}){
+    return $axios.$get(base_url + '/lampiran/' + id)
   }, 
 
+  getWorkSheet({id}){
+    return $axios.$get(base_url + '/lembar_kerja/' + id)
+  }, 
   
+  getWorkSheet({category}){
+    return $axios.$get(base_url + '/all-works/', {
+      params: {
+        category
+      }
+    })
+  }, 
+
+  uploadFile({file, category}) {
+    console.log(file, category);    
+    let formData = new FormData()
+    formData.append('file', file)
+    formData.append('category', category)
+    return $axios.$post(url + '/upload', formData)
+  },
 });
 
 export default ({

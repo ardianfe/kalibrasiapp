@@ -88,6 +88,7 @@ export default {
 
     // Models
     '@/models/calibrate',
+    '@/models/user',
   ],
 
   /*
