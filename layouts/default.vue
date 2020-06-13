@@ -4,6 +4,7 @@
       :clipped-left="clipped"
       fixed
       app class="white elevation-3"
+      v-if="$store.state.auth.loggedIn"
     >
       <template v-if="$store.state.isLoggedIn">
         <v-btn icon large class="primary" style="border-radius: 50px !important" to="/">
@@ -29,7 +30,7 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="rightDrawer"
       right
       width="400px"
@@ -53,7 +54,7 @@
       <p style="text-align: right" >
         <a href="register">belum punya akun? daftar disini !</a>
       </p>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <v-footer
       :fixed="fixed"
       app

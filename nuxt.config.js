@@ -19,7 +19,7 @@ export default {
       login: '/login',
       logout: '/',
       callback: '/login',
-      // user: '/',
+      user: '/',
       home: '/'
     },
     strategies: { 
@@ -32,14 +32,14 @@ export default {
             propertyName: 'token'
           },
           logout: false,
-          // user: {
-          //   url: process.env.base + '/user/token/auth',
-          //   method: 'get',
-          //   propertyName: 'data'
-          // }
+          user: {
+            url: process.env.base + '/protected/',
+            method: 'get',
+            propertyName: ''
+          }
         },
         tokenRequired: true,
-        tokenType: 'bearer',
+        tokenType: 'Bearer',
       },
     }
   },
