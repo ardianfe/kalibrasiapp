@@ -4,6 +4,8 @@
       <template v-if="$store.state.isLoggedIn">
         <p class="accent--text lato font-weight-bold title">Dashboard</p>
         <v-card class="v-main-card elevation-9 primary">
+          <!-- {{$store.state.company}}
+          {{$store.state.dashboard}} -->
           <v-card-text>
             <v-layout row wrap>
               <v-flex xs12 sm12 md6 class="pa-2">
@@ -21,9 +23,8 @@
                     :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
-                      <p color="yellow" class="yellow--text display-4 ma-0 bebas-neue">30</p>
-                      <p color="yellow" class="yellow--text title px-2 pt-sans">Sertifikat baru <br> selama Bulan</p>
-                      <p color="yellow" class="yellow--text display-1 ma-0 pt-sans">Maret</p>
+                      <p color="yellow" class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah}}</p>
+                      <p color="yellow" class="yellow--text title px-2 pt-sans">Sertifikat Baru</p>
                     </v-card-text>
                     <v-card-actions class="pa-0">
                       <v-spacer></v-spacer>
@@ -43,7 +44,7 @@
                     :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
-                      <p class="yellow--text display-4 ma-0 bebas-neue">20</p>
+                      <p class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.company}}</p>
                       <p class="yellow--text ma-0 pt-sans headline">Perusahaan</p>
                     </v-card-text>
                     <v-card-actions class="pa-0">

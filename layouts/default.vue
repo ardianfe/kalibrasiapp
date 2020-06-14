@@ -102,6 +102,11 @@ export default {
     }
   },
 
+  mounted() {
+    this.getDashboard()
+    this.getCompanyCount()
+  },
+
   methods: {
     async logout() {
       await this.$auth.logout();
@@ -109,26 +114,25 @@ export default {
         window.location.reload(); 
       }, 500);
     },
-    
-    async dashboard() {
-      const req = await this.$calibrate.dashboard()
 
-      console.log(req);
-    },
-
-    async login() {
+    async getDashboard() {
       try {
-        const request = await this.$auth.loginWith('local1', {
-          data: {
-            email: this.username,
-            password: this.password
-          },
-        });
-
-        console.log(request);
+        const req = await this.$calibrate.getDashboard({})
+        console.log('getDashboard :', req);
+        this.$store.commit('setDashboard', req)
         
       } catch (error) {
-        console.log(error.response);
+        console.log(error.response)        
+      }
+    },
+    async getCompanyCount() {
+      try {
+        const req = await this.$calibrate.getCompanyCount({})
+        console.log('getCompanyCount :', req);
+        this.$store.commit('setCompany', req.company_list)
+
+      } catch (error) {
+        console.log(error.response)        
       }
     },
   }
