@@ -235,7 +235,7 @@ export default {
     async getWorkSheet(temp) {
       try {
         const request = await this.$calibrate.getWorkSheet({
-          no_cert: this.$route.query.cert_no, temperature: temp
+          id: this.$route.query.cert_no, temp: temp
         })
 
         console.log('req ' +temp+ ' :' , request);

@@ -23,7 +23,14 @@
                     :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
-                      <p color="yellow" class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah}}</p>
+                      <p v-if="$store.state.dashboard.jumlah" color="yellow" class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah}}</p>
+                      <div class="text-xs-center" v-else>
+                        <v-progress-circular
+                          :size="50"
+                          color="primary"
+                          indeterminate class="my-2"
+                        ></v-progress-circular>
+                      </div>
                       <p color="yellow" class="yellow--text title px-2 pt-sans">Sertifikat Baru</p>
                     </v-card-text>
                     <v-card-actions class="pa-0">
@@ -44,7 +51,14 @@
                     :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
-                      <p class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.company}}</p>
+                      <p v-if="$store.state.company" class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.company}}</p>
+                      <div class="text-xs-center" v-else>
+                        <v-progress-circular
+                          :size="50"
+                          color="primary"
+                          indeterminate class="my-2"
+                        ></v-progress-circular>
+                      </div>
                       <p class="yellow--text ma-0 pt-sans headline">Perusahaan</p>
                     </v-card-text>
                     <v-card-actions class="pa-0">
@@ -172,7 +186,7 @@
 export default {
   data: () => ({
     fields: [
-      { id: 1, name: 'Suhu', desc: '-', url: '?bid=temperatur', count: 3, color: 'blue ' },
+      { id: 1, name: 'Suhu', desc: '-', url: '?bid=temperatur&sub=oven', count: 3, color: 'blue ' },
       { id: 2, name: 'Dimensi', desc: '-', url: '?bid=dimensi', count: 0, color: 'success' },
       { id: 3, name: 'Tekanan', desc: '-', url: '?bid=tekanan', count: 0, color: 'warning' },
       { id: 4, name: 'Gaya', desc: '-', url: '?bid=gaya', count: 0, color: 'error' }, 

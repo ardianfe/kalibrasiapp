@@ -139,7 +139,7 @@
           <v-spacer />
           <p>Dikalibrasi oleh : <span class="font-weight-bold">{{cert_data['Disiapkan Oleh'][0]}}</span> 
           <br>
-          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Kalibrasi'][0]}}</span>
+          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Kalibarsi'][0]}}</span>
           </p>
         </v-card-actions>
       </v-card>
@@ -225,8 +225,8 @@ export default {
   methods: {
     async getCert(no_cert) {
       try {
-        const request = await this.$calibrate.getCertData({
-          no_cert: no_cert
+        const request = await this.$calibrate.getDataCertificate({
+          id: no_cert
         })
 
         console.log('req :', request);
@@ -248,7 +248,7 @@ export default {
     async getWorkSheet(temp) {
       try {
         const request = await this.$calibrate.getWorkSheet({
-          no_cert: this.$route.query.cert_no, temperature: temp
+          id: this.$route.query.cert_no, temp: temp
         })
 
         this.sheets2.push(request.ktp);

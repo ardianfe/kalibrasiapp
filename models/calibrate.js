@@ -13,20 +13,20 @@ const model = $axios => ({
     return $axios.$get(url + '/data_cert/' + no_cert)
   },
 
-  getWorkSheet({no_cert, temperature}) {
-    return $axios.$get(url + '/lembar_kerja/' + no_cert + '/' + temperature)
-  },
+  // getWorkSheet({no_cert, temperature}) {
+  //   return $axios.$get(url + '/lembar_kerja/' + no_cert + '/' + temperature)
+  // },
 
   getAllCertificate() {
     return $axios.$get(url + '/data_cert/')
   },
 
   getCertificate({no_cert}){
-    return $axios.$get(url + '/data_cert/' + no_cert)
+    return $axios.$get(url + '/data_cert/3-01-19-00473')
   },
 
   getLampiran({no_cert, temperature}){
-    return $axios.$get(url + '/lampiran/' + no_cert + '/' + temperature)
+    return $axios.$get(url + '/lampiran/3-01-19-00473/110' + temperature)
   }, 
   
   getListData({no_cert, temperature}){
@@ -47,15 +47,15 @@ const model = $axios => ({
     return $axios.$get(base_url + '/data_cert/' + id)
   }, 
   
-  getWorkSheet({id}){
-    return $axios.$get(base_url + '/lampiran/' + id)
+  getAttachment({id, temperature}){
+    return $axios.$get(base_url + '/lampiran/' + id + '/' + temperature)
   }, 
 
-  getWorkSheet({id}){
-    return $axios.$get(base_url + '/lembar_kerja/' + id)
+  getWorkSheet({id, temp}){
+    return $axios.$get(base_url + '/lembar_kerja/' + id + '/' + temp)
   }, 
   
-  getWorkSheet({category}){
+  getAllWork({category}){
     return $axios.$get(base_url + '/all-works/', {
       params: {
         category

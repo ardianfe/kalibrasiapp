@@ -52,19 +52,19 @@
             <tr class="tr-body" v-if="cert_data['Tanggal Diterima']">
               <td class="td-body b">Tanggal Diterima</td>
               <td class="td-body">:</td>
-              <td class="td-body">{{convertDate(cert_data['Tanggal Diterima'][0].slice(0, 10))}}</td>
+              <td class="td-body">{{convertDate(cert_data['Tanggal Diterima'][0]['$date'])}}</td>
             </tr>
 
             <tr class="tr-body" v-if="cert_data['Tanggal Kalibrasi']">
               <td class="td-body b">Tanggal Kalibrasi</td>
               <td class="td-body">:</td>
-              <td class="td-body">{{convertDate(cert_data['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
+              <td class="td-body">{{convertDate(cert_data['Tanggal Kalibrasi'][0]['$date'])}}</td>
             </tr>
 
-            <tr class="tr-body" v-if="cert_data['Tanggal Terbit ']">
+            <tr class="tr-body" v-if="cert_data['Tanggal Terbit']">
               <td class="td-body b">Tanggal Terbit </td>
               <td class="td-body">:</td>
-              <td class="td-body">{{convertDate(cert_data['Tanggal Terbit '][0].slice(0, 10))}}</td>
+              <td class="td-body">{{convertDate(cert_data['Tanggal Terbit'][0]['$date'])}}</td>
             </tr>
 
             <tr class="tr-body" v-else>
@@ -268,8 +268,8 @@ export default {
   methods: {
     async getCert(no_cert) {
       try {
-        const request = await this.$calibrate.getCertData({
-          no_cert: this.$route.query.cert_no
+        const request = await this.$calibrate.getDataCertificate({
+          id: this.$route.query.cert_no
         })
 
         console.log('req :', request);

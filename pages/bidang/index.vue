@@ -34,13 +34,18 @@
 
             <template v-if="!loading">
               <tr class="tr-body" v-for="(item, index) in processed" :key="index">
-                <td class="td-body">{{item.data_perusahaan['Nama Alat'][0]}}</td>
-                <td class="td-body">{{item.data_perusahaan['Nama Perusahaan'][0]}}</td>
-                <td class="td-body">{{index}}</td>
-                <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Diterima'][0].slice(0, 10))}}</td>
-                <td class="td-body">{{convertDate(item.data_perusahaan['Tanggal Kalibrasi'][0].slice(0, 10))}}</td>
+                <!-- {{item}} - {{index}} -->
+                <td class="td-body">{{item.nama_alat}}</td>
+                <td class="td-body">{{item['nama perusahaan']}}</td>
+                <td class="td-body">{{item.no_sertifikat}}</td>
                 <td class="td-body">
-                  <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' + item.data_perusahaan['Nama Alat'][0] + '?cert_no=' + index)">
+                  {{ item.tgl_terima ? convertDate(new Date(item.tgl_terima['$date'])) : item.tgl_terima}}
+                </td>
+                <td class="td-body">
+                  {{ item.tgl_kalibarsi ? convertDate(item.tgl_kalibarsi['$date']) : item.tgl_kalibarsi}}
+                </td>
+                <td class="td-body">
+                  <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' + item['Nama Alat'][0] + '?cert_no=' + index)">
                     <v-icon small color="primary">edit</v-icon>
                   </v-btn>
                   <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index)">
@@ -100,10 +105,6 @@ export default {
   }),
 
   mounted() {
-    if (!this.$store.state.isLoggedIn) {
-      this.$router.push('/')
-    }
-
     this.getAllCertificate()
   },
 
@@ -115,7 +116,9 @@ export default {
     async getAllCertificate() {
       this.loading = true
       try {
-        const req = await this.$calibrate.getAllCertificate()
+        const req = await this.$calibrate.getAllWork({
+          category: this.$route.query.sub
+        })
 
 
         this.processed = req
@@ -186,14 +189,6 @@ export default {
       // });
     },
 
-    triggerUpload() {
-
-    },
-
-    fileUpload() {
-      
-    },
-
     sheetPush(id, name, str) {
       this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
       // document.getElementById(''+id).innerHTML += str;
@@ -212,7 +207,6 @@ export default {
       let tds = document.querySelectorAll('td')
       // console.log(tds);
       tds.remove()
-      
     },
 
     convertDate(date_string) {

@@ -468,6 +468,8 @@ export default {
     titik_uji: 0,
     kan: true,
 
+    list_suhu: ['110', '150'],
+
     pages: []
   }),
 
@@ -506,8 +508,8 @@ export default {
 
     async getCertData() {
       try {
-        const req = await this.$calibrate.getCertificate({
-          no_cert : this.certificate_number
+        const req = await this.$calibrate.getDataCertificate({
+          id : this.certificate_number
         })    
 
         console.log('certificate', req);
@@ -517,11 +519,11 @@ export default {
         this.titik_uji = req.data_perusahaan['Jumlah Titik Uji'][0]
 
         
-        this.groupLampiran(req.suhu);
+        this.groupLampiran(this.list_suhu);
         
-        for (const key in req.suhu) {
-          if (req.suhu.hasOwnProperty(key)) {
-            const element = req.suhu[key];
+        for (const key in this.list_suhu) {
+          if (this.list_suhu.hasOwnProperty(key)) {
+            const element = this.list_suhu[key];
             setTimeout(() => {
               this.getLampiran(element)
             }, 100);
@@ -581,8 +583,8 @@ export default {
 
     async getLampiran(_temp) {
       try {
-        const req = await this.$calibrate.getLampiran({
-          no_cert: this.certificate_number,
+        const req = await this.$calibrate.getAttachment({
+          id: this.certificate_number,
           temperature: _temp
         })
 

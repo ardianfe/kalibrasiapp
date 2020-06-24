@@ -509,8 +509,8 @@ export default {
 
     async getCertData() {
       try {
-        const req = await this.$calibrate.getCertificate({
-          no_cert : this.certificate_number
+        const req = await this.$calibrate.getDataCertificate({
+          id : this.certificate_number
         })    
 
         console.log(req);
@@ -535,8 +535,8 @@ export default {
       this.certificate.owner.address = cert_data['Alamat'][0]
       this.certificate.standard.name = cert_data['Standar Yang Dipakai'][0]
       this.certificate.standard.traceability = cert_data['Ketertelusuran'][0]
-      this.certificate.acceptance_date = this.convertDate(cert_data['Tanggal Diterima'][0])
-      this.certificate.calibration_date = this.convertDate(cert_data['Tanggal Kalibrasi'][0])
+      this.certificate.acceptance_date = this.convertDate(new Date(cert_data['Tanggal Diterima'][0]['$date']))
+      this.certificate.calibration_date = this.convertDate(new Date(cert_data['Tanggal Kalibrasi'][0]['$date']))
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
       this.certificate.calibration_location = cert_data['Lokasi Kalibrasi'][0]

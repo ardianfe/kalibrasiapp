@@ -206,7 +206,7 @@ export default {
 
   data: () => ({
     active: null,
-    header: [ "90", "110", "150", "Ketidakpastian" ],
+    header: [ "110", "150", "Ketidakpastian" ],
     cert_data: [],
     ktpheader: [ "Komponen", "Satuan", "UiCi", "(UiCi)2" ],
 
@@ -271,7 +271,7 @@ export default {
     async getWorkSheet(temp) {
       try {
         const request = await this.$calibrate.getWorkSheet({
-          no_cert: this.$route.query.cert_no, temperature: temp
+          id: this.$route.query.cert_no, temperature: temp
         })
 
         this.sheets = request
