@@ -56,74 +56,31 @@
                           <td>{{item['Komponen']}}</td>
                           <td>{{item['Satuan']}}</td>
                           <td>{{item['Distribusi']}}</td>
-                          <td>{{item['U'].toFixed(2)}}</td>
-                          <td>{{item['Pembagi'].toFixed(2)}}</td>
-                          <td>{{item['Ui'].toFixed(2)}}</td>
-                          <td>{{item['Ci'].toFixed(2)}}</td>
-                          <td>{{item['UiCi'].toFixed(2)}}</td>
+                          <td>{{item['U']}}</td>
+                          <td>{{item['Pembagi']}}</td>
+                          <td>{{item['Ui']}}</td>
+                          <td>{{item['Ci']}}</td>
+                          <td>{{item['UiCi']}}</td>
                           <td>{{item['(UiCi)2'].toFixed(3)}}</td>
                         </template>
                       </tr>
                       <tr>
                         <td colspan="7">{{sheets2[0][8]['Komponen']}}</td>
-                        <td colspan="2">{{sheets2[0][8]['(UiCi)2'].toFixed(2)}}</td>
+                        <td colspan="2">{{sheets2[0][8]['(UiCi)2']}}</td>
                       </tr>
                       <tr>
                         <td colspan="7">{{sheets2[0][9]['Komponen']}}</td>
-                        <td colspan="2">{{sheets2[0][9]['(UiCi)2'].toFixed(2)}}</td>
+                        <td colspan="2">{{sheets2[0][9]['(UiCi)2']}}</td>
                       </tr>
                       <tr>
                         <td colspan="7">{{sheets2[0][10]['Komponen']}}</td>
-                        <td colspan="2">{{sheets2[0][10]['(UiCi)2'].toFixed(2)}}</td>
+                        <td colspan="2">{{sheets2[0][10]['(UiCi)2']}}</td>
                       </tr>
                       <tr>
                         <td style="font-weight: 600" colspan="7">{{sheets2[0][11]['Komponen']}}</td>
-                        <td style="font-weight: 600" colspan="2">{{sheets2[0][11]['(UiCi)2'].toFixed(2)}}</td>
+                        <td style="font-weight: 600" colspan="2">{{sheets2[0][11]['(UiCi)2']}}</td>
                       </tr>
                     </table>
-                    
-                    <!-- <p v-if="header[2] != 'Ketidakpastian'">Suhu yang diukur : <span contenteditable="true"> {{ header[2] }}</span></p>
-                    <table v-if="sheets2[2]">
-                      <tr>
-                        <th v-for="(header2, index) in header2" :key="index">
-                          {{header2}}
-                        </th>
-                      </tr>
-                      <tr>
-                        <th v-for="(header2, index) in header2" :key="index">
-                          ({{index+1}})
-                        </th>
-                      </tr>
-                      <tr v-for="(item, index) in sheets2[2]" :key="index">
-                        <template v-if="index >= 1 && index <= 7">
-                          <td>{{item['Komponen']}}</td>
-                          <td>{{item['Satuan']}}</td>
-                          <td>{{item['Distribusi']}}</td>
-                          <td>{{item['U'].toFixed(2)}}</td>
-                          <td>{{item['Pembagi'].toFixed(2)}}</td>
-                          <td>{{item['Ui'].toFixed(2)}}</td>
-                          <td>{{item['Ci'].toFixed(2)}}</td>
-                          <td>{{item['UiCi'].toFixed(2)}}</td>
-                          <td>{{item['(UiCi)2'].toFixed(3)}}</td>
-                        </template>
-                      </tr>
-                      <tr>
-                        <td colspan="7">{{sheets2[2][8]['Komponen']}}</td>
-                        <td colspan="2">{{sheets2[2][8]['(UiCi)2'].toFixed(2)}}</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">{{sheets2[2][9]['Komponen']}}</td>
-                        <td colspan="2">{{sheets2[2][9]['(UiCi)2'].toFixed(2)}}</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">{{sheets2[2][10]['Komponen']}}</td>
-                        <td colspan="2">{{sheets2[2][10]['(UiCi)2'].toFixed(2)}}</td>
-                      </tr>
-                      <tr>
-                        <td style="font-weight: 600" colspan="7">{{sheets2[2][11]['Komponen']}}</td>
-                        <td style="font-weight: 600" colspan="2">{{sheets2[2][11]['(UiCi)2'].toFixed(2)}}</td>
-                      </tr>
-                    </table> -->
                   </div>
                 </v-card-text>
               </v-card>
@@ -134,12 +91,12 @@
         <v-card-actions class="pa-3" v-if="cert_data['Pemeriksa']">
           <p>Diperiksa oleh : <span class="font-weight-bold">{{cert_data['Pemeriksa'][0]}}</span> 
           <br>
-          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Diterima'][0]}}</span>
+          Tanggal <span class="font-weight-bold">{{convertDate(cert_data['Tanggal Diterima'][0]['$date'])}}</span>
           </p>
           <v-spacer />
           <p>Dikalibrasi oleh : <span class="font-weight-bold">{{cert_data['Disiapkan Oleh'][0]}}</span> 
           <br>
-          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Kalibarsi'][0]}}</span>
+          Tanggal <span class="font-weight-bold">{{convertDate(cert_data['Tanggal Kalibrasi'][0]['$date'])}}</span>
           </p>
         </v-card-actions>
       </v-card>
@@ -214,7 +171,9 @@ export default {
         { text: 'MIN', cspan: 1, rspan: 1},
       ],
     },
-    sheets2: []
+    sheets2: [],
+
+    list_suhu: ['110', '150'],
   }),
 
   mounted() {
@@ -231,13 +190,15 @@ export default {
 
         console.log('req :', request);
 
-        this.header = request.suhu
-        request.suhu.forEach(element => {
+        // this.header = request.suhu
+        this.list_suhu.forEach(element => {
           this.getWorkSheet(element)
           console.log(element);
         });
 
         this.cert_data = request.data_perusahaan
+        console.log('cert data = ', this.cert_data);
+        
         
       } catch (error) {
         console.log(error);
@@ -273,19 +234,6 @@ export default {
       
       document.getElementById("input-excel").click()
     },
-
-    // mapElement() {
-    //   for (const key in this.sheets.tp) {
-    //     if (this.sheets.tp.hasOwnProperty(key)) {
-    //       const element = this.sheets.tp[key];
-    //       console.log(element);
-    //       this.data.push(element)
-          
-    //     }
-    //   }
-
-    //   console.log('mapped data : ', this.data);
-    // },
 
     hideElement(id){
       console.log(id);
@@ -359,6 +307,12 @@ export default {
       // console.log(tds);
       tds.remove()
       
+    },
+
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
 }
