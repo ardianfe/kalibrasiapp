@@ -26,7 +26,7 @@
           <template v-for="(_suhu, index) in header">
             <v-btn :key="index" :class="`${$route.query.suhu == _suhu ? 'grey' : 'primary'}`"
               @click="()=>{
-                $router.push('/temperatur/OVEN/'+_suhu+'?cert_no=' + $route.query.cert_no),
+                $router.push('/temperatur/OVEN/'+_suhu+'?cert_no=' + $route.query.cert_no+'&id=' + $route.query.id),
                 getWorkSheet(_suhu)
               }">
               {{_suhu}}

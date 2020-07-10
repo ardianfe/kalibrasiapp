@@ -15,7 +15,7 @@
           <p class="ma-0">
             Lembar Kerja Ketidakpastian | 
             <span class="font-weight-bold">
-              {{ $route.query.cert_no }}
+              {{ $route.query.id }}
             </span>
           </p>
           <v-spacer/>

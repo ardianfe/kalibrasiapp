@@ -15,7 +15,7 @@
           <p class="ma-0">
             Lembar Kerja | 
             <span class="font-weight-bold">
-              {{ $route.query.cert_no }}
+              {{ $route.query.id }}
             </span>
           </p>
           <v-spacer/>
@@ -121,12 +121,12 @@
         <v-card-actions class="pa-3" v-if="cert_data['Pemeriksa']">
           <p>Diperiksa oleh : <span class="font-weight-bold">{{cert_data['Pemeriksa'][0]}}</span> 
           <br>
-          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Diterima'][0]}}</span>
+          Tanggal <span class="font-weight-bold">{{ convertDate(cert_data['Tanggal Diterima'][0]['$date']) }}</span>
           </p>
           <v-spacer />
           <p>Dikalibrasi oleh : <span class="font-weight-bold">{{cert_data['Disiapkan Oleh'][0]}}</span> 
           <br>
-          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Kalibrasi'][0]}}</span>
+          Tanggal <span class="font-weight-bold">{{ convertDate(cert_data['Tanggal Kalibrasi'][0]['$date']) }}</span>
           </p>
         </v-card-actions>
 

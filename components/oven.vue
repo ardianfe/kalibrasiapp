@@ -11,7 +11,7 @@
       <p class="lato font-weight-bold title mt-3">
         Bidang Temperatur - Oven |  
         <span class="font-weight-bold">
-          {{ $route.query.cert_no }}
+          {{$route.query.id}}
         </span>
       </p>
     </v-card-title>
@@ -39,10 +39,10 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'temperatur-oven', text: 'Identitas', url: '/temperatur/OVEN?cert_no='+ this.$route.query.cert_no },
-        { name: 'temperatur-oven-lembar-kerja', text: 'Lembar Kerja', url: '/temperatur/OVEN/lembar-kerja?cert_no='+ this.$route.query.cert_no },
-        { name: 'print-sertifikat', text: 'Cetak Serifikat', url: '/print/sertifikat?cert_no='+ this.$route.query.cert_no },
-        { name: 'print-lampiran', text: 'Cetak Lampiran', url: '/print/lampiran?cert_no='+ this.$route.query.cert_no },
+        { name: 'temperatur-oven', text: 'Identitas', url: '/temperatur/OVEN?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'temperatur-oven-lembar-kerja', text: 'Lembar Kerja', url: '/temperatur/OVEN/lembar-kerja?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
+        { name: 'print-sertifikat', text: 'Cetak Serifikat', url: '/print/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'print-lampiran', text: 'Cetak Lampiran', url: '/print/lampiran?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
       ]
     }
   },

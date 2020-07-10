@@ -15,19 +15,19 @@
           <p class="ma-0">
             Lembar Kerja | 
             <span class="font-weight-bold">
-              {{ $route.query.cert_no }}
+              {{ $route.query.id }}
             </span>
           </p>
           <v-spacer/>
-          <v-btn class="primary" :to="'/print/sertifikat?cert_no=' + $route.query.cert_no">Cetak Sertifikat</v-btn>
-          <v-btn class="primary" :to="'/print/lampiran?cert_no='  + $route.query.cert_no">Cetak Lampiran</v-btn>
+          <v-btn class="primary" :to="'/print/sertifikat?cert_no=' + $route.query.cert_no + '&id=' + $route.query.id">Cetak Sertifikat</v-btn>
+          <v-btn class="primary" :to="'/print/lampiran?cert_no=' + $route.query.cert_no + '&id=' + $route.query.id">Cetak Lampiran</v-btn>
         </v-card-title>
 
         <v-card-title>
           <template v-for="(_suhu, index) in suhuheader">
             <v-btn :key="index" :class="`${$route.query.suhu == _suhu ? 'grey' : 'primary'}`"
               @click="()=>{
-                $router.push('/temperatur/OVEN/'+_suhu+'?cert_no=' + $route.query.cert_no),
+                $router.push('/temperatur/OVEN/'+_suhu+'?cert_no=' + $route.query.cert_no + '&id=' + $route.query.id),
                 getWorkSheet(_suhu)
               }">
               {{_suhu}}
@@ -121,12 +121,12 @@
         <v-card-actions class="pa-3" v-if="cert_data['Pemeriksa']">
           <p>Diperiksa oleh : <span class="font-weight-bold">{{cert_data['Pemeriksa'][0]}}</span> 
           <br>
-          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Diterima'][0]}}</span>
+          Tanggal <span class="font-weight-bold">{{ convertDate(cert_data['Tanggal Diterima'][0]['$date']) }}</span>
           </p>
           <v-spacer />
           <p>Dikalibrasi oleh : <span class="font-weight-bold">{{cert_data['Disiapkan Oleh'][0]}}</span> 
           <br>
-          Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Kalibrasi'][0]}}</span>
+          Tanggal <span class="font-weight-bold">{{ convertDate(cert_data['Tanggal Kalibrasi'][0]['$date']) }}</span>
           </p>
         </v-card-actions>
 

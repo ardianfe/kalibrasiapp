@@ -19,11 +19,11 @@
                   <v-card @click="$router.push('#process')"
                     slot-scope="{hover}" flat
                     style="width: 90%" 
-                    class="pointer white--text v-main-card text-xs-center"
-                    :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
+                    class="pointer primary--text v-main-card text-xs-center"
+                    :class="`${hover ? 'elevation-4 white darken-2' : 'elevation-0 white darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
-                      <p v-if="$store.state.dashboard.jumlah" color="yellow" class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah}}</p>
+                      <p v-if="$store.state.dashboard.jumlah" color="primary" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah}}</p>
                       <div class="text-xs-center" v-else>
                         <v-progress-circular
                           :size="50"
@@ -31,11 +31,11 @@
                           indeterminate class="my-2"
                         ></v-progress-circular>
                       </div>
-                      <p color="yellow" class="yellow--text title px-2 pt-sans">Sertifikat Baru</p>
+                      <p color="primary" class="primary--text title px-2 pt-sans">Sertifikat Baru</p>
                     </v-card-text>
                     <v-card-actions class="pa-0">
                       <v-spacer></v-spacer>
-                      <v-icon color="white">keyboard_arrow_down</v-icon>
+                      <v-icon color="primary">keyboard_arrow_down</v-icon>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -47,11 +47,11 @@
                   <v-card @click="$router.push('#printed')"
                     slot-scope="{hover}" flat
                     style="width: 90%" 
-                    class="pointer white--text v-main-card text-xs-center"
-                    :class="`${hover ? 'primary darken-2' : 'elevation-0 primary darken-3'}`"
+                    class="pointer primary--text v-main-card text-xs-center"
+                    :class="`${hover ? 'elevation-4 white darken-2' : 'elevation-0 white darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
-                      <p v-if="$store.state.company" class="yellow--text display-4 ma-0 bebas-neue">{{$store.state.company}}</p>
+                      <p v-if="$store.state.company" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.company}}</p>
                       <div class="text-xs-center" v-else>
                         <v-progress-circular
                           :size="50"
@@ -59,11 +59,11 @@
                           indeterminate class="my-2"
                         ></v-progress-circular>
                       </div>
-                      <p class="yellow--text ma-0 pt-sans headline">Perusahaan</p>
+                      <p class="primary--text ma-0 pt-sans headline">Perusahaan</p>
                     </v-card-text>
                     <v-card-actions class="pa-0">
                       <v-spacer></v-spacer>
-                      <v-icon color="white">keyboard_arrow_down</v-icon>
+                      <v-icon color="primary">keyboard_arrow_down</v-icon>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
