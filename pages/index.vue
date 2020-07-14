@@ -23,7 +23,7 @@
                     :class="`${hover ? 'elevation-4 white darken-2' : 'elevation-0 white darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
-                      <p v-if="$store.state.dashboard.jumlah" color="primary" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah}}</p>
+                      <p v-if="$store.state.dashboard.jumlah && $store.state.certified.jumlah" color="primary" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah + $store.state.certified.jumlah}}</p>
                       <div class="text-xs-center" v-else>
                         <v-progress-circular
                           :size="50"
@@ -120,9 +120,9 @@
             <td class="primary td-header">Status Kalibrasi</td>
           </tr>
 
-          <tr class="tr-body" v-for="(item, index) in companies" :key="index">
-            <td class="td-body">{{item.name}}</td>
-            <td class="td-body">{{item.cert_date}}</td>
+          <tr class="tr-body" v-for="(item, index) in $store.state.dashboard.data" :key="index">
+            <td class="td-body">{{item['Nama Perusahaan'][0]}}</td>
+            <td class="td-body">{{convertDate(item['Tanggal Diterima'][0]['$date'])}}</td>
             <td class="td-body">Sudah Kalibrasi</td>
           </tr>
         </table>
@@ -138,14 +138,18 @@
         <table style="width: 100%" class="f-table my-2">
           <tr class="tr-head white--text pt-sans font-weight-bold">
             <td class="primary td-header">Nama Perusahaan</td>
-            <td class="primary td-header">No Sertifikat</td>
-            <td class="primary td-header">Tgl. Sertifikat</td>
+            <td class="primary td-header">Tanggal Terima</td>
+            <td class="primary td-header">Tanggal Kalibrasi</td>
+            <td class="primary td-header">Tanggal Terbit</td>
+            <td class="primary td-header">Status</td>
           </tr>
 
-          <tr class="tr-body" v-for="(item, index) in companies" :key="index">
-            <td class="td-body">{{item.name}}</td>
-            <td class="td-body">{{item.cert_no}}</td>
-            <td class="td-body">{{item.cert_date}}</td>
+          <tr class="tr-body" v-for="(item, index) in $store.state.certified.data" :key="index">
+            <td class="td-body">{{item['Nama Perusahaan'][0]}}</td>
+            <td class="td-body">{{convertDate(item['Tanggal Diterima'][0]['$date'])}}</td>
+            <td class="td-body">{{convertDate(item['Tanggal Kalibrasi'][0]['$date'])}}</td>
+            <td class="td-body">{{convertDate(item['Tanggal Terbit'][0]['$date'])}}</td>
+            <td class="td-body">Sudah Dicetak</td>
           </tr>
         </table>
         <v-card class="v-main-card white" style="border: 1px solid #dcdcdc !important" flat>
@@ -196,76 +200,31 @@ export default {
       { id: 8, name: 'Kelistrikan (Mesin Las)', desc: '-', url: '?bid=kelistrikan (mesin las)', count: 0, color: 'error' },
     ],
 
-    companies: [
-      { name: 'PDAM TIRTA RAHARJA KABUPATEN BANDUNG', cert_no: '3-01-19-00472', cert_date: '7 Oktober 2019'},
-      { name: 'PDAM TIRTA RAHARJA KABUPATEN BANDUNG', cert_no: '3-01-19-00472', cert_date: '7 Oktober 2019'},
-      { name: 'PDAM TIRTA RAHARJA KABUPATEN BANDUNG', cert_no: '3-01-19-00472', cert_date: '7 Oktober 2019'},
-      { name: 'PDAM TIRTA RAHARJA KABUPATEN BANDUNG', cert_no: '3-01-19-00472', cert_date: '7 Oktober 2019'},
-    ]
+    companies: []
 
   }),
 
   mounted() {
-    
+    // this.getOnGoing()
+    // this.companies = this.$slots
   },
 
   methods: {
-    triggerInput() {
-      document.getElementById("input-excel").click()
+    async getOnGoing() {
+      try {
+        const req = await this.$calibrate.getDashboard({
+          status: 'ongoing', page: 1
+        })
+      } catch (error) {
+        console.log(error.response);
+        alert('failed to retreive data from server')
+      }
     },
 
-    hideElement(id){
-      console.log(id);
-      
-      document.getElementById(''+id).style = "display: none;"
-    },
-    
-    showElement(id){      
-      document.getElementById(''+id).style = "display: block;"
-    },
-
-    fileSelected(e) {
-      // document.getElementById('input-excel').change((e) => {
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onload = function(e) {
-          var data = new Uint8Array(reader.result);
-          var wb = XLSX.read(data,{type:'array'});
-
-          for (const x in wb.SheetNames) {
-            if (wb.SheetNames.hasOwnProperty(x)) {
-              const element = wb.SheetNames[x];
-              var worksheet = wb.Sheets[element];
-              console.log(x+'', XLSX.utils.sheet_to_json(worksheet,{raw:true}));
-              
-              var htmlstr = XLSX.write(wb,{sheet:wb.SheetNames[x], type:'binary',bookType:'html'});
-              // console.log(htmlstr);
-
-              var newEl = document.createElement('div')
-              console.log(newEl);
-              
-              newEl.setAttribute("id", x);
-              // newEl.setAttribute("@click", "hideElement("+x+")");
-              // var newContent = document.createTextNode("Hi there and greetings! x - element"); 
-              // // add the text node to the newly created div
-              // newEl.appendChild(newContent);
-              var currentDiv = document.getElementById("wrapper"); 
-              currentDiv.insertBefore(newEl, currentDiv.childNodes[0]);
-              
-              document.getElementById(x).innerHTML += "<br><h3 style='background-color: yellow'> Sheet-"+ (x*1+1) +" | "+wb.SheetNames[x]+"</h3><button style='width: 400px;' onclick='hideElement(\""+x+"\")' value='Tutup'></button>";
-              document.getElementById(x).innerHTML += htmlstr;
-
-              localStorage.setItem(wb.SheetNames[x], htmlstr)
-            }
-          }
-
-        }
-      // });
+    convertDate(date_string) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
-}
-
-function hideElement(id) {
-  document.getElementById(id).innerHTML = "Hello World";
 }
 </script>

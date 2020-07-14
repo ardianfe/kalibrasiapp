@@ -63,6 +63,20 @@ const model = $axios => ({
     })
   }, 
 
+  getWork({status, page}){
+    return $axios.$get(base_url + '/dashboard/', {
+      params: {
+        status, //page
+      }
+    })
+  },
+
+  updateCertifStatus({id, status}) {
+    return $axios.$put(base_url + '/data_cert/' + id, {
+      status
+    })
+  },
+
   uploadFile({file, category}) {
     console.log(file, category);    
     let formData = new FormData()

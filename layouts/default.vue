@@ -94,6 +94,9 @@ export default {
       right: true,
       rightDrawer: true,
       title: 'OVEN PDAM',
+      
+      certificates: {},
+      certified: {},
 
       date: new Date().toISOString().substr(0, 10),
       menu: false,
@@ -119,12 +122,68 @@ export default {
       try {
         const req = await this.$calibrate.getDashboard({})
         console.log('getDashboard :', req);
-        this.$store.commit('setDashboard', req)
+        this.certificates = {} // kosongin array
+
+        for (const key in req.id) {
+          if (req.id.hasOwnProperty(key)) {
+            const element = req.id[key];
+            await this.getCertData(element)
+          }
+        }
+
+        console.log('certs :', this.certificates);
+        this.getCertified()
+
         
+        this.$store.commit('setDashboard', {'data': this.certificates, 'jumlah': req.jumlah})
       } catch (error) {
         console.log(error.response)        
       }
     },
+
+    async getCertData(_id) {
+      try {
+        const req = await this.$calibrate.getDataCertificate({id: _id})
+        this.certificates[_id] = req.data_perusahaan
+        
+      } catch (error) {
+        console.log(error.response);
+        alert('failed to get certificate data, id: ' + _id)
+      }
+    },
+
+    async getCertified() {
+      try {
+        const req = await this.$calibrate.getWork({ status: 'certified', page: 1})
+        // console.log('getDashboard :', req);
+        this.certified = {} // kosongin array
+
+        for (const key in req.id) {
+          if (req.id.hasOwnProperty(key)) {
+            const element = req.id[key];
+            await this.getCertifiedData(element)
+          }
+        }
+
+        console.log('certified :', this.certified);
+        
+        this.$store.commit('setCertified', {'data': this.certified, 'jumlah': req.jumlah})
+      } catch (error) {
+        console.log(error.response)        
+      }
+    },
+
+    async getCertifiedData(_id) {
+      try {
+        const req = await this.$calibrate.getDataCertificate({id: _id})
+        this.certified[_id] = req.data_perusahaan
+        
+      } catch (error) {
+        console.log(error.response);
+        alert('failed to get certificate data, id: ' + _id)
+      }
+    },
+
     async getCompanyCount() {
       try {
         const req = await this.$calibrate.getCompanyCount({})

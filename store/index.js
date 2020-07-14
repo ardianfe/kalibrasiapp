@@ -4,7 +4,10 @@ export const state = () => ({
   username: 'Admin',
 
   company: '',
-  dashboard: []
+  dashboard: [],
+  certified: [],
+
+  dashboardData: []
   
 })
 
@@ -19,6 +22,12 @@ export const mutations = {
   
   setDashboard(state, data) {
     state.dashboard = data
+    console.log('dashboard data', data);
+  },
+  
+  setCertified(state, data) {
+    state.certified = data
+    console.log('certified data', data);
   },
 
   login(state, username) {
