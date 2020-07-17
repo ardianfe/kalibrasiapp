@@ -9,7 +9,15 @@
         >keyboard_arrow_left</v-icon>
       </v-hover> &nbsp;
       <p class="lato font-weight-bold title mt-3">
-        Bidang Temperatur - Oven |  
+        <v-hover>
+          <span 
+            class="pointer" slot-scope="{ hover }"  
+            @click="$router.push('/bidang?bid=temperature&sub=oven')" 
+            :class="`${ hover ? 'primary--text' : 'black--text'}`" >
+            Bidang Temperatur - Oven
+          </span>
+        </v-hover>
+        |
         <span class="font-weight-bold">
           {{$route.query.id}}
         </span>

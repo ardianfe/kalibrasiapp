@@ -22,7 +22,7 @@
                     class="pointer primary--text v-main-card text-xs-center"
                     :class="`${hover ? 'elevation-4 white darken-2' : 'elevation-0 white darken-3'}`"
                   >
-                    <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
+                    <v-card-text class="pt-4" style="min-height: 200px; max-height: 200px;">
                       <p v-if="$store.state.dashboard.jumlah && $store.state.certified.jumlah" color="primary" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah + $store.state.certified.jumlah}}</p>
                       <div class="text-xs-center" v-else>
                         <v-progress-circular
@@ -31,7 +31,8 @@
                           indeterminate class="my-2"
                         ></v-progress-circular>
                       </div>
-                      <p color="primary" class="primary--text title px-2 pt-sans">Sertifikat Baru</p>
+                      <p class="primary--text ma-0 pt-sans headline">Sertifikat</p>
+                      <!-- <p color="primary" class="primary--text title px-2 pt-sans">Sertifikat</p> -->
                     </v-card-text>
                     <v-card-actions class="pa-0">
                       <v-spacer></v-spacer>
@@ -50,7 +51,7 @@
                     class="pointer primary--text v-main-card text-xs-center"
                     :class="`${hover ? 'elevation-4 white darken-2' : 'elevation-0 white darken-3'}`"
                   >
-                    <v-card-text class="pt-4" style="min-height: 250px; max-height: 250px;">
+                    <v-card-text class="pt-4" style="min-height: 200px; max-height: 200px;">
                       <p v-if="$store.state.company" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.company}}</p>
                       <div class="text-xs-center" v-else>
                         <v-progress-circular
@@ -110,7 +111,7 @@
             <p class="accent--text lato font-weight-bold title mt-3">Sedang Proses</p>
           </v-flex>
           <v-flex class="text-xs-right">
-            <v-btn class="primary info" flat>Lihat Semuanya</v-btn>
+            <v-btn class="primary info" flat to="/ongoing">Lihat Semuanya</v-btn>
           </v-flex>
         </v-layout>
         <table style="width: 100%" class="f-table my-2">
@@ -132,7 +133,7 @@
             <p class="accent--text lato font-weight-bold title mt-3">Sudah Cetak</p>
           </v-flex>
           <v-flex class="text-xs-right">
-            <v-btn class="primary info" flat>Lihat Semuanya</v-btn>
+            <v-btn class="primary info" flat to="/certified">Lihat Semuanya</v-btn>
           </v-flex>
         </v-layout>
         <table style="width: 100%" class="f-table my-2">

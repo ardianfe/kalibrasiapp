@@ -552,7 +552,22 @@ export default {
       document.body.innerHTML = printContents;
       window.print();
       // document.body.innerHTML = originalContents; 
-      location.reload()
+      // location.reload()
+      this.changeStatus()
+    },
+
+    async changeStatus() {
+      try {
+        const req = await this.$calibrate.updateCertifStatus({
+          id: this.certificate_number, status: 'certified'
+        })
+
+        console.log(this.certificate_number+' status :', req);
+        location.reload()
+      } catch (error) {
+        console.log(error.response);
+        location.reload()
+      }
     },
 
     convertDate(date_string) {

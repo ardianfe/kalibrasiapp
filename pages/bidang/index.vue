@@ -45,15 +45,16 @@
                   {{ item.tgl_kalibarsi ? convertDate(item.tgl_kalibarsi['$date']) : item.tgl_kalibarsi}}
                 </td>
                 <td class="td-body">
-                  <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' + item['Nama Alat'][0] + '?cert_no=' + index + '&id=' + item.no_sertifikat)">
+                  <!-- /temperatur/OVEN?cert_no=5ecf1968400b079d81e61140&id=3-01-20-00475 -->
+                  <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' +$route.query.sub+ '?cert_no=' + index + '&id=' + item.no_sertifikat)">
                     <v-icon small color="primary">edit</v-icon>
                   </v-btn>
                   <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index + '&id=' + item.no_sertifikat)">
                     <v-icon small color="primary">print</v-icon>
                   </v-btn>
-                  <v-btn icon small class="transparent">  
+                  <!-- <v-btn icon small class="transparent">  
                     <v-icon small color="error">delete</v-icon>
-                  </v-btn>
+                  </v-btn> -->
                 </td>
               </tr>
             </template>
