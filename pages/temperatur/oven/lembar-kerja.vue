@@ -156,7 +156,7 @@
           </v-card-text>
         </v-card>
 
-        <v-card-actions class="pa-3" v-if="cert_data['Pemeriksa']">
+        <!-- <v-card-actions class="pa-3" v-if="cert_data['Pemeriksa']">
           <p>Diperiksa oleh : <span class="font-weight-bold">{{cert_data['Pemeriksa'][0]}}</span> 
           <br>
           Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Diterima'][0]}}</span>
@@ -166,7 +166,7 @@
           <br>
           Tanggal <span class="font-weight-bold">{{cert_data['Tanggal Kalibrasi'][0]}}</span>
           </p>
-        </v-card-actions>
+        </v-card-actions> -->
       </v-card>
 
     </v-flex>
@@ -206,7 +206,7 @@ export default {
 
   data: () => ({
     active: null,
-    header: [ "110", "150", "Ketidakpastian" ],
+    header: [ "110", "150" ],
     cert_data: [],
     ktpheader: [ "Komponen", "Satuan", "UiCi", "(UiCi)2" ],
 
@@ -254,8 +254,8 @@ export default {
   methods: {
     async getCert(no_cert) {
       try {
-        const request = await this.$calibrate.getCertData({
-          no_cert: no_cert
+        const request = await this.$calibrate.getDetail({
+          id: no_cert
         })
 
         console.log('req :', request);

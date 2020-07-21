@@ -82,8 +82,12 @@ const model = $axios => ({
     let formData = new FormData()
     formData.append('file', file)
     formData.append('category', category)
-    return $axios.$post(url + '/upload', formData)
+    return $axios.$post(base_url + '/upload', formData)
   },
+
+  getDetail({id}) {
+    return $axios.$get(base_url + '/work/' + id + '/')
+  }
 });
 
 export default ({

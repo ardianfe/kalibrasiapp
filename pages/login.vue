@@ -99,6 +99,13 @@
           }, 500);
         } catch (error) {
           console.log(error.response);
+          if (error.response.status == 500) {
+            alert('Username tidak ditemukan !')
+          } else if (error.response.status == 401) {
+            alert('Password salah !')
+          } else {
+            alert('login gagal, koneksi bermasalah')
+          }
           setTimeout(() => {
             this.loading = false
           }, 500);

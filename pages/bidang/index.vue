@@ -47,7 +47,7 @@
                 <td class="td-body">
                   <!-- /temperatur/OVEN?cert_no=5ecf1968400b079d81e61140&id=3-01-20-00475 -->
                   <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' +$route.query.sub+ '?cert_no=' + index + '&id=' + item.no_sertifikat)">
-                    <v-icon small color="primary">edit</v-icon>
+                    <v-icon small color="primary">visibility</v-icon>
                   </v-btn>
                   <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index + '&id=' + item.no_sertifikat)">
                     <v-icon small color="primary">print</v-icon>

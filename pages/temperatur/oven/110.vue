@@ -115,7 +115,7 @@
                   <td>{{item['Ui'].toFixed(2)}}</td>
                   <td>{{item['Ci'].toFixed(2)}}</td>
                   <td>{{item['UiCi'].toFixed(2)}}</td>
-                  <td>{{item['(UiCi)2'].toFixed(3)}}</td>
+                  <td>{{item['(UiCi)2'].toFixed(4)}}</td>
                 </template>
               </tr>
               <tr>
@@ -132,7 +132,7 @@
               </tr>
               <tr>
                 <td style="font-weight: 600" colspan="7">{{sheets2.ktp[11]['Komponen']}}</td>
-                <td style="font-weight: 600" colspan="2">{{sheets2.ktp[11]['(UiCi)2'].toFixed(2)}}</td>
+                <td style="font-weight: 600" colspan="2">{{sheets2.ktp[11]['(UiCi)2'].toFixed(1)}}</td>
               </tr>
             </table>
             <br>

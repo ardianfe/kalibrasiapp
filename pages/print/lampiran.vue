@@ -208,9 +208,9 @@
                       <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
                       </p>
-                      <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                      <!-- <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         3. Laboratorium ini diakreditasi KAN LK-022-IDN.
-                      </p>
+                      </p> -->
                     </v-flex>
                   </v-layout>
                 </div>
@@ -372,9 +372,9 @@
                       <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
                       </p>
-                      <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                      <!-- <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         3. Laboratorium ini diakreditasi KAN LK-022-IDN.
-                      </p>
+                      </p> -->
                     </v-flex>
                   </v-layout>
                 </div>

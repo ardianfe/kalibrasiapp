@@ -331,9 +331,9 @@
                       <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
                       </p>
-                      <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                      <!-- <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         3. Laboratorium ini diakreditasi KAN LK-022-IDN.
-                      </p>
+                      </p> -->
                     </v-flex>
                   </v-layout>
                 </div>
@@ -542,7 +542,7 @@ export default {
       this.certificate.calibration_location = cert_data['Lokasi Kalibrasi'][0]
       this.certificate.calibration_method = cert_data['Metode Kalibrasi'][0]
       this.certificate.refference = cert_data['Standar Acuan'][0]
-      this.certificate.published_date = this.convertDate(cert_data['Tanggal Terbit '][0])
+      this.certificate.published_date = this.convertDate(cert_data['Tanggal Terbit'][0]['$date'])
     },
 
     printWrapper() {

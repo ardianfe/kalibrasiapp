@@ -27,10 +27,10 @@
               <v-hover>
                 <v-card
                   slot-scope="{ hover }" 
-                  :class="`${field.name == selected || hover ? 'primary' : 'grey' }`" 
+                  :class="`${field.value == selected || hover ? 'primary' : 'grey' }`" 
                   class="d-flex v-main-card pointer pa-1" flat
                   style="width: 100%; height: 120px; max-height: 120px;"
-                  @click="selected = field.name"
+                  @click="selected = field.value"
                 >
                   <p class="text-xs-center white--text title" style="margin: auto">{{field.name}}</p>
                 </v-card>
@@ -39,13 +39,13 @@
           </v-layout>
           <!-- <v-btn v-if="$store.state.isLoggedIn" class="primary" @click="$router.push('/input_file')">Input File</v-btn> -->
         </v-card-text>
-
         <v-card-text v-if="$store.state.isLoggedIn">
+          
           <span>{{ filename ? filename : 'Input File CSV, XLS, XLSX'}}</span>
-          <v-btn class="primary" @click="triggerInput" v-if="file">Pilih File</v-btn>
-          <v-btn class="primary" @click="() => {file = {}, filename = ''}" v-else>Hapus</v-btn>
           <input type="file" id="input-excel" hidden @change="fileSelected"/>
-          <v-btn class="primary" @click="fileUpload" v-if="file != null">Upload</v-btn>
+          <v-btn class="primary" @click="triggerInput" v-if="filename == ''">Pilih File</v-btn>
+          <v-btn class="error" @click="() => {file = {}, filename = ''}" v-else>Hapus</v-btn>
+          <v-btn :disabled="selected == '' || filename == ''" :loading="uploading" class="primary" @click="fileUpload" v-if="file != null">Upload</v-btn>
         </v-card-text>
 
       </v-card>
@@ -69,7 +69,7 @@
 <script>
 export default {
   head: {
-    title: 'Temperatur',
+    title: 'Upload File',
     meta: [
       {
         hid: 'temperature',
@@ -83,17 +83,19 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Oven', desc: '-', url: '/temperatur/oven' },
-      { id: 2, name: 'Furnace', desc: '-', url: '' },
-      { id: 3, name: 'Chamber', desc: '-', url: '' },
-      { id: 4, name: 'Inkubator', desc: '-', url: '' },
+      { id: 1, name: 'Oven', value: 'oven', desc: '-', url: '/temperatur/oven' },
+      { id: 2, name: 'Furnace', value: 'furnace', desc: '-', url: '' },
+      { id: 3, name: 'Chamber', value: 'chamber', desc: '-', url: '' },
+      { id: 4, name: 'Inkubator', value: 'inkubator', desc: '-', url: '' },
     ],
 
     filename: '',
     file: {},
     selected: '',
 
-    sheets: []
+    sheets: [],
+
+    uploading: false
   }),
 
   mounted() {
@@ -121,21 +123,30 @@ export default {
       var reader = new FileReader();
       console.log(e.target.files[0]);
       this.filename = e.target.files[0].name
-
       this.file = e.target.files[0]
     },
 
     async fileUpload() {
+      this.uploading = true
       try {
-        const req = await this.$calibrate.upload({
-          file: this.file
+        const req = await this.$calibrate.uploadFile({
+          file: this.file,
+          category: this.selected
         })
 
         // console.log(this.file);
-        this.$router.push('/temperatur/'+req.category+'?cert_no=' + req['no sertifikat']);
+
+        setTimeout(() => {
+          this.uploading = false
+          this.$router.go(-1);
+        }, 300);
         
       } catch (error) {
         alert('gagal mengupload file')
+        setTimeout(() => {
+          this.uploading = false
+          this.$router.go(-1);
+        }, 300);
       }
     },
 

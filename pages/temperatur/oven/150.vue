@@ -106,7 +106,7 @@
                 <td>{{sheets.ktp[index]['Komponen']}}</td>
                 <td>{{sheets.ktp[index]['Satuan']}}</td>
                 <td>{{sheets.ktp[index]['UiCi']}}</td>
-                <td>{{sheets.ktp[index]['(UiCi)2'].toFixed(2)}}</td>
+                <td>{{sheets.ktp[index]['(UiCi)2'].toFixed(3)}}</td>
               </tr>
               <tr>
                 <th colspan="3">{{sheets.ktp[4]["Komponen"]}}</th>

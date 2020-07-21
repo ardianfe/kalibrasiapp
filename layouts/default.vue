@@ -108,6 +108,8 @@ export default {
   mounted() {
     this.getDashboard()
     this.getCompanyCount()
+
+    this.getOven()
   },
 
   methods: {
@@ -116,6 +118,23 @@ export default {
       setTimeout(function(){ 
         window.location.reload(); 
       }, 500);
+    },
+
+    async getOven() {
+      this.loading = true
+      try {
+        const req = await this.$calibrate.getAllWork({
+          category: 'oven'
+        })
+
+        console.log('oven length :', req);
+
+        this.$store.commit('setOvenCount', req)
+        
+      } catch (error) {
+        // alert('Gagal mendapatkan data certificate')
+        console.log(error.response);
+      }
     },
 
     async getDashboard() {

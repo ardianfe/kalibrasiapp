@@ -14,6 +14,7 @@
                   <hr style="border: 2px solid white; width: 27%">
                 <!-- <v-card style="height: 300px; width: 100%" class="v-main-card success" flat></v-card> -->
               </v-flex>
+              <!-- {{$store.state.certified}} -->
               <v-flex xs12 sm6 md3 class="pa-2">
                 <v-hover>
                   <v-card @click="$router.push('#process')"
@@ -23,7 +24,7 @@
                     :class="`${hover ? 'elevation-4 white darken-2' : 'elevation-0 white darken-3'}`"
                   >
                     <v-card-text class="pt-4" style="min-height: 200px; max-height: 200px;">
-                      <p v-if="$store.state.dashboard.jumlah && $store.state.certified.jumlah" color="primary" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.dashboard.jumlah + $store.state.certified.jumlah}}</p>
+                      <p v-if="$store.state.certified.data" color="primary" class="primary--text display-4 ma-0 bebas-neue">{{$store.state.certified.jumlah}}</p>
                       <div class="text-xs-center" v-else>
                         <v-progress-circular
                           :size="50"
@@ -78,7 +79,7 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-layout row wrap>
-              <v-flex class="pa-1" xs6 sm3 v-for="(field, index) in fields" :key="index">
+              <v-flex class="pa-1" xs6 sm3 v-for="(field, index) in $store.state.fields" :key="index">
                 <v-hover>
                   <v-card 
                     slot-scope="{hover}" flat
@@ -190,16 +191,7 @@
 
 export default {
   data: () => ({
-    fields: [
-      { id: 1, name: 'Suhu', desc: '-', url: '?bid=temperatur&sub=oven', count: 3, color: 'blue ' },
-      { id: 2, name: 'Dimensi', desc: '-', url: '?bid=dimensi', count: 0, color: 'success' },
-      { id: 3, name: 'Tekanan', desc: '-', url: '?bid=tekanan', count: 0, color: 'warning' },
-      { id: 4, name: 'Gaya', desc: '-', url: '?bid=gaya', count: 0, color: 'error' }, 
-      { id: 5, name: 'Masa dan Timbangan', desc: '-', url: '?bid=masa dan timbangan', count: 0, color: 'blue' },
-      { id: 6, name: 'Optik / Instrumen Analisa', desc: '-', url: '?bid=optik \/ instrumen analisa', count: 0, color: 'success' },
-      { id: 7, name: 'Alat-alat Gelas Volumetri', desc: '-', url: '?bid=alat-alat gelas volumetri', count: 0, color: 'warning' },
-      { id: 8, name: 'Kelistrikan (Mesin Las)', desc: '-', url: '?bid=kelistrikan (mesin las)', count: 0, color: 'error' },
-    ],
+    fields: [],
 
     companies: []
 
