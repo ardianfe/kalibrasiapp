@@ -52,7 +52,7 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png' },
       {
         rel: 'stylesheet',
         href:

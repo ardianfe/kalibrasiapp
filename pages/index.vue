@@ -13,6 +13,7 @@
                   <br> Portal Kalibrasi!</p>
                   <hr style="border: 2px solid white; width: 27%">
                 <!-- <v-card style="height: 300px; width: 100%" class="v-main-card success" flat></v-card> -->
+                <v-btn large class="mx-0 mt-4 my-0 primary--text elevation-0" @click="$router.push('/input_file')">Input Data Hasil Kalibrasi</v-btn>
               </v-flex>
               <!-- {{$store.state.certified}} -->
               <v-flex xs12 sm6 md3 class="pa-2">
@@ -83,7 +84,7 @@
                 <v-hover>
                   <v-card 
                     slot-scope="{hover}" flat
-                    @click="field.id == 1 ? $router.push('/bidang' + field.url) : ''"
+                    @click="$router.push('/bidang' + field.url)"
                     :class="`${hover ? 'elevation-8 pointer lighten-1 '+field.color : 'elevation-0 '+ field.color }`" 
                     class="v-main-card white--text pa-0"
                   >
@@ -190,6 +191,17 @@
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default {
+  head: {
+    title: 'Dashboard | B4T Kalibrasi',
+    meta: [
+      {
+        hid: 'dashboard',
+        name: 'dashboard',
+        content: 'B4T Dashboard'
+      }
+    ]
+  },
+
   data: () => ({
     fields: [],
 

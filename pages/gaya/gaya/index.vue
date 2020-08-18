@@ -17,11 +17,11 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Input Data Hasil Kalibrasi
+            Bidang Gaya
           </p>
         </v-card-title>
 
-        <v-card-text v-if="$store.state.isLoggedIn">
+        <!-- <v-card-text v-if="$store.state.isLoggedIn">
           <v-layout row wrap>
             <v-flex class="pa-3" xs6 sm3 v-for="(field, index) in fields" :key="index">
               <v-hover>
@@ -37,7 +37,7 @@
               </v-hover>
             </v-flex>
           </v-layout>
-        </v-card-text>
+        </v-card-text> -->
         <v-card-text v-if="$store.state.isLoggedIn">
           
           <span>{{ filename ? filename : 'Input File CSV, XLS, XLSX'}}</span>
@@ -83,10 +83,9 @@ export default {
 
     fields: [
       { id: 1, name: 'Oven', value: 'oven', desc: '-', url: '/temperatur/oven' },
-      // { id: 2, name: 'Furnace', value: 'furnace', desc: '-', url: '' },
-      // { id: 3, name: 'Chamber', value: 'chamber', desc: '-', url: '' },
-      // { id: 4, name: 'Inkubator', value: 'inkubator', desc: '-', url: '' },
-      { id: 4, name: 'Gaya', value: 'gaya', desc: '-', url: '' },
+      { id: 2, name: 'Furnace', value: 'furnace', desc: '-', url: '' },
+      { id: 3, name: 'Chamber', value: 'chamber', desc: '-', url: '' },
+      { id: 4, name: 'Inkubator', value: 'inkubator', desc: '-', url: '' },
     ],
 
     filename: '',

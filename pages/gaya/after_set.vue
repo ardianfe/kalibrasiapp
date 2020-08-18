@@ -1,55 +1,17 @@
 <template>
-  <v-layout
-    column
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-card class="elevation-8 v-main-card">
-        <v-card-title class="headline">
-          <v-hover>
-            <v-icon x-large
-              :color="`${ hover ? 'primary' : 'grey'}`" 
-              slot-scope="{ hover }" 
-              @click="$router.go(-1)"
-            >keyboard_arrow_left</v-icon>
-          </v-hover> &nbsp;
-          <p class="lato font-weight-bold title mt-3">
-            Input Data Hasil Kalibrasi
-          </p>
-        </v-card-title>
+  <v-layout column>
+    <v-flex xs12 sm8 md6>
+      <gayaHeader></gayaHeader>
 
+      <v-card class="elevation-8 v-main-card mt-4">
         <v-card-text v-if="$store.state.isLoggedIn">
-          <v-layout row wrap>
-            <v-flex class="pa-3" xs6 sm3 v-for="(field, index) in fields" :key="index">
-              <v-hover>
-                <v-card
-                  slot-scope="{ hover }" 
-                  :class="`${field.value == selected || hover ? 'primary' : 'grey' }`" 
-                  class="d-flex v-main-card pointer pa-1" flat
-                  style="width: 100%; height: 120px; max-height: 120px;"
-                  @click="selected = field.value"
-                >
-                  <p class="text-xs-center white--text title" style="margin: auto">{{field.name}}</p>
-                </v-card>
-              </v-hover>
-            </v-flex>
-          </v-layout>
-        </v-card-text>
-        <v-card-text v-if="$store.state.isLoggedIn">
-          
           <span>{{ filename ? filename : 'Input File CSV, XLS, XLSX'}}</span>
           <input type="file" id="input-excel" hidden @change="fileSelected"/>
           <v-btn class="primary" @click="triggerInput" v-if="filename == ''">Pilih File</v-btn>
           <v-btn class="error" @click="() => {file = {}, filename = ''}" v-else>Hapus</v-btn>
           <v-btn :disabled="selected == '' || filename == ''" :loading="uploading" class="primary" @click="fileUpload" v-if="file != null">Upload</v-btn>
         </v-card-text>
-
       </v-card>
-
-
     </v-flex>
   </v-layout>
 </template>
@@ -66,14 +28,20 @@
 </style>
 
 <script>
+import gayaHeader from '~/components/gaya.vue'
+
 export default {
+  components: {
+    gayaHeader
+  },
+
   head: {
-    title: 'Upload File',
+    title: 'Setelah Set | Bidang Gaya',
     meta: [
       {
-        hid: 'temperature',
-        name: 'temperature',
-        content: 'Bidang Temperatur'
+        hid: 'gaya',
+        name: 'gaya',
+        content: 'Bidang Gaya'
       }
     ],
   },
@@ -83,10 +51,9 @@ export default {
 
     fields: [
       { id: 1, name: 'Oven', value: 'oven', desc: '-', url: '/temperatur/oven' },
-      // { id: 2, name: 'Furnace', value: 'furnace', desc: '-', url: '' },
-      // { id: 3, name: 'Chamber', value: 'chamber', desc: '-', url: '' },
-      // { id: 4, name: 'Inkubator', value: 'inkubator', desc: '-', url: '' },
-      { id: 4, name: 'Gaya', value: 'gaya', desc: '-', url: '' },
+      { id: 2, name: 'Furnace', value: 'furnace', desc: '-', url: '' },
+      { id: 3, name: 'Chamber', value: 'chamber', desc: '-', url: '' },
+      { id: 4, name: 'Inkubator', value: 'inkubator', desc: '-', url: '' },
     ],
 
     filename: '',

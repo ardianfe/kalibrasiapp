@@ -12,15 +12,11 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/bidang?bid=temperatur&sub=oven')" 
+            @click="$router.push('/bidang?bid=gaya&sub=gaya')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
-            Bidang Temperatur - Oven
+            Bidang Gaya
           </span>
         </v-hover>
-        |
-        <span class="font-weight-bold">
-          {{$route.query.id}}
-        </span>
       </p>
     </v-card-title>
     <v-card-actions v-if="$store.state.isLoggedIn" class="pa-2">
@@ -47,10 +43,10 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'temperatur-oven', text: 'Identitas', url: '/temperatur/OVEN?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'temperatur-oven-lembar-kerja', text: 'Lembar Kerja', url: '/temperatur/OVEN/lembar-kerja?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'print-sertifikat', text: 'Cetak Serifikat', url: '/print/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'print-lampiran', text: 'Cetak Lampiran', url: '/print/lampiran?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'gaya-before_set', text: 'Sebelum Set', url: '/gaya/before_set?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'gaya-after_set', text: 'Setelah Set', url: '/gaya/after_set?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
+        { name: 'gaya-uncertainty', text: 'Ketidakpastian', url: '/gaya/uncertainty?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
+        { name: 'gaya-sertifikat', text: 'Cetak Serifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id }
       ]
     }
   },

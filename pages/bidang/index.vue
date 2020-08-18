@@ -18,7 +18,7 @@
         <v-card-title class="pb-0">
           <h3 class="mt-4">Sedang Proses</h3>
           <v-spacer />
-          <v-btn class="info" @click="$router.push('/' + $route.query.bid)">Input data baru</v-btn>
+          <v-btn class="info" @click="$router.push('/input_file?bid=' + $route.query.bid)">Input data baru</v-btn>
         </v-card-title>
 
         <v-card-text>
@@ -52,9 +52,9 @@
                   <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index + '&id=' + item.no_sertifikat)">
                     <v-icon small color="primary">print</v-icon>
                   </v-btn>
-                  <!-- <v-btn icon small class="transparent">  
+                  <v-btn icon small class="transparent" @click="deleteDataCert(index)">  
                     <v-icon small color="error">delete</v-icon>
-                  </v-btn> -->
+                  </v-btn>
                 </td>
               </tr>
             </template>
@@ -102,11 +102,48 @@ export default {
     processed: {},
     keys: {},
 
-    loading: false
+    loading: false,
+
+    gaya: {
+      "5f150c98a779f3eeeada6090":{
+        "nama perusahaan":"TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA",
+        "no_sertifikat":"3-09-17-0427",
+        "nama_alat":"Concrete Test Hammer",
+        "tgl_terima":{
+          "$date":1589328000000
+        },
+        "tgl_kalibarsi":{
+          "$date":1589328000000
+        },
+        "suhu":[
+          "110",
+          "150"
+        ]
+      },
+      "5f16d9c04ba2adae961d9029":{
+        "nama perusahaan":"TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA",
+        "no_sertifikat":"3-09-17-0477",
+        "nama_alat":"Concrete Test Hammer",
+        "tgl_terima":{
+          "$date":1595203200000
+        },
+        "tgl_kalibarsi":{
+          "$date":1595635200000
+        },
+        "suhu":[
+          "110",
+          "150"
+        ]
+      }
+    }
   }),
 
   mounted() {
-    this.getAllCertificate()
+    if (this.$route.query.sub == 'gaya') {
+      this.processed = this.gaya
+    } else {
+      this.getAllCertificate()
+    }
   },
 
   methods: {
@@ -214,6 +251,19 @@ export default {
       // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(date_string).toLocaleDateString('id-ID', options)
+    },
+
+    async deleteDataCert(id) {
+      if (confirm('Apakah Anda yakin?')) {
+        try {
+          const req = await this.$calibrate.deleteDataCert({id: id})
+          console.log('delete datacert : ', req);
+
+          this.getAllCertificate()
+        } catch (error) {
+          console.log('delete datacert : ', error.response);
+        }
+      }
     }
   },
 }

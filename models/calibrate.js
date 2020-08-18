@@ -87,6 +87,10 @@ const model = $axios => ({
 
   getDetail({id}) {
     return $axios.$get(base_url + '/work/' + id + '/')
+  },
+
+  deleteDataCert({id}) {
+    return $axios.$delete(base_url + '/work/' + id + '/')
   }
 });
 
