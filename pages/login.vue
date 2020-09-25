@@ -8,15 +8,18 @@
           <Logo></Logo>
         </v-flex> -->
         
-        <v-flex xs12>
-          <p class="grey--text font-weight-bold text-xs-right ma-2">Butuh Bantuan?</p>
+        <v-flex xs12 class="ma-3">
+          <v-layout row justify-center>
+            <v-img src="/favicon.png" contain height="40px" max-width="40px"></v-img>
+            <p class="grey--text font-weight-bold title text-xs-right ma-2">B4T Kalibrasi</p>
+          </v-layout>
         </v-flex>
 
         <v-flex xs12>
           <v-card max-width="440px" style="margin: auto; padding: 4% 6%; border-radius: 14px;" class="elevation-0">
             <v-card-text>
-              <p class="mb-4 title font-weight-bold">
-                Selamat Datang di Portal Kalibrasi B4T.
+              <p class="mb-4 title text-xs-center font-weight-bold">
+                Selamat Datang Kembali !
               </p>
 
               <label for="username">Username</label>
@@ -36,10 +39,6 @@
                 :append-icon="peek ? 'visibility' : 'visibility_off'"
                 @click:append="peek = !peek"
               ></v-text-field>
-
-              <p class="font-weight-bold primary--text ma-0" style="cursor: pointer" @click="reset_dialog = true">
-                Lupa kata sandi?
-              </p>
             </v-card-text>
             <v-card-actions class="ma-0">
               <v-btn 
@@ -53,7 +52,15 @@
                 </h3>
               </v-btn>
             </v-card-actions>
+            <v-card-actions>
+              <p class="text-xs-center grey--text ma-3" style="cursor: pointer" @click="reset_dialog = true">
+                By clicking here, you agree to our <a>Customer Agreement</a>
+              </p>
+            </v-card-actions>
           </v-card>
+          <p class="text-xs-center primary--text ma-3" style="cursor: pointer" @click="reset_dialog = true">
+            Forgot your password?
+          </p>
         </v-flex>
 
       </v-layout>

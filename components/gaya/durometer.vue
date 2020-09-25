@@ -12,7 +12,7 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/bidang?bid=gaya&sub=gaya')" 
+            @click="$router.push('/gaya')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
             Bidang Gaya
           </span>
@@ -21,7 +21,7 @@
     </v-card-title>
     <v-card-actions v-if="$store.state.isLoggedIn" class="pa-2">
       <v-layout row wrap>
-        <v-flex class="pa-0" xs6 sm3 v-for="(menu, index) in menus" :key="index">
+        <v-flex class="pa-0" v-for="(menu, index) in menus" :key="index">
           <v-hover>
             <v-card 
               slot-scope="{hover}" :to="menu.url"
@@ -43,10 +43,11 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'gaya-before_set', text: 'Sebelum Set', url: '/gaya/before_set?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'gaya-after_set', text: 'Setelah Set', url: '/gaya/after_set?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'gaya-uncertainty', text: 'Ketidakpastian', url: '/gaya/uncertainty?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'gaya-sertifikat', text: 'Cetak Serifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id }
+        { name: 'gaya-durometer-lk', text: 'Lembar Kerja 1', url: '/gaya/durometer/lk?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'gaya-durometer-ktp1', text: 'KTP 1', url: '/gaya/durometer/ktp1?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'gaya-durometer-ktp2', text: 'KTP 2', url: '/gaya/durometer/ktp2?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
+        { name: 'gaya-sertifikat', text: 'Sertifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'gaya-durometer-lampiran', text: 'Cetak Lampiran', url: '/gaya/durometer/lampiran' }
       ]
     }
   },

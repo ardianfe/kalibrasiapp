@@ -1,7 +1,16 @@
 let url = 'https://kalibarasi-b4t.appspot.com'
+let url2 = 'https://kalibra-r45hfc5j2a-uc.a.run.app/kalibrasiapis/results/16042280001'
 let base_url = process.env.base
 
 const model = $axios => ({
+  getListOrders() {
+    return $axios.$get('https://kalibra-r45hfc5j2a-uc.a.run.app/kalibrasiapis/orders/?per_page=50&page=1')
+  },
+
+  testCors() {
+    return $axios.$get(url2)
+  },
+
   upload({file}) {
     console.log(file);    
     let formData = new FormData()

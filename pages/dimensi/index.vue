@@ -74,11 +74,11 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Hammer Test', value: 'hammer_test', desc: '-', url: '/gaya/hammer_test/before_set' },
-      { id: 2, name: 'Uji Kekerasan', value: 'uji_kekerasan', desc: '-', url: '/gaya/uji_kekerasan/lk1' },
-      { id: 3, name: 'Durometer', value: 'durometer', desc: '-', url: '/gaya/durometer/lk' },
-      { id: 4, name: 'Hydraulik Jack', value: 'hydraulik_jack', desc: '-', url: '/gaya/hydraulik_jack' },
-      { id: 5, name: 'Load Cell', value: 'load_cell', desc: '-', url: '/gaya/load_cell' },
+      { id: 1, name: 'Ayakan', value: 'ayakan', desc: '-', url: '/dimensi/ayakan/lk' },
+      { id: 2, name: 'Dial Indikator', value: 'dial_indikator', desc: '-', url: '/dimensi/dial_indikator/lk' },
+      { id: 3, name: 'Jangka Sorong', value: 'jangka_sorong', desc: '-', url: '/dimensi/jangka_sorong/lk' },
+      { id: 4, name: 'Micrometer', value: 'micrometer', desc: '-', url: '/dimensi/micrometer/lk' },
+      { id: 5, name: 'Stopwatch', value: 'stopwatch', desc: '-', url: '/dimensi/stopwatch/lk' },
     ],
 
     filename: '',
@@ -97,71 +97,6 @@ export default {
   },
 
   methods: {
-    triggerInput() {      
-      document.getElementById("input-excel").click()
-    },
-
-    hideElement(id){
-      console.log(id);
-      
-      document.getElementById(''+id).style = "display: none;"
-    },
-    
-    showElement(id){      
-      document.getElementById(''+id).style = "display: block;"
-    },
-
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
-      try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
-
-        // console.log(this.file);
-
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
-      } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-      }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
-    }
   },
 }
 

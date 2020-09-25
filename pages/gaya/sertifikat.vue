@@ -11,14 +11,14 @@
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
 
-            <v-layout row wrap>
+            <!-- <v-layout row wrap>
               <v-select 
                 :items="signatories" v-model="signatory" 
                 item-text="data.name" item-value="data" 
                 label="Penandatangan"
                 append-icon="expand_more"
               ></v-select>
-            </v-layout>
+            </v-layout> -->
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
@@ -296,7 +296,24 @@
                     </div>
                   </v-layout>
 
-                  <div>
+                  <!-- Diterbitkan dan Tanda Tangan -->
+                  <v-layout style="margin-top: 1mm">
+                    <v-flex xs8>
+                      <v-layout row>
+                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ certificate.published_date }}</span></p>
+                      </v-layout>
+                    </v-flex>
+                    <v-flex xs4>
+                      <p class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">Bidang Standarisasi</p>
+
+                      <!-- {{signatory}} -->
+                      <p class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">{{signatory.jabatan}}</p>
+                      <p contenteditable class="helve c u" style="font-size: 8pt; margin: 14mm 0 0 0; height: 4.2mm;">{{signatory.name}}</p>
+                      <p contenteditable class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">NIP. {{signatory.nip}}</p>
+                    </v-flex>
+                  </v-layout>
+
+                  <!-- <div>
                     <table style="margin-top: 10px; width: 100%; border: 1px solid black; border-collapse: collapse;">
                       <tr>
                         <td style="border: 1px solid black; padding: 0 5px;">
@@ -354,7 +371,7 @@
                         <td style="border: 1px solid black; height: 75px;"></td>
                       </tr>
                     </table>
-                  </div>
+                  </div> -->
                 </div>
 
                 <!-- Keterangan -->
@@ -439,7 +456,7 @@ p{
   }
 </style>
 <script>
-import gayaHeader from '~/components/gaya.vue'
+import gayaHeader from '~/components/gaya/hammer.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
@@ -508,7 +525,7 @@ export default {
     ],
 
     kan: true,
-    signatory: {}
+    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
   }),
 
   mounted() {    

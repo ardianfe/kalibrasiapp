@@ -10,6 +10,8 @@ Vue.use(Vuetify, {
     info: colors.teal.lighten1,
     warning: "#F8A611",
     error: "#DB3C3C",
-    success: "#2EB85C"
+    success: "#2EB85C",
+    overview1: '#3f7672',
+    overview2: '#4fafa9'
   }
 })

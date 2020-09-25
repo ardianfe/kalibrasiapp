@@ -1,9 +1,7 @@
 <template>
-  <v-layout
-    column justifyh-center
-  >
+  <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <ovenHeader></ovenHeader>
+      <dimensiHeader></dimensiHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -68,7 +66,6 @@
                   <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Equipment</p>
                   <v-layout>
                     <v-flex xs6>
-
                       <v-layout row>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
                         <div style="width: 32mm">
@@ -96,17 +93,18 @@
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
                       </v-layout>
 
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
-                        <div style="width: 32mm">
-                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor Seri</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Serial Number</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.serial_number }}</p>
-                      </v-layout>
-
                     </v-flex>
                     <v-flex xs6>
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
+                        <v-flex xs5>
+                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor Seri</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Serial Number</p>
+                        </v-flex>
+                        <v-flex xs6>
+                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: {{ certificate.equipment.serial_number }}</p>
+                        </v-flex>
+                      </v-layout>
 
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">5.</p>
@@ -118,8 +116,7 @@
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
-
-                      <v-layout>
+                      <!-- <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
@@ -150,8 +147,7 @@
                         <v-flex xs6>
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.others }}</p>
                         </v-flex>
-                      </v-layout>
-
+                      </v-layout> -->
                     </v-flex>
                   </v-layout>
 
@@ -316,6 +312,66 @@
                       <p contenteditable class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">NIP. {{signatory.nip}}</p>
                     </v-flex>
                   </v-layout>
+
+                  <!-- <div>
+                    <table style="margin-top: 10px; width: 100%; border: 1px solid black; border-collapse: collapse;">
+                      <tr>
+                        <td style="border: 1px solid black; padding: 0 5px;">
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">DISETUJUI</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Approved by</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: Tatto Bustomi</p>
+                          </v-layout>
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">TANGGAL</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Date</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: __ Juni 2017</p>
+                          </v-layout>
+                        </td>
+                        <td style="border: 1px solid black; padding: 0 5px;">
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">DIPERIKSA</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Checked by</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: Tatto Bustomi</p>
+                          </v-layout>
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">TANGGAL</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Date</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: __ Juni 2017</p>
+                          </v-layout>
+                        </td>
+                        <td style="border: 1px solid black; padding: 0 5px;">
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">DISIAPKAN</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Prepared by</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: Agus Surya Permana</p>
+                          </v-layout>
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">TANGGAL</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Date</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: __ Juni 2017</p>
+                          </v-layout>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid black; height: 75px;"></td>
+                        <td style="border: 1px solid black; height: 75px;"></td>
+                        <td style="border: 1px solid black; height: 75px;"></td>
+                      </tr>
+                    </table>
+                  </div> -->
                 </div>
 
                 <!-- Keterangan -->
@@ -331,9 +387,6 @@
                       <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
                       </p>
-                      <!-- <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
-                        3. Laboratorium ini diakreditasi KAN LK-022-IDN.
-                      </p> -->
                     </v-flex>
                   </v-layout>
                 </div>
@@ -354,7 +407,7 @@
                         <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
                         <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
                       </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">3</p>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">__</p>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -403,17 +456,26 @@ p{
   }
 </style>
 <script>
-import ovenHeader from '~/components/oven.vue'
+import dimensiHeader from '~/components/dimensi/jangka.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    ovenHeader
+    dimensiHeader
   },
 
   head: {
+    title: 'Sertifikat | Bidang Gaya',
+    meta: [
+      {
+        hid: 'gaya',
+        name: 'gaya',
+        content: 'Bidang Gaya'
+      }
+    ],
+
     script: [
       { src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js' }
     ]
@@ -509,12 +571,12 @@ export default {
 
     async getCertData() {
       try {
-        const req = await this.$calibrate.getDataCertificate({
-          id : this.certificate_number
-        })    
+        // const req = await this.$calibrate.getDataCertificate({
+        //   id : this.certificate_number
+        // })    
 
-        console.log(req);
-        this.data = req
+        // console.log(req);
+        // this.data = req
         this.elementMapping()
 
         
@@ -525,24 +587,24 @@ export default {
 
     elementMapping() {
       let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = cert_data['Nama Alat'][0]
-      this.certificate.equipment.capacity = cert_data['Kapasitas'][0] + '' + cert_data['Kapasitas'][1] + ' / Resolusi ' + cert_data['Resolusi'][0] + cert_data['Resolusi'][1]
-      this.certificate.equipment.model = cert_data['Tipe / Model'][0]
-      this.certificate.equipment.serial_number = cert_data['Nomor Seri'][0]
-      this.certificate.equipment.manufacture = cert_data['Merk / Buatan'][0] + ' ' + cert_data['Merk / Buatan'][1] 
-      this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = cert_data['Nama Perusahaan'][0]
-      this.certificate.owner.address = cert_data['Alamat'][0]
-      this.certificate.standard.name = cert_data['Standar Yang Dipakai'][0]
-      this.certificate.standard.traceability = cert_data['Ketertelusuran'][0]
-      this.certificate.acceptance_date = this.convertDate(new Date(cert_data['Tanggal Diterima'][0]['$date']))
-      this.certificate.calibration_date = this.convertDate(new Date(cert_data['Tanggal Kalibrasi'][0]['$date']))
+      this.certificate.equipment.name = 'Concrete Test Hammer'
+      this.certificate.equipment.capacity = '10 - 100 Unit'
+      this.certificate.equipment.model = 'HT 225'
+      this.certificate.equipment.serial_number = 308813
+      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
+      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
+      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
+      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
+      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
+      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
+      this.certificate.acceptance_date = '30 Mei 2017'
+      this.certificate.calibration_date = '2 Juni 2017'
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = cert_data['Lokasi Kalibrasi'][0]
-      this.certificate.calibration_method = cert_data['Metode Kalibrasi'][0]
-      this.certificate.refference = cert_data['Standar Acuan'][0]
-      this.certificate.published_date = this.convertDate(cert_data['Tanggal Terbit'][0]['$date'])
+      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
+      this.certificate.calibration_method = 'PC-309-10'
+      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
+      this.certificate.published_date = '30 Mei 2107'
     },
 
     printWrapper() {

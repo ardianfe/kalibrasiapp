@@ -1,0 +1,261 @@
+{
+  "result": [
+    {
+      "_id": "16042280001",
+      "cat": "gaya",
+      "data_alat": {
+        "Buatan": "JAPAN",
+        "Deskripsi Alat": "Mesin Uji Kekerasan Brinell",
+        "Dikalibrasi": "Aji M Solih",
+        "Diperiksa": "Agus SP",
+        "Kapasitas": "200 - 500  HB",
+        "Lokasi Kalibrasi": "Lab. Pengujian Mekanik, PT. PUPUK KALTIM, BONTANG",
+        "Merek": "SHIMADZU",
+        "Metoda verifikasi": "PC-309-04",
+        "No Seri": 1888,
+        "Standar acuan": "ISO 6506-2 : 2005",
+        "Suhu": "21.2 - 21.4 ° C",
+        "Tanggal kalibrasi": "5 Agustus 2010",
+        "Tanggal periksa": "4 Agustus 2010",
+        "Tipe": "HB",
+        "Tipe penetrator": "Bola Baja O 10 mm"
+      },
+      "data_kal": {
+        "d_maksimum_1": [
+          3.05,
+          400.9
+        ],
+        "d_maksimum_2": [
+          3.53,
+          297
+        ],
+        "d_maksimum_3": [
+          4.13,
+          214.0
+        ],
+        "d_minimum_1": [
+          3.04,
+          404
+        ],
+        "d_minimum_2": [
+          3.5,
+          302
+        ],
+        "d_minimum_3": [
+          4.1,
+          217.0
+        ],
+        "h_minumum_1": 401,
+        "h_minumum_2": 297,
+        "h_minumum_3": 214,
+        "h_rata_rata_1": 401.6,
+        "h_rata_rata_2": 300,
+        "h_rata_rata_3": 215.8,
+        "hk1": {
+          "Unnamed: 11": [
+            3.05,
+            3.05,
+            3.05,
+            3.05,
+            3.04
+          ],
+          "Unnamed: 13": [
+            401,
+            401,
+            401,
+            401,
+            404
+          ],
+          "Unnamed: 7": [
+            3.05,
+            3.05,
+            3.05,
+            3.05,
+            3.05
+          ],
+          "Unnamed: 9": [
+            3.05,
+            3.05,
+            3.05,
+            3.05,
+            3.02
+          ]
+        },
+        "hk2": {
+          "Unnamed: 11": [
+            3.5,
+            3.5,
+            3.53,
+            3.5,
+            3.53
+          ],
+          "Unnamed: 13": [
+            302,
+            302,
+            297,
+            302,
+            297
+          ],
+          "Unnamed: 7": [
+            3.5,
+            3.5,
+            3.55,
+            3.5,
+            3.55
+          ],
+          "Unnamed: 9": [
+            3.5,
+            3.5,
+            3.5,
+            3.5,
+            3.5
+          ]
+        },
+        "hk3": {
+          "Unnamed: 11": [
+            4.1,
+            4.1,
+            4.13,
+            4.13,
+            4.1
+          ],
+          "Unnamed: 13": [
+            217,
+            217,
+            214,
+            214,
+            217
+          ],
+          "Unnamed: 7": [
+            4.1,
+            4.1,
+            4.15,
+            4.15,
+            4.1
+          ],
+          "Unnamed: 9": [
+            4.1,
+            4.1,
+            4.1,
+            4.1,
+            4.1
+          ]
+        },
+        "kekerasan_brinneli(h_standar)_1": [
+          407.5,
+          "HB 10/3000"
+        ],
+        "kekerasan_brinneli(h_standar)_2": [
+          304.5,
+          "HB 10/3000"
+        ],
+        "kekerasan_brinneli(h_standar)_3": [
+          219.5,
+          "HB 10/3000"
+        ],
+        "kesalahan_1": [
+          -5.9,
+          12.2
+        ],
+        "kesalahan_2": [
+          -4.5,
+          9.1
+        ],
+        "kesalahan_3": [
+          -3.7,
+          6.6
+        ],
+        "no_blok_standar_1": 90432.0,
+        "no_blok_standar_2": 93556.0,
+        "no_blok_standar_3": 92105.0,
+        "repeatability_1": [
+          3,
+          16.3
+        ],
+        "repeatability_2": [
+          5,
+          12.18
+        ],
+        "repeatability_3": [
+          3,
+          8.78
+        ]
+      },
+      "data_ktp": {
+        "ktp_1": {
+          "Unnamed: 25": [
+            2,
+            0.55,
+            "0,05 - 5",
+            0.010000000000000002,
+            0.010000000000000002,
+            0.11547,
+            21.3,
+            6.23e-06,
+            1.34164,
+            0.1494,
+            "(Tipe A)2 + (Tipe)2",
+            0.58151,
+            2,
+            "k  x  uc",
+            "2 x uc",
+            1.16302,
+            1.16,
+            4.727
+          ]
+        },
+        "ktp_2": {
+          "Unnamed: 25": [
+            2,
+            0.55,
+            "0,05 - 5",
+            0.010000000000000002,
+            0.010000000000000002,
+            0.11547,
+            21.3,
+            6.23e-06,
+            2.73861,
+            0.40825,
+            "(Tipe A)2 + (Tipe)2",
+            0.69462,
+            2,
+            "k  x  uc",
+            "2 x uc",
+            1.38924,
+            1.39,
+            4.2326
+          ]
+        },
+        "ktp_3": {
+          "Unnamed: 25": [
+            2,
+            0.5,
+            "0,05 - 5",
+            0.010000000000000002,
+            0.010000000000000002,
+            0.11547,
+            21.3,
+            6.23e-06,
+            1.64317,
+            0.34052,
+            "(Tipe A)2 + (Tipe)2",
+            0.61586,
+            2,
+            "k  x  uc",
+            "2 x uc",
+            1.23172,
+            1.23,
+            2.6999
+          ]
+        }
+      },
+      "id_sipeja": 1252,
+      "nama_sample": "Jangka Sorong",
+      "no_laporan": "3-03-20-00019",
+      "pub_date": {
+        "$date": 1599659843483
+      },
+      "status": "ongoing"
+    }
+  ]
+}

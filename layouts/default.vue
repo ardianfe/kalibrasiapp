@@ -6,18 +6,19 @@
       app class="white elevation-3"
       v-if="$store.state.auth.loggedIn"
     >
-      <template v-if="$store.state.isLoggedIn">
-        <v-btn icon large class="primary" style="border-radius: 50px !important" to="/">
-          <span style="font-size: 24px"></span> {{$store.state.username.charAt(0)}}
-        </v-btn>
-        <v-toolbar-title v-text="$store.state.username" />
-      </template>
-      <!-- <p>{{$store.state.title}}</p> -->
+      <v-btn icon class="primary" @click="$router.push('/')">
+        <v-icon>home</v-icon>
+      </v-btn>
       <v-spacer />
+
+      <v-layout justify-center style="border-radius: 7px; max-width: 290px" class="grey lighten-2">
+        <input type="text" style="width: 250px;" class="pa-2 px-3" name="search" id="search" placeholder="Cari no order">
+        <v-icon class="pa-2">search</v-icon>
+      </v-layout>
       <v-btn v-if="$store.state.isLoggedIn" flat
-        @click="logout"
+        @click="logout" outline class="error error--text"
       >
-        Keluar <v-icon right>logout</v-icon>
+        Keluar <!-- <v-icon right>logout</v-icon> -->
       </v-btn>
       <v-btn v-else flat
         @click.stop="rightDrawer = !rightDrawer"
@@ -32,9 +33,9 @@
     </v-content>
     <!-- <v-navigation-drawer
       v-model="rightDrawer"
-      right
+      left app
       width="400px"
-      fixed style="padding: 40px 16px; "
+      style="padding: 40px 16px; "
     >
       <h3 style="text-align: center; margin-bottom: 15px;">Sign In</h3>
       <v-text-field
@@ -55,6 +56,7 @@
         <a href="register">belum punya akun? daftar disini !</a>
       </p>
     </v-navigation-drawer> -->
+    
     <v-footer
       :fixed="fixed"
       app
@@ -106,10 +108,10 @@ export default {
   },
 
   mounted() {
-    this.getDashboard()
-    this.getCompanyCount()
+    // this.getDashboard()
+    // this.getCompanyCount()
 
-    this.getOven()
+    // this.getOven()
   },
 
   methods: {

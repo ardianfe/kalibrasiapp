@@ -28,7 +28,7 @@
 </style>
 
 <script>
-import gayaHeader from '~/components/gaya.vue'
+import gayaHeader from '~/components/gaya/hammer.vue'
 
 export default {
   components: {
