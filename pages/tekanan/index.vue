@@ -17,7 +17,7 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Bidang Gaya
+            Bidang Tekanan
           </p>
         </v-card-title>
 
@@ -60,12 +60,12 @@
 <script>
 export default {
   head: {
-    title: 'Upload File',
+    title: 'Bidang Tekanan',
     meta: [
       {
-        hid: 'temperature',
-        name: 'temperature',
-        content: 'Bidang Temperatur'
+        hid: 'Tekanan',
+        name: 'Tekanan',
+        content: 'Bidang Tekanan'
       }
     ],
   },
@@ -74,11 +74,8 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Hammer Test', value: 'hammer_test', desc: '-', url: '/gaya/hammer_test/before_set' },
-      { id: 2, name: 'Uji Kekerasan', value: 'uji_kekerasan', desc: '-', url: '/gaya/uji_kekerasan/lk1' },
-      { id: 3, name: 'Durometer', value: 'durometer', desc: '-', url: '/gaya/durometer/lk' },
-      { id: 4, name: 'Hydraulik Jack', value: 'hydraulik_jack', desc: '-', url: '/gaya/hydraulik_jack/lk' },
-      { id: 5, name: 'Load Cell', value: 'load_cell', desc: '-', url: '/gaya/load_cell/lk' },
+      { id: 1, name: 'Hammer Test', value: 'hammer_test', desc: '-', url: '/tekanan/hammer_test/before_set' },
+      { id: 2, name: 'Pressure Gauge', value: 'pressure_gauge', desc: '-', url: '/tekanan/pressure_gauge/lk' },
     ],
 
     filename: '',

@@ -17,7 +17,7 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Bidang Gaya
+            Bidang Instrumen Analisa
           </p>
         </v-card-title>
 
@@ -60,12 +60,12 @@
 <script>
 export default {
   head: {
-    title: 'Upload File',
+    title: 'Bidang Instrumen',
     meta: [
       {
-        hid: 'temperature',
-        name: 'temperature',
-        content: 'Bidang Temperatur'
+        hid: 'Instrumen Analisa',
+        name: 'Instrumen Analisa',
+        content: 'Bidang Instrumen Analisa'
       }
     ],
   },
@@ -74,11 +74,12 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Hammer Test', value: 'hammer_test', desc: '-', url: '/gaya/hammer_test/before_set' },
-      { id: 2, name: 'Uji Kekerasan', value: 'uji_kekerasan', desc: '-', url: '/gaya/uji_kekerasan/lk1' },
-      { id: 3, name: 'Durometer', value: 'durometer', desc: '-', url: '/gaya/durometer/lk' },
-      { id: 4, name: 'Hydraulik Jack', value: 'hydraulik_jack', desc: '-', url: '/gaya/hydraulik_jack/lk' },
-      { id: 5, name: 'Load Cell', value: 'load_cell', desc: '-', url: '/gaya/load_cell/lk' },
+      { id: 1, name: 'AAS', value: 'AAS', desc: '-', url: '/instrumen/AAS/lk' },
+      { id: 2, name: 'Conductivity Meter', value: '', desc: '-', url: '' },
+      { id: 3, name: 'DO', value: '', desc: '-', url: '' },
+      { id: 4, name: 'PH', value: '', desc: '-', url: '' },
+      { id: 5, name: 'Spectro Emisi', value: '', desc: '-', url: '' },
+      { id: 6, name: 'Spectro VIS - UVIS', value: '', desc: '-', url: '' },
     ],
 
     filename: '',

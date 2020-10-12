@@ -172,9 +172,10 @@ export default {
       { title: 'Tekanan', url: '/tekanan', icon: '' },
       { title: 'Suhu', url: '/bidang?bid=temperatur&sub=oven', icon: '' },
       { title: 'Gaya', url: '/gaya', icon: '' },
-      { title: 'Gelas Volumetri', url: '/gelas-volumetri', icon: '' },
-      { title: 'Massa dan Timbangan', url: '/masa-dan-timbangan', icon: '' },
-      { title: 'Optik dan Instrumen Analisa', url: '/optik-dan-instrumen-analisa', icon: '' },
+      { title: 'Gelas Volumetri', url: '/volumetrik', icon: '' },
+      { title: 'Massa', url: '/massa', icon: '' },
+      { title: 'Timbangan', url: '/timbangan', icon: '' },
+      { title: 'Instrumen Analisa', url: '/instrumen', icon: '' },
       { title: 'Kelistrikan', url: '/kelistrikan', icon: 'electrical_services' },
     ]
   }),

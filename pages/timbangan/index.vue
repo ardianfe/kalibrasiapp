@@ -17,7 +17,7 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Bidang Gaya
+            Bidang Timbangan
           </p>
         </v-card-title>
 
@@ -60,12 +60,12 @@
 <script>
 export default {
   head: {
-    title: 'Upload File',
+    title: 'Bidang Timbangan',
     meta: [
       {
-        hid: 'temperature',
-        name: 'temperature',
-        content: 'Bidang Temperatur'
+        hid: 'Timbangan',
+        name: 'Timbangan',
+        content: 'Bidang Timbangan'
       }
     ],
   },
@@ -74,11 +74,10 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Hammer Test', value: 'hammer_test', desc: '-', url: '/gaya/hammer_test/before_set' },
-      { id: 2, name: 'Uji Kekerasan', value: 'uji_kekerasan', desc: '-', url: '/gaya/uji_kekerasan/lk1' },
-      { id: 3, name: 'Durometer', value: 'durometer', desc: '-', url: '/gaya/durometer/lk' },
-      { id: 4, name: 'Hydraulik Jack', value: 'hydraulik_jack', desc: '-', url: '/gaya/hydraulik_jack/lk' },
-      { id: 5, name: 'Load Cell', value: 'load_cell', desc: '-', url: '/gaya/load_cell/lk' },
+      { id: 1, name: 'Moisture Balance', value: 'moisture_balance', desc: '-', url: '/timbangan/moisture_balance/lk' },
+      { id: 2, name: 'Timbangan Elektronik', value: 'timbangan_elektronik', desc: '-', url: '/timbangan/timbangan_elektronik/lk' },
+      { id: 3, name: 'Timbangan Mekanik Indrustri', value: 'timbangan_mekanik_industri', desc: '-', url: '/timbangan/timbangan_mekanik_industri/lk' },
+      { id: 4, name: 'Timbangan Mekanik', value: 'timbangan_mekanik', desc: '-', url: '/timbangan/timbangan_mekanik/lk' },
     ],
 
     filename: '',
