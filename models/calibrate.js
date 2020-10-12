@@ -1,21 +1,22 @@
 let url = 'https://kalibarasi-b4t.appspot.com'
-let url2 = 'https://kalibra-r45hfc5j2a-uc.a.run.app/kalibrasiapis/results/16042280001'
 let base_url = process.env.base
+let base_url2 = process.env.base2
 
 const model = $axios => ({
   getListOrders() {
-    return $axios.$get('https://kalibra-r45hfc5j2a-uc.a.run.app/kalibrasiapis/orders/?per_page=50&page=1')
+    return $axios.$get(base_url2+'/orders/?per_page=50&page=1')
   },
 
   testCors() {
-    return $axios.$get(url2)
+    return $axios.$get(base_url2 + '/results/16042280001')
   },
 
-  upload({file}) {
-    console.log(file);    
+  upload({file, cat, sample, order_id, sample_number}) {
     let formData = new FormData()
     formData.append('file', file)
-    return $axios.$post(url + '/upload', formData)
+    formData.append('cat', cat)
+    formData.append('sample', sample)
+    return $axios.$post(base_url2 + '/upload/' + order_id + '/' + sample_number, formData)
   },
 
   getCertData({no_cert}) {

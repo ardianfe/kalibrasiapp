@@ -24,18 +24,26 @@
             <td class="primary td-header">Tanggal Kalibrasi</td>
             <td class="primary td-header">Daftar Sample</td>
           </tr>
+          
+          <template v-if="!loading">
+            <tr class="tr-body" v-for="item in lo" :key="item.id">
+              <td class="td-body">{{item.id}}</td>
+              <td class="td-body">{{item.nama_perusahaan}}</td>
+              <td class="td-body">{{item.tanggal_terima}}</td>
+              <td class="td-body">{{item.tanggal_kalibrasi}}</td>
+              <td class="td-body">
+                <p v-for="(data, x) in item.daftar_sampel" :key="x">
+                  <v-hover v-for="(no_sample) in data.no_sample" :key="no_sample">
+                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="select_order(item.id, no_sample, data.sampel)">{{data.sampel}} ({{no_sample}}) <br></span>
+                  </v-hover>
+                </p>
+              </td>
+            </tr>
+          </template>
 
-          <tr class="tr-body" v-for="item in lo" :key="item.id">
-            <td class="td-body">{{item.id}}</td>
-            <td class="td-body">{{item.nama_perusahaan}}</td>
-            <td class="td-body">{{item.tanggal_terima}}</td>
-            <td class="td-body">{{item.tanggal_kalibrasi}}</td>
-            <td class="td-body">
-              <p v-for="(data, x) in item.daftar_sampel" :key="x">
-                <v-hover v-for="(no_sample) in data.no_sample" :key="no_sample">
-                  <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="select_order(no_sample, data.sampel)">{{data.sampel}} ({{no_sample}}) <br></span>
-                </v-hover>
-              </p>
+          <tr class="tr-body" v-else>
+            <td class="td-body" colspan="6">
+              <v-progress-linear indeterminate color="primary"></v-progress-linear>
             </td>
           </tr>
         </table>     
@@ -43,10 +51,10 @@
     </v-flex>
 
     <v-dialog v-model="dialog" max-width="550px">
-      <v-card>
+      <v-card v-if="!is_uploading">
         <v-card-title class="title">
           <v-icon color="primary" class="mr-4">folder</v-icon>
-          {{selected_sample }} ({{selected_order}})
+          {{sample_number }} ({{sample_name}})
         </v-card-title>
         <v-card-text> 
           <p class="b">Upload data hasil kalibrasi</p>
@@ -59,7 +67,21 @@
             <input type="file" name="file" id="file" hidden @change="processFile">
             <v-btn class="primary" style="width: 200px" @click="chooseFile">Choose File</v-btn>
           </v-layout>
+        </v-card-text>
+        <v-card-text>
+          <v-select :items="cats" v-model="cat" item-text="name" item-value="value" label="Pilih Kategori"></v-select>
+          <v-btn :disabled="!this.file.name" @click="submit" class="primary">Kirim</v-btn>
+        </v-card-text>
+      </v-card>
 
+      <v-card justify-center align-center row fill-height v-else class="pa-4">
+        <v-card-text>
+          <v-progress-circular
+            :size="70"
+            :width="7"
+            color="purple"
+            indeterminate
+          ></v-progress-circular>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -94,10 +116,30 @@ export default {
   },
 
   data: () => ({
-    lo : {},
-    selected_order: '',
-    selected_sample: '',
-    dialog: false
+    lo: {},
+    sample_name: '',
+    sample_number: '',
+    order_number: '',
+    dialog: false,
+
+    file: {},
+
+    loading: true,
+    is_uploading: false,
+
+    cats: [
+      { name: 'Dimensi', value: 'dimensi'},
+      { name: 'Tekanan', value: 'tekanan'},
+      { name: 'Gaya', value: 'gaya'},
+      { name: 'Instrumen Analisa', value: 'instrumen_analisa'},
+      { name: 'Kelistrikan', value: 'kelistrikan'},
+      { name: 'Massa', value: 'massa'},
+      { name: 'Suhu', value: 'suhu'},
+      { name: 'Timbangan', value: 'timbangan'},
+      { name: 'Volumetrik', value: 'volumetrik'}
+    ],
+
+    cat: ''
   }),
 
   mounted() {
@@ -111,17 +153,20 @@ export default {
 
         console.log('test cors', req);
         this.lo = req.result
+
+        this.loading = false
       } catch (error) {
         console.log(error.response);
       }
     },
 
-    select_order(order_number, sample_name) {
+    select_order(order_number, sample_number, sample_name) {
       this.dialog = true
-      this.selected_order = order_number
-      this.selected_sample = sample_name
+      this.sample_name = sample_name
+      this.order_number = order_number
+      this.sample_number = sample_number
 
-      console.log(this.dialog, this.selected_order);
+      console.log(this.dialog, this.order_number, this.sample_name, this.sample_number);
     },
 
     chooseFile() {
@@ -129,7 +174,29 @@ export default {
     },
 
     processFile(e) {
+      this.file = e.target.files[0]
       console.log(e.target.files[0]);
+    },
+
+    async submit() {
+      this.is_uploading = true
+      try {
+        // const req = await this.$calibrate.upload({
+        //   file: this.file,
+        //   cat: this.cat,
+        //   sample: this.sample_name,
+
+        //   order_id: this.order_number,
+        //   sample_number: this.sample_number
+        // })
+
+        setTimeout(() => {
+          this.is_uploading = false
+        }, 500);
+
+      } catch (error) {
+        console.log('submit error : ', error.response);
+      }
     }
   },
 }

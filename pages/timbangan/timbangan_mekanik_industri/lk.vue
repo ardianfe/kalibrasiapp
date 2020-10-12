@@ -315,53 +315,24 @@
               </thead>
               <tr>
                 <td rowspan="6">20</td>
-                <td>20,00005</td>
-                <td>0,000047</td>
-                <td>0,0</td>
-                <td>0,0</td>
-                <td>0,0</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td rowspan="6">20,00005</td>
+                <td rowspan="6">0,000047</td>
+                <td rowspan="3">0,0</td>
+                <td rowspan="2">0,0</td>
+                <td rowspan="3">0,0</td>
               </tr>
               <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>20,1</td>
-                <td>&nbsp;</td>
-                <td>20,1</td>
-                <td>-0,1</td>
-                <td>0,1</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td rowspan="2">20,1</td>
+                <td rowspan="6">20,1</td>
+                <td rowspan="6">-0,1</td>
+                <td rowspan="6">0,1</td>
               </tr>
               <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>20,0</td>
-                <td>&nbsp;</td>
-                <td>20,1</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td rowspan="3">20,0</td>
+                <td rowspan="2">20,1</td>
               </tr>
               <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
                 <td>20,1</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
@@ -375,6 +346,9 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
+            </table>
+              
+            <table>
               <tr>
                 <td rowspan="6">200</td>
                 <td>200,00021</td>

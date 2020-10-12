@@ -10,6 +10,7 @@ export default {
   */
   env: {
     base: process.env.base,
+    base2: process.env.base2,
     title: process.env.title,
     desc: process.env.desc
   },
