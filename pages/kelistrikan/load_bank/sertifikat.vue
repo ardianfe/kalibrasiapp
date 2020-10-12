@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <massaHeader></massaHeader>
+      <electricityHeader></electricityHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -456,23 +456,23 @@ p{
   }
 </style>
 <script>
-import massaHeader from '~/components/massa/anak_timbangan.vue'
+import electricityHeader from '~/components/kelistrikan/load_bank.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    massaHeader
+    electricityHeader
   },
 
   head: {
-    title: 'Sertifikat | Bidang Massa',
+    title: 'Sertifikat | Bidang Kelistrikan',
     meta: [
       {
-        hid: 'Massa',
-        name: 'Massa',
-        content: 'Bidang Massa'
+        hid: 'Kelistrikan',
+        name: 'Kelistrikan',
+        content: 'Bidang Kelistrikan'
       }
     ],
 
