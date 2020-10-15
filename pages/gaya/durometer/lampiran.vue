@@ -22,7 +22,7 @@
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-btn :disabled="signatory == '' || nip == ''" class="primary elevation-0" @click="printWrapper">
+            <v-btn class="primary elevation-0" @click="printWrapper">
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
@@ -58,7 +58,7 @@
                         <p class="helve i" style="font-size: 9pt; margin: 0; height: 18px;">Number</p>
                       </v-flex>
                       <v-flex>
-                        <p class="helve i" style="font-size: 11pt; margin: 7px 0; height: 4.2mm;">: 3-09-19-00757</p>
+                        <p class="helve i" style="font-size: 11pt; margin: 7px 0; height: 4.2mm;">: {{certificate_number}}</p>
                       </v-flex>
                     </v-layout>
 										<p class="helve u b" style="font-size: 11pt; margin: 0; height: 4.2mm;">HASIL KALIBRASI</p>
@@ -72,62 +72,62 @@
 												
 												<tr><td>(HA)</td><td>(HA)</td><td>(HA)</td><td>(%)</td><td>(%)</td></tr>
 												
-												<tr>
-													<td>20 </td>
-													<td>20.68</td>
-													<td>-0.68</td>
-													<td>0.73</td>
-													<td rowspan="8">± 0.46</td>
+												<tr v-for="x in 8" :key="x">
+													<td>{{data.pd[x]}}</td>
+													<td>{{data.ps[x]}}</td>
+													<td>{{data.ks[x]}}</td>
+													<td>{{data.mu[x]}}</td>
+													<td rowspan="8" v-if="x == 1">± {{data.ktp_pgk}}</td>
 												</tr>
 
-												<tr>
-													<td>30 </td>
+												<!-- <tr>
+													<td>{{pd[x]}} </td>
 													<td>30.35</td>
 													<td>-0.35</td>
 													<td>0.43</td>
 												</tr>
 
 												<tr>
-													<td>40 </td>
+													<td>{{pd[x]}} </td>
 													<td>40.98</td>
 													<td>-0.98</td>
 													<td>0.61</td>
 												</tr>
 
 												<tr>
-													<td>50 </td>
+													<td>{{pd[x]}} </td>
 													<td>50.71</td>
 													<td>-0.71</td>
 													<td>0.51</td>
 												</tr>
 
 												<tr>
-													<td>60 </td>
+													<td>{{pd[x]}} </td>
 													<td>60.87</td>
 													<td>-0.87</td>
 													<td>0.64</td>
 												</tr>
 
 												<tr>
-													<td>70 </td>
+													<td>{{pd[x]}} </td>
 													<td>70.67</td>
 													<td>-0.67</td>
 													<td>0.38</td>
 												</tr>
 
 												<tr>
-													<td>80 </td>
+													<td>{{pd[x]}} </td>
 													<td>80.59</td>
 													<td>-0.59</td>
 													<td>0.16</td>
 												</tr>
 
 												<tr>
-													<td>90 </td>
+													<td>{{pd[x]}} </td>
 													<td>90.16</td>
 													<td>-0.16</td>
 													<td>0.14</td>
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>	
 										<p style="width: 90%; margin-bottom: 300px">
@@ -238,7 +238,7 @@ export default {
   },
 
   head: {
-    title: 'Sertifikat | Bidang Gaya',
+    title: 'Lampiran Sertifikat | Bidang Gaya',
     meta: [
       {
         hid: 'gaya',
@@ -254,41 +254,14 @@ export default {
 
   data: () => ({
     active: null,
-    certificate_number: '3-01-19-00472',
-    certificate: {
-      equipment: {
-        name: '',
-        capacity: '',
-        model: '',
-        serial_number: '',
-        manufacture: '',
-        internal_dimension: '',
-        temperature: '',
-        others: '-',
-      },
-      owner: {
-        name: '',
-        address: ''
-      },
-      standard: {
-        name: '',
-        traceability: ''
-      },
-      acceptance_date: '',
-      calibration_date: '',
-      env_condition: {
-        room_temp: '',
-        humidity: ''
-      },
-      calibration_location: '',
-      calibration_method: '',
-      refference: '',
-      result: '',
-      published_date: '',
-      director_name: '',
-      director_nip: '',
+    certificate_number: '',
+    data: {
+      pd: [],
+      ps: [],
+      ks: [],
+      mu: [],
+      ktp_pgk: 0
     },
-    data: {},
 
     signatories: [
       { id: 1, data: {name: 'AJI MAHMUD SOLIH', nip: '19720802 200701 1 003', jabatan: 'Kepala Seksi Kalibrasi'} },
@@ -299,25 +272,34 @@ export default {
     signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
   }),
 
-  mounted() {    
-    // console.log(cert_data);
-    this.certificate_number = this.$route.query.cert_no
-
+  mounted() {
     this.getCertData()
-    
-    if (!this.$store.state.isLoggedIn) {
-      // this.$router.push('/')
-    }
-
-    this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
-
-    console.log(this.data);
-    if (this.$route.query.attribute == 'lampiran') {
-      this.createElement()
-    }
   },
 
   methods: {
+    async getCertData() {
+      try {
+        const req = await this.$category.getLembarKerja({
+          id: '200910161001' 
+        })   
+
+        this.certificate_number = req.result[0].no_laporan
+        console.log('getLK :', req);
+
+        let req_data = req.result[0]
+        
+        this.data = {
+          pd: req_data.data_kal['Durometer'],
+          ps: req_data.data_kal['Rata-rata'],
+          ks: req_data.data_kal['Kesalahan'],
+          mu: req_data.data_kal['Mampu ulang'],
+          ktp_pgk: 0
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     downloadPDF() {
       var doc = new jsPDF();
       var elementHTML = $('#printable').html();
@@ -337,45 +319,6 @@ export default {
       }, 500);
 
       console.log(elementHTML);
-      
-    },
-
-    async getCertData() {
-      try {
-        // const req = await this.$calibrate.getDataCertificate({
-        //   id : this.certificate_number
-        // })    
-
-        // console.log(req);
-        // this.data = req
-        this.elementMapping()
-
-        
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = 'Concrete Test Hammer'
-      this.certificate.equipment.capacity = '10 - 100 Unit'
-      this.certificate.equipment.model = 'HT 225'
-      this.certificate.equipment.serial_number = 308813
-      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      this.certificate.acceptance_date = '30 Mei 2017'
-      this.certificate.calibration_date = '2 Juni 2017'
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      this.certificate.published_date = '30 Mei 2107'
     },
 
     printWrapper() {
@@ -387,20 +330,6 @@ export default {
       // document.body.innerHTML = originalContents; 
       // location.reload()
       this.changeStatus()
-    },
-
-    async changeStatus() {
-      try {
-        const req = await this.$calibrate.updateCertifStatus({
-          id: this.certificate_number, status: 'certified'
-        })
-
-        console.log(this.certificate_number+' status :', req);
-        location.reload()
-      } catch (error) {
-        console.log(error.response);
-        location.reload()
-      }
     },
 
     convertDate(date_string) {

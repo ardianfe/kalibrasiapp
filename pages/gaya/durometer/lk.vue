@@ -8,56 +8,78 @@
           <v-card-text>
             <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI KEKERASAN SHORE</p>
 
-            <p class="b">3-09-19-00757</p>
+            <p class="b">{{no_cert}}</p>
             <v-layout row wrap>
-              <v-flex xs12 sm6>
-                <v-layout>
-                  <p class="mb-1">Deskripsi Alat : {{ equipment.name }}</p>
-                </v-layout>
-                
-                <v-layout>
-                  <p class="mb-1">Tipe / Model: {{ equipment.type }}</p>
-                </v-layout>
-                
-                <v-layout>
-                  <p class="mb-1">Merek : {{ equipment.brand }}</p>
-                </v-layout>
+              <v-flex xs12 sm7 class="pr-2">
+                <table width="100%" class="no-grid">
+                  <tr>
+                    <td class="no-grid" width="30%">Deskripsi Alat</td>
+                    <td class="no-grid" width="5%">:</td>
+                    <td class="no-grid">{{ data_alat['Alat Kalibrasi yang digunakan'] }}</td>
+                  </tr>
+                    
+                  <tr>
+                    <td class="no-grid">Tipe / Model</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['Tipe'] }}</td>
+                  </tr>
+                  
+                  <tr>
+                    <td class="no-grid">Merek</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['Merek'] }}</td>
+                  </tr>
+                </table>
+
+                <table width="100%" class="no-grid mt-4">
+                  <tr>
+                    <td class="no-grid" width="30%">Lokasi Kalibrasi</td>
+                    <td class="no-grid" width="5%">:</td>
+                    <td class="no-grid">{{ data_alat['Lokasi Kalibrasi'] }}</td>
+                  </tr>
+                    
+                  <tr>
+                    <td class="no-grid">Suhu Ruangan</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['Suhu'] }}</td>
+                  </tr>
+                  
+                  <tr>
+                    <td class="no-grid">Standar Acuan</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['Standar acuan'] }}</td>
+                  </tr>
+                  
+                  <tr>
+                    <td class="no-grid">Posisi</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['Posisi'] }}</td>
+                  </tr>
+                </table>
               </v-flex>
               
-              <v-flex xs12 sm6>
-                <v-layout>
-                  <p class="mb-1">Kapasitas : {{ equipment.capacity }}</p>
-                </v-layout>
+              <v-flex xs12 sm5>
+                <table width="100%" class="no-grid">
+                  <tr>
+                    <td class="no-grid" width="30%">Kapasitas</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['Kapasitas'] }}</td>
+                  </tr>
+                    
+                  <tr>
+                    <td class="no-grid">No. Seri</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['No Seri'] }}</td>
+                  </tr>
+                  
+                  <tr>
+                    <td class="no-grid">Buatan</td>
+                    <td class="no-grid">:</td>
+                    <td class="no-grid">{{ data_alat['Buatan'] }}</td>
+                  </tr>
+                </table>
 
-                <v-layout>
-                  <p class="mb-1">No Seri : {{ equipment.serial_number }}</p>
-                </v-layout>
-                
-                <v-layout>
-                  <p class="mb-1">Buatan : {{ equipment.made_in }}</p>
-                </v-layout>
-              </v-flex>
-
-              <v-flex xs12 class="mt-4">
-                <v-layout>
-                  <p class="mb-1">Lokasi Kalibrasi : {{ equipment.location }}</p>
-                </v-layout>
-
-                <v-layout>
-                  <p class="mb-1">Suhu Ruangan : {{ equipment.temperature }}</p>
-                </v-layout>
-
-                <v-layout>
-                  <p class="mb-1">Standar Acuan : {{ equipment.standard }}</p>
-                </v-layout>
-
-                <v-layout>
-                  <p class="mb-1">Posisi : { equipment.position }</p>
-                </v-layout>
-                
-                <v-layout>
-                  <p class="mt-3 mb-1">Timbangan Elektronik No. {900264} <br> Termometer : KAL-1 </p>
-                </v-layout>
+                <p class="mt-5 mb-1">{{ data_alat['Alat Kalibrasi yang digunakan'] }}</p>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -88,8 +110,8 @@
                 <td>(%)</td>
               </tr>
               <tr class="text-xs-center">
-                <td v-for="(item, index) in 8" :key="index">
-                  <span v-for="(item, index) in 30" :key="index">{{item}} <br></span>
+                <td v-for="(item, index) in data_cal" :key="index">
+                  <span v-for="(itemx, index) in item" :key="index">{{itemx}}<br></span>
                 </td>
               </tr>
             </table>
@@ -200,11 +222,16 @@
     border: 1px solid grey;
     padding: 3px
   }
+
+  table.no-grid, th.no-grid, td.no-grid {
+    border: 0px solid grey;
+    padding: 3px
+  }
 </style>
 
 <script>
 import gayaHeader from '~/components/gaya/durometer.vue'
-import durometer from '~/static/durometer.json'
+// import durometer from '~/static/durometer.json'
 
 export default {
   components: {
@@ -212,7 +239,7 @@ export default {
   },
 
   head: {
-    title: 'Sebelum Set | Bidang Gaya',
+    title: 'Lembar Kerja | Bidang Gaya',
     meta: [
       {
         hid: 'gaya',
@@ -223,128 +250,67 @@ export default {
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
+    no_cert: '-',
+    data_alat: {
+      "Alat Kalibrasi yang digunakan": "",
+      "Buatan": "",
+      "Deskripsi Alat": "",
+      "Dikalibrasi": "",
+      "Diperiksa": "",
+      "Kapasitas": "",
+      "Lokasi Kalibrasi": "",
+      "Merek": "",
+      "Metoda Kalibrasi": "",
+      "No Seri": "",
+      "Posisi": "",
+      "Resolusi": "",
+      "Standar acuan": "",
+      "Standar dipakai": "",
+      "Suhu": "",
+      "Tanggal kalibrasi": "",
+      "Tanggal periksa": "",
+      "Tipe": "",
+      "Tipe penetrator": ""
     },
 
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
-      hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
-      }
-    }
+    data_cal: {
+      durometer: [],
+      alat: [],
+      timbangan: [],
+      individual: [],
+      rata_rata: [],
+      kesalahan: [],
+      mampu_ulang: [],
+      kesalahan_nol: []
+    },
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
-
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
-
-    // this.hk.d_min = durometer.result[0].data_kal.d_minimum_1
-    // this.hk.d_max = durometer.result[0].data_kal.d_maksimum_1
-
-    // this.hk.hasil.unnamed7 = durometer.result[0].data_kal.hk1['Unnamed: 7']
-    // this.hk.hasil.unnamed9 = durometer.result[0].data_kal.hk1['Unnamed: 9']
-    // this.hk.hasil.unnamed11 = durometer.result[0].data_kal.hk1['Unnamed: 11']
-    // this.hk.hasil.unnamed13 = durometer.result[0].data_kal.hk1['Unnamed: 13']
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({ id: '200910161001' })
 
-        console.log('test cors', req);
+        console.log('Lembar Kerja Durometer :', req);
+
+        this.no_cert = req.result[0].no_laporan
+
+        this.data_alat = req.result[0].data_alat
+        this.data_cal.durometer = req.result[0].data_kal['Durometer'],
+        this.data_cal.alat = req.result[0].data_kal['Alat Kalibrasi'],
+        this.data_cal.timbangan = req.result[0].data_kal['Timbangan Sete-'],
+        this.data_cal.individual = req.result[0].data_kal['Individual'],
+        this.data_cal.rata_rata = req.result[0].data_kal['Rata-rata'],
+        this.data_cal.kesalahan = req.result[0].data_kal['Kesalahan'],
+        this.data_cal.mampu_ulang = req.result[0].data_kal['Mampu ulang'],
+        this.data_cal.kesalahan_nol = req.result[0].data_kal['Kesalahan Nol']
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('Gagal : ', error.response);
       }
     },
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
-      try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
-
-        // console.log(this.file);
-
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
-      } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-      }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
-    }
   },
 }
 

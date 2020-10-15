@@ -27,87 +27,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Timbangan</td>
-                  <td>%</td>
-                  <td>normal</td>
-                  <td>0.01</td>
-                  <td>2</td>
-                  <td>30</td>
-                  <td>0.006666667</td>
-                  <td>1</td>
-                  <td>0.006666667</td>
-                  <td>4.44444E-05</td>
-                  <td>6.58436E-11</td>
-                </tr>
-                <tr>
-                  <td>Drift timbangan</td>
-                  <td>%</td>
-                  <td>rectangular</td>
-                  <td>0.01</td>
-                  <td>1.7321</td>
-                  <td>30</td>
-                  <td>0.007698004</td>
-                  <td>1</td>
-                  <td>0.007698004</td>
-                  <td>5.92593E-05</td>
-                  <td>1.17055E-10</td>
-                </tr>
-                <tr>
-                  <td>Pengaruh suhu</td>
-                  <td>%</td>
-                  <td>rectangular</td>
-                  <td>0.00000037</td>
-                  <td>1.7321</td>
-                  <td>30</td>
-                  <td>2.15544E-07</td>
-                  <td>1</td>
-                  <td>2.15544E-07</td>
-                  <td>4.64593E-14</td>
-                  <td>7.19488E-29</td>
-                </tr>
-                <tr>
-                  <td>Indikator</td>
-                  <td>%</td>
-                  <td>rectangular</td>
-                  <td>0.2</td>
-                  <td>1.7321</td>
-                  <td>50</td>
-                  <td>0.115470054</td>
-                  <td>1</td>
-                  <td>0.115470054</td>
-                  <td>0.013333333</td>
-                  <td>3.55556E-06</td>
-                </tr>
-                <tr>
-                  <td>Daya Ulang Pembacaan</td>
-                  <td>%</td>
-                  <td>rectangular</td>
-                  <td>0.34</td>
-                  <td>1.7321</td>
-                  <td>2</td>
-                  <td>0.196299092</td>
-                  <td>1</td>
-                  <td>0.196299092</td>
-                  <td>0.038533333</td>
-                  <td>0.000742409</td>
+                <tr v-for="(item, index) in 5" :key="index">
+                  <td v-for="(item_data, data_index) in 11" :key="data_index">
+                    <!-- <span v-if="data_index > 2">
+                      {{data['Unnamed: '+data_index][index].toFixed(2)}}
+                    </span> -->
+                    <span>
+                      {{data['Unnamed: '+data_index][index]}}
+                    </span>
+                  </td>
                 </tr>
                 <tr>
                   <td colspan="11">&nbsp;</td>
                 </tr>
                 <tr>
                   <td colspan="9">Sums</td>
-                  <td>0.052</td>
-                  <td>0.000745965</td>
+                  <td>{{sums['Unnamed: 9'].toFixed(3)}}</td>
+                  <td>{{sums['Unnamed: 10'].toFixed(8)}}</td>
                 </tr>
                 <tr>
                   <td colspan="9">Ketidakpastian baku gabungan, uc, %</td>                  
-                  <td>0.228</td>
+                  <td>{{ktp_gab.toFixed(3)}}</td>
                   <td>%</td>
                 </tr>
                 <tr>
                   <td colspan="9">Derajat kebebasan efektif, veff</td>
-                  <td>3.6</td>
+                  <td>{{der_keb_eff.toFixed(1)}}</td>
                   <td>&nbsp;</td>              
                 </tr>
                 <tr>
@@ -117,19 +62,18 @@
                 </tr>
                 <tr>
                   <td colspan="9">Ketidakpastian bentangan, U = k.uc, %</td>
-                  <td>0.46</td>
+                  <td>{{ktp_btg.toFixed(2)}}</td>
                   <td>%</td>
                 </tr>
                 <tr>
                   <td colspan="9">Ketidakpastian bentangan, U = k.uc, HA</td>
-                  <td>0.46</td>
+                  <td>{{ktp_btg_ha.toFixed(2)}}</td>
                   <td>HA</td>
                 </tr>
               </tbody>
             </table>;
           </v-card-text>
-        </v-card>        
-    
+        </v-card>    
       </v-layout>
     </v-flex>
   </v-layout>
@@ -168,128 +112,77 @@ export default {
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
+    no_cert: '-',
+    data:{
+      "Unnamed: 0":[
+        "Timbangan",
+        "Drift timbangan",
+        "Pengaruh suhu",
+        "Indikator",
+        "Daya Ulang Pembacaan"
+      ],
+      "Unnamed: 1":["%", "%", "%", "%", "%"],
+      "Unnamed: 2":[
+        "normal",
+        "rectangular",
+        "rectangular",
+        "rectangular",
+        "rectangular"
+      ],
+      "Unnamed: 3":[0,0,0,0,0],
+      "Unnamed: 4":[0,0,0,0,0],
+      "Unnamed: 5":[0,0,0,0,0],
+      "Unnamed: 6":[0,0,0,0,0],
+      "Unnamed: 7":[0,0,0,0,0],
+      "Unnamed: 8":[0,0,0,0,0],
+      "Unnamed: 9":[0,0,0,0,0],
+      "Unnamed: 10":[0,0,0,0,0],
     },
 
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
-      hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
-      }
-    }
+    sums: {
+      'Unnamed: 9': 0,
+      'Unnamed: 10': 0,
+    },
+    der_keb_eff: 0,
+    ktp_btg: 0,
+    ktp_btg_ha: 0,
+    ktp_gab: 0,
+
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
-
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
-
-    // this.hk.d_min = durometer.result[0].data_kal.d_minimum_1
-    // this.hk.d_max = durometer.result[0].data_kal.d_maksimum_1
-
-    // this.hk.hasil.unnamed7 = durometer.result[0].data_kal.hk1['Unnamed: 7']
-    // this.hk.hasil.unnamed9 = durometer.result[0].data_kal.hk1['Unnamed: 9']
-    // this.hk.hasil.unnamed11 = durometer.result[0].data_kal.hk1['Unnamed: 11']
-    // this.hk.hasil.unnamed13 = durometer.result[0].data_kal.hk1['Unnamed: 13']
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({ id: '200910161001' })
 
-        console.log('test cors', req);
+        console.log('Lembar Kerja Durometer :', req);
+
+        var ktp_data = req.result[0].data_ktp.newktp_2
+
+        this.data['Unnamed: 3'] = ktp_data.data['Unnamed: 3']
+        this.data['Unnamed: 4'] = ktp_data.data['Unnamed: 4']
+        this.data['Unnamed: 5'] = ktp_data.data['Unnamed: 5']
+        this.data['Unnamed: 6'] = ktp_data.data['Unnamed: 6']
+        this.data['Unnamed: 7'] = ktp_data.data['Unnamed: 7']
+        this.data['Unnamed: 8'] = ktp_data.data['Unnamed: 8']
+        this.data['Unnamed: 9'] = ktp_data.data['Unnamed: 9']
+        this.data['Unnamed: 10'] = ktp_data.data['Unnamed: 10']
+
+        this.sums = ktp_data.sums
+        this.der_keb_eff = ktp_data.der_keb_eff
+        this.ktp_btg = ktp_data['ktp_btg_%']
+        this.ktp_btg_ha = ktp_data.ktp_btg_ha
+        this.ktp_gab = ktp_data.ktp_gab
+
+        console.log(ktp_data);
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('Gagal : ', error.response);
       }
     },
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
-      try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
-
-        // console.log(this.file);
-
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
-      } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-      }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
-    }
   },
 }
 

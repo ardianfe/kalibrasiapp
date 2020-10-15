@@ -75,14 +75,16 @@
       </v-card>
 
       <v-card justify-center align-center row fill-height v-else class="pa-4">
-        <v-card-text>
+        <v-card-actions class="pa-5">
+          <v-spacer></v-spacer>
           <v-progress-circular
-            :size="70"
-            :width="7"
-            color="purple"
+            :size="80"
+            :width="3"
+            color="primary"
             indeterminate
           ></v-progress-circular>
-        </v-card-text>
+          <v-spacer></v-spacer>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -192,6 +194,11 @@ export default {
 
         setTimeout(() => {
           this.is_uploading = false
+          this.file = {}
+          this.cat = ''
+          this.sample_name = ''
+          this.order_number = ''
+          this.sample_number = ''
         }, 500);
 
       } catch (error) {

@@ -20,16 +20,16 @@
                   <tr>
                     <td>&nbsp;</td>
                     <td>Dari Sertifikat Kalibrasi : U95 = </td>
-                    <td>0.1</td>
+                    <td>{{ktp[0]}}</td>
                     <td>g, asumsi k = 2</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>
                     <td>µb1=U95/2 =</td>
-                    <td>0.05</td>
+                    <td>{{ktp[1]}}</td>
                     <td>g, dimana maksimum beban durometer 750 g, sehingga µb1 = </td>
-                    <td>0.006666667 %</td>
+                    <td>{{ktp[2].toFixed(5)}} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -44,7 +44,7 @@
                   <tr>
                     <td>&nbsp;</td>
                     <td>Drift termokopel standar =</td>
-                    <td colspan="3">0.1 g</td>
+                    <td colspan="3">{{ktp[3]}} g</td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>
@@ -56,9 +56,9 @@
                   <tr>
                     <td>&nbsp;</td>
                     <td>µb2 = </td>
-                    <td>0.1 / (31/2) =</td>
-                    <td>0.058 g =</td>
-                    <td>0.007698004 %</td>
+                    <td>{{ktp[4]}} / (31/2) =</td>
+                    <td>{{ktp[5].toFixed(3)}} g =</td>
+                    <td>{{ktp[6].toFixed(4)}} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -73,16 +73,16 @@
                   <tr>
                     <td>&nbsp;</td>
                     <td>Selisih suhu pengamatan :</td>
-                    <td>0.2</td>
+                    <td>{{ktp[7]}}</td>
                     <td>°C, dimana 1 °C = 1.4E-5 g, maka ut = </td>
-                    <td>0.0000028 g</td>
+                    <td>{{ktp[8].toFixed(7)}} g</td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>
                     <td>µb3 = ut</td>
                     <td>/ (31/2) =</td>
-                    <td>1.61658E-06 g =</td>
-                    <td>2.155E-07 %</td>
+                    <td>{{ktp[9]}} g =</td>
+                    <td>{{ktp[10]}} %</td>
                   </tr>
                   </tbody>
               </table>
@@ -97,7 +97,7 @@
                   <tr>
                     <td>&nbsp;</td>
                     <td>Readability =</td>
-                    <td>0.2</td>
+                    <td>{{ktp[11]}}</td>
                     <td>HA</td>
                     <td>&nbsp;</td>
                   </tr>
@@ -111,9 +111,9 @@
                   <tr>
                     <td>&nbsp;</td>
                     <td>µb4 = </td>
-                    <td>0.2 / (31/2) =</td>
-                    <td>0.115 HA = </td>
-                    <td>0.115470054 %</td>
+                    <td>{{ktp[12]}} / (31/2) =</td>
+                    <td>{{ktp[13].toFixed(3)}} HA = </td>
+                    <td>{{ktp[14].toFixed(5)}} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -130,12 +130,12 @@
                   <tr>
                     <td>&nbsp;</td>
                     <td>Standar deviasi daya ulang pembacaan diperoleh :</td>
-                    <td>0.34 %,</td>
+                    <td>{{ktp[15]}} %,</td>
                     <td>sehingga :</td>
                   </tr>
                   <tr>
                     <td>&nbsp;</td>
-                    <td colspan="3">µa = 0.34 / (31/2) = 0.196299 %</td>
+                    <td colspan="3">µa = {{ktp[16]}} / (31/2) = {{ktp[17].toFixed(6)}} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -198,63 +198,25 @@ export default {
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
-    },
-
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
-      hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
-      }
-    }
+    no_cert: '-',
+    ktp: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   }),
 
   mounted() {
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({ id: '200910161001' })
 
-        console.log('test cors', req);
+        console.log('Lembar Kerja Durometer :', req);
+
+        this.no_cert = req.result[0].no_laporan
+        this.ktp = req.result[0].data_ktp.newktp_1['Unnamed: 4']
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('Gagal : ', error.response);
       }
     },
   },
