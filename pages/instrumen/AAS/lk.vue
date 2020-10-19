@@ -9,127 +9,95 @@
             <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI <br> SPECTROFOTOMETER SERAPAN ATOM</p>
 
             <v-layout row wrap>
-              <table style="font-size: 9pt" width="100%">
+              <table class="no-grid" style="font-size: 9pt" width="100%">
                 <tr>
-                  <td colspan="2" width="20%">No. Sertifikat</td>
-                  <td>:</td>
-                  <td>3-07-20-00017</td>
+                  <td class="no-grid" colspan="2" width="20%">No. Sertifikat</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">{{no_cert}}</td>
                 </tr>
                 <tr>
-                  <td colspan="2">Diskripsi Alat</td>
-                  <td>:</td>
+                  <td class="no-grid" colspan="2">Deskripsi Alat</td>
+                  <td class="no-grid">:</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>Nama Alat</td>
-                  <td>:</td>
-                  <td>ATOMIC ABSORPTION SPECTROTOMETER</td>
+                  <td class="no-grid">&nbsp;</td>
+                  <td class="no-grid">Nama Alat</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">{{data_alat.deskripsi.nama_alat}}</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>Merek</td>
-                  <td>:</td>
-                  <td>Varian</td>
-                  <td>No. Seri :</td>
-                  <td>EL08043388</td>
+                  <td class="no-grid">&nbsp;</td>
+                  <td class="no-grid">Merek</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">{{data_alat.deskripsi.merk}}</td>
+                  <td class="no-grid">No. Seri :</td>
+                  <td class="no-grid">{{data_alat.deskripsi.no_seri}}</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>Model</td>
-                  <td>:</td>
-                  <td>AA240FS</td>
-                  <td>Buatan :</td>
-                  <td>USA</td>
+                  <td class="no-grid">&nbsp;</td>
+                  <td class="no-grid">Model</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">{{data_alat.deskripsi.model}}</td>
+                  <td class="no-grid">Buatan :</td>
+                  <td class="no-grid">{{data_alat.deskripsi.buatan}}</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>Lokasi Kalibrasi</td>
-                  <td>:</td>
-                  <td>Lab. PT Sucofindo</td>
+                  <td class="no-grid">&nbsp;</td>
+                  <td class="no-grid">Lokasi Kalibrasi</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">{{data_alat.deskripsi.lokasi}}</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>Kondisi Lingkungan</td>
-                  <td>:</td>
-                  <td>1. Suhu Ruang : ( 23,6 - 23,7 )°C</td>
+                  <td class="no-grid">&nbsp;</td>
+                  <td class="no-grid">Kondisi Lingkungan</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">1. Suhu Ruang : {{data_alat.deskripsi.kondisi_ling.suhu_ruang}}</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>:</td>
-                  <td>2. Kelembaban Udara : 62 - 64 % RH</td>
-                </tr>
-              </table>
-
-              <table class="mt-2" style="font-size: 9pt" width="100%">
-                <tr>
-                  <td colspan="2" width="20%">Metoda Kalibrasi</td>
-                  <td>:</td>
-                  <td>PC-307-03</td>
-                </tr>
-                <tr>
-                  <td colspan="2">Acuan</td>
-                  <td>:</td>
-                  <td>1. ASTM D 1976 -1991: Standard Test Method for Elemennts in Water <br>by Inductivly Coupled Argon Plasma Atomic Emission Spectroscopy </td>
-                </tr>
-                <tr>
-                  <td colspan="2">&nbsp;</td>
-                  <td>: </td>
-                  <td>2. ASTM E 1452 - 1992 : Standard Practice for Preparation of Calibration <br>solution for Spectro photometric and Spectroscopie Atomic Analysis</td>
-                </tr>
-                <tr>
-                  <td colspan="2">&nbsp;</td>
-                  <td>: </td>
-                  <td>3. ASTM  E 663-1991 : Standard Practice for Flame Atomic Absorption Analysis</td>
-                </tr>
-                <tr>
-                  <td colspan="2">&nbsp;</td>
-                  <td>: </td>
-                  <td>4. Atomic Absorption Spectrophotometers Operation Manual Model : </td>
+                  <td class="no-grid">&nbsp;</td>
+                  <td class="no-grid">&nbsp;</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">2. Kelembaban Udara : {{data_alat.deskripsi.kondisi_ling.kelembaban_udara}}</td>
                 </tr>
               </table>
 
-              <table class="mt-3" width="100%">
+              <table class="no-grid mt-2" style="font-size: 9pt" width="100%">
+                <tr>
+                  <td class="no-grid" colspan="2" width="20%">Metoda Kalibrasi</td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">{{data_alat.metode_kalibrasi}}</td>
+                </tr>
+                <tr v-for="(item, x) in data_alat.standar_acuan" :key="x">
+                  <td class="no-grid" colspan="2">
+                    <span v-if="x == 0">Acuan</span>
+                  </td>
+                  <td class="no-grid">:</td>
+                  <td class="no-grid">{{item}} </td>
+                </tr>
+              </table>
+
+              <table class="no-grid mt-3" style="font-size: 9pt" width="100%">
                 <thead>
                   <tr>
-                    <td class="b" colspan="5">Alat / Bahan Kalibrasi yang digunakan :</td>
+                    <td class="no-grid b" colspan="5">Alat / Bahan Kalibrasi yang digunakan :</td>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>&nbsp;</td>
-                    <td>Larutan standar :</td>
-                    <td>Cooper</td>
-                    <td>&nbsp;</td>
-                    <td>1000 mg/l ±2 mg/l.</td>
+                    <td class="no-grid">&nbsp;</td>
+                    <td class="no-grid">Larutan standar :</td>
+                    <td class="no-grid">{{data_alat.alat_kalibrasi.larutan_standar[0]}}</td>
+                    <td class="no-grid">&nbsp;</td>
+                    <td class="no-grid">{{data_alat.alat_kalibrasi.larutan_standar[1]}}</td>
                   </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>Kondisi Pengamatan :</td>
-                    <td>Lamp Current</td>
-                    <td>=</td>
-                    <td>8.0 mA</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>Oxidant flow</td>
-                    <td>=</td>
-                    <td>15 L/min</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>Fuel flow (Acetilent)</td>
-                    <td>=</td>
-                    <td>1.8 L/min</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>Slit :</td>
-                    <td>=</td>
-                    <td>0.7 nm</td>
+                  <tr v-for="(item, x) in data_alat.kondisi_pengamatan" :key="x">
+                    <td class="no-grid">&nbsp;</td>
+                    <td class="no-grid">
+                      <span v-if="x == 0">Kondisi Pengamatan :</span>
+                    </td>
+                    <td class="no-grid">{{item.kondisi}}</td>
+                    <td class="no-grid">=</td>
+                    <td class="no-grid">{{item.nilai}} {{item.satuan}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -154,20 +122,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                      <td rowspan="3">1.500</td>
-                      <td>0.1550</td>
-                      <td rowspan="3">0.1551</td>
-                      <td rowspan="3">0.043</td>
-                      <td rowspan="3">maks. 0,033</td>
-                      <td rowspan="3">0.0023</td>
-                    </tr>
-                    <tr>
-                      <td>0.1554</td>
-                    </tr>
-                    <tr>
-                      <td>0.1548</td>
-                    </tr>
+                  <tr v-for="i in 3" :key="i">
+                    <td rowspan="3" v-if="i == 1">{{data_kal.kepekaan.konsentrasi}}</td>
+                    <td >{{data_kal.kepekaan.absorban[i-1]}}</td>
+                    <td rowspan="3" v-if="i == 1">{{data_kal.kepekaan.rataan.toFixed(3)}}</td>
+                    <td rowspan="3" v-if="i == 1">{{data_kal.kepekaan.kepekaan.toFixed(3)}}</td>
+                    <td rowspan="3" v-if="i == 1">{{data_kal.kepekaan.syarat_acuan}}</td>
+                    <td rowspan="3" v-if="i == 1">{{data_kal.kepekaan.ketidakpastian.toFixed(4)}}</td>
+                  </tr>
                 </tbody>
               </table>
             </v-layout>
@@ -236,174 +198,177 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>0.01</td>
-                  <td>0.0013</td>
-                  <td>0.0014</td>
-                  <td>0.0016</td>
-                  <td>0.0015</td>
-                  <td>0.0013</td>
-                  <td>0.0014</td>
-                  <td>0.0014</td>
-                  <td>8.25</td>
-                  <td>0.0001</td>
+                <tr v-for="(item, x) in data_kal.linearitas.konsentrasi_larutan" :key="x">
+                  <td>{{item}}</td>
+                  <td>{{data_kal.linearitas['absorban-A1'][x]}}</td>
+                  <td>{{data_kal.linearitas['absorban-A2'][x]}}</td>
+                  <td>{{data_kal.linearitas['absorban-A3'][x]}}</td>
+                  <td>{{data_kal.linearitas['absorban-A4'][x]}}</td>
+                  <td>{{data_kal.linearitas['absorban-A5'][x]}}</td>
+                  <td>{{data_kal.linearitas['absorban-A6'][x]}}</td>
+                  <td>{{data_kal.linearitas['rataan'][x].toFixed(4)}}</td>
+                  <td>{{data_kal.linearitas['rsd%'][x].toFixed(2)}}</td>
+                  <td>{{data_kal.linearitas['stdv'][x].toFixed(4)}}</td>
                 </tr>
-                <tr>
-                  <td>0.05</td>
-                  <td>0.0053</td>
-                  <td>0.0054</td>
-                  <td>0.0053</td>
-                  <td>0.0051</td>
-                  <td>0.0051</td>
-                  <td>0.0059</td>
-                  <td>0.0054</td>
-                  <td>5.51</td>
-                  <td>0.0003</td>
-                </tr>
-                <tr>
-                  <td>0.1</td>
-                  <td>0.0101</td>
-                  <td>0.0099</td>
-                  <td>0.0097</td>
-                  <td>0.0096</td>
-                  <td>0.0097</td>
-                  <td>0.0096</td>
-                  <td>0.0098</td>
-                  <td>2.01</td>
-                  <td>0.0002</td>
-                </tr>
-                <tr>
-                  <td>0.5</td>
-                  <td>0.0507</td>
-                  <td>0.0500</td>
-                  <td>0.0499</td>
-                  <td>0.0503</td>
-                  <td>0.0502</td>
-                  <td>0.0500</td>
-                  <td>0.0502</td>
-                  <td>0.58</td>
-                  <td>0.0003</td>
-                </tr>
-                <tr>
-                  <td>1.0</td>
-                  <td>0.1013</td>
-                  <td>0.1017</td>
-                  <td>0.1016</td>
-                  <td>0.1010</td>
-                  <td>0.1010</td>
-                  <td>0.1015</td>
-                  <td>0.1014</td>
-                  <td>0.30</td>
-                  <td>0.0003</td>
-                </tr>
-                <tr>
-                  <td>1.5</td>
-                  <td>0.1550</td>
-                  <td>0.1541</td>
-                  <td>0.1548</td>
-                  <td>0.1518</td>
-                  <td>0.1537</td>
-                  <td>0.1541</td>
-                  <td>0.1539</td>
-                  <td>0.74</td>
-                  <td>0.0011</td>
-                </tr>
-                <tr>
-                  <td>2.0</td>
-                  <td>0.2023</td>
-                  <td>0.2035</td>
-                  <td>0.2028</td>
-                  <td>0.2027</td>
-                  <td>0.2016</td>
-                  <td>0.2034</td>
-                  <td>0.2027</td>
-                  <td>0.35</td>
-                  <td>0.0007</td>
-                </tr>
-                <tr>
-                  <td>3.0</td>
-                  <td>0.2971</td>
-                  <td>0.2959</td>
-                  <td>0.2984</td>
-                  <td>0.2999</td>
-                  <td>0.2985</td>
-                  <td>0.2979</td>
-                  <td>0.2980</td>
-                  <td>0.46</td>
-                  <td>0.0014</td>
-                </tr>
-                <tr>
-                  <td>4.0</td>
-                  <td>0.3911</td>
-                  <td>0.3895</td>
-                  <td>0.3917</td>
-                  <td>0.3942</td>
-                  <td>0.3948</td>
-                  <td>0.3925</td>
-                  <td>0.3923</td>
-                  <td>0.50</td>
-                  <td>0.0020</td>
-                </tr>
-                <tr>
-                  <td>6.0</td>
-                  <td>0.5755</td>
-                  <td>0.5779</td>
-                  <td>0.5785</td>
-                  <td>0.5729</td>
-                  <td>0.5710</td>
-                  <td>0.5695</td>
-                  <td>0.5742</td>
-                  <td>0.64</td>
-                  <td>0.0037</td>
-                </tr>
-                <tr>
-                  <td>8.0</td>
-                  <td>0.7379</td>
-                  <td>0.7444</td>
-                  <td>0.7449</td>
-                  <td>0.7467</td>
-                  <td>0.7460</td>
-                  <td>0.7437</td>
-                  <td>0.7439</td>
-                  <td>0.42</td>
-                  <td>0.0031</td>
-                </tr>
-                <tr>
-                  <td>10.0</td>
-                  <td>0.8849</td>
-                  <td>0.8874</td>
-                  <td>0.8854</td>
-                  <td>0.8885</td>
-                  <td>0.8886</td>
-                  <td>0.8863</td>
-                  <td>0.8869</td>
-                  <td>0.18</td>
-                  <td>0.0016</td>
-                </tr>
-                <tr>
-                  <td>12.0</td>
-                  <td>1.0253</td>
-                  <td>1.0226</td>
-                  <td>1.0212</td>
-                  <td>1.0161</td>
-                  <td>1.0229</td>
-                  <td>1.0189</td>
-                  <td>1.0212</td>
-                  <td>0.32</td>
-                  <td>0.0033</td>
-                </tr>
-                <tr>
-                  <td>15.0</td>
-                  <td>1.2126</td>
-                  <td>1.2268</td>
-                  <td>1.2313</td>
-                  <td>1.2236</td>
-                  <td>1.2171</td>
-                  <td>1.2133</td>
-                  <td>1.2208</td>
-                  <td>0.63</td>
-                  <td>0.0076</td>
-                </tr>
+
+                <!-- <template>
+                  <tr>
+                    <td>0.05</td>
+                    <td>0.0053</td>
+                    <td>0.0054</td>
+                    <td>0.0053</td>
+                    <td>0.0051</td>
+                    <td>0.0051</td>
+                    <td>0.0059</td>
+                    <td>0.0054</td>
+                    <td>5.51</td>
+                    <td>0.0003</td>
+                  </tr>
+                  <tr>
+                    <td>0.1</td>
+                    <td>0.0101</td>
+                    <td>0.0099</td>
+                    <td>0.0097</td>
+                    <td>0.0096</td>
+                    <td>0.0097</td>
+                    <td>0.0096</td>
+                    <td>0.0098</td>
+                    <td>2.01</td>
+                    <td>0.0002</td>
+                  </tr>
+                  <tr>
+                    <td>0.5</td>
+                    <td>0.0507</td>
+                    <td>0.0500</td>
+                    <td>0.0499</td>
+                    <td>0.0503</td>
+                    <td>0.0502</td>
+                    <td>0.0500</td>
+                    <td>0.0502</td>
+                    <td>0.58</td>
+                    <td>0.0003</td>
+                  </tr>
+                  <tr>
+                    <td>1.0</td>
+                    <td>0.1013</td>
+                    <td>0.1017</td>
+                    <td>0.1016</td>
+                    <td>0.1010</td>
+                    <td>0.1010</td>
+                    <td>0.1015</td>
+                    <td>0.1014</td>
+                    <td>0.30</td>
+                    <td>0.0003</td>
+                  </tr>
+                  <tr>
+                    <td>1.5</td>
+                    <td>0.1550</td>
+                    <td>0.1541</td>
+                    <td>0.1548</td>
+                    <td>0.1518</td>
+                    <td>0.1537</td>
+                    <td>0.1541</td>
+                    <td>0.1539</td>
+                    <td>0.74</td>
+                    <td>0.0011</td>
+                  </tr>
+                  <tr>
+                    <td>2.0</td>
+                    <td>0.2023</td>
+                    <td>0.2035</td>
+                    <td>0.2028</td>
+                    <td>0.2027</td>
+                    <td>0.2016</td>
+                    <td>0.2034</td>
+                    <td>0.2027</td>
+                    <td>0.35</td>
+                    <td>0.0007</td>
+                  </tr>
+                  <tr>
+                    <td>3.0</td>
+                    <td>0.2971</td>
+                    <td>0.2959</td>
+                    <td>0.2984</td>
+                    <td>0.2999</td>
+                    <td>0.2985</td>
+                    <td>0.2979</td>
+                    <td>0.2980</td>
+                    <td>0.46</td>
+                    <td>0.0014</td>
+                  </tr>
+                  <tr>
+                    <td>4.0</td>
+                    <td>0.3911</td>
+                    <td>0.3895</td>
+                    <td>0.3917</td>
+                    <td>0.3942</td>
+                    <td>0.3948</td>
+                    <td>0.3925</td>
+                    <td>0.3923</td>
+                    <td>0.50</td>
+                    <td>0.0020</td>
+                  </tr>
+                  <tr>
+                    <td>6.0</td>
+                    <td>0.5755</td>
+                    <td>0.5779</td>
+                    <td>0.5785</td>
+                    <td>0.5729</td>
+                    <td>0.5710</td>
+                    <td>0.5695</td>
+                    <td>0.5742</td>
+                    <td>0.64</td>
+                    <td>0.0037</td>
+                  </tr>
+                  <tr>
+                    <td>8.0</td>
+                    <td>0.7379</td>
+                    <td>0.7444</td>
+                    <td>0.7449</td>
+                    <td>0.7467</td>
+                    <td>0.7460</td>
+                    <td>0.7437</td>
+                    <td>0.7439</td>
+                    <td>0.42</td>
+                    <td>0.0031</td>
+                  </tr>
+                  <tr>
+                    <td>10.0</td>
+                    <td>0.8849</td>
+                    <td>0.8874</td>
+                    <td>0.8854</td>
+                    <td>0.8885</td>
+                    <td>0.8886</td>
+                    <td>0.8863</td>
+                    <td>0.8869</td>
+                    <td>0.18</td>
+                    <td>0.0016</td>
+                  </tr>
+                  <tr>
+                    <td>12.0</td>
+                    <td>1.0253</td>
+                    <td>1.0226</td>
+                    <td>1.0212</td>
+                    <td>1.0161</td>
+                    <td>1.0229</td>
+                    <td>1.0189</td>
+                    <td>1.0212</td>
+                    <td>0.32</td>
+                    <td>0.0033</td>
+                  </tr>
+                  <tr>
+                    <td>15.0</td>
+                    <td>1.2126</td>
+                    <td>1.2268</td>
+                    <td>1.2313</td>
+                    <td>1.2236</td>
+                    <td>1.2171</td>
+                    <td>1.2133</td>
+                    <td>1.2208</td>
+                    <td>0.63</td>
+                    <td>0.0076</td>
+                  </tr>
+                </template> -->
                 <tr>
                   <td colspan="6" class="pt-3 b">Daerah Linier dari kurva standar adalah : </td>
                   <td colspan="4" class="pt-3">0.01 s/d 8.00 ppm</td>
@@ -414,7 +379,6 @@
           </v-card-text>
 
           <v-card-text>
-
             <v-layout row class='mt-4'>
               <v-flex xs6>
                 Diperiksa oleh : Aji MS <br>
@@ -449,6 +413,10 @@
     border: 1px solid grey;
     padding: 3px
   }
+  table.no-grid, th.no-grid, td.no-grid {
+    border: 0px solid grey;
+    padding: 3px
+  }
 </style>
 
 <script>
@@ -461,138 +429,98 @@ export default {
   },
 
   head: {
-    title: 'Sebelum Set | Bidang Gaya',
+    title: 'Lembar Kerja | Bidang Instrumen Analisa',
     meta: [
       {
-        hid: 'gaya',
-        name: 'gaya',
-        content: 'Bidang Gaya'
+        hid: 'Instrumen Analisa',
+        name: 'Instrumen Analisa',
+        content: 'Bidang Instrumen Analisa'
       }
     ],
   },
 
   data: () => ({
     no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
-    },
 
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
-      hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
+    data_kal: {
+      idl: {
+        absorban_blanko: [],
+        absorban_standar: [],
+        batas_deteksi: 0,
+        raatan_standar: 0,
+        rataan_blanko: 0,
+        simpangan_baku: 0
+      },
+      kepekaan: {
+        absorban: [],
+        kepekaan: 0,
+        ketidakpastian: 0,
+        konsentrasi: 0,
+        rataan: 0,
+        syarat_acuan: ""
+      },
+      linearitas: {
+        "absorban-A1": [],
+        "absorban-A2": [],
+        "absorban-A3": [],
+        "absorban-A4": [],
+        "absorban-A5": [],
+        "absorban-A6": [],
+        "konsentrasi_larutan": [],
+        "rataan": [],
+        "rsd%": [],
+        "stdv": []
       }
+    },
+    
+    data_alat: {
+      alat_kalibrasi: {
+        larutan_standar: []
+      },
+      deskripsi: {
+        buatan: "", 
+        kondisi_ling: {
+          kelembaban_udara: "", 
+          suhu_ruang: ""
+        },
+        lokasi: "",
+        merk: "",
+        model: "",
+        nama_alat: "",
+        no_seri: "",
+      },
+      dikalibrasi: {
+        date: "0000-00-00 00:00:00", 
+        person: ""
+      },
+      diperiksa: [{
+        date: "0000-00-00 00:00:00", 
+        person: ""
+      }],
+      kondisi_pengamatan: [],
+      metode_kalibrasi: "PC-307-03",
+      standar_acuan: []
     }
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
-
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
-
-    // this.hk.d_min = durometer.result[0].data_kal.d_minimum_1
-    // this.hk.d_max = durometer.result[0].data_kal.d_maksimum_1
-
-    // this.hk.hasil.unnamed7 = durometer.result[0].data_kal.hk1['Unnamed: 7']
-    // this.hk.hasil.unnamed9 = durometer.result[0].data_kal.hk1['Unnamed: 9']
-    // this.hk.hasil.unnamed11 = durometer.result[0].data_kal.hk1['Unnamed: 11']
-    // this.hk.hasil.unnamed13 = durometer.result[0].data_kal.hk1['Unnamed: 13']
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({id: '200831127001'})
 
-        console.log('test cors', req);
+        console.log('get LK: ', req);
+        let req_data = req.result[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('get LK err: ', error.response);
       }
-    },
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
-      try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
-
-        // console.log(this.file);
-
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
-      } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-      }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
     }
   },
 }

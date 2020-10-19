@@ -6,7 +6,7 @@
       <v-layout justify-center column>
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-card-text>
-            <p>No. Laporan : 3-09-19-00757</p>
+            <p>No. Laporan : {{no_cert}}</p>
 
             <p class="b">KETIDAKPASTIAN PENGUKURAN :</p>
 
@@ -18,14 +18,14 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>Toleransi larutan standar Cu =</td>
-                <td>0.002</td>
+                <td>{{data_ktp.ktp_baku_lar_std.cu}}</td>
                 <td> mg/l</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
                 <td>µb1 = </td>
                 <td>0.002 / (3)1/2 =</td>
-                <td>0.001154701</td>
+                <td>{{data_ktp.ktp_baku_lar_std.mb1_mgl.toFixed(9)}}</td>
               </tr>
             </table>
 
@@ -37,17 +37,17 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>Dari sertifikat kalibrasi diperoleh U95 = </td>
-                <td>0.005</td>
+                <td>{{data_ktp.ktp_baku_labu_ukur.u95}}</td>
                 <td>ml</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
                 <td>µb2 = </td>
-                <td>0.005</td>
+                <td>{{data_ktp.ktp_baku_labu_ukur.u95}}</td>
                 <td>/ 2 =</td>
-                <td>0.0025</td>
+                <td>{{data_ktp.ktp_baku_labu_ukur.mb2_ml}}</td>
                 <td>ml        =</td>
-                <td>5.77E-09</td>
+                <td>{{data_ktp.ktp_baku_labu_ukur.mb2_mgl}}</td>
                 <td>mg/l</td>
               </tr>
             </table>
@@ -60,17 +60,17 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>Dari Sertifikat Kalibrasi : U95 = </td>
-                <td>0.002</td>
+                <td>{{data_ktp.ktp_baku_buret.u95}}</td>
                 <td>ml, Asumsi k = 2,0</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
                 <td>µb3 = </td>
-                <td>0.002</td>
+                <td>{{data_ktp.ktp_baku_buret.u95}}</td>
                 <td>/ 2 =</td>
-                <td>0.001</td>
+                <td>{{data_ktp.ktp_baku_buret.mb3_ml}}</td>
                 <td>ml        =</td>
-                <td>2.31E-09</td>
+                <td>{{data_ktp.ktp_baku_buret.mb3_mgl}}</td>
                 <td>mg/l</td>
               </tr>
             </table>
@@ -83,17 +83,17 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>Dari Sertifikat Kalibrasi : U95 = </td>
-                <td>0.002</td>
+                <td>{{data_ktp.ktp_baku_pipet.u95}}</td>
                 <td>ml, Asumsi k = 2,0</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
                 <td>µb4 = </td>
-                <td>0.002</td>
+                <td>{{data_ktp.ktp_baku_pipet.u95}}</td>
                 <td>/ 2 =</td>
-                <td>0.001</td>
+                <td>{{data_ktp.ktp_baku_pipet.mb4_ml}}</td>
                 <td>ml        =</td>
-                <td>2.31E-09</td>
+                <td>{{data_ktp.ktp_baku_pipet.mb4_mgl}}</td>
                 <td>mg/l</td>
               </tr>
             </table>
@@ -106,7 +106,7 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>Deviasi maksimum dari linieritas konsentrasi larutan standar adalah</td>
-                <td>0.002306559</td>
+                <td>{{data_ktp.ktp_baku_linearitas_std.dev_maks.toFixed(6)}}</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
@@ -115,9 +115,9 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>µb5 = </td>
-                <td>0.002306559</td>
+                <td>{{data_ktp.ktp_baku_linearitas_std.dev_maks.toFixed(6)}}</td>
                 <td>/ (31/2) =</td>
-                <td>0.0013</td>
+                <td>{{data_ktp.ktp_baku_linearitas_std.mb5_abs.toFixed(6)}}</td>
                 <td>abs        </td>
               </tr>
             </table>
@@ -130,7 +130,7 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>Daya baca, dimana 1 reolusi  diperoleh </td>
-                <td>0.0001</td>
+                <td>{{data_ktp.ktp_readability.daya_baca}}</td>
                 <td>abs</td>
               </tr>
               <tr>
@@ -140,9 +140,9 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>µb6 = </td>
-                <td>0.0001</td>
+                <td>{{data_ktp.ktp_readability.daya_baca}}</td>
                 <td>/ (31/2) =</td>
-                <td>0.0000577</td>
+                <td>{{data_ktp.ktp_readability.mb6_abs.toFixed(7)}}</td>
                 <td>abs</td>
               </tr>
             </table>
@@ -155,7 +155,7 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>Standar deviasimaksium  daya ulang pembacaan diperoleh :</td>
-                <td>0.003684789</td>
+                <td>{{data_ktp.ktp_daya_ulang_baca.dev_maks.toFixed(5)}}</td>
                 <td>abs</td>
               </tr>
               <tr>
@@ -165,9 +165,9 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>µb6 = </td>
-                <td>0.0037</td>
+                <td>{{data_ktp.ktp_daya_ulang_baca.dev_maks.toFixed(5)}}</td>
                 <td>/ (31/2) =</td>
-                <td>0.00213</td>
+                <td>{{data_ktp.ktp_daya_ulang_baca.mb7_abs.toFixed(5)}}</td>
                 <td>abs</td>
               </tr>
             </table>
@@ -231,65 +231,62 @@ export default {
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
-    },
+    no_cert: '',
 
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
-      hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
-      }
-    }
+    data_ktp: {
+      ktp_baku_buret: {
+        mb3_mgl: 0, 
+        mb3_ml: 0, 
+        u95: 0
+      },
+      ktp_baku_labu_ukur: {
+        mb2_mgl: 0, 
+        mb2_ml: 0, 
+        u95: 0
+      },
+      ktp_baku_lar_std: {
+        cu: 0, 
+        mb1_mgl: 0
+      },
+      ktp_baku_linearitas_std: {
+        dev_maks: 0, 
+        mb5_abs: 0
+      },
+      ktp_baku_pipet: {
+        mb4_mgl: 0,
+        mb4_ml: 0,
+        u95: 0
+      },
+      ktp_daya_ulang_baca: {
+        dev_maks: 0, 
+        mb7_abs: 0
+      },
+      ktp_readability: {
+        daya_baca: 0,
+        mb6_abs: 0
+      },
+    },
   }),
 
   mounted() {
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({id: '200831127001'})
 
-        console.log('test cors', req);
+        console.log('get LK: ', req);
+        let req_data = req.result[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_ktp = req_data.data_ktp['ktp-1']
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('get LK err: ', error.response);
       }
-    },
+    }
   },
+
 }
 </script>
