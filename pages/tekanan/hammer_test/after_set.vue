@@ -10,55 +10,55 @@
               LEMBAR KERJA KALIBRASI CONCRETE TEST HAMMER TIPE N DAN L
             </p>
 
-            <p class="b">Sertifikat No : 3-09-17-0427</p>
+            <p class="b">Sertifikat No : {{no_cert}}</p>
             <v-layout row wrap>
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Nama Alat : {{ equipment.name }}</p>
+                  <p class="mb-1">Nama Alat : {{ data_alat['Deskripsi Alat'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Kapasitas : {{ equipment.capacity }}</p>
+                  <p class="mb-1">Kapasitas : {{ data_alat['Kapasitas'] }} unit</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Merk : {{ equipment.brand }}</p>
+                  <p class="mb-1">Merk : {{ data_alat['Merek'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">No Seri : {{ equipment.serial_number }}</p>
+                  <p class="mb-1">No Seri : {{ data_alat['No Seri'] }}</p>
                 </v-layout>
               </v-flex>
               
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Resolusi : {{ equipment.resolution }}</p>
+                  <p class="mb-1">Resolusi : {{ data_alat['Resolusi'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Tipe : {{ equipment.type }}</p>
+                  <p class="mb-1">Tipe : {{ data_alat['Tipe'] }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Buatan : {{ equipment.made_in }}</p>
+                  <p class="mb-1">Buatan : {{ data_alat['Buatan'] }}</p>
                 </v-layout>
               </v-flex>
 
               <v-flex xs12 class="mt-4">
                 <v-layout>
-                  <p class="mb-1">Lokasi Kalibrasi : {{ equipment.location }}</p>
+                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat['Lokasi Kalibrasi'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Suhu : {{ equipment.temperature }}</p>
+                  <p class="mb-1">Suhu : {{ data_alat['Suhu'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Standar Acuan : {{ equipment.standard }}</p>
+                  <p class="mb-1">Standar Acuan : {{ data_alat['Standar acuan'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Metoda Kalibrasi : {{ equipment.methods }}</p>
+                  <p class="mb-1">Metoda Kalibrasi : PC-309-10</p>
                 </v-layout>
               </v-flex>
             </v-layout>
@@ -86,15 +86,13 @@
                   Tipe N	81.0	unit
                 </td>
                 <td>
-                  Posisi 1 :	80.0	Unit	Posisi 6  :	80.0	Unit <br>
-                  Posisi 2 :	80.0	Unit	Posisi 7  :	80.0	Unit <br>
-                  Posisi 3 :	81.0	Unit	Posisi 8  :	80.0	Unit <br>
-                  Posisi 4 :	79.0	Unit	Posisi 9  :	80.0	Unit <br>
-                  Posisi 5 :	82.0	Unit	Posisi 10:	79.0	Unit <br><br>
+                  <span v-for="(item, x) in data_kal.hk2['Unnamed: 5']" :key="x">
+                    Posisi {{x+1}} :	{{item}}	Unit	Posisi 6  :	{{data_kal.hk2['Unnamed: 8'][x]}}	Unit <br>
+                  </span> <br>
                             
-                  H rata-rata :	80.1 Unit	<br>
-                  H Minimum :	79.0 Unit	<br>
-                  H Maksimum : 82.0 Unit	<br>
+                  H rata-rata :	{{data_kal.havg_2}} Unit	<br>
+                  H Minimum :	{{data_kal.hmin_2}} Unit	<br>
+                  H Maksimum : {{data_kal.h_max_2}} Unit	<br>
                 </td>
                 <td></td>
               </tr>
@@ -102,9 +100,9 @@
                 <td>2. Repeatability</td>
                 <td>
                   Repeatability = H Maksi - H Min <br>				
-                  H Maksimum :	82.0 Unit <br>
-                  H Minimun :	79.0 Unit <br><br>
-                  Repeatability :	3.0 Unit
+                  H Maksimum : {{data_kal.h_max_2}} Unit <br>
+                  H Minimun :	{{data_kal.hmin_2}} Unit <br><br>
+                  Repeatability :	{{data_kal.repeatability_2}} Unit
                 </td>
                 <td>Maksimum  4,0 unit</td>
               </tr>
@@ -112,9 +110,9 @@
                 <td>3. Kesalahan</td>
                 <td>
                   Kesalahan = H rata-rata - H Standar <br>
-                  H rata-rata :	80.1 Unit <br>
-                  H Standar :	81.0 Unit <br><br>
-                  Kesalahan :	-0.9 Unit
+                  H rata-rata :	{{data_kal.havg_2}} Unit <br>
+                  H Standar :	{{data_kal.h_standar_2}} Unit <br><br>
+                  Kesalahan :	{{data_kal.kesalahan_2}} Unit
                 </td>
                 <td> ± 3.0 unit</td>
               </tr>
@@ -164,91 +162,79 @@ export default {
   },
 
   head: {
-    title: 'Setelah Set | Bidang Gaya',
+    title: 'Setelah Set | Bidang Tekanan',
     meta: [
       {
-        hid: 'gaya',
-        name: 'gaya',
-        content: 'Bidang Gaya'
+        hid: 'Tekanan',
+        name: 'Tekanan',
+        content: 'Bidang Tekanan'
       }
     ],
   },
 
   data: () => ({
-    equipment: {}
+    no_cert: '',
+
+    data_kal: {
+      h_max_2: 0,
+      h_max_3: 0,
+      h_standar_2: 0,
+      h_standar_3: 0,
+      havg_2: 0,
+      havg_3: 0,
+      hk2: {
+        "Unnamed: 5": [], 
+        "Unnamed: 8": []},
+      hk3: {  
+        "Unnamed: 5": [], 
+        "Unnamed: 8": []},
+      hmin_2: 0,
+      hmin_3: 0,
+      kesalahan_2: 0,
+      kesalahan_3: 0,
+      repeatability_2: 0,
+      repeatability_3: 0
+    },
+
+    data_alat: {
+      "Buatan": "",
+      "Deskripsi Alat": "",
+      "Dikalibrasi": "",
+      "Diperiksa": "",
+      "Kapasitas": "",
+      "Lokasi Kalibrasi": "",
+      "Merek": "",
+      "Metoda verifikasi": "",
+      "No Seri": "",
+      "Resolusi": "",
+      "Standar acuan": "",
+      "Standar dipakai": "",
+      "Suhu": "",
+      "Tanggal kalibrasi": "",
+      "Tanggal periksa": "",
+      "Tipe": "",
+      "Tipe penetrator": ""
+    }
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
+    this.getLK()
   },
 
   methods: {
-    triggerInput() {      
-      document.getElementById("input-excel").click()
-    },
-
-    hideElement(id){
-      console.log(id);
-      
-      document.getElementById(''+id).style = "display: none;"
-    },
-    
-    showElement(id){      
-      document.getElementById(''+id).style = "display: block;"
-    },
-
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
+    async getLK() {
       try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
+        const req = await this.$category.getLembarKerja({id: '20090851001'})
 
-        // console.log(this.file);
+        console.log('get LK: ', req);
+        let req_data = req.result[0]
 
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal
       } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
+        console.log('get LK err: ', error.response);
       }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
     }
   },
 }
