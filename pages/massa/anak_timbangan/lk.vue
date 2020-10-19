@@ -4,11 +4,25 @@
       <massaHeader></massaHeader>
 
       <v-layout justify-center column>
+        <v-flex xs12 sm6 class="mt-3">
+          <label for="mass">Pilih Ukuran massa</label>
+          <v-select
+            :items="mass"
+            id="mass"
+            v-model="selectedMass"
+            label="Pilih ukuran massa"
+            solo
+            background-color="white"
+          ></v-select>
+        </v-flex>
+
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-card-text>
             <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI MASSA</p>
 
-            <p class="b">3-06-20-00064</p>
+            <p class="b">{{no_cert}}</p>
+
+            {{data_alat[selectedMass]}}
             <v-layout row wrap>
               <table width="100%">
                 <thead>
@@ -20,33 +34,33 @@
                   <tr>
                     <td width="20%" class="b">Massa</td>
                     <td>:</td>
-                    <td>1 g</td>
+                    <td>{{selectedMass}}</td>
                     <td width="20%" class="b">Lokasi</td>
                     <td>:</td>
-                    <td colspan="2">Laboratorium Kalibrasi B4T</td>
+                    <td colspan="2">{{data_alat[selectedMass].description.lokasi}}</td>
                   </tr>
                   <tr>
                     <td class="b">Merek</td>
                     <td>:</td>
-                    <td>Kern</td>
+                    <td>{{data_alat[selectedMass].description.merk}}</td>
                     <td class="b">Suhu ruang</td>
                     <td>:</td>
-                    <td>20 ± 1</td>
+                    <td>{{data_alat[selectedMass].description.suhu}}</td>
                     <td>oC</td>
                   </tr>
                   <tr>
                     <td class="b">No.Seri</td>
                     <td>:</td>
-                    <td>G962938</td>
+                    <td>{{data_alat[selectedMass].description.no_seri}}</td>
                     <td class="b">Kelembaban</td>
                     <td>:</td>
-                    <td>61 ± 5</td>
+                    <td>{{data_alat[selectedMass].description.kelembaban}}</td>
                     <td>%</td>
                   </tr>
                   <tr>
                     <td class="b">Bahan</td>
                     <td>:</td>
-                    <td>Stainless Steel</td>
+                    <td>{{data_alat[selectedMass].description.bahan}}</td>
                     <td class="b">Tekanan Udara </td>
                     <td>:</td>
                     <td>626 s/d 627</td>
@@ -55,12 +69,12 @@
                   <tr>
                     <td class="b">Buatan</td>
                     <td>:</td>
-                    <td colspan="5">Germany</td>
+                    <td colspan="5">{{data_alat[selectedMass].description.buatan}}</td>
                   </tr>
                   <tr>
                     <td class="b">Kelas</td>
                     <td>:</td>
-                    <td colspan="5">F1</td>
+                    <td colspan="5">{{data_alat[selectedMass].description.kelas}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -70,12 +84,12 @@
                   <tr>
                     <td class="b" width="20%">Metoda Kalibrasi</td>
                     <td>:</td>
-                    <td>PC-306-03</td>
+                    <td>{{data_alat[selectedMass].metode_kalibrasi}}</td>
                   </tr>
                   <tr>
                     <td class="b">Acuan</td>
                     <td>:</td>
-                    <td>"The Calibration of Weights and Balances" E.C Morris, <br> and Kitty M.K Fen, NMI,Third Edition,Australia,2010,Butir 3</td>
+                    <td>{{data_alat[selectedMass].acuan[0]}}<br> {{data_alat[selectedMass].acuan[1]}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -99,43 +113,43 @@
                     <td colspan="2"></td>
                     <td>Kelas</td>
                     <td>:</td>
-                    <td>E2</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Massa Standar'].kelas}}</td>
                     <td></td>
                     <td>Jenis</td>
                     <td>:</td>
-                    <td>Timbangan Elektronik</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Timbangan'].jenis}}</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
                     <td>No.Seri</td>
                     <td>:</td>
-                    <td>158850</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Massa Standar']['no seri']}}</td>
                     <td></td>
                     <td>No. Seri</td>
                     <td>:</td>
-                    <td>1118252772</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Timbangan']['no seri']}}</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
                     <td>Massa Nominal (MT)</td>
                     <td>:</td>
-                    <td>1 g</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Massa Standar'].MT}} g</td>
                     <td></td>
                     <td>Daya baca</td>
                     <td>:</td>
-                    <td>0.00001 g</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Massa Standar'].daya_baca}} g</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
                     <td>Nilai Massa Standar (MS)</td>
                     <td>:</td>
-                    <td>1.000021 g</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Massa Standar'].MS}} g</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
                     <td>Nilai Ketidakpastian </td>
                     <td>:</td>
-                    <td>0.004 mg</td>
+                    <td>{{data_alat[selectedMass].alat_kalibrasi['Massa Standar'].KTP}} mg</td>
                   </tr>
                 </tbody>
               </table>
@@ -153,59 +167,59 @@
                     <td class="td-grid" width='20px' rowspan="4"><p style="writing-mode: vertical-rl; text-orientation: upright;">RUN 1</p></td>
                     <td class="td-grid">Massa Standar</td>
                     <td class="td-grid">(MS<sub>1</sub>)</td>
-                    <td class="td-grid">1.00002</td>
-                    <td class="td-grid" rowspan="2">-0.00005</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][0] }}</td>
+                    <td class="td-grid" rowspan="2">{{ kal['perbedaan_baca_'+selectedMass][0] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">Massa Tidak Diketahui</td>
                     <td class="td-grid">(MT<sub>1</sub>)</td>
-                    <td class="td-grid">0.99997</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][1] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">Massa Tidak Diketahui</td>
                     <td class="td-grid">(MT<sub>1</sub>)</td>
-                    <td class="td-grid">0.99997</td>
-                    <td class="td-grid" rowspan="2">-0.00005</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][2] }}</td>
+                    <td class="td-grid" rowspan="2">{{ kal['perbedaan_baca_'+selectedMass][1] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">Massa Standar</td>
                     <td class="td-grid">(MS<sub>1</sub>)</td>
-                    <td class="td-grid">1.00002</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][3] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid" width='20px' rowspan="4"><p style="writing-mode: vertical-rl; text-orientation: upright;">RUN 2</p></td>
                     <td class="td-grid">Massa Standar</td>
                     <td class="td-grid">(MS<sub>1</sub>)</td>
-                    <td class="td-grid">1.00002</td>
-                    <td class="td-grid" rowspan="2">-0.00005</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][4] }}</td>
+                    <td class="td-grid" rowspan="2">{{ kal['perbedaan_baca_'+selectedMass][2] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">Massa Tidak Diketahui</td>
                     <td class="td-grid">(MT2)</td>
-                    <td class="td-grid">0.99997</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][5] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">Massa Tidak Diketahui</td>
                     <td class="td-grid">(MT2)</td>
-                    <td class="td-grid">0.99996</td>
-                    <td class="td-grid" rowspan="2">-0.00006</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][6] }}</td>
+                    <td class="td-grid" rowspan="2">{{ kal['perbedaan_baca_'+selectedMass][3] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">Massa Standar</td>
                     <td class="td-grid">(MS<sub>1</sub>)</td>
-                    <td class="td-grid">1.00002</td>
+                    <td class="td-grid">{{ kal['pembacaan_timbangan_'+selectedMass][7] }}2</td>
                   </tr>
                   <tr>
                     <td class="td-grid" colspan="4">Rata-rata perbedaan pembacaan  (∆m)</td>
-                    <td class="td-grid">-0.00005</td>
+                    <td class="td-grid">{{ kal['rata_prbd_baca_'+selectedMass] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid" colspan="4">Standar Deviasi dari perbedaan pembacaan  (σ)</td>
-                    <td class="td-grid">0.000005</td>
+                    <td class="td-grid">{{ kal['stdv_'+selectedMass] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid" colspan="4">Ketidakpastian baku daya ulang Pembacaan  (σ/√4)</td>
-                    <td class="td-grid">0.000003</td>
+                    <td class="td-grid">{{ kal['ktp_baku_'+selectedMass] }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -213,7 +227,7 @@
               <table class="grid mt-2" width="100%">
                 <tr>
                   <td class="td-grid" colspan="4">Nilai Konvensional Massa Tidak Diketahui (MT)</td>
-                  <td rowspan="2" class="td-grid" width="25%">0.99997</td>
+                  <td rowspan="2" class="td-grid" width="25%">{{ kal['nilai_MT_'+selectedMass] }}</td>
                 </tr>
                 <tr>
                   <td class="td-grid" colspan="4">Nilai Massa Standar (MS) + Rata-rata Perbedaab Pembacaan (∆m)</td>
@@ -243,8 +257,8 @@
                       <v-img src="/mass/mass1.png" width="120px" contain>
                       </v-img>
                     </td>
-                    <td class="td-grid">0.000002000</td>
-                    <td class="td-grid">0.000002</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb1[0] }}</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb1[1] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">2. Resolusi timbangan (μb<sub>2</sub>)</td>
@@ -254,8 +268,8 @@
                       <v-img src="/mass/mass2.png" width="150px" contain>
                       </v-img>
                     </td>
-                    <td class="td-grid">0.000002887</td>
-                    <td class="td-grid">0.000003</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb2[0] }}</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb2[1] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">3. Bouyancy udara (μb<sub>3</sub>)</td>
@@ -265,8 +279,8 @@
                       <v-img src="/mass/mass3.png" width="180px" contain>
                       </v-img>
                     </td>
-                    <td class="td-grid">0.000000715</td>
-                    <td class="td-grid">0.000001</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb3[0] }}</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb3[1] }}</td>
                   </tr>
                   <tr>
                     <td class="td-grid">4. Drift (μb<sub>4</sub>)</td>
@@ -276,8 +290,8 @@
                       <v-img src="/mass/mass4.png" width="120px" contain>
                       </v-img>
                     </td>
-                    <td class="td-grid">0.000000173</td>
-                    <td class="td-grid">0.000000</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb4[0] }}</td>
+                    <td class="td-grid">{{ ktp['analisis_B_'+selectedMass].mb4[1] }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -303,8 +317,8 @@
                       <v-img src="/mass/mass5.png" width="120px" contain>
                       </v-img>
                     </td>
-                    <td class="td-grid">0.000002000</td>
-                    <td class="td-grid">0.000002</td>
+                    <td class="td-grid">{{ ktp['analisis_A_ma1_'+selectedMass][0] }}</td>
+                    <td class="td-grid">{{ ktp['analisis_A_ma1_'+selectedMass][1] }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -320,8 +334,8 @@
                       </v-img>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="text-xs-center">0.0000044</td>
+                  <tr> 
+                    <td class="text-xs-center">{{ ktp['uc_'+selectedMass] }}</td>
                   </tr>
                 </table>
               </v-flex>
@@ -338,7 +352,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-xs-center">0.000009</td>
+                    <td class="text-xs-center">{{ ktp['u95'+selectedMass] }}</td>
                   </tr>
                 </table>
               </v-flex>
@@ -347,12 +361,20 @@
                 <span class="b">RESUME</span>
                 <table class="grid" width="100%">
                   <tr>
-                    <td class="td-grid">Massa Konvensional</td>
-                    <td class="td-grid">0.99997 g</td>
+                    <td class="td-grid text-xs-center">Massa Konvensional</td>
+                    <td class="td-grid text-xs-center">
+                      <span v-if="ktp['resume'+selectedMass]">
+                        {{ ktp['resume'+selectedMass]['massa_konv'] }} g
+                      </span>
+                    </td>
                   </tr>
                   <tr>
                     <td class="td-grid text-xs-center">Ketidakpastian</td>
-                    <td class="td-grid text-xs-center">0.0087 mg</td>
+                    <td class="td-grid text-xs-center">
+                      <span v-if="ktp['resume'+selectedMass]">
+                        {{ ktp['resume'+selectedMass]['ketidakpastian'] }} mg
+                      </span>
+                    </td>
                   </tr>
                 </table>
 
@@ -405,7 +427,7 @@ export default {
   },
 
   head: {
-    title: 'Lembar Kerja | Bidang Massa',
+    title: 'Lembar Kerja Anak Timbangan | Bidang Massa',
     meta: [
       {
         hid: 'mass',
@@ -416,127 +438,124 @@ export default {
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
+    no_cert: '',
+
+    data_kal: {
+      h_max_2: 0,
+      h_max_3: 0,
+      h_standar_2: 0,
+      h_standar_3: 0,
+      havg_2: 0,
+      havg_3: 0,
+      hk2: {
+        "Unnamed: 5": [], 
+        "Unnamed: 8": []},
+      hk3: {  
+        "Unnamed: 5": [], 
+        "Unnamed: 8": []},
+      hmin_2: 0,
+      hmin_3: 0,
+      kesalahan_2: 0,
+      kesalahan_3: 0,
+      repeatability_2: 0,
+      repeatability_3: 0
     },
 
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
-      hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
-      }
-    }
+    data_alat: {
+      "1 g":{
+        "acuan":[
+          "\" The Calibration of Weights and Balances\" E.C Morris, ",
+          "  and Kitty M.K Fen, NMI,Third Edition,Australia,2010,Butir 3"
+        ],
+        "alat_kalibrasi":{
+          "Massa Standar":{
+            "KTP":"0.004",
+            "MS":"1.000021",
+            "MT":"1",
+            "kelas":"E2",
+            "no seri":"158850"
+          },
+          "Timbangan":{
+            "daya_baca":1e-05,
+            "jenis":"Timbangan Elektronik",
+            "no_seri":1118252772
+          }
+        },
+        "description":{
+          "bahan":"Stainless Steel",
+          "buatan":"Germany",
+          "kelas":"F1",
+          "kelembaban":"61 \u00b1 5",
+          "lokasi":"Laboratorium Kalibrasi B4T",
+          "massa":"1 g",
+          "merk":"Kern",
+          "no_seri":"G962938",
+          "suhu":"20 \u00b1 1"
+        },
+        "dikalibrasi":{
+          "date":"2020-02-12 00:00:00",
+          "person":"Satrio O."
+        },
+        "diperiksa":{
+          "date":"2020-02-12 00:00:00",
+          "person":"Agus SP"
+        },
+        "metode_kalibrasi":"PC-306-03"
+      },
+    },
+    kal: {
+      "ktp_baku_1 g": "0.00000",
+      "nilai_MT_1 g": "0.99997",
+      "pembacaan_timbangan_1 g":[1.00002, 0.99997, 0.99997, 1.00002, 1.00002, 0.99997, 0.99996, 1.00002],
+      "perbedaan_baca_1 g":[-0.00005, -0.00005, -0.00005, -0.00006],
+      "rata_prbd_baca_1 g": "-0.00005",
+      "stdv_1 g": "0.00001",
+    },
+    ktp: {
+      "analisis_A_ma1_1 g": ["0.000003", "0.00000"],
+      "analisis_B_1 g": {
+        mb1: ["0.000002000", "0.00000"],
+        mb2: ["0.000002887", "0.00000"],
+        mb3: ["0.000000715", "0.00000"],
+        mb4: ["0.000000173", "0.00000"]
+      },
+      "resume 1 g": {
+        ketidakpastian: "0.00875",
+        massa_konv: "0.99997"
+      },
+      "u951 g": "0.000009",
+      "uc_1 g": "0.0000044"
+    },
+    mass: [],
+    selectedMass: '1 g'
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
-
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
-
-    // this.hk.d_min = durometer.result[0].data_kal.d_minimum_1
-    // this.hk.d_max = durometer.result[0].data_kal.d_maksimum_1
-
-    // this.hk.hasil.unnamed7 = durometer.result[0].data_kal.hk1['Unnamed: 7']
-    // this.hk.hasil.unnamed9 = durometer.result[0].data_kal.hk1['Unnamed: 9']
-    // this.hk.hasil.unnamed11 = durometer.result[0].data_kal.hk1['Unnamed: 11']
-    // this.hk.hasil.unnamed13 = durometer.result[0].data_kal.hk1['Unnamed: 13']
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({id: '20083192001'})
 
-        console.log('test cors', req);
+        console.log('get LK: ', req);
+        let req_data = req.result[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+
+        this.mass = Object.keys(req_data.data_alat)
+
+        console.log(this.mass);
+        this.selectedMass = this.mass[0]
+
+        this.kal = req_data.data_kal
+        this.ktp = req_data.data_ktp
+        // this.data_kal = req_data.data_kal
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('get LK err: ', error.response);
       }
-    },
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
-      try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
-
-        // console.log(this.file);
-
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
-      } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-      }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
     }
   },
 }

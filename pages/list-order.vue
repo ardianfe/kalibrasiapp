@@ -199,6 +199,8 @@ export default {
           this.sample_name = ''
           this.order_number = ''
           this.sample_number = ''
+
+          alert('Upload Berhasil')
         }, 500);
 
       } catch (error) {

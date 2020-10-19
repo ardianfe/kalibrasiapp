@@ -97,13 +97,19 @@
             <table style="width: 100%" class="f-table my-2">
               <tr class="tr-head white--text pt-sans font-weight-bold">
                 <td class="primary td-header">No Order</td>
+                <td class="primary td-header">Nama Perusahaan</td>
                 <td class="primary td-header">Aksi</td>
               </tr>
 
-              <tr class="tr-body" v-for="item in 7" :key="item">
-                <td class="td-body">{{item}}</td>
-                <td class="td-body">ini</td>
-              </tr>
+              <template v-for="(item, x) in lo">
+                <tr class="tr-body" v-if="x < 7" :key="item.id">
+                  <td class="td-body">{{item.id}}</td>
+                  <td class="td-body">{{item.nama_perusahaan}}</td>
+                  <td class="td-body">
+                    <a to="/list-order">lihat</a>
+                  </td>
+                </tr>
+              </template>
             </table>
             <p class="text-xs-right">
               <a @click="$router.push('/list-order')">Lihat Lebih Banyak</a>
@@ -118,11 +124,11 @@
                 <td class="primary td-header">Status SPM</td>
               </tr>
 
-              <tr class="tr-body" v-for="item in 7" :key="item">
-                <td class="td-body">{{item}}</td>
-                <td class="td-body">ini</td>
-                <td class="td-body">ts</td>
-                <td class="td-body">asdf</td>
+              <tr class="tr-body" v-for="(item, x) in laporan" :key="x">
+                <td class="td-body">{{item.no}}</td>
+                <td class="td-body">{{item.nama}}</td>
+                <td class="td-body">{{item.tanggal}}</td>
+                <td class="td-body">{{item.status}}</td>
               </tr>
             </table>
             <p class="text-xs-right">
@@ -167,6 +173,10 @@ export default {
 
     companies: [],
 
+    lo: [
+      { id: '', nama_perusahaan: '', }
+    ],
+
     bidang: [
       { title: 'Dimensi', url: '/dimensi', icon: '' },
       { title: 'Tekanan', url: '/tekanan', icon: '' },
@@ -177,15 +187,40 @@ export default {
       { title: 'Timbangan', url: '/timbangan', icon: '' },
       { title: 'Instrumen Analisa', url: '/instrumen', icon: '' },
       { title: 'Kelistrikan', url: '/kelistrikan', icon: 'electrical_services' },
+    ],
+
+    laporan: [
+      { no: '16042280001', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
+      { no: '1707189008', tanggal: '20-10-2020', nama: 'Pressure Gauge', status: 'on-going' },
+      { no: '20082873001', tanggal: '20-10-2020', nama: 'Mesin Uji Universal', status: 'printed' },
+      { no: '200831108004', tanggal: '20-10-2020', nama: 'Inkubator', status: 'on-going' },
+      { no: '200910127002', tanggal: '20-10-2020', nama: 'Atomatic Absorption Spectrophotometer (AAS)', status: 'on-going' },
+      { no: '200914149007', tanggal: '20-10-2020', nama: 'Pipet Ukur', status: 'on-going' },
+      { no: '16042280002', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
+      { no: '200831108024', tanggal: '20-10-2020', nama: 'Inkubator', status: 'on-going' },
     ]
   }),
 
   mounted() {
     // this.getOnGoing()
     // this.companies = this.$slots
+    this.getLO()
   },
 
   methods: {
+    async getLO() {
+      try {
+        const req = await this.$calibrate.getListOrders()
+
+        console.log('test cors', req);
+        this.lo = req.result
+
+        this.loading = false
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+
     async getOnGoing() {
       try {
         const req = await this.$calibrate.getDashboard({
