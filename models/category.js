@@ -9,6 +9,14 @@ const model = $axios => ({
 
   getLembarKerja({id}) {
     return $axios.$get(base_url2 + '/results/' + id)
+  },
+
+  getDetailOrders({id}) {
+    return $axios.$get(base_url2 + '/orders/' + id)
+  },
+
+  getResultByName({name}) {
+    return $axios.$get(base_url2 + '/results/?nama_sample=' + name )
   }
 });
 

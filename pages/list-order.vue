@@ -27,7 +27,17 @@
           
           <template v-if="!loading">
             <tr class="tr-body" v-for="item in lo" :key="item.id">
-              <td class="td-body">{{item.id}}</td>
+              <td class="td-body">
+                <v-hover>
+                  <div class="pointer"
+                    :style="`${ hover ? 'color: blue' : 'color: black'}`" 
+                    slot-scope="{ hover }"
+                    @click="$router.push('/detail_list_orders?id='+item.id)"
+                  >
+                    <span>{{item.id}}</span>
+                  </div>
+                </v-hover>
+              </td>
               <td class="td-body">{{item.nama_perusahaan}}</td>
               <td class="td-body">{{item.tanggal_terima}}</td>
               <td class="td-body">{{item.tanggal_kalibrasi}}</td>

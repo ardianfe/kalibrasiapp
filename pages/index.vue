@@ -93,7 +93,7 @@
         </v-layout>
 
         <v-layout row wrap class="pt-4">
-          <v-flex xs12 sm4 class="pa-1">
+          <v-flex xs12 sm6 class="pa-1">
             <table style="width: 100%" class="f-table my-2">
               <tr class="tr-head white--text pt-sans font-weight-bold">
                 <td class="primary td-header">No Order</td>
@@ -102,33 +102,60 @@
               </tr>
 
               <template v-for="(item, x) in lo">
-                <tr class="tr-body" v-if="x < 7" :key="item.id">
-                  <td class="td-body">{{item.id}}</td>
+                <tr class="tr-body" v-if="x < 8" :key="item.id">
+                  <td class="td-body">
+                    <v-hover>
+                      <div class="pointer"
+                        :style="`${ hover ? 'color: blue' : 'color: black'}`" 
+                        slot-scope="{ hover }"
+                        @click="$router.push('/detail_list_orders?id='+item.id)"
+                      >
+                        <span>{{item.id}}</span>
+                      </div>
+                    </v-hover>
+                  </td>
                   <td class="td-body">{{item.nama_perusahaan}}</td>
                   <td class="td-body">
-                    <a to="/list-order">lihat</a>
+                    <a @click="$router.push('/detail_list_orders?id='+item.id)">lihat</a>
                   </td>
                 </tr>
               </template>
+              
+              <tr v-if="loading.lo">
+                <td class="td-body" colspan="6">
+                  <v-progress-linear indeterminate color="primary"></v-progress-linear>
+                </td>
+              </tr>
+
             </table>
             <p class="text-xs-right">
               <a @click="$router.push('/list-order')">Lihat Lebih Banyak</a>
             </p>
           </v-flex>
-          <v-flex xs12 sm8 class="pa-1">
+          <v-flex xs12 sm6 class="pa-1">
             <table style="width: 100%" class="f-table my-2">
               <tr class="tr-head white--text pt-sans font-weight-bold">
                 <td class="primary td-header">No Laporan</td>
                 <td class="primary td-header">Nama Sampel</td>
                 <td class="primary td-header">Tanggal Terbit</td>
-                <td class="primary td-header">Status SPM</td>
+                <td class="primary td-header">Status</td>
               </tr>
 
               <tr class="tr-body" v-for="(item, x) in laporan" :key="x">
                 <td class="td-body">{{item.no}}</td>
                 <td class="td-body">{{item.nama}}</td>
                 <td class="td-body">{{item.tanggal}}</td>
-                <td class="td-body">{{item.status}}</td>
+                <td class="td-body">
+                  <v-hover>
+                    <div class="pointer"
+                      :style="`${ hover ? 'color: blue' : 'color: black'}`" 
+                      slot-scope="{ hover }"
+                    >
+                      <span v-if="item.status == 'on-going'">{{ hover ? 'upload' : 'On Going'}}</span>
+                      <span v-if="item.status == 'printed'">{{ hover ? 'lihat' : 'Printed'}}</span>
+                    </div>
+                  </v-hover>
+                </td>
               </tr>
             </table>
             <p class="text-xs-right">
@@ -173,8 +200,13 @@ export default {
 
     companies: [],
 
+    loading: {
+      lo: true,
+      laporan: false
+    },
+
     lo: [
-      { id: '', nama_perusahaan: '', }
+      // { id: '', nama_perusahaan: '', }
     ],
 
     bidang: [
@@ -209,13 +241,16 @@ export default {
 
   methods: {
     async getLO() {
+      this.loading.lo = true
       try {
         const req = await this.$calibrate.getListOrders()
 
         console.log('test cors', req);
         this.lo = req.result
 
-        this.loading = false
+        setTimeout(() => {
+          this.loading.lo = false
+        }, 500);
       } catch (error) {
         console.log(error.response);
       }
