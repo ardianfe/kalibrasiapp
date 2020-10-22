@@ -387,22 +387,8 @@ export default {
     signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
   }),
 
-  mounted() {    
-    // console.log(cert_data);
-    this.certificate_number = this.$route.query.cert_no
-
+  mounted() {
     this.getCertData()
-    
-    if (!this.$store.state.isLoggedIn) {
-      // this.$router.push('/')
-    }
-
-    this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
-
-    console.log(this.data);
-    if (this.$route.query.attribute == 'lampiran') {
-      this.createElement()
-    }
   },
 
   methods: {
@@ -430,12 +416,10 @@ export default {
 
     async getCertData() {
       try {
-        // const req = await this.$calibrate.getDataCertificate({
-        //   id : this.certificate_number
-        // })    
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        // console.log(req);
-        // this.data = req
+        console.log('get LK: ', req);
+        let req_data = req.result[0]
         this.elementMapping()
 
         

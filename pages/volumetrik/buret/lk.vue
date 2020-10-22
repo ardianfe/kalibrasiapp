@@ -722,7 +722,7 @@ export default {
     //   this.$router.push('/')
     // }
 
-    this.cekCORS()
+    this.getLK()
 
     console.log('cal?', durometer);
     var data = durometer.result[0].data_alat
@@ -751,11 +751,12 @@ export default {
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        console.log('test cors', req);
+        console.log('get LK: ', req);
+        let req_data = req.result[0]
       } catch (error) {
         console.log('cek cors :', error.response);
       }

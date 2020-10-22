@@ -1,7 +1,13 @@
 <template>
-  <v-layout column>
-    <v-flex xs12 sm8 md6>
-      <v-card class="v-main-card elevation-8">
+  <v-layout
+    column
+  >
+    <v-flex
+      xs12
+      sm8
+      md6
+    >
+      <v-card class="elevation-8 v-main-card">
         <v-card-title class="headline">
           <v-hover>
             <v-icon x-large
@@ -11,60 +17,26 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Bidang <span style="text-transform: capitalize;"> {{ $route.query.bid }} </span>
+            Bidang Gaya
           </p>
         </v-card-title>
 
-        <v-card-title class="pb-0">
-          <h3 class="mt-4">Sedang Proses</h3>
-          <v-spacer />
-          <v-btn class="info" @click="$router.push('/input_file?bid=' + $route.query.bid)">Input data baru</v-btn>
-        </v-card-title>
-
-        <v-card-text>
-          <table style="width: 100%" class="f-table">
-            <tr class="primary tr-head white--text pt-sans font-weight-bold">
-              <td class="td-header"><p class="text-truncate ma-0">Nama Alat</p></td>
-              <td class="td-header"><p class="text-truncate ma-0">Nama Pelanggan</p></td>
-              <td class="td-header"><p class="text-truncate ma-0">No. Sertifikat</p></td>
-              <td class="td-header"><p class="text-truncate ma-0">Tgl. Terima</p></td>
-              <td class="td-header"><p class="text-truncate ma-0">Tgl. Kalibrasi</p></td>
-              <td class="td-header"><p class="text-truncate ma-0">Aksi</p></td>
-            </tr>
-
-            <template v-if="!loading">
-              <tr class="tr-body" v-for="(item, index) in processed" :key="index">
-                <!-- {{item}} - {{index}} -->
-                <td class="td-body">{{item.nama_alat}}</td>
-                <td class="td-body">{{item['nama perusahaan']}}</td>
-                <td class="td-body">{{item.no_sertifikat}}</td>
-                <td class="td-body">
-                  {{ item.tgl_terima ? convertDate(new Date(item.tgl_terima['$date'])) : item.tgl_terima}}
-                </td>
-                <td class="td-body">
-                  {{ item.tgl_kalibarsi ? convertDate(item.tgl_kalibarsi['$date']) : item.tgl_kalibarsi}}
-                </td>
-                <td class="td-body">
-                  <!-- /temperatur/OVEN?cert_no=5ecf1968400b079d81e61140&id=3-01-20-00475 -->
-                  <v-btn icon small class="transparent" @click="$router.push('/' + $route.query.bid + '/' +$route.query.sub+ '?cert_no=' + index + '&id=' + item.no_sertifikat)">
-                    <v-icon small color="primary">visibility</v-icon>
-                  </v-btn>
-                  <v-btn icon small class="transparent" @click="$router.push('/print/sertifikat?cert_no=' + index + '&id=' + item.no_sertifikat)">
-                    <v-icon small color="primary">print</v-icon>
-                  </v-btn>
-                  <v-btn icon small class="transparent" @click="deleteDataCert(index)">  
-                    <v-icon small color="error">delete</v-icon>
-                  </v-btn>
-                </td>
-              </tr>
-            </template>
-
-            <tr class="tr-body" v-else>
-              <td class="td-body" colspan="6">
-                <v-progress-linear indeterminate color="primary"></v-progress-linear>
-              </td>
-            </tr>
-          </table>
+        <v-card-text v-if="$store.state.isLoggedIn">
+          <v-layout row wrap>
+            <v-flex class="pa-3" xs6 sm3 v-for="(field, index) in fields" :key="index">
+              <v-hover>
+                <v-card
+                  slot-scope="{ hover }" 
+                  :class="`${hover ? 'elevation-8' : 'elevation-0' }`" 
+                  class="d-flex v-main-card pointer pa-1 primary" flat
+                  style="width: 100%; height: 120px; max-height: 120px;"
+                  @click="$router.push(field.url)"
+                >
+                  <p class="text-xs-center white--text title" style="margin: auto">{{field.name}}</p>
+                </v-card>
+              </v-hover>
+            </v-flex>
+          </v-layout>
         </v-card-text>
 
       </v-card>
@@ -80,98 +52,62 @@
     /* overflow: scroll; */
   } table {
     border-collapse: collapse;
+  } table, th, td {
+    border: 1px solid grey;
   }
 </style>
 
 <script>
 export default {
   head: {
-    title: 'Temperatur',
+    title: 'Upload File',
     meta: [
       {
         hid: 'temperature',
         name: 'temperature',
         content: 'Bidang Temperatur'
       }
-    ]
+    ],
   },
 
   data: () => ({
     active: null,
 
-    processed: {},
-    keys: {},
-
-    loading: false,
-
-    gaya: {
-      "5f150c98a779f3eeeada6090":{
-        "nama perusahaan":"TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA",
-        "no_sertifikat":"3-09-17-0427",
-        "nama_alat":"Concrete Test Hammer",
-        "tgl_terima":{
-          "$date":1589328000000
-        },
-        "tgl_kalibarsi":{
-          "$date":1589328000000
-        },
-        "suhu":[
-          "110",
-          "150"
-        ]
+    fields: [
+      { 
+        id: 1,
+        name: 'Autoclave',
+        value: 'autoclave',
+        desc: '-',
+        url: '/daftar_sampel?origin=temperatur/oven&name=Autoclave&to=before_set' 
       },
-      "5f16d9c04ba2adae961d9029":{
-        "nama perusahaan":"TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA",
-        "no_sertifikat":"3-09-17-0477",
-        "nama_alat":"Concrete Test Hammer",
-        "tgl_terima":{
-          "$date":1595203200000
-        },
-        "tgl_kalibarsi":{
-          "$date":1595635200000
-        },
-        "suhu":[
-          "110",
-          "150"
-        ]
-      }
-    }
+      { 
+        id: 2,
+        name: 'Oven Furnace',
+        value: 'uji_kekerasan',
+        desc: '-',
+        url: '/daftar_sampel?origin=temperatur/oven&name=Oven - Furnace&to=lembar-kerja' 
+      },
+    ],
+
+    filename: '',
+    file: {},
+    selected: '',
+
+    sheets: [],
+
+    uploading: false
   }),
 
   mounted() {
-    if (this.$route.query.sub == 'gaya') {
-      this.processed = this.gaya
-    } else {
-      this.getAllCertificate()
-    }
+    // if (!this.$store.state.isLoggedIn) {
+    //   this.$router.push('/')
+    // }
   },
 
   methods: {
-    triggerInput() {
+    triggerInput() {      
       document.getElementById("input-excel").click()
-    },
-
-    async getAllCertificate() {
-      this.loading = true
-      try {
-        const req = await this.$calibrate.getAllWork({
-          category: this.$route.query.sub
-        })
-
-
-        this.processed = req
-        this.keys = Object.keys(req)
-        console.log(req);
-        
-        setTimeout(() => {
-          this.loading = false
-        }, 500);
-      } catch (error) {
-        alert('Gagal mendapatkan data certificate')
-        setTimeout(() => {
-          this.loading = false
-        }, 500);
-      }
     },
 
     hideElement(id){
@@ -180,51 +116,39 @@ export default {
       document.getElementById(''+id).style = "display: none;"
     },
     
-    showElement(id){
+    showElement(id){      
       document.getElementById(''+id).style = "display: block;"
     },
 
     fileSelected(e) {
-      // document.getElementById('input-excel').change((e) => {
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(e.target.files[0]);
-        reader.onload = (e) => {
-          var data = new Uint8Array(reader.result);
-          var wb = XLSX.read(data,{type:'array'});
+      var reader = new FileReader();
+      console.log(e.target.files[0]);
+      this.filename = e.target.files[0].name
+      this.file = e.target.files[0]
+    },
 
-          var sheets = []
+    async fileUpload() {
+      this.uploading = true
+      try {
+        const req = await this.$calibrate.uploadFile({
+          file: this.file,
+          category: this.selected
+        })
 
-          for (const x in wb.SheetNames) {
-            if (wb.SheetNames.hasOwnProperty(x)) {
-              const element = wb.SheetNames[x];
-              var worksheet = wb.Sheets[element];
-              // console.log(x+'', XLSX.utils.sheet_to_json(worksheet,{raw:true}));
-              
-              var htmlstr = XLSX.write(wb,{sheet:wb.SheetNames[x], type:'binary',bookType:'html'});
-              // console.log(htmlstr);
+        // console.log(this.file);
 
-              // var newEl = document.createElement('div')
-              // console.log(newEl);
-              
-              // newEl.setAttribute("id", x);
-              // var currentDiv = document.getElementById("wrapper"); 
-              // currentDiv.insertBefore(newEl, currentDiv.childNodes[0]);
-
-              this.sheetPush(x, wb.SheetNames[x], htmlstr.replace(/[Â,â,áµ,]/g, ' '))
-            }
-          }
-
-          setTimeout(() => {
-            this.createElement()
-          }, 1000);
-
-          // this.sheets = sheets
-
-          // console.log(this.sheets[0].htmlstr);
-          // document.getElementById('0').innerHTML += this.sheets[0].htmlstr;
-        }
-
-      // });
+        setTimeout(() => {
+          this.uploading = false
+          this.$router.go(-1);
+        }, 300);
+        
+      } catch (error) {
+        alert('gagal mengupload file')
+        setTimeout(() => {
+          this.uploading = false
+          this.$router.go(-1);
+        }, 300);
+      }
     },
 
     sheetPush(id, name, str) {
@@ -245,25 +169,7 @@ export default {
       let tds = document.querySelectorAll('td')
       // console.log(tds);
       tds.remove()
-    },
-
-    convertDate(date_string) {
-      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(date_string).toLocaleDateString('id-ID', options)
-    },
-
-    async deleteDataCert(id) {
-      if (confirm('Apakah Anda yakin?')) {
-        try {
-          const req = await this.$calibrate.deleteDataCert({id: id})
-          console.log('delete datacert : ', req);
-
-          this.getAllCertificate()
-        } catch (error) {
-          console.log('delete datacert : ', error.response);
-        }
-      }
+      
     }
   },
 }

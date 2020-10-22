@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <volHeader></volHeader>
+      <tekananHeader></tekananHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -19,13 +19,39 @@
                 append-icon="expand_more"
               ></v-select>
             </v-layout> -->
+            <v-flex xs12 sm6 md4>
+              <v-dialog
+                ref="dialog"
+                v-model="modal"
+                :return-value.sync="published_date"
+                persistent
+                lazy
+                full-width
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="published_date"
+                    label="Tanggal diterbitkan"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="published_date" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.dialog.save(published_date)">OK</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </v-flex>
           </v-card-text>
-          <v-card-title>
+          <v-card-actions class="pa-2">
             <v-spacer></v-spacer>
-            <v-btn :disabled="signatory == '' || nip == ''" class="primary elevation-0" @click="printWrapper">
+            <v-btn class="primary elevation-0" @click="printWrapper">
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
-          </v-card-title>
+          </v-card-actions>
         </v-card>
       </v-layout>
 
@@ -300,7 +326,7 @@
                   <v-layout style="margin-top: 1mm">
                     <v-flex xs8>
                       <v-layout row>
-                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ certificate.published_date }}</span></p>
+                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ convertDate(published_date) }}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs4>
@@ -456,23 +482,23 @@ p{
   }
 </style>
 <script>
-import volHeader from '~/components/volumetrik/buret.vue'
+import tekananHeader from '~/components/tekanan/hammer.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    volHeader
+    tekananHeader
   },
 
   head: {
-    title: 'Sertifikat | Bidang Volumetri',
+    title: 'Sertifikat | Bidang Gaya',
     meta: [
       {
-        hid: 'Volumetri',
-        name: 'Volumetri',
-        content: 'Bidang Volumetri'
+        hid: 'gaya',
+        name: 'gaya',
+        content: 'Bidang Gaya'
       }
     ],
 
@@ -525,7 +551,12 @@ export default {
     ],
 
     kan: true,
-    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
+    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'},
+
+    published_date: new Date().toISOString().substr(0, 10),
+    menu: false,
+    modal: false,
+    menu2: false
   }),
 
   mounted() {
@@ -560,33 +591,34 @@ export default {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.result[0]
-        this.elementMapping()
+        let req_data = req.results[0]
+
+        this.elementMapping()        
       } catch (error) {
         console.log(error);
       }
     },
 
     elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = 'Concrete Test Hammer'
-      this.certificate.equipment.capacity = '10 - 100 Unit'
-      this.certificate.equipment.model = 'HT 225'
-      this.certificate.equipment.serial_number = 308813
-      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
+      // let cert_data = this.data.data_perusahaan
+      // this.certificate.equipment.name = 'Concrete Test Hammer'
+      // this.certificate.equipment.capacity = '10 - 100 Unit'
+      // this.certificate.equipment.model = 'HT 225'
+      // this.certificate.equipment.serial_number = 308813
+      // this.certificate.equipment.manufacture = 'HT 225 / CHINA'
       // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      this.certificate.acceptance_date = '30 Mei 2017'
-      this.certificate.calibration_date = '2 Juni 2017'
+      // this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
+      // this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
+      // this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
+      // this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
+      // this.certificate.acceptance_date = '30 Mei 2017'
+      // this.certificate.calibration_date = '2 Juni 2017'
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      this.certificate.published_date = '30 Mei 2107'
+      // this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
+      // this.certificate.calibration_method = 'PC-309-10'
+      // this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
+      // this.certificate.published_date = '30 Mei 2107'
     },
 
     printWrapper() {
