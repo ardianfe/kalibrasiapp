@@ -74,11 +74,41 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Hammer Test', value: 'hammer_test', desc: '-', url: '/gaya/hammer_test/' },
-      { id: 2, name: 'Uji Kekerasan', value: 'uji_kekerasan', desc: '-', url: '/gaya/uji_kekerasan/lk1' },
-      { id: 3, name: 'Durometer', value: 'durometer', desc: '-', url: '/gaya/durometer/lk' },
-      { id: 4, name: 'Hydraulik Jack', value: 'hydraulik_jack', desc: '-', url: '/gaya/hydraulik_jack/lk' },
-      { id: 5, name: 'Load Cell', value: 'load_cell', desc: '-', url: '/gaya/load_cell/lk' },
+      { 
+        id: 1,
+        name: 'Hammer Test',
+        value: 'hammer_test',
+        desc: '-',
+        url: '/daftar_sampel?origin=gaya&name=Hammer Tester&to=before_set' 
+      },
+      { 
+        id: 2,
+        name: 'Uji Kekerasan',
+        value: 'uji_kekerasan',
+        desc: '-',
+        url: '/daftar_sampel?origin=gaya&name=Uji Kekerasan&to=lk1' 
+      },
+      { 
+        id: 3,
+        name: 'Durometer',
+        value: 'durometer',
+        desc: '-',
+        url: '/daftar_sampel?origin=gaya&name=Durometer&to=lk' 
+      },
+      { 
+        id: 4,
+        name: 'Hydraulik Jack',
+        value: 'hydraulik_jack',
+        desc: '-',
+        url: '/daftar_sampel?origin=gaya&name=Hydraulik Jack&to=lk' 
+      },
+      { 
+        id: 5,
+        name: 'Load Cell',
+        value: 'load_cell',
+        desc: '-',
+        url: '/daftar_sampel?origin=gaya&name=Load Cell&to=lk' 
+      },
     ],
 
     filename: '',

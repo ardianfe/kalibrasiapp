@@ -74,8 +74,19 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Hammer Test', value: 'hammer_test', desc: '-', url: '/tekanan/hammer_test/before_set' },
-      { id: 2, name: 'Pressure Gauge', value: 'pressure_gauge', desc: '-', url: '/tekanan/pressure_gauge/lk' },
+      { 
+        id: 1,
+        name: 'Hammer Test',
+        value: 'hammer_test',
+        desc: '-',
+        url: '/daftar_sampel?origin=tekanan&name=Hammer Tester&to=lk' 
+      },
+      { id: 2,
+        name: 'Pressure Gauge',
+        value: 'pressure_gauge',
+        desc: '-',
+        url: '/daftar_sampel?origin=tekanan&name=Pressure Gauge&to=lk' 
+      },
     ],
 
     filename: '',

@@ -10,7 +10,7 @@
           >keyboard_arrow_left</v-icon>
         </v-hover> &nbsp;
         <p class="headline lato font-weight-bold title mt-3">
-          Daftar Sampel Jangka Sorong
+          Daftar Sampel Hammer Tester
         </p>
         <v-spacer></v-spacer>
       </v-card-title>
@@ -33,11 +33,20 @@
               <td class="td-body">{{item.data_perusahaan.alamat}}</td>
               <td class="td-body">{{item.status}}</td>
               <td class="td-body">
-                <a @click="$router.push('/dimensi/jangka_sorong/lk?id='+item.no_sample)">Lihat</a>
+                <a @click="$router.push('/tekanan/hammer_test/before_set?id='+item.no_sample)">Lihat</a>
+              </td>
+            </tr>
+            <tr class="tr-body" v-if="lo.length == 0">
+              <td class="td-body pa-2 text-xs-center" colspan="6">Tidak ada data.</td>
+            </tr>
+
+            <tr class="tr-body" v-if="loading">
+              <td class="td-body" colspan="6">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
               </td>
             </tr>
           </table>
-        </v-flex>  
+        </v-flex>    
       </template>
     </v-flex>
   </v-layout>
@@ -102,9 +111,10 @@ export default {
 
   methods: {
     async getResultByName() {
+      this.loading = true
       try {
         const req = await this.$category.getResultByName({
-          name: 'Jangka Sorong'
+          name: 'Hammer Tester'
         })
 
         console.log('get Details : ', req);

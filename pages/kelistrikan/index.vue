@@ -74,9 +74,27 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Battery Charge', value: 'battery_charge', desc: '-', url: '/kelistrikan/battery_charge/lk' },
-      { id: 2, name: 'Load Bank', value: 'load_bank', desc: '-', url: '/kelistrikan/load_bank/lk' },
-      { id: 3, name: 'Mesin Las', value: 'mesin_las', desc: '-', url: '/kelistrikan/mesin_las/lk' },
+      { 
+        id: 1,
+        name: 'Battery Charge',
+        value: 'battery_charge',
+        desc: '-',
+        url: '/daftar_sampel?origin=kelistrikan&name=Battery Charge&to=lk' 
+      },
+      { 
+        id: 2,
+        name: 'Load Bank',
+        value: 'load_bank',
+        desc: '-',
+        url: '/daftar_sampel?origin=kelistrikan&name=Load Bank&to=lk' 
+      },
+      { 
+        id: 3,
+        name: 'Mesin Las',
+        value: 'mesin_las',
+        desc: '-',
+        url: '/daftar_sampel?origin=kelistrikan&name=Mesin Las&to=lk' 
+      },
     ],
 
     filename: '',

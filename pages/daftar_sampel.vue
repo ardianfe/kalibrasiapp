@@ -10,7 +10,7 @@
           >keyboard_arrow_left</v-icon>
         </v-hover> &nbsp;
         <p class="headline lato font-weight-bold title mt-3">
-          Daftar Sampel Jangka Sorong
+          Daftar Sampel {{$route.query.name}}
         </p>
         <v-spacer></v-spacer>
       </v-card-title>
@@ -33,11 +33,20 @@
               <td class="td-body">{{item.data_perusahaan.alamat}}</td>
               <td class="td-body">{{item.status}}</td>
               <td class="td-body">
-                <a @click="$router.push('/dimensi/jangka_sorong/lk?id='+item.no_sample)">Lihat</a>
+                <a @click="$router.push('/'+$route.query.origin+'/'+getSlug($route.query.name)+'/'+$route.query.to+'?id='+item.no_sample)">Lihat</a>
+              </td>
+            </tr>
+            <tr class="tr-body" v-if="lo.length == 0">
+              <td class="td-body pa-2 text-xs-center" colspan="6">Tidak ada data.</td>
+            </tr>
+
+            <tr class="tr-body" v-if="loading">
+              <td class="td-body" colspan="6">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
               </td>
             </tr>
           </table>
-        </v-flex>  
+        </v-flex>    
       </template>
     </v-flex>
   </v-layout>
@@ -81,17 +90,6 @@ export default {
 
     loading: true,
     is_uploading: false,
-
-    laporan: [
-      { no: '16042280001', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '1707189008', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '20082873001', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'printed' },
-      { no: '200831108004', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '200910127002', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '200914149007', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '16042280002', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '200831108024', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-    ]
   }),
 
   mounted() {
@@ -102,9 +100,10 @@ export default {
 
   methods: {
     async getResultByName() {
+      this.loading = true
       try {
         const req = await this.$category.getResultByName({
-          name: 'Jangka Sorong'
+          name: this.$route.query.name
         })
 
         console.log('get Details : ', req);
@@ -114,6 +113,11 @@ export default {
       } catch (error) {
         console.log(error.response);
       }
+    }, 
+
+    getSlug(name) {
+      let string_name = name.toLowerCase();
+      return string_name.replace(' ', '_')
     }
   },
 }

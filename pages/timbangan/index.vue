@@ -74,11 +74,34 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Moisture Balance', value: 'moisture_balance', desc: '-', url: '/timbangan/moisture_balance/lk' },
-      { id: 2, name: 'Timbangan Elektronik', value: 'timbangan_elektronik', desc: '-', url: '/timbangan/timbangan_elektronik/lk' },
-      { id: 3, name: 'Timbangan Mekanik Indrustri', value: 'timbangan_mekanik_industri', desc: '-', url: '/timbangan/timbangan_mekanik_industri/lk' },
-      { id: 4, name: 'Timbangan Mekanik', value: 'timbangan_mekanik', desc: '-', url: '/timbangan/timbangan_mekanik/lk' },
-    ],
+      { 
+        id: 1,
+        name: 'Moisture Balance',
+        value: 'moisture_balance',
+        desc: '-',
+        url: '/daftar_sampel?origin=timbangan&name=Moisture Balance&to=lk' 
+      },
+      { 
+        id: 2,
+        name: 'Timbangan Elektronik',
+        value: 'timbangan_elektronik',
+        desc: '-',
+        url: '/daftar_sampel?origin=timbangan&name=Timbangan Elektronik&to=lk' 
+      },
+      { 
+        id: 3,
+        name: 'Timbangan Mekanik Indrustri',
+        value: 'timbangan_mekanik_industri',
+        desc: '-',
+        url: '/daftar_sampel?origin=timbangan&name=Timbangan Mekanik Indrustri&to=lk' 
+      },
+      { 
+        id: 4,
+        name: 'Timbangan Mekanik',
+        value: 'timbangan_mekanik',
+        desc: '-',
+        url: '/daftar_sampel?origin=timbangan&name=Timbangan Mekanik&to=lk' },
+            ],
 
     filename: '',
     file: {},

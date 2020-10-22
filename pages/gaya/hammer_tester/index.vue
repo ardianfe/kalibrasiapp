@@ -10,7 +10,7 @@
           >keyboard_arrow_left</v-icon>
         </v-hover> &nbsp;
         <p class="headline lato font-weight-bold title mt-3">
-          Daftar Sampel Jangka Sorong
+          Daftar Sampel Hammer Tester
         </p>
         <v-spacer></v-spacer>
       </v-card-title>
@@ -33,11 +33,11 @@
               <td class="td-body">{{item.data_perusahaan.alamat}}</td>
               <td class="td-body">{{item.status}}</td>
               <td class="td-body">
-                <a @click="$router.push('/dimensi/jangka_sorong/lk?id='+item.no_sample)">Lihat</a>
+                <a @click="$router.push('/gaya/hammer_test/before_set?id='+item.no_sample)">Lihat</a>
               </td>
             </tr>
           </table>
-        </v-flex>  
+        </v-flex>    
       </template>
     </v-flex>
   </v-layout>
@@ -81,17 +81,6 @@ export default {
 
     loading: true,
     is_uploading: false,
-
-    laporan: [
-      { no: '16042280001', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '1707189008', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '20082873001', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'printed' },
-      { no: '200831108004', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '200910127002', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '200914149007', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '16042280002', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '200831108024', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-    ]
   }),
 
   mounted() {
@@ -104,7 +93,7 @@ export default {
     async getResultByName() {
       try {
         const req = await this.$category.getResultByName({
-          name: 'Jangka Sorong'
+          name: 'Hammer Tester'
         })
 
         console.log('get Details : ', req);

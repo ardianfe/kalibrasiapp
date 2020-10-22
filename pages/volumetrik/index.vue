@@ -17,7 +17,7 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Bidang Gaya
+            Bidang Volumetrik
           </p>
         </v-card-title>
 
@@ -74,8 +74,20 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Buret', value: 'buret', desc: '-', url: '/volumetrik/buret/lk' },
-      { id: 2, name: 'Piknometer', value: 'piknometer', desc: '-', url: '/volumetrik/piknometer/lk' },
+      { 
+        id: 1, 
+        name: 'Buret', 
+        value: 'buret', 
+        desc: '-', 
+        url: '/daftar_sampel?origin=volumetrik&name=Buret&to=lk' 
+      },
+      { 
+        id: 2, 
+        name: 'Piknometer', 
+        value: 'piknometer', 
+        desc: '-', 
+        url: '/daftar_sampel?origin=volumetrik&name=Piknometer&to=lk' 
+      },
     ],
 
     filename: '',

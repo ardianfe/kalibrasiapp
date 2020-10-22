@@ -43,10 +43,25 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'gaya-hammer_tester-before_set', text: 'Sebelum Set', url: '/gaya/hammer_tester/before_set?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'gaya-hammer_tester-after_set', text: 'Setelah Set', url: '/gaya/hammer_tester/after_set?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'gaya-hammer_tester-uncertainty', text: 'Ketidakpastian', url: '/gaya/hammer_tester/uncertainty?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'gaya-sertifikat', text: 'Cetak Serifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id }
+        { 
+          name: 'gaya-hammer_tester-before_set',
+          text: 'Sebelum Set',
+          url: '/gaya/hammer_tester/before_set?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id 
+        },
+        { 
+          name: 'gaya-hammer_tester-after_set',
+          text: 'Setelah Set',
+          url: '/gaya/hammer_tester/after_set?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id
+        },
+        { 
+          name: 'gaya-hammer_tester-uncertainty',
+          text: 'Ketidakpastian',
+          url: '/gaya/hammer_tester/uncertainty?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id
+        },
+        { 
+          name: 'gaya-sertifikat',
+          text: 'Cetak Serifikat',
+          url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id }
       ]
     }
   },

@@ -74,12 +74,49 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'AAS', value: 'AAS', desc: '-', url: '/instrumen/AAS/lk' },
-      { id: 2, name: 'Conductivity Meter', value: '', desc: '-', url: '' },
-      { id: 3, name: 'DO', value: '', desc: '-', url: '' },
-      { id: 4, name: 'PH', value: '', desc: '-', url: '' },
-      { id: 5, name: 'Spectro Emisi', value: '', desc: '-', url: '' },
-      { id: 6, name: 'Spectro VIS - UVIS', value: '', desc: '-', url: '' },
+      // /daftar_sampel?origin=massa&name=Anak Timbangan&to=lk
+      { 
+        id: 1,
+        name: 'AAS',
+        value: 'AAS',
+        desc: '-',
+        url: '/daftar_sampel?origin=instrumen&name=AAS&to=lk' 
+      },
+      { 
+        id: 2,
+        name: 'Conductivity Meter',
+        value: '',
+        desc: '-',
+        url: '/daftar_sampel?origin=instrumen&name=Conductivity Meter&to=lk'  
+      },
+      { 
+        id: 3,
+        name: 'DO',
+        value: '',
+        desc: '-',
+        url: '/daftar_sampel?origin=instrumen&name=DO&to=lk'  
+      },
+      { 
+        id: 4,
+        name: 'PH',
+        value: '',
+        desc: '-',
+        url: '/daftar_sampel?origin=instrumen&name=PH&to=lk'  
+      },
+      { 
+        id: 5,
+        name: 'Spectro Emisi',
+        value: '',
+        desc: '-',
+        url: '/daftar_sampel?origin=instrumen&name=Spectro Emisi&to=lk'  
+      },
+      { 
+        id: 6,
+        name: 'Spectro VIS - UVIS',
+        value: '',
+        desc: '-',
+        url: '/daftar_sampel?origin=instrumen&name=Spectro VIS - UVIS&to=lk'  
+      },
     ],
 
     filename: '',

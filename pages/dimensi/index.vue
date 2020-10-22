@@ -17,7 +17,7 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Bidang Gaya
+            Bidang Dimensi
           </p>
         </v-card-title>
 
@@ -74,11 +74,11 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Ayakan', value: 'ayakan', desc: '-', url: '/dimensi/ayakan/lk' },
-      { id: 2, name: 'Dial Indikator', value: 'dial_indikator', desc: '-', url: '/dimensi/dial_indikator/lk' },
-      { id: 3, name: 'Jangka Sorong', value: 'jangka_sorong', desc: '-', url: '/dimensi/jangka_sorong' },
-      { id: 4, name: 'Micrometer', value: 'micrometer', desc: '-', url: '/dimensi/micrometer/lk' },
-      { id: 5, name: 'Stopwatch', value: 'stopwatch', desc: '-', url: '/dimensi/stopwatch/lk' },
+      { id: 1, name: 'Ayakan', value: 'ayakan', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Ayakan&to=lk' },
+      { id: 2, name: 'Dial Indikator', value: 'dial_indikator', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Dial Indikator&to=lk' },
+      { id: 3, name: 'Jangka Sorong', value: 'jangka_sorong', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Jangka Sorong&to=lk' },
+      { id: 4, name: 'Micrometer', value: 'micrometer', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Micrometer&to=lk' },
+      { id: 5, name: 'Stopwatch', value: 'stopwatch', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Stopwatch&to=lk' },
     ],
 
     filename: '',

@@ -10,7 +10,7 @@
           >keyboard_arrow_left</v-icon>
         </v-hover> &nbsp;
         <p class="headline lato font-weight-bold title mt-3">
-          Daftar Sampel Hammer Tester
+          Daftar Sampel Pressure Gauge
         </p>
         <v-spacer></v-spacer>
       </v-card-title>
@@ -34,6 +34,16 @@
               <td class="td-body">{{item.status}}</td>
               <td class="td-body">
                 <a @click="$router.push('/gaya/hammer_test/before_set?id='+item.no_sample)">Lihat</a>
+              </td>
+            </tr>
+
+            <tr v-if="lo.length == 0">
+              <td colspan="6" class="pa-2 text-xs-center">Tidak ada data.</td>
+            </tr>
+
+            <tr class="tr-body" v-if="loading">
+              <td class="td-body" colspan="6">
+                <v-progress-linear indeterminate color="primary"></v-progress-linear>
               </td>
             </tr>
           </table>
@@ -102,9 +112,10 @@ export default {
 
   methods: {
     async getResultByName() {
+      this.loading = true
       try {
         const req = await this.$category.getResultByName({
-          name: 'Hammer Tester'
+          name: 'Pressure Gauge'
         })
 
         console.log('get Details : ', req);

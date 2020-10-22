@@ -107,7 +107,7 @@
   } table {
     border-collapse: collapse;
   } table, th, td {
-    padding: 1px 4px;
+    padding: 7px;
   }
 </style>
 

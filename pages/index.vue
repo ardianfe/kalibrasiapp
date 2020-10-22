@@ -153,7 +153,7 @@
                         slot-scope="{ hover }"
                       >
                         <span @click="openDialog(item.nama, item.no_order, item.no)" v-if="item.status == 'on-going'">{{ hover ? 'upload' : 'On Going'}}</span>
-                        <span @click="$router.push('/details?id='+item.no)" v-if="item.status == 'printed'">{{ hover ? 'lihat' : 'Printed'}}</span>
+                        <span @click="$router.push('/details?id='+item.no+'&no_order='+item.no_order+'&sample='+item.nama)" v-if="item.status == 'printed'">{{ hover ? 'lihat' : 'Printed'}}</span>
                       </div>
                     </v-hover>
                   </td>
@@ -265,7 +265,7 @@ export default {
               no: element.daftar_sampel[0].no_sample[0],
               tanggal: element.tanggal_terima,
               nama: element.daftar_sampel[0].sampel,
-              status: 'printed',
+              status: 'on-going',
               no_order: element.id
             })
           }

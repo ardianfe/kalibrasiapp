@@ -78,7 +78,7 @@
                     <v-btn class="primary" @click="openDialog(item.sampel, no_order, sample)">Input Data</v-btn>
                   </td>
                   <td>
-                    <v-btn class="accent">Cetak Sertifikat</v-btn>
+                    <v-btn class="primary" @click="$router.push('/details?id='+sample+'&no_order='+no_order+'&sample='+item.sampel)">Lihat Detail</v-btn>
                   </td>
                 </tr>
               </table>

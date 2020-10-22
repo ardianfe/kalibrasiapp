@@ -73,7 +73,8 @@
   padding: 15px;
   letter-spacing: 1px;
 } .td-body {
-  padding: 0 15px;
+  padding: 8px 15px;
+  vertical-align: top;
 } .f-table {
   border-spacing: 1;
   border-collapse: collapse;
