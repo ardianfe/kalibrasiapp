@@ -193,14 +193,14 @@ export default {
     async submit() {
       this.is_uploading = true
       try {
-        // const req = await this.$calibrate.upload({
-        //   file: this.file,
-        //   cat: this.cat,
-        //   sample: this.sample_name,
+        const req = await this.$calibrate.upload({
+          file: this.file,
+          cat: this.cat,
+          sample: this.sample_name,
 
-        //   order_id: this.order_number,
-        //   sample_number: this.sample_number
-        // })
+          order_id: this.order_number,
+          sample_number: this.sample_number
+        })
 
         setTimeout(() => {
           this.is_uploading = false

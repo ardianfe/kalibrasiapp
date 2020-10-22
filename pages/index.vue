@@ -135,26 +135,34 @@
           <v-flex xs12 sm6 class="pa-1">
             <table style="width: 100%" class="f-table my-2">
               <tr class="tr-head white--text pt-sans font-weight-bold">
-                <td class="primary td-header">No Laporan</td>
+                <td class="primary td-header">No Sampel</td>
                 <td class="primary td-header">Nama Sampel</td>
-                <td class="primary td-header">Tanggal Terbit</td>
+                <td class="primary td-header" width="20%">Tanggal Terbit</td>
                 <td class="primary td-header">Status</td>
               </tr>
 
-              <tr class="tr-body" v-for="(item, x) in laporan" :key="x">
-                <td class="td-body">{{item.no}}</td>
-                <td class="td-body">{{item.nama}}</td>
-                <td class="td-body">{{item.tanggal}}</td>
-                <td class="td-body">
-                  <v-hover>
-                    <div class="pointer"
-                      :style="`${ hover ? 'color: blue' : 'color: black'}`" 
-                      slot-scope="{ hover }"
-                    >
-                      <span v-if="item.status == 'on-going'">{{ hover ? 'upload' : 'On Going'}}</span>
-                      <span v-if="item.status == 'printed'">{{ hover ? 'lihat' : 'Printed'}}</span>
-                    </div>
-                  </v-hover>
+              <template v-for="(item, x) in laporan">
+                <tr class="tr-body" :key="x" v-if="x < 8">
+                  <td class="td-body">{{item.no}}</td>
+                  <td class="td-body">{{item.nama}}</td>
+                  <td class="td-body">{{item.tanggal}}</td>
+                  <td class="td-body">
+                    <v-hover>
+                      <div class="pointer"
+                        :style="`${ hover ? 'color: blue' : 'color: black'}`" 
+                        slot-scope="{ hover }"
+                      >
+                        <span @click="openDialog(item.nama, item.no_order, item.no)" v-if="item.status == 'on-going'">{{ hover ? 'upload' : 'On Going'}}</span>
+                        <span @click="$router.push('/details?id='+item.no)" v-if="item.status == 'printed'">{{ hover ? 'lihat' : 'Printed'}}</span>
+                      </div>
+                    </v-hover>
+                  </td>
+                </tr>
+              </template>
+
+              <tr v-if="loading.laporan">
+                <td class="td-body" colspan="6">
+                  <v-progress-linear indeterminate color="primary"></v-progress-linear>
                 </td>
               </tr>
             </table>
@@ -165,6 +173,8 @@
         </v-layout>        
       </template>
     </v-flex>
+
+    <uploadDialog></uploadDialog>
   </v-layout>
 </template>
 
@@ -182,6 +192,7 @@
 <script>
 // import Logo from '~/components/Logo.vue'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import uploadDialog from '~/components/uploadDialog.vue'
 
 export default {
   head: {
@@ -195,6 +206,10 @@ export default {
     ]
   },
 
+  components:{
+    uploadDialog
+  },
+
   data: () => ({
     fields: [],
 
@@ -202,7 +217,7 @@ export default {
 
     loading: {
       lo: true,
-      laporan: false
+      laporan: true
     },
 
     lo: [
@@ -221,16 +236,7 @@ export default {
       { title: 'Kelistrikan', url: '/kelistrikan', icon: 'electrical_services' },
     ],
 
-    laporan: [
-      { no: '16042280001', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '1707189008', tanggal: '20-10-2020', nama: 'Pressure Gauge', status: 'on-going' },
-      { no: '20082873001', tanggal: '20-10-2020', nama: 'Mesin Uji Universal', status: 'printed' },
-      { no: '200831108004', tanggal: '20-10-2020', nama: 'Inkubator', status: 'on-going' },
-      { no: '200910127002', tanggal: '20-10-2020', nama: 'Atomatic Absorption Spectrophotometer (AAS)', status: 'on-going' },
-      { no: '200914149007', tanggal: '20-10-2020', nama: 'Pipet Ukur', status: 'on-going' },
-      { no: '16042280002', tanggal: '20-10-2020', nama: 'Jangka Sorong', status: 'on-going' },
-      { no: '200831108024', tanggal: '20-10-2020', nama: 'Inkubator', status: 'on-going' },
-    ]
+    laporan: []
   }),
 
   mounted() {
@@ -242,14 +248,34 @@ export default {
   methods: {
     async getLO() {
       this.loading.lo = true
+      this.loading.laporan = true
       try {
         const req = await this.$calibrate.getListOrders()
 
-        console.log('test cors', req);
+        console.log('get lo', req.result);
         this.lo = req.result
+
+        let sampel = []
+
+        for (const key in this.lo) {
+          if (this.lo.hasOwnProperty(key)) {
+            const element = this.lo[key];
+            console.log('lo element', element);
+            sampel.push({
+              no: element.daftar_sampel[0].no_sample[0],
+              tanggal: element.tanggal_terima,
+              nama: element.daftar_sampel[0].sampel,
+              status: 'printed',
+              no_order: element.id
+            })
+          }
+        }
+
+        this.laporan = sampel
 
         setTimeout(() => {
           this.loading.lo = false
+          this.loading.laporan = false
         }, 500);
       } catch (error) {
         console.log(error.response);
@@ -265,6 +291,14 @@ export default {
         console.log(error.response);
         alert('failed to retreive data from server')
       }
+    },
+
+    openDialog(sample_name, order_number, sample_number) {
+      this.$store.commit('openDialog', {
+        sample_name: sample_name,
+        order_number: order_number,
+        sample_number: sample_number
+      })
     },
 
     convertDate(date_string) {

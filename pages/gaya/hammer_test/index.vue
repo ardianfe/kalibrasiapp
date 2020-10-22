@@ -15,23 +15,25 @@
         <v-spacer></v-spacer>
       </v-card-title>
       <template v-if="$store.state.isLoggedIn">
-        <v-flex xs12 sm8 class="pa-1">
+        <v-flex xs12 class="pa-1">
           <table style="width: 100%" class="f-table my-2">
             <tr class="tr-head white--text pt-sans font-weight-bold">
               <td class="primary td-header">No Laporan</td>
               <td class="primary td-header">Nama Sampel</td>
-              <td class="primary td-header">Tanggal Kalibrasi</td>
+              <td class="primary td-header">Nama Perusahaan</td>
+              <td class="primary td-header">Alamat</td>
               <td class="primary td-header">Status</td>
               <td class="primary td-header">Aksi</td>
             </tr>
 
             <tr class="tr-body" v-for="(item, x) in lo" :key="x">
-              <td class="td-body"></td>
-              <td class="td-body">{{item.data_alat['Deskripsi Alat']}}</td>
-              <td class="td-body">{{item.data_alat['Tanggal kalibrasi']}}</td>
+              <td class="td-body">{{item.no_sample}}</td>
+              <td class="td-body">{{item.nama_sample}}</td>
+              <td class="td-body">{{item.data_perusahaan.nama_co}}</td>
+              <td class="td-body">{{item.data_perusahaan.alamat}}</td>
               <td class="td-body">{{item.status}}</td>
               <td class="td-body">
-                <a @click="$router.push('/dimensi/jangka_sorong/lk?id='+item.no)">Lihat</a>
+                <a @click="$router.push('/gaya/hammer_test/before_set?id='+item.no_sample)">Lihat</a>
               </td>
             </tr>
           </table>

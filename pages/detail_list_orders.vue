@@ -75,7 +75,7 @@
                 <tr v-for="(sample, sample_index) in item.no_sample" :key="sample_index">
                   <td width="60%">{{sample}}</td>
                   <td>
-                    <v-btn class="primary">Input Data</v-btn>
+                    <v-btn class="primary" @click="openDialog(item.sampel, no_order, sample)">Input Data</v-btn>
                   </td>
                   <td>
                     <v-btn class="accent">Cetak Sertifikat</v-btn>
@@ -93,6 +93,8 @@
         <v-progress-linear indeterminate color="primary"></v-progress-linear>
       </v-card>
     </v-layout>
+
+    <uploadDialog></uploadDialog>
   </v-layout>
 </template>
 
@@ -112,6 +114,10 @@
 import uploadDialog from '~/components/uploadDialog.vue'
 
 export default {
+  components:{
+    uploadDialog
+  },
+
   head: {
     title: 'List Order | B4T Kalibrasi',
     meta: [
@@ -135,6 +141,8 @@ export default {
 
   mounted() {
     this.getDetailListOrder()
+
+    console.log('store :', this.$store.state.dialog.display);
   },
 
   methods: {
@@ -178,6 +186,14 @@ export default {
     processFile(e) {
       this.file = e.target.files[0]
       console.log(e.target.files[0]);
+    },
+
+    openDialog(sample_name, order_number, sample_number) {
+      this.$store.commit('openDialog', {
+        sample_name: sample_name,
+        order_number: order_number,
+        sample_number: sample_number
+      })
     },
 
     async submit() {

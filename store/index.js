@@ -9,6 +9,13 @@ export const state = () => ({
 
   dashboardData: [],
 
+  dialog: {
+    display: false,
+    sample_name: '',
+    order_number: 0,
+    sample_number: 0
+  },
+
   fields: [
     { id: 1, name: 'Suhu', desc: '-', url: '?bid=temperatur&sub=oven', count: 3, color: 'blue ' },
     { id: 2, name: 'Dimensi', desc: '-', url: '?bid=dimensi', count: 0, color: 'success' },
@@ -24,6 +31,20 @@ export const state = () => ({
 export const mutations = {
   toggleSidebar(state) {
     state.sidebar = !state.sidebar
+  },
+
+  openDialog(state, data) {
+    state.dialog.display = true
+    state.dialog.sample_name = data.sample_name
+    state.dialog.order_number = data.order_number
+    state.dialog.sample_number = data.sample_number
+  },
+
+  closeDialog(state) {
+    state.dialog.display = false
+    state.dialog.sample_name = ''
+    state.dialog.order_number = 0
+    state.dialog.sample_number = 0
   },
 
   setCompany(state, data) {
