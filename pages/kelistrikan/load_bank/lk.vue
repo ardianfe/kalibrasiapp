@@ -673,7 +673,7 @@ export default {
   methods: {
     async getLK() {
       try {
-        const req = await this.$category.getLembarKerja({id: '20091089001'})
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
         let req_data = req.result[0]

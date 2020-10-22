@@ -279,9 +279,7 @@ export default {
   methods: {
     async getCertData() {
       try {
-        const req = await this.$category.getLembarKerja({
-          id: '200910161001' 
-        })   
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})  
 
         this.certificate_number = req.result[0].no_laporan
         console.log('getLK :', req);

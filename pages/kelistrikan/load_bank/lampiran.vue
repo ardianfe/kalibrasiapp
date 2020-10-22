@@ -482,13 +482,11 @@ export default {
 
     async getCertData() {
       try {
-        // const req = await this.$calibrate.getDataCertificate({
-        //   id : this.certificate_number
-        // })    
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        // console.log(req);
-        // this.data = req
-        this.elementMapping()
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
+        // this.elementMapping()
 
         
       } catch (error) {

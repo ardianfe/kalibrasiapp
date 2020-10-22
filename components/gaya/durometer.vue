@@ -46,7 +46,7 @@ export default {
         { name: 'gaya-durometer-lk', text: 'Lembar Kerja 1', url: '/gaya/durometer/lk?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
         { name: 'gaya-durometer-ktp1', text: 'KTP 1', url: '/gaya/durometer/ktp1?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
         { name: 'gaya-durometer-ktp2', text: 'KTP 2', url: '/gaya/durometer/ktp2?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'gaya-sertifikat', text: 'Sertifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'gaya-durometer-sertifikat', text: 'Sertifikat', url: '/gaya/durometer/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
         { name: 'gaya-durometer-lampiran', text: 'Cetak Lampiran', url: '/gaya/durometer/lampiran' }
       ]
     }

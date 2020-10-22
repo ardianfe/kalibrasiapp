@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <electricityHeader></electricityHeader>
+      <gayaHeader></gayaHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -482,23 +482,23 @@ p{
   }
 </style>
 <script>
-import electricityHeader from '~/components/kelistrikan/load_bank.vue'
+import gayaHeader from '~/components/gaya/durometer.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    electricityHeader
+    gayaHeader
   },
 
   head: {
-    title: 'Sertifikat | Bidang Kelistrikan',
+    title: 'Sertifikat | Bidang Gaya',
     meta: [
       {
-        hid: 'Kelistrikan',
-        name: 'Kelistrikan',
-        content: 'Bidang Kelistrikan'
+        hid: 'gaya',
+        name: 'gaya',
+        content: 'Bidang Gaya'
       }
     ],
 

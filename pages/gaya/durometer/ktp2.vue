@@ -157,7 +157,7 @@ export default {
   methods: {
     async getLK() {
       try {
-        const req = await this.$category.getLembarKerja({ id: '200910161001' })
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('Lembar Kerja Durometer :', req);
 
