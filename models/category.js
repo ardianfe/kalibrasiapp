@@ -17,6 +17,12 @@ const model = $axios => ({
 
   getResultByName({name}) {
     return $axios.$get(base_url2 + '/results/?nama_sample=' + name )
+  },
+
+  changeCertifDate({no_sampel, date_cert}) {
+    return $axios.$put(base_url2 + '/results/' + no_sampel, {
+      date_cert
+    })
   }
 });
 

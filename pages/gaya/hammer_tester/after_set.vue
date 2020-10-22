@@ -224,10 +224,10 @@ export default {
   methods: {
     async getLK() {
       try {
-        const req = await this.$category.getLembarKerja({id: '20090851001'})
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.result[0]
+        let req_data = req.results[0]
 
         this.no_cert = req_data.no_laporan
         this.data_alat = req_data.data_alat
