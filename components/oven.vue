@@ -12,15 +12,11 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/bidang?bid=temperatur&sub=oven')" 
+            @click="$router.push('/bidang')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
-            Bidang Temperatur - Oven
+            Bidang suhu
           </span>
         </v-hover>
-        |
-        <span class="font-weight-bold">
-          {{$route.query.id}}
-        </span>
       </p>
     </v-card-title>
     <v-card-actions v-if="$store.state.isLoggedIn" class="pa-2">
@@ -47,10 +43,10 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'temperatur-oven', text: 'Identitas', url: '/temperatur/OVEN?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'temperatur-oven-lembar-kerja', text: 'Lembar Kerja', url: '/temperatur/OVEN/lembar-kerja?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'print-sertifikat', text: 'Cetak Serifikat', url: '/print/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'print-lampiran', text: 'Cetak Lampiran', url: '/print/lampiran?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'suhu-oven-bath', text: 'Identitas', url: '/suhu/oven/bath?id='+this.$route.query.id },
+        { name: 'suhu-oven-bath-lembar-kerja', text: 'Lembar Kerja', url: '/suhu/oven/bath/lembar-kerja?id=' +this.$route.query.id},
+        { name: 'print-sertifikat', text: 'Cetak Serifikat', url: '/print/sertifikat?id='+this.$route.query.id },
+        { name: 'print-lampiran', text: 'Cetak Lampiran', url: '/print/lampiran?id='+this.$route.query.id },
       ]
     }
   },

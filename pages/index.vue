@@ -98,7 +98,7 @@
               <tr class="tr-head white--text pt-sans font-weight-bold">
                 <td class="primary td-header">No Order</td>
                 <td class="primary td-header">Nama Perusahaan</td>
-                <td class="primary td-header">Aksi</td>
+                <!-- <td class="primary td-header">Aksi</td> -->
               </tr>
 
               <template v-for="(item, x) in lo">
@@ -115,9 +115,9 @@
                     </v-hover>
                   </td>
                   <td class="td-body">{{item.nama_perusahaan}}</td>
-                  <td class="td-body">
+                  <!-- <td class="td-body">
                     <a @click="$router.push('/detail_list_orders?id='+item.id)">lihat</a>
-                  </td>
+                  </td> -->
                 </tr>
               </template>
               

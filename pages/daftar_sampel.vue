@@ -117,6 +117,7 @@ export default {
 
     getSlug(name) {
       let string_name = name.toLowerCase();
+      string_name.replace('/', '-')
       return string_name.replace(' ', '_')
     }
   },

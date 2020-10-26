@@ -17,7 +17,7 @@
             >keyboard_arrow_left</v-icon>
           </v-hover> &nbsp;
           <p class="lato font-weight-bold title mt-3">
-            Bidang Gaya
+            Bidang Suhu
           </p>
         </v-card-title>
 
@@ -79,14 +79,14 @@ export default {
         name: 'Autoclave',
         value: 'autoclave',
         desc: '-',
-        url: '/daftar_sampel?origin=temperatur/oven&name=Autoclave&to=before_set' 
+        url: '/daftar_sampel?origin=suhu/oven&name=Autoclave&to=before_set' 
       },
       { 
         id: 2,
-        name: 'Oven Furnace',
-        value: 'uji_kekerasan',
+        name: 'Oven Bath',
+        value: 'oven-bath',
         desc: '-',
-        url: '/daftar_sampel?origin=temperatur/oven&name=Oven - Furnace&to=lembar-kerja' 
+        url: '/daftar_sampel?origin=suhu&name=Oven/Bath&to=lembar-kerja' 
       },
     ],
 

@@ -21,8 +21,6 @@
             <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI MASSA</p>
 
             <p class="b">{{no_cert}}</p>
-
-            {{data_alat[selectedMass]}}
             <v-layout row wrap>
               <table width="100%">
                 <thead>

@@ -43,10 +43,10 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'tekanan-hammer_tester-before_set', text: 'Sebelum Set', url: '/tekanan/hammer_tester/before_set?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'tekanan-hammer_tester-after_set', text: 'Setelah Set', url: '/tekanan/hammer_tester/after_set?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'tekanan-hammer_tester-uncertainty', text: 'Ketidakpastian', url: '/tekanan/hammer_tester/uncertainty?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
-        { name: 'tekanan-sertifikat', text: 'Cetak Serifikat', url: '/tekanan/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id }
+        { name: 'tekanan-hammer_tester-before_set', text: 'Sebelum Set', url: '/tekanan/hammer_tester/before_set?id='+this.$route.query.id },
+        { name: 'tekanan-hammer_tester-after_set', text: 'Setelah Set', url: '/tekanan/hammer_tester/after_set?id=' +this.$route.query.id},
+        { name: 'tekanan-hammer_tester-uncertainty', text: 'Ketidakpastian', url: '/tekanan/hammer_tester/uncertainty?id=' +this.$route.query.id},
+        { name: 'tekanan-hammer_tester-sertifikat', text: 'Cetak Serifikat', url: '/tekanan/hammer_tester/sertifikat?id='+this.$route.query.id }
       ]
     }
   },

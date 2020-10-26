@@ -14,7 +14,8 @@
             Drag file here or
           </p>
           <input type="file" name="file" id="file" hidden @change="processFile">
-          <v-btn class="primary" style="width: 200px" @click="chooseFile">Choose File</v-btn>
+          <v-btn class="primary" style="width: 200px" @click="chooseFile" v-if="!file.name">Choose File</v-btn>
+          <p class="text-xs-center" v-else>{{file.name}}</p>
         </v-layout>
         <v-select :items="cats" v-model="cat" item-text="name" item-value="value" label="Pilih Kategori"></v-select>
       </v-card-text>
@@ -97,13 +98,16 @@ export default {
 
         setTimeout(() => {
           alert('Upload Berhasil')
-          this.is_uploading = false,
+          this.is_uploading = false
 
           this.close()
         }, 500);
 
       } catch (error) {
         console.log('submit error : ', error.response);
+        alert('Kategori tidak sesuai')
+        this.close()
+        this.is_uploading = false
       }
     }
   },

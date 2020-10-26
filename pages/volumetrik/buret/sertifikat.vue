@@ -11,18 +11,36 @@
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
 
-            <!-- <v-layout row wrap>
-              <v-select 
-                :items="signatories" v-model="signatory" 
-                item-text="data.name" item-value="data" 
-                label="Penandatangan"
-                append-icon="expand_more"
-              ></v-select>
-            </v-layout> -->
+            <v-flex xs12 sm6 md4>
+              <v-dialog
+                ref="dialog"
+                v-model="modal"
+                :return-value.sync="published_date"
+                persistent
+                lazy
+                full-width
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="published_date"
+                    label="Tanggal diterbitkan"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="published_date" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.dialog.save(published_date)">OK</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </v-flex>
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-btn :disabled="signatory == '' || nip == ''" class="primary elevation-0" @click="printWrapper">
+            <v-btn class="primary elevation-0" @click="printWrapper">
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
@@ -300,7 +318,7 @@
                   <v-layout style="margin-top: 1mm">
                     <v-flex xs8>
                       <v-layout row>
-                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ certificate.published_date }}</span></p>
+                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ convertDate(published_date) }}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs4>
@@ -525,7 +543,12 @@ export default {
     ],
 
     kan: true,
-    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
+    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'},
+
+    published_date: new Date().toISOString().substr(0, 10),
+    menu: false,
+    modal: false,
+    menu2: false
   }),
 
   mounted() {
@@ -561,7 +584,9 @@ export default {
 
         console.log('get LK: ', req);
         let req_data = req.result[0]
+
         this.elementMapping()
+        
       } catch (error) {
         console.log(error);
       }

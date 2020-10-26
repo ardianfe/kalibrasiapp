@@ -43,7 +43,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn flat large class="white primary--text" @click="$router.push('/'+category+'/'+urls[sampel_name]+'?id='+$route.query.id)">Lihat Detail</v-btn>
+                <v-btn flat large class="white primary--text" @click="$router.push('/'+category+'/'+getSlug(sampel_name)+'/sertifikat?id='+$route.query.id)">Lihat Detail</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -66,36 +66,6 @@
             </v-card>
           </v-flex>
         </v-layout>
-
-        <v-layout row wrap class="mt-3">
-          <v-flex xs12 sm6 class="pa-2" v-for="(item, index) in daftar_sampel" :key="index">
-            <v-card width="100%" class="v-main-card elevation-8">
-              <v-card-title class="title">
-                {{item.sampel}}
-                <v-spacer></v-spacer>
-                <img v-if="item.KAN" contain src="/kan.png" height="auto" width="45" style="object-fit: contain;">
-              </v-card-title>
-              <v-card-title class="py-0">
-                Jumlah Sampel : {{item.jumlah_sample}}
-                <v-spacer></v-spacer>
-                Jumlah Sertifikat : {{item.jumlah_sertifikat}}
-              </v-card-title>
-              <v-card-text>
-                <table width="100%">
-                  <tr v-for="(sample, sample_index) in item.no_sample" :key="sample_index">
-                    <td width="60%">{{sample}}</td>
-                    <td>
-                      <v-btn class="primary" @click="openDialog(item.sampel, no_order, sample)">Input Data</v-btn>
-                    </td>
-                    <td>
-                      <v-btn class="accent">Cetak Sertifikat</v-btn>
-                    </td>
-                  </tr>
-                </table>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </v-layout>
       </template>
 
       <template v-else>
@@ -110,7 +80,8 @@
               </v-card-text>
               <v-card-actions class="pa2">
                 <v-spacer></v-spacer>
-                <v-btn class="white primary--text" @click="openDialog($route.query.no_order, $route.query.id, $route.query.sample)">Upload</v-btn>
+                <!-- {{$route.query.sample+'-'+$route.query.no_order + ' - ' + $route.query.id}} -->
+                <v-btn class="white primary--text" @click="openDialog($route.query.sample, $route.query.no_order, $route.query.id)">Upload</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -178,7 +149,9 @@ export default {
     pub_date: '',
 
     urls: {
-      'Anak Timbangan F1/F2': 'anak_timbangan',
+      'Anak Timbangan F1/F2': 'anak_timbangan/lk',
+      'Jangka Sorong': 'jangka_sorong/lk',
+      'Hammer Tester': 'hammer_tester/'
     }
   }),
 
@@ -199,7 +172,7 @@ export default {
         console.log('test cors', req.results);
 
 
-        if (req.result) {
+        if (req.results[0]) {
           this.is_valid = req.results[0]._id ? true : false
           
           this.no_lap = req.results[0].no_laporan
@@ -230,6 +203,11 @@ export default {
       // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(date_string).toLocaleDateString('id-ID', options)
+    },
+
+    getSlug(name) {
+      let string_name = name.toLowerCase();
+      return string_name.replace(' ', '_')
     }
   },
 }

@@ -43,10 +43,10 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'massa-anak_timbangan-lk', text: 'Massa (gram)', url: '/massa/anak_timbangan/lk?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'massa-anak_timbangan-sertifikat', text: 'Sertifikat', url: '/massa/anak_timbangan/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'massa-anak_timbangan-mpe', text: 'mpe', url: '/massa/anak_timbangan/mpe?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'massa-anak_timbangan-lampiran', text: 'Lampiran', url: '/massa/anak_timbangan/lampiran?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'massa-anak_timbangan_f1-f2-lk', text: 'Massa (gram)', url: '/massa/anak_timbangan_f1-f2/lk?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'massa-anak_timbangan_f1-f2-sertifikat', text: 'Sertifikat', url: '/massa/anak_timbangan_f1-f2/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'massa-anak_timbangan_f1-f2-mpe', text: 'mpe', url: '/massa/anak_timbangan_f1-f2/mpe?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'massa-anak_timbangan_f1-f2-lampiran', text: 'Lampiran', url: '/massa/anak_timbangan_f1-f2/lampiran?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
       ]
     }
   },

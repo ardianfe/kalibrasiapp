@@ -79,7 +79,7 @@ export default {
         name: 'Anak Timbangan', 
         value: 'anak_timbangan', 
         desc: '-', 
-        url: '/daftar_sampel?origin=massa&name=Anak Timbangan&to=lk' 
+        url: '/daftar_sampel?origin=massa&name=Anak Timbangan F1/F2&to=lk' 
       },
     ],
 
