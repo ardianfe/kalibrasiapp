@@ -18,194 +18,20 @@
 
             <table class="tableizer-table">
               <thead>
-                  <tr class="tableizer-firstrow">
-                    <th width="100px">Nominal <br> (mm)</th>
-                    <th width="100px">Penyimpangan <br> (mm)</th>
-                    <th width="100px">Nilai Sebenarnya <br> (mm)</th>
-                    <th width="100px">Ketidakpastian <br> (mm)</th>
-                  </tr>
+                <tr class="tableizer-firstrow">
+                  <th width="100px">Nominal <br> (mm)</th>
+                  <th width="100px">Penyimpangan <br> (mm)</th>
+                  <th width="100px">Nilai Sebenarnya <br> (mm)</th>
+                  <th width="100px">Ketidakpastian <br> (mm)</th>
+                </tr>
               </thead>
               <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>-0.22</td>
-                    <td>1.00022</td>
-                    <td>0.0475</td>
-                  </tr>
-                  <tr>
-                    <td>1.1</td>
-                    <td>-0.05</td>
-                    <td>1.10005</td>
-                    <td>0.04825</td>
-                  </tr>
-                  <tr>
-                    <td>1.2</td>
-                    <td>-0.08</td>
-                    <td>1.20008</td>
-                    <td>0.049</td>
-                  </tr>
-                  <tr>
-                    <td>1.3</td>
-                    <td>-0.15</td>
-                    <td>1.30015</td>
-                    <td>0.04975</td>
-                  </tr>
-                  <tr>
-                    <td>1.5</td>
-                    <td>0.11</td>
-                    <td>1.49989</td>
-                    <td>0.05125</td>
-                  </tr>
-                  <tr>
-                    <td>1.6</td>
-                    <td>-0.28</td>
-                    <td>1.60028</td>
-                    <td>0.052</td>
-                  </tr>
-                  <tr>
-                    <td>1.7</td>
-                    <td>-0.13</td>
-                    <td>1.70013</td>
-                    <td>0.05275</td>
-                  </tr>
-                  <tr>
-                    <td>1.8</td>
-                    <td>-0.24</td>
-                    <td>1.80024</td>
-                    <td>0.0535</td>
-                  </tr>
-                  <tr>
-                    <td>1.9</td>
-                    <td>0.15</td>
-                    <td>1.89985</td>
-                    <td>0.05425</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>-0.16</td>
-                    <td>2.00016</td>
-                    <td>0.055</td>
-                  </tr>
-                  <tr>
-                    <td>2.5</td>
-                    <td>-0.11</td>
-                    <td>2.50011</td>
-                    <td>0.05875</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>-0.19</td>
-                    <td>3.00019</td>
-                    <td>0.0625</td>
-                  </tr>
-                  <tr>
-                    <td>3.5</td>
-                    <td>-0.11</td>
-                    <td>3.50011</td>
-                    <td>0.06625</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>-0.18</td>
-                    <td>4.00018</td>
-                    <td>0.07</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td>-0.09</td>
-                    <td>5.00009</td>
-                    <td>0.0775</td>
-                  </tr>
-                  <tr>
-                    <td>6</td>
-                    <td>-0.45</td>
-                    <td>6.00045</td>
-                    <td>0.085</td>
-                  </tr>
-                  <tr>
-                    <td>7</td>
-                    <td>-0.18</td>
-                    <td>7.00018</td>
-                    <td>0.0925</td>
-                  </tr>
-                  <tr>
-                    <td>8</td>
-                    <td>0.21</td>
-                    <td>7.99979</td>
-                    <td>0.1</td>
-                  </tr>
-                  <tr>
-                    <td>9</td>
-                    <td>0.06</td>
-                    <td>8.99994</td>
-                    <td>0.1075</td>
-                  </tr>
-                  <tr>
-                    <td>9.5</td>
-                    <td>0.16</td>
-                    <td>9.49984</td>
-                    <td>0.11125</td>
-                  </tr>
-                  <tr>
-                    <td>10</td>
-                    <td>-0.18</td>
-                    <td>10.00018</td>
-                    <td>0.115</td>
-                  </tr>
-                  <tr>
-                    <td>20</td>
-                    <td>-0.19</td>
-                    <td>20.00019</td>
-                    <td>0.19</td>
-                  </tr>
-                  <tr>
-                    <td>30</td>
-                    <td>-0.4</td>
-                    <td>30.0004</td>
-                    <td>0.265</td>
-                  </tr>
-                  <tr>
-                    <td>40</td>
-                    <td>0.29</td>
-                    <td>39.99971</td>
-                    <td>0.34</td>
-                  </tr>
-                  <tr>
-                    <td>50</td>
-                    <td>-1.63</td>
-                    <td>50.00163</td>
-                    <td>0.415</td>
-                  </tr>
-                  <tr>
-                    <td>60</td>
-                    <td>0.1</td>
-                    <td>59.9999</td>
-                    <td>0.49</td>
-                  </tr>
-                  <tr>
-                    <td>70</td>
-                    <td>1.07</td>
-                    <td>69.99893</td>
-                    <td>0.565</td>
-                  </tr>
-                  <tr>
-                    <td>80</td>
-                    <td>0.34</td>
-                    <td>79.99966</td>
-                    <td>0.64</td>
-                  </tr>
-                  <tr>
-                    <td>90</td>
-                    <td>-1.63</td>
-                    <td>90.00163</td>
-                    <td>0.715</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>1.71</td>
-                    <td>99.99829</td>
-                    <td>0.79</td>
-                  </tr>
+                <tr v-for="(item, index) in data_kal.nilai_gauge" :key="index">
+                  <td>{{item[0]}}</td>
+                  <td>{{item[1]}}</td>
+                  <td>{{item[2].toFixed(4)}}</td>
+                  <td>{{item[3].toFixed(4)}}</td>
+                </tr>
               </tbody>
             </table>
 		
@@ -246,19 +72,37 @@ export default {
         content: 'Bidang Dimensi'
       }
     ],
-  },
+  },  
 
   data: () => ({
-    no_cert: '3-09-10-0490',
+    no_cert: '',
+
+    data_alat: {},
+    data_ktp: {},
+    data_kal: {
+      nilai_gauge: {}
+    }
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
+    this.getLK()
   },
 
   methods: {
+    async getLK() {
+      try {
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
+
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal
+      } catch (error) {
+        console.log('get LK err: ', error.response);
+      }
+    }
   },
 }
 </script>

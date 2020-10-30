@@ -10,7 +10,7 @@
           >keyboard_arrow_left</v-icon>
         </v-hover> &nbsp;
         <p class="headline lato font-weight-bold title mt-3">
-          Daftar Sampel {{$route.query.name}}
+          Daftar Sampel {{$store.state.bidang[$route.query.bid_id].name}}
         </p>
         <v-spacer></v-spacer>
       </v-card-title>
@@ -33,7 +33,7 @@
               <td class="td-body">{{item.data_perusahaan.alamat}}</td>
               <td class="td-body">{{item.status}}</td>
               <td class="td-body">
-                <a @click="$router.push('/'+$route.query.origin+'/'+getSlug($route.query.name)+'/'+$route.query.to+'?id='+item.no_sample)">Lihat</a>
+                <a @click="$router.push($store.state.bidang[$route.query.bid_id].slug+'?id='+item.no_sample+'&bid_id='+$route.query.bid_id)">Lihat</a>
               </td>
             </tr>
             <tr class="tr-body" v-if="lo.length == 0">
@@ -103,7 +103,7 @@ export default {
       this.loading = true
       try {
         const req = await this.$category.getResultByName({
-          name: this.$route.query.name
+          name: this.$store.state.bidang[this.$route.query.bid_id].name
         })
 
         console.log('get Details : ', req);

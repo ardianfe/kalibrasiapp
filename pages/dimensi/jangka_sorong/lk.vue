@@ -8,71 +8,71 @@
           <v-card-text>
             <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI JANGKA SORONG</p>
 
-            <p class="b">No. Laporan : 3-09-19-00757</p>
+            <p class="b">No. Laporan : {{no_cert}}</p>
             <v-layout row wrap>
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Deskripsi Alat : {{ equipment.name }}</p>
+                  <p class="mb-1">Deskripsi Alat : {{ data_alat['Deskripsi Alat'] }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Tipe / Model: {{ equipment.type }}</p>
+                  <p class="mb-1">Tipe / Model : {{ data_alat['Tipe'] }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Merek : {{ equipment.brand }}</p>
+                  <p class="mb-1">Merek : {{ data_alat['Merek'] }}</p>
                 </v-layout>
               </v-flex>
               
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Kapasitas : {{ equipment.capacity }}</p>
+                  <p class="mb-1">Kapasitas : {{ data_alat['Kapasitas'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">No Seri : {{ equipment.serial_number }}</p>
+                  <p class="mb-1">No Seri : {{ data_alat['No Seri'] }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Buatan : {{ equipment.made_in }}</p>
+                  <p class="mb-1">Buatan : {{ data_alat['Buatan'] }}</p>
                 </v-layout>
               </v-flex>
 
               <v-flex xs12 class="mt-4">
                 <v-layout>
-                  <p class="mb-1">Lokasi Kalibrasi : {{ equipment.location }}</p>
+                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat['Lokasi Kalibrasi'] }}</p>
                 </v-layout>
 
                 <v-layout row wrap>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan : {{ equipment.temperature }}</p>
+                    <p class="mb-1">Suhu Ruangan : {{ data_alat['Suhu Ruangan'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ equipment.temperature }}</p>
+                    <p class="mb-1">Kelembapan : {{ data_alat['Kelembapan'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ equipment.temperature }}</p>
+                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat['Suhu Terkoreksi'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ equipment.temperature }}</p>
+                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat['Kelembapan Terkoreksi'] }}</p>
                   </v-flex>
                 </v-layout>
 
                 <br>
 
                 <v-layout>
-                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ equipment.standard }}</p>
+                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat['Alat Kalibrasi yang digunakan'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Metoda Kalibrasi : {{ equipment.standard }}</p>
+                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat['Metoda Kalibrasi'] }}</p>
                 </v-layout>
                 <v-layout>
-                  <p class="mb-3">Standar Acuan : {{ equipment.standard }}</p>
+                  <p class="mb-3">Standar Acuan : {{ data_alat['Standar acuan'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">DIkonsikan tanggal : { equipment.position }</p>
+                  <p class="mb-1">Dikondisikan tanggal : {{data_alat['Tanggal kalibrasi']}}</p>
                 </v-layout>
                 
               </v-flex>
@@ -83,410 +83,93 @@
             <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI JANGKA SORONG</p>
 
             <p class="b">No. Laporan : 3-09-19-00757</p>
+            <!-- <pre>
+              {{data_kal.hasil}}
+            </pre> -->
             <table>
               <tbody>
-                  <tr>
-                    <td rowspan="2">Pembacaan Nominal Standar (mm)</td>
-                    <td rowspan="2">Nilai Aktual Standar (mm)</td>
-                    <td colspan="2">Pembacaan Alat (mm)</td>
-                    <td colspan="2">Rata-rata Pembacaan Alat (mm)</td>
-                    <td colspan="2">Kesalahan (mm)</td>
-                    <td colspan="2">Mampu Ulang (mm)</td>
+                <tr>
+                  <td rowspan="2">Pembacaan Nominal Standar (mm)</td>
+                  <td rowspan="2">Nilai Aktual Standar (mm)</td>
+                  <td colspan="2">Pembacaan Alat (mm)</td>
+                  <td colspan="2">Rata-rata Pembacaan Alat (mm)</td>
+                  <td colspan="2">Kesalahan (mm)</td>
+                  <td colspan="2">Mampu Ulang (mm)</td>
+                </tr>
+                <tr>
+                  <td>Ukuran Luar</td>
+                  <td>Ukuran Dalam</td>
+                  <td>Ukuran Luar</td>
+                  <td>Ukuran Dalam</td>
+                  <td>Ukuran Luar</td>
+                  <td>Ukuran Dalam</td>
+                  <td>Ukuran Luar</td>
+                  <td>Ukuran Dalam</td>
+                </tr>
+                <template v-if="data_kal.hasil['Pembacaan']">
+                  <tr v-for="(item, index) in data_kal.hasil['Pembacaan'].length" :key="index">
+                    <td>
+                      <span v-if="data_kal.hasil['Pembacaan'][index] != '' && data_kal.hasil['Pembacaan'][index] != null">
+                        {{data_kal.hasil['Pembacaan'][index]}}
+                      </span>
+                      <span v-else>&nbsp;2</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Nilai Aktual'][index] != '' ">
+                        {{data_kal.hasil['Nilai Aktual'][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Pembacaan Alat '][index] != '' ">
+                        {{data_kal.hasil['Pembacaan Alat '][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Unnamed: 4'][index] != '' ">
+                        {{data_kal.hasil['Unnamed: 4'][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Rata-rata'][index] != '' ">
+                        {{data_kal.hasil['Rata-rata'][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Unnamed: 6'][index] != '' ">
+                        {{data_kal.hasil['Unnamed: 6'][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Kesalahan    '][index] != '' ">
+                        {{data_kal.hasil['Kesalahan    '][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Unnamed: 8'][index] != '' ">
+                        {{data_kal.hasil['Unnamed: 8'][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Mampu Ulang '][index] != '' ">
+                        {{data_kal.hasil['Mampu Ulang '][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal.hasil['Unnamed: 10'][index] != '' ">
+                        {{data_kal.hasil['Unnamed: 10'][index]}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
                   </tr>
-                  <tr>
-                    <td>Ukuran Luar</td>
-                    <td>Ukuran Dalam</td>
-                    <td>Ukuran Luar</td>
-                    <td>Ukuran Dalam</td>
-                    <td>Ukuran Luar</td>
-                    <td>Ukuran Dalam</td>
-                    <td>Ukuran Luar</td>
-                    <td>Ukuran Dalam</td>
-                  </tr>
-                  <tr>
-                    <td>10</td>
-                    <td>10.00018</td>
-                    <td>10.00</td>
-                    <td>10.00</td>
-                    <td>10.02</td>
-                    <td>10.00</td>
-                    <td>0.01982</td>
-                    <td>-0.00018</td>
-                    <td>0.05</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>50</td>
-                    <td>50.00163</td>
-                    <td>50.00</td>
-                    <td>50.00</td>
-                    <td>50.00</td>
-                    <td>50.02</td>
-                    <td>-0.00163</td>
-                    <td>0.01837</td>
-                    <td>0.00</td>
-                    <td>0.05</td>
-                  </tr>
-                  <tr>
-                    <td>70</td>
-                    <td>69.99893</td>
-                    <td>70.00</td>
-                    <td>70.00</td>
-                    <td>70.00</td>
-                    <td>70.00</td>
-                    <td>0.00107</td>
-                    <td>0.00107</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>100</td>
-                    <td>99.99829</td>
-                    <td>100.00</td>
-                    <td>100.00</td>
-                    <td>100.00</td>
-                    <td>100.00</td>
-                    <td>0.00171</td>
-                    <td>0.00171</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>150</td>
-                    <td>149.99992</td>
-                    <td>150.00</td>
-                    <td>150.00</td>
-                    <td>150.00</td>
-                    <td>150.00</td>
-                    <td>0.00008</td>
-                    <td>0.00008</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>170</td>
-                    <td>169.99722</td>
-                    <td>170.00</td>
-                    <td>170.00</td>
-                    <td>170.00</td>
-                    <td>170.00</td>
-                    <td>0.00278</td>
-                    <td>0.00278</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>200</td>
-                    <td>199.99658</td>
-                    <td>200.00</td>
-                    <td>200.00</td>
-                    <td>200.00</td>
-                    <td>200.00</td>
-                    <td>0.00342</td>
-                    <td>0.00342</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>250</td>
-                    <td>249.99821</td>
-                    <td>250.00</td>
-                    <td>250.00</td>
-                    <td>250.00</td>
-                    <td>250.00</td>
-                    <td>0.00179</td>
-                    <td>0.00179</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>270</td>
-                    <td>269.99551</td>
-                    <td>270.00</td>
-                    <td>270.00</td>
-                    <td>270.00</td>
-                    <td>270.00</td>
-                    <td>0.00449</td>
-                    <td>0.00449</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>300</td>
-                    <td>299.99487</td>
-                    <td>300.00</td>
-                    <td>300.00</td>
-                    <td>300.00</td>
-                    <td>300.00</td>
-                    <td>0.00513</td>
-                    <td>0.00513</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>10.00</td>
-                    <td>10.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>50.00</td>
-                    <td>50.05</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>70.00</td>
-                    <td>70.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>100.00</td>
-                    <td>100.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>150.00</td>
-                    <td>150.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>170.00</td>
-                    <td>170.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>200.00</td>
-                    <td>200.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>250.00</td>
-                    <td>250.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>270.00</td>
-                    <td>270.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>300.00</td>
-                    <td>300.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>10.05</td>
-                    <td>10.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>50.00</td>
-                    <td>50.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>70.00</td>
-                    <td>70.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>100.00</td>
-                    <td>100.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>150.00</td>
-                    <td>150.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>170.00</td>
-                    <td>170.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>200.00</td>
-                    <td>200.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>250.00</td>
-                    <td>250.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>270.00</td>
-                    <td>270.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>300.00</td>
-                    <td>300.00</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
+                </template>
               </tbody>
             </table>
 
@@ -499,15 +182,15 @@
             
             <v-layout row class='mt-4'>
               <v-flex xs6>
-                Diperiksa oleh : Aji MS <br>
-                Tanggal :	30 Juni 2017 <br>
+                Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
+                Tanggal :	{{data_alat['Tanggal periksa']}} <br>
                 Tanda Tangan :	
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
               <v-flex xs6>
-                Dikalibrasi oleh : Agung Tri S S <br>
-                Tanggal :	2 Juni 2017 <br>
+                Dikalibrasi oleh : {{data_alat['Dikalibrasi']}} <br>
+                Tanggal :	{{convertDate(data_alat['Tanggal kalibrasi'])}} <br>
                 Tanda-tangan :
 
                 <hr style="width: 50%; margin-top: 100px">	
@@ -672,15 +355,15 @@
 
             <v-layout row class='mt-4'>
               <v-flex xs6>
-                Diperiksa oleh : Aji MS <br>
-                Tanggal :	30 Juni 2017 <br>
+                Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
+                Tanggal :	{{data_alat['Tanggal periksa']}} <br>
                 Tanda Tangan :	
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
               <v-flex xs6>
-                Dikalibrasi oleh : Agung Tri S S <br>
-                Tanggal :	2 Juni 2017 <br>
+                Dikalibrasi oleh : {{data_alat['Dikalibrasi']}} <br>
+                Tanggal :	{{convertDate(data_alat['Tanggal kalibrasi'])}} <br>
                 Tanda-tangan :
 
                 <hr style="width: 50%; margin-top: 100px">	
@@ -708,7 +391,7 @@
 
 <script>
 import dimensiHeader from '~/components/dimensi/jangka.vue'
-import durometer from '~/static/durometer.json'
+// import durometer from '~/static/durometer.json' 
 
 export default {
   components: {
@@ -727,129 +410,54 @@ export default {
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
-    },
+    no_cert: '',
 
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
+    data_alat: {},
+    data_ktp: {},
+    data_kal: {
       hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
-      }
+        "Kesalahan ": [],
+        "Mampu Ulang ": [],
+        "Nilai Aktual": [],
+        "Pembacaan": [],
+        "Pembacaan Alat ": [],
+        "Rata-rata": [],
+        "Unnamed: 4": [],
+        "Unnamed: 6": [],
+        "Unnamed: 8": [],
+        "Unnamed: 10": [],
+      },
+      jis: {},
+      nilai_gauge: {}
     }
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
-
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
-
-    // this.hk.d_min = durometer.result[0].data_kal.d_minimum_1
-    // this.hk.d_max = durometer.result[0].data_kal.d_maksimum_1
-
-    // this.hk.hasil.unnamed7 = durometer.result[0].data_kal.hk1['Unnamed: 7']
-    // this.hk.hasil.unnamed9 = durometer.result[0].data_kal.hk1['Unnamed: 9']
-    // this.hk.hasil.unnamed11 = durometer.result[0].data_kal.hk1['Unnamed: 11']
-    // this.hk.hasil.unnamed13 = durometer.result[0].data_kal.hk1['Unnamed: 13']
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        console.log('test cors', req);
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('get LK err: ', error.response);
       }
     },
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
-      try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
-
-        // console.log(this.file);
-
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
-      } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-      }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
+
 }
 
 function hideElement(id) {

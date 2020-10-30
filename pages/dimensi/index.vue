@@ -60,12 +60,12 @@
 <script>
 export default {
   head: {
-    title: 'Upload File',
+    title: 'Bidang Dimensi',
     meta: [
       {
-        hid: 'temperature',
-        name: 'temperature',
-        content: 'Bidang Temperatur'
+        hid: 'dimensi',
+        name: 'dimensi',
+        content: 'Bidang Dimensi'
       }
     ],
   },
@@ -74,11 +74,11 @@ export default {
     active: null,
 
     fields: [
-      { id: 1, name: 'Ayakan', value: 'ayakan', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Ayakan&to=lk' },
-      { id: 2, name: 'Dial Indikator', value: 'dial_indikator', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Dial Indikator&to=lk' },
-      { id: 3, name: 'Jangka Sorong', value: 'jangka_sorong', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Jangka Sorong&to=lk' },
-      { id: 4, name: 'Micrometer', value: 'micrometer', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Micrometer&to=lk' },
-      { id: 5, name: 'Stopwatch', value: 'stopwatch', desc: '-', url: '/daftar_sampel?origin=dimensi&name=Stopwatch&to=lk' },
+      { id: 1, name: 'Ayakan', value: 'ayakan', desc: '-', url: '/daftar_sampel?bid_id=1' },
+      { id: 2, name: 'Dial Indikator', value: 'dial_indikator', desc: '-', url: '/daftar_sampel?bid_id=2' },
+      { id: 3, name: 'Jangka Sorong', value: 'jangka_sorong', desc: '-', url: '/daftar_sampel?bid_id=3' },
+      { id: 4, name: 'Micrometer', value: 'micrometer', desc: '-', url: '/daftar_sampel?bid_id=4' },
+      { id: 5, name: 'Stopwatch', value: 'stopwatch', desc: '-', url: '/daftar_sampel?bid_id=5' },
     ],
 
     filename: '',

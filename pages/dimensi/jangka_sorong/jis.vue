@@ -11,8 +11,8 @@
             </p>
 
             <p>
-              Sertifikat No. 1609/KAL/BBLM/11/14 <br>
-              Tanggal  :  4 Nopember 2014			
+              Sertifikat No. {{no_cert}} <br>
+              Tanggal : {{convertDate(data_alat['Tanggal kalibrasi'])}}		
             </p>
 
             <table class="tableizer-table">
@@ -31,112 +31,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>30 </td>
-                  <td>30 </td>
-                  <td>0.12 </td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>0.12 </td>
-                </tr>
-                <tr>
-                  <td>60 </td>
-                  <td>60 </td>
-                  <td>0.13 </td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>0.13 </td>
-                </tr>
-                <tr>
-                  <td>90 </td>
-                  <td>90 </td>
-                  <td>0.14 </td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>0.14 </td>
-                </tr>
-                <tr>
-                  <td>120 </td>
-                  <td>100+20</td>
-                  <td>0.14 </td>
-                  <td>0.11 </td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>0.18 </td>
-                </tr>
-                <tr>
-                  <td>150 </td>
-                  <td>100+50</td>
-                  <td>0.14 </td>
-                  <td>0.12 </td>
-                  <td>-</td>
-                  <td>&nbsp;</td>
-                  <td>0.18 </td>
-                </tr>
-                <tr>
-                  <td>180 </td>
-                  <td>100+80</td>
-                  <td>0.14 </td>
-                  <td>0.14 </td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>0.20 </td>
-                </tr>
-                <tr>
-                  <td>210 </td>
-                  <td>100+80+30</td>
-                  <td>0.14 </td>
-                  <td>0.14 </td>
-                  <td>0.12 </td>
-                  <td>-</td>
-                  <td>0.23 </td>
-                </tr>
-                <tr>
-                  <td>240 </td>
-                  <td>100+80+60</td>
-                  <td>0.14 </td>
-                  <td>0.14 </td>
-                  <td>0.13 </td>
-                  <td>-</td>
-                  <td>0.24 </td>
-                </tr>
-                <tr>
-                  <td>270 </td>
-                  <td>100+90+80</td>
-                  <td>0.14 </td>
-                  <td>0.14 </td>
-                  <td>0.14 </td>
-                  <td>-</td>
-                  <td>0.24 </td>
-                </tr>
-                <tr>
-                  <td>300 </td>
-                  <td>100+90+80+30</td>
-                  <td>0.14 </td>
-                  <td>0.14 </td>
-                  <td>0.14 </td>
-                  <td>0.12 </td>
-                  <td>0.27 </td>
+                <tr v-for="(item, index) in data_kal.jis" :key="index">
+                  <td>{{item[0]}}</td>
+                  <td>{{item[1]}}</td>
+                  <td>{{item[2]}}</td>
+                  <td>{{item[3]}}</td>
+                  <td>{{item[4]}}</td>
+                  <td>{{item[5]}}</td>
+                  <td>{{item[6]}}</td>
                 </tr>
               </tbody>
             </table>
 
+            <!-- constant -->
             <p class="b mt-3">Tabel Kesalahan Jangka Sorong, berdasar JIS B 7507 - 1993, butir 6.1</p>
             <table class="tableizer-table">
-            <thead>
-              <tr class="tableizer-firstrow">
-                <th rowspan="2">Measuring length</th>
-                <th colspan='2'>Scale intervals, minimum indicating <br> quantities or minimum reading values</th>
-              </tr>
-              <tr>
-                <td>0.1 or 0.05</td>
-                <td>0.02 or 0.01</td>
-              </tr>
-            </thead>
-            <tbody>
+              <thead>
+                <tr class="tableizer-firstrow">
+                  <th rowspan="2">Measuring length</th>
+                  <th colspan='2'>Scale intervals, minimum indicating <br> quantities or minimum reading values</th>
+                </tr>
+                <tr>
+                  <td>0.1 or 0.05</td>
+                  <td>0.02 or 0.01</td>
+                </tr>
+              </thead>
+              <tbody>
                 <tr>
                   <td>50 or under</td>
                   <td>0.05</td>
@@ -187,8 +107,8 @@
                   <td>Over 900 to 1000 or under</td>
                   <td>0.15</td>
                 </tr>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
           </v-card-text>
         </v-card>    
       </v-layout>
@@ -217,7 +137,7 @@ export default {
   },
 
   head: {
-    title: 'Nilai Gauge Jangka Sorong | Bidang Dimensi',
+    title: 'JIS Jangka Sorong | Bidang Dimensi',
     meta: [
       {
         hid: 'dimensi',
@@ -226,18 +146,42 @@ export default {
       }
     ],
   },
-
   data: () => ({
-    no_cert: '3-09-10-0490',
+    no_cert: '',
+
+    data_alat: {},
+    data_ktp: {},
+    data_kal: {
+      nilai_gauge: {},
+      jis: []
+    }
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
+    this.getLK()
   },
 
   methods: {
+    async getLK() {
+      try {
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
+
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal
+      } catch (error) {
+        console.log('get LK err: ', error.response);
+      }
+    },
+
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
+    }
   },
 }
 </script>

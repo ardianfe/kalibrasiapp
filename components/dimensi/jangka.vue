@@ -43,12 +43,12 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'dimensi-jangka_sorong-lk', text: 'Lembar Kerja 1', url: '/dimensi/jangka_sorong/lk?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'dimensi-jangka_sorong-nilai_gauge', text: 'Nilai Gauge', url: '/dimensi/jangka_sorong/nilai_gauge?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'dimensi-jangka_sorong-cmc', text: 'CMC', url: '/dimensi/jangka_sorong/cmc?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'dimensi-jangka_sorong-jis', text: 'Syarat JIS', url: '/dimensi/jangka_sorong/jis?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'dimensi-jangka_sorong-sertifikat', text: 'Sertifikat', url: '/dimensi/jangka_sorong/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
-        { name: 'dimensi-jangka_sorong-lampiran', text: 'Lampiran', url: '/dimensi/jangka_sorong/lampiran?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        { name: 'dimensi-jangka_sorong-lk', text: 'Lembar Kerja 1', url: '/dimensi/jangka_sorong/lk?id='+this.$route.query.id },
+        { name: 'dimensi-jangka_sorong-nilai_gauge', text: 'Nilai Gauge', url: '/dimensi/jangka_sorong/nilai_gauge?id='+this.$route.query.id },
+        { name: 'dimensi-jangka_sorong-cmc', text: 'CMC', url: '/dimensi/jangka_sorong/cmc?id='+this.$route.query.id },
+        { name: 'dimensi-jangka_sorong-jis', text: 'Syarat JIS', url: '/dimensi/jangka_sorong/jis?id='+this.$route.query.id },
+        { name: 'dimensi-jangka_sorong-sertifikat', text: 'Sertifikat', url: '/dimensi/jangka_sorong/sertifikat?id='+this.$route.query.id },
+        { name: 'dimensi-jangka_sorong-lampiran', text: 'Lampiran', url: '/dimensi/jangka_sorong/lampiran?id='+this.$route.query.id },
         // { name: 'gaya-durometer-ktp1', text: 'KTP 1', url: '/gaya/durometer/ktp1?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
         // { name: 'gaya-durometer-ktp2', text: 'KTP 2', url: '/gaya/durometer/ktp2?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
         // { name: 'gaya-sertifikat', text: 'Sertifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },

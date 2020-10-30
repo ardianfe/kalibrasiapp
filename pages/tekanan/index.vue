@@ -79,13 +79,13 @@ export default {
         name: 'Hammer Test',
         value: 'hammer_test',
         desc: '-',
-        url: '/daftar_sampel?origin=tekanan&name=Hammer Tester&to=before_set' 
+        url: '/daftar_sampel?bid_id=36' 
       },
       { id: 2,
         name: 'Pressure Gauge',
         value: 'pressure_gauge',
         desc: '-',
-        url: '/daftar_sampel?origin=tekanan&name=Pressure Gauge&to=lk' 
+        url: '/daftar_sampel?bid_id=37' 
       },
     ],
 

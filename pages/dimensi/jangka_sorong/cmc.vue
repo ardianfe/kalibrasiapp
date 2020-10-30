@@ -11,17 +11,17 @@
             </p>
 
             <p>
-              Nama laboratorium :		Laboratorium Kalibrasi Balai Besar Bahan dan Barang Teknik <br>			
-              Alamat :		Jl. Sangkuriang No. 14 Bandung				
+              Nama laboratorium :	{{data_co.nama_co}} <br>			
+              Alamat : {{data_co.alamat}}				
             </p>
 
             <p>
               <span class="b">UNCERTAINTY BUDGET SEBAGAI PENDUKUNG KLAIM CMC</span> <br>
-              Besaran yang diukur : Dimensi <br>
-              Jenis alat yang dikalibrasi : Jangka sorong / Vernier Caliper <br>
-              Standar yang digunakan : Gauge Block <br>
-              Model matematis pengukuran : E = L – Ls + Ls (qs da +as dq ) – LD - LW + LG <br>
-              Rentang ukur : 0 - 300 mm <br>
+              Besaran yang diukur : {{cmc.deskripsi['Besaran yang diukur ']}} <br>
+              Jenis alat yang dikalibrasi : {{cmc.deskripsi['Jenis alat yang dikalibrasi']}} <br>
+              Standar yang digunakan : {{cmc.deskripsi['Standar yang digunakan']}} <br>
+              Model matematis pengukuran : {{cmc.deskripsi['Model matematis pengukuran']}} <br>
+              Rentang ukur : {{cmc.deskripsi['Rentang ukur']}} <br>
             </p>
 
             <table class="tableizer-table">
@@ -42,145 +42,49 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                    <td>Repeatability</td>
-                    <td>mm</td>
-                    <td>normal</td>
-                    <td>m(L1)</td>
-                    <td>3.162</td>
-                    <td>3.162</td>
-                    <td>9</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1.10E-01</td>
+                <template v-if="cmc.data['Unnamed: 5']">
+                  <tr v-for="(item, index) in header[0]" :key="index">
+                    <td>{{item}}</td>
+                    <td>{{header[1][index]}}</td>
+                    <td>{{header[2][index]}}</td>
+                    <td>{{header[3][index]}}</td>
+                    <td v-if="cmc.data['Unnamed: 5'][index]">{{cmc.data['Unnamed: 5'][index].toFixed(2)}}</td>
+                    <td v-if="cmc.data['Unnamed: 6'][index]">{{cmc.data['Unnamed: 6'][index].toFixed(2)}}</td>
+                    <td v-if="cmc.data['Unnamed: 7'][index]">{{cmc.data['Unnamed: 7'][index]}}</td>
+                    <td v-if="cmc.data['Unnamed: 8'][index]">{{cmc.data['Unnamed: 8'][index].toFixed(2)}}</td>
+                    <td v-if="cmc.data['Unnamed: 9'][index]">{{cmc.data['Unnamed: 9'][index]}}</td>
+                    <td v-if="cmc.data['Unnamed: 10'][index]">{{cmc.data['Unnamed: 10'][index].toFixed(2)}}</td>
+                    <td v-if="cmc.data['Unnamed: 11'][index]">{{cmc.data['Unnamed: 11'][index].toFixed(2)}}</td>
+                    <td v-if="cmc.data['Unnamed: 12'][index]">{{cmc.data['Unnamed: 12'][index]}}</td>
                   </tr>
-                  <tr>
-                    <td>Readability</td>
-                    <td>mm</td>
-                    <td>rectangular</td>
-                    <td>m(L2)</td>
-                    <td>10</td>
-                    <td>1.732</td>
-                    <td>1.00E+99</td>
-                    <td>5.7735</td>
-                    <td>1</td>
-                    <td>5.7735</td>
-                    <td>33.33333</td>
-                    <td>1.10E-96</td>
-                  </tr>
-                  <tr>
-                    <td>Gauge Block (Sertifikat)</td>
-                    <td>mm</td>
-                    <td>normal</td>
-                    <td>m(Ls1)</td>
-                    <td>0.27</td>
-                    <td>2</td>
-                    <td>6.00E+01</td>
-                    <td>0.135</td>
-                    <td>1</td>
-                    <td>0.135</td>
-                    <td>0.01823</td>
-                    <td>5.50E-06</td>
-                  </tr>
-                  <tr>
-                    <td>Selisih Koefisien muai</td>
-                    <td>/°C</td>
-                    <td>rectangular</td>
-                    <td>m(da)</td>
-                    <td>2.00E-06</td>
-                    <td>1.732</td>
-                    <td>6.00E+01</td>
-                    <td>1.00E-06</td>
-                    <td>300000</td>
-                    <td>0.34641</td>
-                    <td>0.12</td>
-                    <td>2.40E-04</td>
-                  </tr>
-                  <tr>
-                    <td>Selisih temperatur</td>
-                    <td>°C</td>
-                    <td>rectangular</td>
-                    <td>m(qs)</td>
-                    <td>0.2</td>
-                    <td>1.732</td>
-                    <td>1.00E+99</td>
-                    <td>0.1155</td>
-                    <td>3.45E+00</td>
-                    <td>0.39837</td>
-                    <td>0.1587</td>
-                    <td>2.50E-101</td>
-                  </tr>
-                  <tr>
-                    <td>Drift</td>
-                    <td>mm</td>
-                    <td>rectangular</td>
-                    <td>m(LD)</td>
-                    <td>0.1</td>
-                    <td>1.732</td>
-                    <td>1.00E+99</td>
-                    <td>0.0577</td>
-                    <td>1</td>
-                    <td>0.05774</td>
-                    <td>0.00333</td>
-                    <td>1.10E-104</td>
-                  </tr>
-                  <tr>
-                    <td>Wringing</td>
-                    <td>mm</td>
-                    <td>rectangular</td>
-                    <td>m(Lw)</td>
-                    <td>0.09</td>
-                    <td>1.732</td>
-                    <td>1.00E+99</td>
-                    <td>0.05</td>
-                    <td>1</td>
-                    <td>0.05</td>
-                    <td>0.0025</td>
-                    <td>6.30E-105</td>
-                  </tr>
-                  <tr>
-                    <td>Geometrik</td>
-                    <td>mm</td>
-                    <td>rectangular</td>
-                    <td>m(LG)</td>
-                    <td>10</td>
-                    <td>1.732</td>
-                    <td>1.00E+99</td>
-                    <td>5.7735</td>
-                    <td>1</td>
-                    <td>5.7735</td>
-                    <td>33.33333</td>
-                    <td>1.10E-96</td>
-                  </tr>
+                </template>
                   <tr>
                     <td colspan="12">&nbsp;</td>
                   </tr>
                   <tr>
                     <td colspan="10">Sums</td>
-                    <td>67.96943</td>
-                    <td>1.11E-01</td>
+                    <td v-if="cmc.sum.uc2">{{cmc.sum.uc2.toFixed(4)}}</td>
+                    <td v-if="cmc.sum.uc4">{{cmc.sum.uc4.toFixed(4)}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Ketidakpastian baku gabungan, uc, um</td>
-                    <td colspan="2">8.24436 um</td>
+                    <td colspan="2">{{cmc.ktp_uc_um}} um</td>
                   </tr>
                   <tr>
                     <td colspan="10">Derajat kebebasan efektif, veff</td>
-                    <td colspan="2">41486.9</td>
+                    <td colspan="2">{{cmc.der_kebbs_effective}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Faktor cakupan, k-student's for veff and CL 95%</td>
-                    <td colspan="2">2</td>
+                    <td colspan="2">{{cmc.faktor_k}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Ketidakpastian bentangan, U = k.uc, um</td>
-                    <td colspan="2">16.49 um</td>
+                    <td colspan="2">{{cmc.ktp_bentang.um}} um</td>
                   </tr>
                   <tr>
                     <td colspan="10"></td>
-                    <td colspan="2">0.016 mm</td>
+                    <td colspan="2">{{cmc.ktp_bentang.mm}} mm</td>
                   </tr>
               </tbody>
             </table>
@@ -212,7 +116,7 @@ export default {
   },
 
   head: {
-    title: 'Nilai Gauge Jangka Sorong | Bidang Dimensi',
+    title: 'CMC Jangka Sorong | Bidang Dimensi',
     meta: [
       {
         hid: 'dimensi',
@@ -223,16 +127,88 @@ export default {
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
+    no_cert: '',
+
+    data_alat: {},
+    cmc: {
+      data: {
+        "Unnamed: 5:": [],
+        "Unnamed: 6:": [],
+        "Unnamed: 7:": [],
+        "Unnamed: 8:": [],
+        "Unnamed: 9:": [],
+        "Unnamed: 10:": [],
+        "Unnamed: 11:": [],
+        "Unnamed: 12:": []
+      },
+      der_kebbs_effective: {},
+      deskripsi: {
+        "Besaran yang diukur ": "", 
+        "Jenis alat yang dikalibrasi": "", 
+        "Model matematis pengukuran": "", 
+        "Rentang ukur": "", 
+        "Standar yang digunakan": ""
+      },
+      faktor_k: {},
+      ktp_bentang: {},
+      ktp_uc_um: {},
+      sum: {},
+    },
+    data_ktp: {
+      cmc: {
+        data: {
+          "Unnamed: 5:": {},
+          "Unnamed: 6:": {},
+          "Unnamed: 7:": {},
+          "Unnamed: 8:": {},
+          "Unnamed: 9:": {},
+          "Unnamed: 10:": {},
+          "Unnamed: 11:": {},
+          "Unnamed: 12:": {}
+        },
+        der_kebbs_effective: {},
+        deskripsi: {},
+        faktor_k: {},
+        ktp_bentang: {},
+        ktp_uc_um: {},
+        sum: {},
+      }
+    },
+    data_kal: {
+      nilai_gauge: {}
+    },
+
+    header: [
+      ["Repeatability", "Readability", "Gauge Block (Sertifikat)", "Selisih Koefisien muai", "Selisih temperatur", "Drift", "Wringing", "Geometrik"],
+      ["mm", "mm", "mm", "/° C", "°C", "mm", "mm", "mm"],
+      ["normal", "rectangular", "normal", "rectangular", "rectangular", "rectangular", "rectangular", "rectangular"],
+      ["m(L1)", "m(L2)", "m(Ls1)", "m(da)", "m(qs)", "m(LD)", "m(Lw)", "m(LG)"]
+    ],
+
+    data_co: {}
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
+    this.getLK()
   },
 
   methods: {
+    async getLK() {
+      try {
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
+
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.cmc = req_data.data_ktp.cmc
+        this.data_kal = req_data.data_kal
+        this.data_co = req_data.data_co
+      } catch (error) {
+        console.log('get LK err: ', error.response);
+      }
+    }
   },
 }
 </script>

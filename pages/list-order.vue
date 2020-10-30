@@ -60,7 +60,7 @@
       </template>
     </v-flex>
 
-    <v-dialog v-model="dialog" max-width="550px">
+    <!-- <v-dialog v-model="dialog" max-width="550px">
       <v-card v-if="!is_uploading">
         <v-card-title class="title">
           <v-icon color="primary" class="mr-4">folder</v-icon>
@@ -96,7 +96,7 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </v-layout>
 </template>
 
