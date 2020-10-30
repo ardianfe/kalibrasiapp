@@ -48,6 +48,9 @@
           </v-card-text>
           <v-card-actions class="pa-2">
             <v-spacer></v-spacer>
+            <v-btn class="primary elevation-0" @click="uploadPDF">
+              upload
+            </v-btn> &nbsp;
             <v-btn class="primary elevation-0" @click="printWrapper">
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
@@ -221,7 +224,6 @@
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
                       <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 380px;">{{certificate.standard.traceability}}</p>
-                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">LK-032-IDN dan LK-172-IDN</p> -->
                     </div>
                   </v-layout>
 
@@ -261,7 +263,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.equipment.temperature}}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -445,6 +447,7 @@
         </v-card>
       </v-layout>
     </v-flex>
+    <uploadDialog></uploadDialog>
   </v-layout>
 </template>
 
@@ -483,17 +486,19 @@ p{
 </style>
 <script>
 import tekananHeader from '~/components/tekanan/hammer.vue'
+import uploadDialog from '~/components/uploadDialog.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    tekananHeader
+    tekananHeader,
+    uploadDialog
   },
 
   head: {
-    title: 'Sertifikat | Bidang Gaya',
+    title: 'Sertifikat | Bidang Tekanan',
     meta: [
       {
         hid: 'gaya',
@@ -543,7 +548,10 @@ export default {
       director_name: '',
       director_nip: '',
     },
-    data: {},
+    data: {
+      alat: {},
+      co: {}
+    },
 
     signatories: [
       { id: 1, data: {name: 'AJI MAHMUD SOLIH', nip: '19720802 200701 1 003', jabatan: 'Kepala Seksi Kalibrasi'} },
@@ -593,32 +601,35 @@ export default {
         console.log('get LK: ', req);
         let req_data = req.results[0]
 
-        this.elementMapping()        
+        // this.data.alat = req_data.data_alat
+        // this.data.alat = req_data.data_co
+
+        this.certificate_number = req_data.no_laporan
+
+        this.elementMapping(req_data.data_alat, req_data.data_co)        
       } catch (error) {
         console.log(error);
       }
     },
 
-    elementMapping() {
-      // let cert_data = this.data.data_perusahaan
-      // this.certificate.equipment.name = 'Concrete Test Hammer'
-      // this.certificate.equipment.capacity = '10 - 100 Unit'
-      // this.certificate.equipment.model = 'HT 225'
-      // this.certificate.equipment.serial_number = 308813
-      // this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      // this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      // this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      // this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      // this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      // this.certificate.acceptance_date = '30 Mei 2017'
-      // this.certificate.calibration_date = '2 Juni 2017'
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      // this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      // this.certificate.calibration_method = 'PC-309-10'
-      // this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      // this.certificate.published_date = '30 Mei 2107'
+    elementMapping(alat, co) {
+      this.certificate.equipment.name = alat['Deskripsi Alat']
+      this.certificate.equipment.capacity = alat['Kapasitas'] + ' Unit'
+      this.certificate.equipment.model = alat['Merek']
+      this.certificate.equipment.serial_number = alat['No Seri']
+      this.certificate.equipment.manufacture = alat['No Seri'] + ' / ' + alat['Buatan']
+      this.certificate.equipment.temperature = alat['Suhu']
+      this.certificate.owner.name = co.nama_co
+      this.certificate.owner.address = co.alamat
+      this.certificate.standard.name = alat['Standar dipakai']
+      this.certificate.standard.traceability = ''
+      this.certificate.acceptance_date = alat['Tanggal periksa']
+      this.certificate.calibration_date = alat['Tanggal kalibrasi']
+      this.certificate.env_condition.room_temp = ''
+      this.certificate.env_condition.humidity = ''
+      this.certificate.calibration_location = alat['Lokasi Kalibrasi']
+      this.certificate.calibration_method = 'PC-309-10'
+      this.certificate.refference = alat['Standar acuan']
     },
 
     printWrapper() {
@@ -644,6 +655,15 @@ export default {
         console.log(error.response);
         location.reload()
       }
+    },
+
+    async uploadPDF() {
+      console.log('upload');
+      this.$store.commit('openDialog', {
+        sample_name: 'PDF',
+        order_number: 0,
+        sample_number: this.$route.query.id
+      })
     },
 
     convertDate(date_string) {
