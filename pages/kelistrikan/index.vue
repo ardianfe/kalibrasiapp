@@ -79,21 +79,21 @@ export default {
         name: 'Battery Charge',
         value: 'battery_charge',
         desc: '-',
-        url: '/daftar_sampel?origin=kelistrikan&name=Battery Charge&to=lk' 
+        url: '/daftar_sampel?bid_id=25' 
       },
       { 
         id: 2,
         name: 'Load Bank',
         value: 'load_bank',
         desc: '-',
-        url: '/daftar_sampel?origin=kelistrikan&name=Load Bank&to=lk' 
+        url: '/daftar_sampel?bid_id=26'
       },
       { 
         id: 3,
         name: 'Mesin Las',
         value: 'mesin_las',
         desc: '-',
-        url: '/daftar_sampel?origin=kelistrikan&name=Mesin Las&to=lk' 
+        url: '/daftar_sampel?bid_id=27' 
       },
     ],
 

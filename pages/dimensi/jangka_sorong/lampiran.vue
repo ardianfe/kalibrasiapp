@@ -83,7 +83,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        <tr v-for="(item, index) in data_kal" :key="index">
                           <td>10</td>
                           <td>10.0002</td>
                           <td>10.02</td>
@@ -92,6 +92,7 @@
                           <td>-0.00018</td>
                           <td rowspan="10">0.02</td>
                         </tr>
+                        
                         <tr>
                           <td>50</td>
                           <td>50.00163</td>

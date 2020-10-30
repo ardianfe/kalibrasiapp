@@ -79,28 +79,28 @@ export default {
         name: 'Moisture Balance',
         value: 'moisture_balance',
         desc: '-',
-        url: '/daftar_sampel?origin=timbangan&name=Moisture Balance&to=lk' 
+        url: '/daftar_sampel?bid_id=38' 
       },
       { 
         id: 2,
         name: 'Timbangan Elektronik',
         value: 'timbangan_elektronik',
         desc: '-',
-        url: '/daftar_sampel?origin=timbangan&name=Timbangan Elektronik&to=lk' 
+        url: '/daftar_sampel?bid_id=39' 
       },
       { 
         id: 3,
         name: 'Timbangan Mekanik Indrustri',
         value: 'timbangan_mekanik_industri',
         desc: '-',
-        url: '/daftar_sampel?origin=timbangan&name=Timbangan Mekanik Indrustri&to=lk' 
+        url: '/daftar_sampel?bid_id=40' 
       },
       { 
         id: 4,
         name: 'Timbangan Mekanik',
         value: 'timbangan_mekanik',
         desc: '-',
-        url: '/daftar_sampel?origin=timbangan&name=Timbangan Mekanik&to=lk' },
+        url: '/daftar_sampel?bid_id=41' },
             ],
 
     filename: '',

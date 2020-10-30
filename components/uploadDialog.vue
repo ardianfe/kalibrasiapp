@@ -3,27 +3,38 @@
     <v-card v-if="!is_uploading">
       <v-card-title class="title">
         <v-icon color="primary" class="mr-4">folder</v-icon>
-        {{$store.state.dialog.sample_number}} ({{$store.state.dialog.sample_name}})
+        {{$store.state.dialog.sample_number}} ({{$store.state.dialog.sample_name}}) - {{$store.state.nama_bidang[$store.state.dialog.sample_name]}}
       </v-card-title>
-      <v-card-text> 
-        <p class="b">Upload data hasil kalibrasi</p>
+      <template v-if="$store.state.nama_bidang[$store.state.dialog.sample_name]">
 
-        <v-layout class="pa-4 mb-2" style="height: 240px; width: 100%; border: 6px dashed grey; margin: auto" align-center justify-center column fill-height>
-          <v-icon large>cloud_upload</v-icon>
-          <p class="text-xs-center">
-            Drag file here or
-          </p>
-          <input type="file" name="file" id="file" hidden @change="processFile">
-          <v-btn class="primary" style="width: 200px" @click="chooseFile" v-if="!file.name">Choose File</v-btn>
-          <p class="text-xs-center" v-else>{{file.name}}</p>
-        </v-layout>
-        <v-select :items="cats" v-model="cat" item-text="name" item-value="value" label="Pilih Kategori"></v-select>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn :disabled="!this.file.name" @click="submit" class="primary">Kirim</v-btn>
-        <v-btn @click="close">Batal</v-btn>
-      </v-card-actions>
+        <template v-if="$store.state.nama_bidang[$store.state.dialog.sample_name][0] != 99">
+          <v-card-text> 
+            <p class="b">Upload data hasil kalibrasi</p>
+
+            <v-layout class="pa-4 mb-2" style="height: 240px; width: 100%; border: 6px dashed grey; margin: auto" align-center justify-center column fill-height>
+              <v-icon large>cloud_upload</v-icon>
+              <p class="text-xs-center">
+                Drag file here or
+              </p>
+              <input type="file" name="file" id="file" hidden @change="processFile">
+              <v-btn class="primary" style="width: 200px" @click="chooseFile" v-if="!file.name">Choose File</v-btn>
+              <p class="text-xs-center" v-else>{{file.name}}</p>
+            </v-layout>
+            <v-select :items="cats" v-model="cat" item-text="name" item-value="value" label="Pilih Kategori"></v-select>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn :disabled="!this.file.name" @click="submit" class="primary">Kirim</v-btn>
+            <v-btn @click="close">Batal</v-btn>
+            <v-btn @click="submit">tes</v-btn>
+          </v-card-actions>
+        </template>
+
+        <v-card-text v-else>
+          <p>Template tidak ditemukan</p>
+          <v-btn class="red" @click="close">Tutup</v-btn>
+        </v-card-text>
+      </template>
     </v-card>
 
     <v-card justify-center align-center row fill-height v-else class="pa-4">
@@ -68,8 +79,10 @@ export default {
 
   mounted() {
     console.log(this.$route);
-  },
 
+    // console.log('dialog data', this.$store.state.dialog);
+  },
+  
   methods: {
     chooseFile() {
       document.getElementById('file').click()
@@ -82,15 +95,17 @@ export default {
 
     close() {
       this.$store.commit('closeDialog')
+      this.file = {}
     },
 
     async submit() {
+      // console.log(this.$store.state.bidang[this.$store.state.nama_bidang[this.$store.state.dialog.sample_name]].id);
       this.is_uploading = true
       try {
         const req = await this.$calibrate.upload({
           file: this.file,
           cat: this.cat,
-          sample: this.$store.state.dialog.sample_name,
+          sample: this.$store.state.nama_bidang[this.$store.state.dialog.sample_name][0],
 
           order_id: this.$store.state.dialog.order_number,
           sample_number: this.$store.state.dialog.sample_number

@@ -44,7 +44,7 @@
               <td class="td-body">
                 <p v-for="(data, x) in item.daftar_sampel" :key="x">
                   <v-hover v-for="(no_sample) in data.no_sample" :key="no_sample">
-                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="select_order(item.id, no_sample, data.sampel)">{{data.sampel}} ({{no_sample}}) <br></span>
+                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="openDialog(data.sampel, item.id, no_sample)">{{data.sampel}} ({{no_sample}}) <br></span>
                   </v-hover>
                 </p>
               </td>
@@ -59,44 +59,7 @@
         </table>     
       </template>
     </v-flex>
-
-    <!-- <v-dialog v-model="dialog" max-width="550px">
-      <v-card v-if="!is_uploading">
-        <v-card-title class="title">
-          <v-icon color="primary" class="mr-4">folder</v-icon>
-          {{sample_number }} ({{sample_name}})
-        </v-card-title>
-        <v-card-text> 
-          <p class="b">Upload data hasil kalibrasi</p>
-
-          <v-layout class="pa-4" style="height: 240px; width: 100%; border: 6px dashed grey; margin: auto" align-center justify-center column fill-height>
-            <v-icon large>cloud_upload</v-icon>
-            <p class="text-xs-center">
-              Drag file here or
-            </p>
-            <input type="file" name="file" id="file" hidden @change="processFile">
-            <v-btn class="primary" style="width: 200px" @click="chooseFile">Choose File</v-btn>
-          </v-layout>
-        </v-card-text>
-        <v-card-text>
-          <v-select :items="cats" v-model="cat" item-text="name" item-value="value" label="Pilih Kategori"></v-select>
-          <v-btn :disabled="!this.file.name" @click="submit" class="primary">Kirim</v-btn>
-        </v-card-text>
-      </v-card>
-
-      <v-card justify-center align-center row fill-height v-else class="pa-4">
-        <v-card-actions class="pa-5">
-          <v-spacer></v-spacer>
-          <v-progress-circular
-            :size="80"
-            :width="3"
-            color="primary"
-            indeterminate
-          ></v-progress-circular>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> -->
+    <uploadDialog></uploadDialog>
   </v-layout>
 </template>
 
@@ -114,6 +77,7 @@
 <script>
 // import Logo from '~/components/Logo.vue'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import uploadDialog from '~/components/uploadDialog.vue'
 
 export default {
   head: {
@@ -125,6 +89,10 @@ export default {
         content: 'List Order B4T'
       }
     ]
+  },
+
+  components:{
+    uploadDialog
   },
 
   data: () => ({
@@ -179,6 +147,14 @@ export default {
       this.sample_number = sample_number
 
       console.log(this.dialog, this.order_number, this.sample_name, this.sample_number);
+    },
+
+    openDialog(sample_name, order_number, sample_number) {
+      this.$store.commit('openDialog', {
+        sample_name: sample_name,
+        order_number: order_number,
+        sample_number: sample_number
+      })
     },
 
     chooseFile() {

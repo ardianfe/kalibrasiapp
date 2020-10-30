@@ -79,14 +79,49 @@ export default {
         name: 'Autoclave',
         value: 'autoclave',
         desc: '-',
-        url: '/daftar_sampel?origin=suhu/oven&name=Autoclave&to=before_set' 
+        url: '/daftar_sampel?bid_id=29' 
       },
       { 
         id: 2,
         name: 'Oven Bath',
         value: 'oven-bath',
         desc: '-',
-        url: '/daftar_sampel?origin=suhu&name=Oven/Bath&to=lembar-kerja' 
+        url: '/daftar_sampel?bid_id=30' 
+      },
+      { 
+        id: 3,
+        name: 'Temperature Recorder',
+        value: 'temp_recorder',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=31' 
+      },
+      { 
+        id: 4,
+        name: 'Termometer Dial',
+        value: 'termo_dial',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=32' 
+      },
+      { 
+        id: 5,
+        name: 'Termometer Digital',
+        value: 'termo_digital',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=33' 
+      },
+      { 
+        id: 6,
+        name: 'Termometer Gelas',
+        value: 'termo_gelas',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=34' 
+      },
+      { 
+        id: 7,
+        name: 'Water Bath',
+        value: 'water_bath',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=35' 
       },
     ],
 

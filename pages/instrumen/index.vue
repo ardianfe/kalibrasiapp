@@ -80,42 +80,42 @@ export default {
         name: 'AAS',
         value: 'AAS',
         desc: '-',
-        url: '/daftar_sampel?origin=instrumen&name=AAS&to=lk' 
+        url: '/daftar_sampel?bid_id=19' 
       },
       { 
         id: 2,
         name: 'Conductivity Meter',
         value: '',
         desc: '-',
-        url: '/daftar_sampel?origin=instrumen&name=Conductivity Meter&to=lk'  
+        url: '/daftar_sampel?bid_id=20'  
       },
       { 
         id: 3,
-        name: 'DO',
+        name: 'DO Meter',
         value: '',
         desc: '-',
-        url: '/daftar_sampel?origin=instrumen&name=DO&to=lk'  
+        url: '/daftar_sampel?bid_id=21'  
       },
       { 
         id: 4,
         name: 'PH',
         value: '',
         desc: '-',
-        url: '/daftar_sampel?origin=instrumen&name=PH&to=lk'  
+        url: '/daftar_sampel?bid_id=22'  
       },
       { 
         id: 5,
         name: 'Spectro Emisi',
         value: '',
         desc: '-',
-        url: '/daftar_sampel?origin=instrumen&name=Spectro Emisi&to=lk'  
+        url: '/daftar_sampel?bid_id=23'  
       },
       { 
         id: 6,
         name: 'Spectro VIS - UVIS',
         value: '',
         desc: '-',
-        url: '/daftar_sampel?origin=instrumen&name=Spectro VIS - UVIS&to=lk'  
+        url: '/daftar_sampel?bid_id=24'  
       },
     ],
 

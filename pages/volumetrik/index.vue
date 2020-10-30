@@ -79,14 +79,14 @@ export default {
         name: 'Buret', 
         value: 'buret', 
         desc: '-', 
-        url: '/daftar_sampel?origin=volumetrik&name=Buret&to=lk' 
+        url: '/daftar_sampel?bid_id=42' 
       },
       { 
         id: 2, 
         name: 'Piknometer', 
         value: 'piknometer', 
         desc: '-', 
-        url: '/daftar_sampel?origin=volumetrik&name=Piknometer&to=lk' 
+        url: '/daftar_sampel?bid_id=43' 
       },
     ],
 
