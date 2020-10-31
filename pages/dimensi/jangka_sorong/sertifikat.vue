@@ -40,7 +40,7 @@
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-btn :disabled="signatory == '' || nip == ''" class="primary elevation-0" @click="printWrapper">
+            <v-btn class="primary elevation-0" @click="printWrapper">
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
@@ -134,6 +134,17 @@
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
+
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
+                        <v-flex xs5>
+                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature Control</p>
+                        </v-flex>
+                        <v-flex xs6>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
+                        </v-flex>
+                      </v-layout>
                       <!-- <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
                         <v-flex xs5>
@@ -142,17 +153,6 @@
                         </v-flex>
                         <v-flex xs6>
                           <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: 460mm(l)x250mm(p)x340mm(t)</p>
-                        </v-flex>
-                      </v-layout>
-
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
-                        <v-flex xs5>
-                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature Control</p>
-                        </v-flex>
-                        <v-flex xs6>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
                         </v-flex>
                       </v-layout>
 
@@ -253,7 +253,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.room_temp}}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -262,7 +262,27 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}} ± 3 %RH</span></p>
+                      </v-layout>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout>
+                    <v-flex xs6>
+                      <v-layout row>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">3.</p>
+                        <div style="width: 32mm">
+                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang Terkoreksi</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_room_temp}}</span></p>
+                      </v-layout>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-layout row>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">4.</p>
+                        <div style="width: 32mm">
+                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan Terkoreksi</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} ± 3 %RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -525,7 +545,9 @@ export default {
       calibration_date: '',
       env_condition: {
         room_temp: '',
-        humidity: ''
+        corrected_room_temp: '',
+        humidity: '',
+        corrected_humidity: ''
       },
       calibration_location: '',
       calibration_method: '',
@@ -551,22 +573,8 @@ export default {
     menu2: false
   }),
 
-  mounted() {    
-    // console.log(cert_data);
-    this.certificate_number = this.$route.query.cert_no
-
+  mounted() {
     this.getCertData()
-    
-    if (!this.$store.state.isLoggedIn) {
-      // this.$router.push('/')
-    }
-
-    this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
-
-    console.log(this.data);
-    if (this.$route.query.attribute == 'lampiran') {
-      this.createElement()
-    }
   },
 
   methods: {
@@ -597,35 +605,42 @@ export default {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.result[0]
+        let req_data = req.results[0]
 
-        this.elementMapping()
+        this.certificate_number = req_data.no_laporan
+
+        this.elementMapping(req_data.data_alat, req_data.data_co)
         
       } catch (error) {
         console.log(error);
       }
     },
 
-    elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = 'Concrete Test Hammer'
-      this.certificate.equipment.capacity = '10 - 100 Unit'
-      this.certificate.equipment.model = 'HT 225'
-      this.certificate.equipment.serial_number = 308813
-      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      this.certificate.acceptance_date = '30 Mei 2017'
-      this.certificate.calibration_date = '2 Juni 2017'
+    elementMapping(data, owner) {
+      this.certificate.equipment.name = data['Deskripsi Alat']
+      this.certificate.equipment.capacity = data['Kapasitas']
+      this.certificate.equipment.model = data['Tipe']
+      this.certificate.equipment.serial_number = data['No Seri']
+      this.certificate.equipment.manufacture = data['Buatan']
+      this.certificate.equipment.temperature = '-'
+      this.certificate.owner.name = owner.nama_co
+      this.certificate.owner.address = owner.alamat
+      this.certificate.standard.name = data['Standar dipakai']
+      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui LK-001-IDN'
+      this.certificate.env_condition = {
+        room_temp: data['Suhu Ruangan'],
+        corrected_room_temp: data['Suhu Terkoreksi'],
+        humidity: data['Kelembaban'],
+        corrected_humidity: data['Kelembaban Terkoreksi']
+      }
+      this.certificate.acceptance_date = ''
+      this.certificate.calibration_date = this.convertDate(data['Tanggal kalibrasi'])
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      this.certificate.published_date = '30 Mei 2107'
+      this.certificate.calibration_location = data['Lokasi Kalibrasi']
+      this.certificate.calibration_method = data['Metoda Kalibrasi']
+      this.certificate.refference = data['Standar acuan']
+      this.certificate.published_date = ''
     },
 
     printWrapper() {

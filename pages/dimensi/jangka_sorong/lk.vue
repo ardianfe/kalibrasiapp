@@ -106,65 +106,40 @@
                   <td>Ukuran Luar</td>
                   <td>Ukuran Dalam</td>
                 </tr>
-                <template v-if="data_kal.hasil['Pembacaan']">
-                  <tr v-for="(item, index) in data_kal.hasil['Pembacaan'].length" :key="index">
+                <template v-if="data_kal['Pembacaan']">
+                  <tr v-for="(item, index) in data_kal['Pembacaan'].length" :key="index">
+                    <td>{{data_kal['Pembacaan'][index]}}</td>
                     <td>
-                      <span v-if="data_kal.hasil['Pembacaan'][index] != '' && data_kal.hasil['Pembacaan'][index] != null">
-                        {{data_kal.hasil['Pembacaan'][index]}}
+                      <span v-if="data_kal['Nilai Aktual'][index].toString().length > 0 ">
+                        {{data_kal['Nilai Aktual'][index].toFixed(3)}}
                       </span>
-                      <span v-else>&nbsp;2</span>
+                      <span v-else>&nbsp;</span>
                     </td>
+                    <td>{{data_kal['Pembacaan Alat '][index]}}</td>
+                    <td>{{data_kal['Unnamed: 4'][index]}}</td>
+                    <td>{{data_kal['Rata-rata'][index]}}</td>
+                    <td>{{data_kal['Unnamed: 6'][index]}}</td>
                     <td>
-                      <span v-if="data_kal.hasil['Nilai Aktual'][index] != '' ">
-                        {{data_kal.hasil['Nilai Aktual'][index]}}
+                      <span v-if="data_kal['Kesalahan    '][index].toString().length > 0 ">
+                        {{data_kal['Kesalahan    '][index].toFixed(5)}}
                       </span>
                       <span v-else>&nbsp;</span>
                     </td>
                     <td>
-                      <span v-if="data_kal.hasil['Pembacaan Alat '][index] != '' ">
-                        {{data_kal.hasil['Pembacaan Alat '][index]}}
+                      <span v-if="data_kal['Unnamed: 8'][index].toString().length > 0 ">
+                        {{data_kal['Unnamed: 8'][index].toFixed(5)}}
                       </span>
                       <span v-else>&nbsp;</span>
                     </td>
                     <td>
-                      <span v-if="data_kal.hasil['Unnamed: 4'][index] != '' ">
-                        {{data_kal.hasil['Unnamed: 4'][index]}}
+                      <span v-if="data_kal['Mampu Ulang '][index].toString().length > 0 ">
+                        {{data_kal['Mampu Ulang '][index].toFixed(2)}}
                       </span>
                       <span v-else>&nbsp;</span>
                     </td>
                     <td>
-                      <span v-if="data_kal.hasil['Rata-rata'][index] != '' ">
-                        {{data_kal.hasil['Rata-rata'][index]}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal.hasil['Unnamed: 6'][index] != '' ">
-                        {{data_kal.hasil['Unnamed: 6'][index]}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal.hasil['Kesalahan    '][index] != '' ">
-                        {{data_kal.hasil['Kesalahan    '][index]}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal.hasil['Unnamed: 8'][index] != '' ">
-                        {{data_kal.hasil['Unnamed: 8'][index]}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal.hasil['Mampu Ulang '][index] != '' ">
-                        {{data_kal.hasil['Mampu Ulang '][index]}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal.hasil['Unnamed: 10'][index] != '' ">
-                        {{data_kal.hasil['Unnamed: 10'][index]}}
+                      <span v-if="data_kal['Unnamed: 10'][index].toString().length > 0 ">
+                        {{data_kal['Unnamed: 10'][index].toFixed(2)}}
                       </span>
                       <span v-else>&nbsp;</span>
                     </td>
@@ -221,7 +196,7 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>- Gauge Block No Seri 516-970-01, Ketidakpastian dari Sertifikat  Ub1   =  0.19 / 2  =</td>
-                  <td>0.0950000 um</td>
+                  <td>{{data_ktp[0]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -234,7 +209,7 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>ub3  = ( (10) / 1.73205 ) =</td>
-                  <td>5.7735027 um</td>
+                  <td>{{data_ktp[1]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -247,7 +222,7 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>ub7  = ( 2e-6 / 1.73205  )  x 150000           =</td>
-                  <td>0.1732051 um</td>
+                  <td>{{data_ktp[2]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -260,7 +235,7 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>ub2 = (0.1/ 1.73205) x 3,45 =</td>
-                  <td>0.3983717 um</td>
+                  <td>{{data_ktp[3]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -273,7 +248,7 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>ub5  = ((0.05 + 0.5e-6.L) x Y) / 1.73205 =  ((0.05+0.5e-6x200000)x2 / 1.73205 =</td>
-                  <td>0.0578216 um</td>
+                  <td>{{data_ktp[4]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -286,7 +261,7 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>ub6  = Ö ( k x 0.052) / 1.73205 =  Ö ( 3 x 0.052 ) /  1.73205  =</td>
-                  <td>0.0500000 um</td>
+                  <td>{{data_ktp[5]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -299,7 +274,7 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>ub4 = ( 10  / 1.73205 ) =</td>
-                  <td>5.7735027 um</td>
+                  <td>{{data_ktp[6]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -307,7 +282,7 @@
                 <tr>
                   <td>h.</td>
                   <td>Standar deviasi 0.00000 =</td>
-                  <td>0.00000 um</td>
+                  <td>{{data_ktp[7]}} um</td>
                 </tr>
                 <tr>
                   <td colspan="3">&nbsp;</td>
@@ -333,21 +308,21 @@
                 <tr>
                   <td>&nbsp;</td>
                   <td>Ketidakpastian diperluas (U95) =</td>
-                  <td>k x uc</td>
+                  <td>{{ktp_u95[0]}}</td>
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
-                  <td>= 2 x 8.1774223</td>
+                  <td>= {{ktp_u95[1]}}</td>
                   <td>um</td>
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
-                  <td>= 16.3548446</td>
+                  <td>= {{ktp_u95[2]}}</td>
                   <td>um</td>
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
-                  <td>= 0.02</td>
+                  <td>= {{ktp_u95[3]}}</td>
                   <td>mm</td>
                 </tr>
               </tbody>
@@ -413,22 +388,21 @@ export default {
     no_cert: '',
 
     data_alat: {},
-    data_ktp: {},
+    ktp_u95: [],
+    uc: 0,
+    data_ktp: [],
+
     data_kal: {
-      hasil: {
-        "Kesalahan ": [],
-        "Mampu Ulang ": [],
-        "Nilai Aktual": [],
-        "Pembacaan": [],
-        "Pembacaan Alat ": [],
-        "Rata-rata": [],
-        "Unnamed: 4": [],
-        "Unnamed: 6": [],
-        "Unnamed: 8": [],
-        "Unnamed: 10": [],
-      },
-      jis: {},
-      nilai_gauge: {}
+      "Kesalahan ": [],
+      "Mampu Ulang ": [],
+      "Nilai Aktual": [],
+      "Pembacaan": [],
+      "Pembacaan Alat ": [],
+      "Rata-rata": [],
+      "Unnamed: 4": [],
+      "Unnamed: 6": [],
+      "Unnamed: 8": [],
+      "Unnamed: 10": []
     }
   }),
 
@@ -446,7 +420,11 @@ export default {
 
         this.no_cert = req_data.no_laporan
         this.data_alat = req_data.data_alat
-        this.data_kal = req_data.data_kal
+        this.data_kal = req_data.data_kal.hasil
+
+        this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95
+        this.uc = req_data.data_ktp.hasil.uc
+        this.data_ktp = req_data.data_ktp.data['Unnamed: 8']
       } catch (error) {
         console.log('get LK err: ', error.response);
       }

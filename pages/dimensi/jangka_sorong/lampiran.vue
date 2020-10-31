@@ -58,7 +58,7 @@
                         <p class="helve i" style="font-size: 9pt; margin: 0; height: 18px;">Number</p>
                       </v-flex>
                       <v-flex>
-                        <p class="helve i" style="font-size: 11pt; margin: 7px 0; height: 4.2mm;">: 3-09-19-00757</p>
+                        <p class="helve i" style="font-size: 11pt; margin: 7px 0; height: 4.2mm;">: {{certificate_number}}</p>
                       </v-flex>
                     </v-layout>
 										<p class="helve u b" style="font-size: 11pt; margin: 0; height: 4.2mm;">HASIL KALIBRASI</p>
@@ -83,17 +83,17 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in data_kal" :key="index">
-                          <td>10</td>
-                          <td>10.0002</td>
-                          <td>10.02</td>
-                          <td>10.00</td>
-                          <td>0.01982</td>
-                          <td>-0.00018</td>
-                          <td rowspan="10">0.02</td>
+                        <tr v-for="(item, index) in 10" :key="index">
+                          <td>{{data_kal['Pembacaan'][index]}}</td>
+                          <td v-if="data_kal['Nilai Aktual'][index]">{{data_kal['Nilai Aktual'][index].toFixed(5)}}</td>
+                          <td>{{data_kal['Pembacaan Alat '][index]}}</td>
+                          <td>{{data_kal['Unnamed: 4'][index]}}</td>
+                          <td v-if="data_kal['Kesalahan    '][index]">{{data_kal['Kesalahan    '][index].toFixed(5)}}</td>
+                          <td v-if="data_kal['Unnamed: 8'][index]">{{data_kal['Unnamed: 8'][index].toFixed(5)}}</td>
+                          <td v-if="item == 1" rowspan="10">{{ktp_u95}}</td>
                         </tr>
                         
-                        <tr>
+                        <!-- <tr>
                           <td>50</td>
                           <td>50.00163</td>
                           <td>50.00</td>
@@ -164,7 +164,7 @@
                           <td>300.00 </td>
                           <td>0.00513 </td>
                           <td>0.00513 </td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
 										<p style="width: 90%; margin: 50px 0 150px 0">
@@ -291,7 +291,7 @@ export default {
 
   data: () => ({
     active: null,
-    certificate_number: '3-01-19-00472',
+    certificate_number: '',
     certificate: {
       equipment: {
         name: '',
@@ -326,6 +326,21 @@ export default {
       director_nip: '',
     },
     data: {},
+
+    data_kal: {
+      "Kesalahan    ": [],
+      "Mampu Ulang ": [],
+      "Nilai Aktual": [],
+      "Pembacaan": [],
+      "Pembacaan Alat ": [],
+      "Rata-rata": [],
+      "Unnamed: 4": [],
+      "Unnamed: 6": [],
+      "Unnamed: 8": [],
+      "Unnamed: 10": [],
+    },
+
+    ktp_u95 : '',
 
     signatories: [
       { id: 1, data: {name: 'AJI MAHMUD SOLIH', nip: '19720802 200701 1 003', jabatan: 'Kepala Seksi Kalibrasi'} },
@@ -379,17 +394,17 @@ export default {
 
     async getCertData() {
       try {
-        // const req = await this.$calibrate.getDataCertificate({
-        //   id : this.certificate_number
-        // })    
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        // console.log(req);
-        // this.data = req
-        this.elementMapping()
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
 
-        
+        this.certificate_number = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal.hasil
+        this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95[3].toFixed(4)
       } catch (error) {
-        console.log(error);
+        console.log('get LK err: ', error.response);
       }
     },
 
