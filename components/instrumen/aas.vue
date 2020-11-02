@@ -43,11 +43,11 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'instrumen-AAS-lk', text: 'Lembar Kerja', url: '/instrumen/AAS/lk' },
-        { name: 'instrumen-AAS-ktp1', text: 'KTP 1', url: '/instrumen/AAS/ktp1' },
-        { name: 'instrumen-AAS-ktp2', text: 'KTP 2', url: '/instrumen/AAS/ktp2' },
-        { name: 'instrumen-AAS-sertifikat', text: 'Cetak Serifikat', url: '/instrumen/AAS/sertifikat' },
-        { name: 'instrumen-AAS-lampiran', text: 'Cetak Lampiran', url: '/instrumen/AAS/lampiran' }
+        { name: 'instrumen-AAS-lk', text: 'Lembar Kerja', url: '/instrumen/AAS/lk?id='+this.$route.query.id },
+        { name: 'instrumen-AAS-ktp1', text: 'KTP 1', url: '/instrumen/AAS/ktp1?id='+this.$route.query.id },
+        { name: 'instrumen-AAS-ktp2', text: 'KTP 2', url: '/instrumen/AAS/ktp2?id='+this.$route.query.id },
+        { name: 'instrumen-AAS-sertifikat', text: 'Cetak Serifikat', url: '/instrumen/AAS/sertifikat?id='+this.$route.query.id },
+        { name: 'instrumen-AAS-lampiran', text: 'Cetak Lampiran', url: '/instrumen/AAS/lampiran?id='+this.$route.query.id }
       ]
     }
   },

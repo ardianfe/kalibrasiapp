@@ -98,28 +98,37 @@
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.name }}</p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: {{ certificate.equipment.name }}</p>
                       </v-layout>
 
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
-                        <div style="width: 32mm">
-                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kapasitas</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Capacity</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.capacity }}</p>
-                      </v-layout>
-
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">3.</p>
                         <div style="width: 32mm">
                           <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Tipe/Model</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Type/Model</p>
                         </div>
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
                       </v-layout>
+                      
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">3.</p>
+                        <div style="width: 32mm">
+                          <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature Control</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
+                      </v-layout>
 
+                      <!-- <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
+                        <div style="width: 32mm">
+                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kapasitas</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Capacity</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.capacity }}</p>
+                      </v-layout> -->
                     </v-flex>
+
                     <v-flex xs6>
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
@@ -139,7 +148,7 @@
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.brand }} / {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
                       <!-- <v-layout>
@@ -261,7 +270,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{ certificate.env_condition.room_temp }}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -270,7 +279,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{ certificate.env_condition.humidity }}</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -517,6 +526,7 @@ export default {
         model: '',
         serial_number: '',
         manufacture: '',
+        brand: '',
         internal_dimension: '',
         temperature: '',
         others: '-',
@@ -593,32 +603,38 @@ export default {
         console.log('get LK: ', req);
         let req_data = req.results[0]
 
-        this.elementMapping()        
+        this.certificate_number = req_data.no_laporan
+
+        this.elementMapping(req_data.data_alat, req_data.data_co)
+        
       } catch (error) {
         console.log(error);
       }
     },
 
-    elementMapping() {
-      // let cert_data = this.data.data_perusahaan
-      // this.certificate.equipment.name = 'Concrete Test Hammer'
-      // this.certificate.equipment.capacity = '10 - 100 Unit'
-      // this.certificate.equipment.model = 'HT 225'
-      // this.certificate.equipment.serial_number = 308813
-      // this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      // this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      // this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      // this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      // this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      // this.certificate.acceptance_date = '30 Mei 2017'
-      // this.certificate.calibration_date = '2 Juni 2017'
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      // this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      // this.certificate.calibration_method = 'PC-309-10'
-      // this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      // this.certificate.published_date = '30 Mei 2107'
+    elementMapping(data, owner) {
+      this.certificate.equipment.name = data.deskripsi.nama_alat
+      // this.certificate.equipment.internal_dimension = data.deskrips  
+      this.certificate.equipment.capacity = data.kapasitas
+      this.certificate.equipment.model = data.deskripsi.model
+      this.certificate.equipment.brand = data.deskripsi.merk
+      this.certificate.equipment.serial_number = data.deskripsi.no_seri
+      this.certificate.equipment.manufacture = data.deskripsi.buatan
+      this.certificate.equipment.temperature = '-'
+      this.certificate.owner.name = owner.nama_co
+      this.certificate.owner.address = owner.alamat
+      this.certificate.standard.name = data.alat_kalibrasi.larutan_standar[0] + ' ' + data.alat_kalibrasi.larutan_standar[1]
+      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui : Merck, Germany'
+      this.certificate.env_condition = {
+        room_temp: data.deskripsi.kondisi_ling.suhu_ruang,
+        humidity: data.deskripsi.kondisi_ling.kelembaban_udara,
+      }
+      this.certificate.acceptance_date = this.convertDate(data.tgl_terima)
+      this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
+      this.certificate.calibration_location = data.deskripsi.lokasi
+      this.certificate.calibration_method = data.metode_kalibrasi
+      this.certificate.refference = data.standar_acuan
+      this.certificate.published_date = ''
     },
 
     printWrapper() {

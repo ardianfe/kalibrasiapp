@@ -13,14 +13,32 @@
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
 
-            <!-- <v-layout row wrap>
-              <v-select 
-                :items="signatories" v-model="signatory" 
-                item-text="data.name" item-value="data" 
-                label="Penandatangan"
-                append-icon="expand_more"
-              ></v-select>
-            </v-layout> -->
+            <v-flex xs12 sm6 md4>
+              <v-dialog
+                ref="dialog"
+                v-model="modal"
+                :return-value.sync="published_date"
+                persistent
+                lazy
+                full-width
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="published_date"
+                    label="Tanggal diterbitkan"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="published_date" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.dialog.save(published_date)">OK</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </v-flex>
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
@@ -115,7 +133,7 @@
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.brand }} / {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
 
@@ -126,7 +144,7 @@
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Internal Dimension</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: 460mm(l)x250mm(p)x340mm(t)</p>
+                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: {{certificate.equipment.internal_dimension}}</p>
                         </v-flex>
                       </v-layout>
 
@@ -304,7 +322,7 @@
                   <v-layout style="margin-top: 1mm">
                     <v-flex xs8>
                       <v-layout row>
-                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ certificate.published_date }}</span></p>
+                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ convertDate(published_date) }}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs4>
@@ -429,6 +447,7 @@ export default {
         model: '',
         serial_number: '',
         manufacture: '',
+        brand: '',
         internal_dimension: '',
         temperature: '',
         others: '-',
@@ -463,25 +482,16 @@ export default {
     ],
 
     kan: true,
-    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
+    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'},
+
+    published_date: new Date().toISOString().substr(0, 10),
+    menu: false,
+    modal: false,
+    menu2: false
   }),
 
-  mounted() {    
-    // console.log(cert_data);
-    this.certificate_number = this.$route.query.cert_no
-
+  mounted() { 
     this.getCertData()
-    
-    if (!this.$store.state.isLoggedIn) {
-      // this.$router.push('/')
-    }
-
-    this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
-
-    console.log(this.data);
-    if (this.$route.query.attribute == 'lampiran') {
-      this.createElement()
-    }
   },
 
   methods: {
@@ -509,42 +519,49 @@ export default {
 
     async getCertData() {
       try {
-        const req = await this.$calibrate.getDataCertificate({
-          id : this.certificate_number
-        })    
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        console.log(req);
-        this.data = req
-        this.elementMapping()
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
 
+        this.certificate_number = req_data.no_laporan
+
+        this.elementMapping(req_data.data_alat, req_data.data_co)
         
       } catch (error) {
         console.log(error);
       }
     },
 
-    elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = cert_data['Nama Alat'][0]
-      this.certificate.equipment.capacity = cert_data['Kapasitas'][0] + '' + cert_data['Kapasitas'][1] + ' / Resolusi ' + cert_data['Resolusi'][0] + cert_data['Resolusi'][1]
-      this.certificate.equipment.model = cert_data['Tipe / Model'][0]
-      this.certificate.equipment.serial_number = cert_data['Nomor Seri'][0]
-      this.certificate.equipment.manufacture = cert_data['Merk / Buatan'][0] + ' ' + cert_data['Merk / Buatan'][1] 
-      this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = cert_data['Nama Perusahaan'][0]
-      this.certificate.owner.address = cert_data['Alamat'][0]
-      this.certificate.standard.name = cert_data['Standar Yang Dipakai'][0]
-      this.certificate.standard.traceability = cert_data['Ketertelusuran'][0]
-      this.certificate.acceptance_date = this.convertDate(new Date(cert_data['Tanggal Diterima'][0]['$date']))
-      this.certificate.calibration_date = this.convertDate(new Date(cert_data['Tanggal Kalibrasi'][0]['$date']))
+    elementMapping(data, owner) {
+      this.certificate.equipment.name = data.deskripsi.nama_alat
+      this.certificate.equipment.internal_dimension = data.deskripsi.dimensi.lebar+'mm(l)x'+data.deskripsi.dimensi.panjang+'mm(p)x'+data.deskripsi.dimensi.tinggi+'mm(t)'
+      this.certificate.equipment.capacity = data.kapasitas
+      this.certificate.equipment.model = data.deskripsi.model
+      this.certificate.equipment.brand = data.deskripsi.merk
+      this.certificate.equipment.serial_number = data.deskripsi.no_seri
+      this.certificate.equipment.manufacture = data.deskripsi.buatan
+      this.certificate.equipment.temperature = data.deskripsi.pengontrol_suhu
+      this.certificate.owner.name = owner.nama_co
+      this.certificate.owner.address = owner.alamat
+      this.certificate.standard.name = data.standar_dipakai
+      this.certificate.standard.traceability = data.ketertelusuran
+      // this.certificate.env_condition = {
+      //   room_temp: data['Suhu Ruangan'],
+      //   corrected_room_temp: data['Suhu Terkoreksi'],
+      //   humidity: data['Kelembaban'],
+      //   corrected_humidity: data['Kelembaban Terkoreksi']
+      // }
+      this.certificate.acceptance_date = this.convertDate(data.tgl_terima)
+      this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = cert_data['Lokasi Kalibrasi'][0]
-      this.certificate.calibration_method = cert_data['Metode Kalibrasi'][0]
-      this.certificate.refference = cert_data['Standar Acuan'][0]
-      this.certificate.published_date = this.convertDate(cert_data['Tanggal Terbit'][0]['$date'])
+      this.certificate.calibration_location = data.deskripsi.lokasi
+      this.certificate.calibration_method = data.metode_kalibrasi
+      this.certificate.refference = data.standar_acuan
+      this.certificate.published_date = ''
     },
-
+    
     printWrapper() {
       var printContents = document.getElementById('printable').innerHTML;
       var originalContents = document.body.innerHTML;

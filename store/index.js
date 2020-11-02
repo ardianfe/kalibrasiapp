@@ -97,7 +97,7 @@ export const state = () => ({
     27: { id: 'kelistrikan3', slug: '/kelistrikan/mesin_las/lk', name: 'Mesin Las', cat: 'kelistrikan' },
     28: { id: 'massa1', slug: '/massa/anak_timbangan_f1-f2/lk', name: 'Anak Timbangan F1/F2', cat: 'massa' },
     29: { id: 'suhu1', slug: '/suhu/autoclave/lk', name: 'Autoclave', cat: 'suhu' },
-    30: { id: 'suhu2', slug: '/suhu/oven/bath/lembar-kerja', name: 'Oven Bath', cat: 'suhu' },
+    30: { id: 'suhu2', slug: '/suhu/oven/bath/lembar-kerja', name: 'Oven/Bath', cat: 'suhu' },
     31: { id: 'suhu3', slug: '/suhu/temp_recorder/lk', name: 'Temperature Recorder', cat: 'suhu' },
     32: { id: 'suhu4', slug: '/suhu/termometer_dial/lk', name: 'Termometer Dial', cat: 'suhu' },
     33: { id: 'suhu5', slug: '/suhu/termometer_digital/lk', name: 'Termometer Digital', cat: 'suhu' },

@@ -381,15 +381,15 @@
           <v-card-text>
             <v-layout row class='mt-4'>
               <v-flex xs6>
-                Diperiksa oleh : Aji MS <br>
-                Tanggal :	30 Juni 2017 <br>
+                Diperiksa oleh : {{data_alat.diperiksa.person}} <br>
+                Tanggal :	{{convertDate(data_alat.diperiksa.date)}} <br>
                 Tanda Tangan :	
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
               <v-flex xs6>
-                Dikalibrasi oleh : Agung Tri S S <br>
-                Tanggal :	2 Juni 2017 <br>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
                 Tanda-tangan :
 
                 <hr style="width: 50%; margin-top: 100px">	
@@ -513,7 +513,7 @@ export default {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.result[0]
+        let req_data = req.results[0]
 
         this.no_cert = req_data.no_laporan
         this.data_alat = req_data.data_alat
@@ -521,6 +521,12 @@ export default {
       } catch (error) {
         console.log('get LK err: ', error.response);
       }
+    },
+
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
 }

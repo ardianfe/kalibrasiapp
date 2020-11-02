@@ -65,7 +65,7 @@ export default {
         { name: 'Dimensi', value: 'dimensi'},
         { name: 'Tekanan', value: 'tekanan'},
         { name: 'Gaya', value: 'gaya'},
-        { name: 'Instrumen Analisa', value: 'instrumen_analisa'},
+        { name: 'Instrumen Analisa', value: 'instrumen'},
         { name: 'Kelistrikan', value: 'kelistrikan'},
         { name: 'Massa', value: 'massa'},
         { name: 'Suhu', value: 'suhu'},
