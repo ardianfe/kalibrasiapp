@@ -314,7 +314,7 @@
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p>
+                      <p class="roman" style="font-size: 9pt; margin: 0;" v-html="certificate.refference"></p>
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
                     </div>
                   </v-layout>
@@ -442,7 +442,7 @@
                         <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
                         <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
                       </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">__</p>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">3</p>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -633,7 +633,7 @@ export default {
       this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
       this.certificate.calibration_location = data.deskripsi.lokasi
       this.certificate.calibration_method = data.metode_kalibrasi
-      this.certificate.refference = data.standar_acuan
+      this.certificate.refference = data.standar_acuan[0] + '<br>' + data.standar_acuan[1] + '<br>' + data.standar_acuan[2] + '<br>' + data.standar_acuan[3]
       this.certificate.published_date = ''
     },
 

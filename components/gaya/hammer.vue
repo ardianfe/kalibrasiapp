@@ -21,7 +21,7 @@
     </v-card-title>
     <v-card-actions v-if="$store.state.isLoggedIn" class="pa-2">
       <v-layout row wrap>
-        <v-flex class="pa-0" xs6 sm3 v-for="(menu, index) in menus" :key="index">
+        <v-flex class="pa-0" v-for="(menu, index) in menus" :key="index">
           <v-hover>
             <v-card 
               slot-scope="{hover}" :to="menu.url"
@@ -59,9 +59,15 @@ export default {
           url: '/gaya/hammer_tester/uncertainty?id=' +this.$route.query.id
         },
         { 
+          name: 'gaya-hammer_tester-lampiran',
+          text: 'Lampiran',
+          url: '/gaya/hammer_tester/lampiran?id='+this.$route.query.id 
+        },
+        { 
           name: 'gaya-hammer_tester-sertifikat',
           text: 'Cetak Serifikat',
-          url: '/gaya/hammer_tester/sertifikat?id='+this.$route.query.id }
+          url: '/gaya/hammer_tester/sertifikat?id='+this.$route.query.id 
+        }
       ]
     }
   },

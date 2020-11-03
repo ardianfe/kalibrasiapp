@@ -105,8 +105,8 @@
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">3.</p>
                         <div style="width: 32mm">
-                          <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Tipe/Model</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Type/Model</p>
+                          <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Kelas/Toleransi</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Class/Tolerance</p>
                         </div>
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
                       </v-layout>
@@ -134,6 +134,18 @@
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
+
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
+                        <v-flex xs5>
+                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature Control</p>
+                        </v-flex>
+                        <v-flex xs6>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
+                        </v-flex>
+                      </v-layout>
+
                       <!-- <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
                         <v-flex xs5>
@@ -200,8 +212,24 @@
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;">{{certificate.standard.name}}</p>
-                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">2. Thermocouple Wire Tipe K, S/N : K2</p> -->
+                      <table class="roman" style="font-size: 9pt; margin: 0; width: 300px; border: 0">
+                        <tr>
+                          <td>1. Timbangan Elektronik</td>
+                          <td>No.seri  : {{certificate.standard.name.timbangan_elektronik}}</td>
+                        </tr>
+                        <tr>
+                          <td>2. Termometer Digital</td>
+                          <td>No.seri  : {{certificate.standard.name.termometer_digital}}</td>
+                        </tr>
+                        <tr>
+                          <td>3. Barometer</td>
+                          <td>No.seri  : {{certificate.standard.name.barometer}}</td>
+                        </tr>
+                        <tr>
+                          <td>4. Hygrometer</td>
+                          <td>No.seri  : {{certificate.standard.name.hygrometer}}</td>
+                        </tr>
+                      </table>
                     </div>
                   </v-layout>
                   <v-layout>
@@ -244,25 +272,40 @@
                   </v-layout>
 
                   <!-- Kondisi -->
-                  <p class="helve u" style="margin: 2mm 0 0 0; height: 4.2mm; font-size: 9pt;">KONDISI LINGKUNGAN KALIBRASI</p>
-                  <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Environtment condition of Calibration</p>
-                  <v-layout>
-                    <v-flex xs6>
-                      <v-layout row>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">1.</p>
-                        <div style="width: 32mm">
-                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
-                      </v-layout>
+                  <v-layout row wrap>
+                    <v-flex xs4>
+                      <p class="helve u" style="margin: 2mm 0 0 0; height: 4.2mm; font-size: 9pt;">KONDISI LINGKUNGAN KALIBRASI : </p>
+                      <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Environtment condition of Calibration</p>
                     </v-flex>
-                    <v-flex xs6>
-                      <v-layout row>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">2.</p>
-                        <div style="width: 32mm">
-                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                    <v-flex xs8 class="pt-2">
+                      <v-layout column>
+                        <v-flex xs6>
+                          <v-layout row>
+                            <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">1.</p>
+                            <div style="width: 32mm">
+                              <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu udara °C</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
+                          </v-layout>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-layout row>
+                            <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">2.</p>
+                            <div style="width: 32mm">
+                              <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelemb udara %</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                          </v-layout>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-layout row>
+                            <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">3.</p>
+                            <div style="width: 32mm">
+                              <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Tek. Udara mmHg</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                          </v-layout>
+                        </v-flex>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -425,7 +468,7 @@
                         <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
                         <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
                       </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">__</p>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -518,7 +561,12 @@ export default {
         address: ''
       },
       standard: {
-        name: '',
+        name: {
+          barometer: "",
+          hygrometer: "",
+          termometer_digital: "",
+          timbangan_elektronik: ""
+        },
         traceability: ''
       },
       acceptance_date: '',
@@ -583,35 +631,37 @@ export default {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.result[0]
+        let req_data = req.results[0]
 
-        this.elementMapping()
-        
+        // this.data.alat = req_data.data_alat
+        // this.data.alat = req_data.data_co
+
+        this.certificate_number = req_data.no_laporan
+
+        this.elementMapping(req_data.data_alat, req_data.data_co)        
       } catch (error) {
         console.log(error);
       }
     },
 
-    elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = 'Concrete Test Hammer'
-      this.certificate.equipment.capacity = '10 - 100 Unit'
-      this.certificate.equipment.model = 'HT 225'
-      this.certificate.equipment.serial_number = 308813
-      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      this.certificate.acceptance_date = '30 Mei 2017'
-      this.certificate.calibration_date = '2 Juni 2017'
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      this.certificate.published_date = '30 Mei 2107'
+    elementMapping(alat, co) {
+      this.certificate.equipment.name = "Gelas Ukur"
+      this.certificate.equipment.capacity = alat.deskripsi.kapasitas + ' / ' + alat.deskripsi.skala + 'ml'
+      this.certificate.equipment.model = alat.deskripsi.kelas_toleransi[0] + ' /± ' + alat.deskripsi.kelas_toleransi[1] + ' ml' // kelas toleransi
+      this.certificate.equipment.serial_number = alat.deskripsi.no_seri
+      this.certificate.equipment.manufacture = alat.deskripsi.merk_Buatan
+      this.certificate.equipment.temperature = 'Suhu Vesel : ' + alat.deskripsi.suhu_vesel
+      this.certificate.owner.name = co.nama_co
+      this.certificate.owner.address = co.alamat
+      this.certificate.standard.name = alat.alat_kalibrasi
+      this.certificate.standard.traceability = alat.ketelusuran
+      this.certificate.acceptance_date = alat.tgl_daftar
+      this.certificate.calibration_date = alat.dikalibrasi.date
+      this.certificate.env_condition.room_temp = ''
+      this.certificate.env_condition.humidity = ''
+      this.certificate.calibration_location = alat.lokasi
+      this.certificate.calibration_method = alat.metode_kalibrasi
+      this.certificate.refference = alat.standar_acuan[0] + '<br>' + alat.standar_acuan[1]
     },
 
     printWrapper() {
