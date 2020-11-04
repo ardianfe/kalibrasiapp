@@ -43,7 +43,8 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn flat large class="white primary--text" @click="$router.push('/'+category+'/'+getSlug(sampel_name)+'/sertifikat?id='+$route.query.id)">Lihat Detail</v-btn>
+                <v-btn flat large class="white primary--text" @click="$router.push(getSlug(sampel_name)+'?id='+$route.query.id)">Lihat Detail</v-btn>
+                <v-btn flat large class="white primary--text" @click="getSlug(sampel_name)">tes</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -206,8 +207,13 @@ export default {
     },
 
     getSlug(name) {
-      let string_name = name.toLowerCase();
-      return string_name.replace(' ', '_')
+      let array_name = this.$store.state.bidang[this.$store.state.nama_bidang[name]].slug.split('/');
+      array_name.pop()
+      array_name.push('sertifikat')
+
+      var string_name = array_name.join('/')
+      // console.log(string_name)
+      return string_name
     }
   },
 }

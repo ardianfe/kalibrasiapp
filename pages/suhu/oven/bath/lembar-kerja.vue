@@ -81,11 +81,11 @@
                   
                   <tr>
                     <td colspan="8">Sums</td>
-                    <td>{{data_ktp['ktp_sums_'+selected_temp]}}</td>
+                    <td>{{data_ktp['ktp_sums_'+selected_temp].toFixed(5)}}</td>
                   </tr>
                   <tr>
                     <td colspan="8">Ketidakpastian baku gabungan, uc, (mg)</td>
-                    <td>{{data_ktp['ktp_gabungan_'+selected_temp].nilai}} {{data_ktp['ktp_gabungan_'+selected_temp].besaran}}</td>
+                    <td>{{data_ktp['ktp_gabungan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_gabungan_'+selected_temp].besaran}}</td>
                   </tr>
                   <tr>
                     <td colspan="8">Faktor cakupan, k-student’s untuk neff dan CL 95 %</td>
@@ -93,7 +93,7 @@
                   </tr>
                   <tr>
                     <td colspan="8">Ketidak pastian bentangan, U = k.uc</td>
-                    <td>{{data_ktp['ktp_bentangan_'+selected_temp].nilai}} {{data_ktp['ktp_bentangan_'+selected_temp].besaran}}</td>
+                    <td>{{data_ktp['ktp_bentangan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_bentangan_'+selected_temp].besaran}}</td>
                   </tr>
                 </template>
 

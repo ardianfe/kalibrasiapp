@@ -12,7 +12,7 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/gaya')" 
+            @click="$router.push('/volumetrik')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
             Bidang Gelas Volumetri
           </span>

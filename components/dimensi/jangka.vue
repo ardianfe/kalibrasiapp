@@ -12,7 +12,7 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/gaya')" 
+            @click="$router.push('/dimensi')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
             Bidang Dimensi
           </span>

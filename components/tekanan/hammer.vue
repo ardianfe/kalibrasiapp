@@ -59,15 +59,15 @@ export default {
           url: '/tekanan/hammer_tester/uncertainty?id=' +this.$route.query.id
         },
         { 
+          name: 'tekanan-hammer_tester-sertifikat', 
+          text: 'Cetak Serifikat', 
+          url: '/tekanan/hammer_tester/sertifikat?id='+this.$route.query.id 
+        },
+        { 
           name: 'tekanan-hammer_tester-lampiran',
           text: 'Lampiran',
           url: '/tekanan/hammer_tester/lampiran?id='+this.$route.query.id 
         },
-        { 
-          name: 'tekanan-hammer_tester-sertifikat', 
-          text: 'Cetak Serifikat', 
-          url: '/tekanan/hammer_tester/sertifikat?id='+this.$route.query.id 
-        }
       ]
     }
   },

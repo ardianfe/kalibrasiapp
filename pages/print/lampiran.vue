@@ -19,12 +19,6 @@
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
-          <v-card-title class="pt-0">
-            <v-spacer></v-spacer>
-            <v-btn class="success elevation-0" @click="refreshData">
-              refresh <v-icon right>print</v-icon>
-            </v-btn> &nbsp;
-          </v-card-title>
         </v-card>
       </v-layout>
 
@@ -37,7 +31,7 @@
       <v-layout row justify-center>
         <v-card width="210mm" class="mt-3 pt-3 v-main-card elevation-8">
           <div id="xprintable">
-            <v-card-text style="height: 300mm" class="pa-0" v-for="(page, page_index) in pages" :key="page_index">
+            <v-card-text style="height: 300mm" class="pa-0">
               <div id="printable" style="margin: auto; min-width: 190mm; max-width: 190mm; height: 240mm;">
                 <v-card-title style="z-index: 2; height: 75px; padding-top: 12mm">
                   <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
@@ -107,18 +101,8 @@
                     </v-layout>
                   </div>
 
-                    <!-- {{page.element}} -{{page.element2}}- {{page_index}} -->
-                  <!-- 
-
-                  <p v-if="data[page.element]">
-                    {{page.element}} - {{data[page.element]}} <br><br>
-                  </p>
-                  <p v-if="data[page.element2]">
-                    {{page.element2}} - {{data[page.element2]}} <br><br>
-                  </p> -->
-
-                  <div v-if="data[page.element] && data[page.element2]">
-                    <table width="80%" border='1' v-if="data[page.element].measure_value && data[page.element2].measure_value" style="margin-bottom: 60px">
+                  <div>
+                    <table width="80%" border='1' style="margin-bottom: 60px">
                       <tr>
                         <td>PARAMETER</td>
                         <td>Posisi</td>
@@ -127,63 +111,63 @@
                       <tr>
                         <td class="i">Parameters</td>
                         <td class="i">Position</td>
-                        <td class="b" v-if="page.element">SET {{page.element}}°C</td>
-                        <td class="b" v-if="page.element2 != 'kosong'">SET {{page.element2}}°C</td>
+                        <td class="b">SET 110°C</td>
+                        <td class="b">SET 150°C</td>
                       </tr>
 
-                      <tr v-for="(item, index) in data[page.element].measure_value" :key="index">
-                        <td v-if="index == 0" :rowspan="data[page.element].measure_value.length">Measured Value</td>
-                        <td>{{index+1 }}</td>
-                        <td v-if="item">{{item}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].measure_value[index]}}</td>
+                      <tr v-for="(item, index) in 9" :key="index">
+                        <td v-if="index == 0" :rowspan="9">Measured Value</td>
+                        <td>{{index+1}}</td>
+                        <td>{{data_kal.lampiran_sert110.measure_value[index]}}</td>
+                        <td>{{data_kal.lampiran_sert150.measure_value[index]}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured Enclosure Temperature (MET)</td>
-                        <td v-if="data[page.element]">{{data[page.element].met}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].met}}</td>
+                        <td>{{data_kal.lampiran_sert110.met.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert150.met.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Indicated enclosure temperature (IET)</td>
-                        <td v-if="data[page.element]">{{data[page.element].iet}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].iet}}</td>
+                        <td>{{data_kal.lampiran_sert110.iet.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert150.iet.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured spatial variation (MSV)</td>
-                        <td v-if="data[page.element]">{{data[page.element].msv}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].msv}}</td>
+                        <td>{{data_kal.lampiran_sert110.msv.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert150.msv.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured temporal variation (MTV)</td>
-                        <td v-if="data[page.element]">{{data[page.element].mtv}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].mtv}}</td>
+                        <td>{{data_kal.lampiran_sert110.mtv}}</td>
+                        <td>{{data_kal.lampiran_sert150.mtv}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Maximum measured temperature (MAX)</td>
-                        <td v-if="data[page.element]">{{data[page.element].hasil_max}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].hasil_max}}</td>
+                        <td>{{data_kal.lampiran_sert110.max.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert150.max.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Minimum measured temperature (MIN)</td>
-                        <td v-if="data[page.element]">{{data[page.element].hasil_min}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].hasil_min}}</td>
+                        <td>{{data_kal.lampiran_sert110.min.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert150.min.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Overall variation (OV)</td>
-                        <td v-if="data[page.element]">{{data[page.element].ov}}</td>
-                        <td v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].ov}}</td>
+                        <td>{{data_kal.lampiran_sert110.ov.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert150.ov.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td class="b" colspan="2">Ketidakpastian</td>
-                        <td class="b" v-if="data[page.element]">{{data[page.element].ketidakpastian}}</td>
-                        <td class="b" v-if="data[page.element2] && page.element2 != 'kosong'">{{data[page.element2].ketidakpastian}}</td>
+                        <td class="b">{{data_kal.ktp_110.nilai.toFixed(2)}}</td>
+                        <td class="b">{{data_kal.ktp_150}}</td>
                       </tr>
                     </table>
                 
@@ -283,7 +267,7 @@
                   <p class="helve" style="font-size: 9pt; margin-bottom: 8px; height: 4.2mm;">c.  Jarak yang ditetapkan terhadap ( mm ) / <span class="i"> Direction to ( mm )</span></p>
 
                   <div>
-                    <table width="100%" border='1' v-if="data['110'].measure_value && data['150'].measure_value" style="margin-bottom: 60px">
+                    <table width="100%" border='1' style="margin-bottom: 60px">
                       <tr>
                         <td style="width: 20%" class="c">Pintu</td>
                         <td style="width: 20%" class="c">Dinding</td>
@@ -418,6 +402,7 @@ p{
     overflow-x: scroll hidden;
   } table {
     border-collapse: collapse;
+    font-family: 'Times New Roman', serif;
   } table, th, td {
     border: 1px solid grey;
     padding: 1px 4px;
@@ -429,10 +414,6 @@ p{
     font-style: italic;
   } .u {
     text-decoration: underline;
-  } .roman {
-    font-family: 'Times New Roman', serif;
-  } .helve {
-    font-family: Helvetica, sans-serif;
   } .c {
     text-align: center;
   }
@@ -455,104 +436,79 @@ export default {
 
   data: () => ({
     active: null,
-    certificate_number: '3-01-19-00472',
-    
-    data: {
-      '110': {},
-      '150': {}
+    certificate_number: '',
+    data_kal: {
+      lampiran_sert110: {
+        iet: 0,
+        max: 0,
+        measure_value: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        met: 0,
+        min: 0,
+        msv: 0,
+        ov: 0
+      },
+      lampiran_sert150: {
+        iet: 0,
+        max: 0,
+        measure_value: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        met: 0,
+        min: 0,
+        msv: 0,
+        ov: 0
+      },
+
+      ktp_110: {besaran: '', nilai: 0},
+      ktp_150: 0
     },
+    signatories: [
+      { id: 1, data: {name: 'AJI MAHMUD SOLIH', nip: '19720802 200701 1 003', jabatan: 'Kepala Seksi Kalibrasi'} },
+      { id: 2, data: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'} },
+    ],
 
-    panjang: 0,
-    lebar: 0,
-    tinggi: 0,
-    titik_uji: 0,
     kan: true,
+    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'},
 
-    list_suhu: ['110', '150'],
-
-    pages: []
+    titik_uji: '',
+    lebar: 0,
+    panjang: 0,
+    tinggi: 0
   }),
 
   mounted() {
-    this.certificate_number = this.$route.query.cert_no
-    
-    // this.getLampiran(110)
-    // this.getLampiran(150)
-
     this.getCertData()
-    console.log('fetch', this.$fetchState);
-    
-    // this.groupLampiran()
-
-    // console.log(this.data['110']);
-    
-    
-    if (!this.$store.state.isLoggedIn) {
-      // this.$router.push('/')
-    }
   },
 
-  watch: {
-    data: {
-      handler() {
-        this.refreshData()
-      }
-    }
-  },
+  // watch: {
+  //   data: {
+  //     handler() {
+  //       this.refreshData()
+  //     }
+  //   }
+  // },
 
   methods: {
-    refreshData() {
-      console.log(this.data);
-      this.data = this.data
-    },
+    // refreshData() {
+    //   console.log(this.data);
+    //   this.data = this.data
+    // },
 
     async getCertData() {
       try {
-        const req = await this.$calibrate.getDataCertificate({
-          id : this.certificate_number
-        })    
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
+        let req_data = req.results[0]
 
-        console.log('certificate', req);
-        this.panjang = req.data_perusahaan['panjang'][0]
-        this.lebar = req.data_perusahaan['lebar'][0]
-        this.tinggi = req.data_perusahaan['tinggi'][0]
-        this.titik_uji = req.data_perusahaan['Jumlah Titik Uji'][0]
+        this.certificate_number = req_data.no_laporan
+        this.data_kal = req_data.data_kal
 
-        
-        this.groupLampiran(this.list_suhu);
-        
-        for (const key in this.list_suhu) {
-          if (this.list_suhu.hasOwnProperty(key)) {
-            const element = this.list_suhu[key];
-            setTimeout(() => {
-              this.getLampiran(element)
-            }, 100);
-          }
-        }
+        this.data_kal.ktp_110 = req_data.data_ktp.ktp_bentangan_110
+        this.data_kal.ktp_150 = req_data.data_ktp.ktp_bentangan_150
 
-        this.data['kosong'] = {
-          "hasil_max": 0.00, 
-          "hasil_min": 0.00, 
-          "iet": 0.00, 
-          "ketidakpastian": 0.00, 
-          "measure_value": [
-            0.00, 
-            0.00, 
-            0.00, 
-            0.00, 
-            0.00, 
-            0.00, 
-            0.00, 
-            0.00, 
-            0.00
-          ], 
-          "met": 0, 
-          "msv": 0, 
-          "mtv": 0, 
-          "ov": 0
-        }
+        this.titik_uji = req_data.data_alat.deskripsi.jumlah_titik
 
-        
+        this.lebar = req_data.data_alat.deskripsi.dimensi.lebar
+        this.tinggi = req_data.data_alat.deskripsi.dimensi.tinggi
+        this.panjang = req_data.data_alat.deskripsi.dimensi.panjang
+
       } catch (error) {
         console.log(error);
       }

@@ -439,7 +439,7 @@ export default {
 
   data: () => ({
     active: null,
-    certificate_number: '3-01-19-00472',
+    certificate_number: '',
     certificate: {
       equipment: {
         name: '',

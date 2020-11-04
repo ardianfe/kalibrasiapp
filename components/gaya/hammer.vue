@@ -59,14 +59,14 @@ export default {
           url: '/gaya/hammer_tester/uncertainty?id=' +this.$route.query.id
         },
         { 
-          name: 'gaya-hammer_tester-lampiran',
-          text: 'Lampiran',
-          url: '/gaya/hammer_tester/lampiran?id='+this.$route.query.id 
-        },
-        { 
           name: 'gaya-hammer_tester-sertifikat',
           text: 'Cetak Serifikat',
           url: '/gaya/hammer_tester/sertifikat?id='+this.$route.query.id 
+        },
+        { 
+          name: 'gaya-hammer_tester-lampiran',
+          text: 'Lampiran',
+          url: '/gaya/hammer_tester/lampiran?id='+this.$route.query.id 
         }
       ]
     }

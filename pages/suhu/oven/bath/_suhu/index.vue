@@ -2,11 +2,7 @@
   <v-layout
     column
   >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+    <!-- <v-flex xs12 sm8 md6>
       <v-card style="overflow-x: scroll;">
         <v-card-title class="headline">
           <v-btn icon large class="primary" @click="$router.go(-1)">
@@ -15,7 +11,7 @@
           <p class="ma-0">
             Lembar Kerja | 
             <span class="font-weight-bold">
-              {{ $route.query.cert_no }}
+              {{ $route.name }}
             </span>
           </p>
           <v-spacer/>
@@ -131,7 +127,7 @@
         </v-card-actions>
 
       </v-card>
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 
@@ -209,10 +205,11 @@ export default {
   }),
 
   mounted() {
-    console.log(this.$route.params);
+    this.$router.push('/print/sertifikat?id=' + this.$route.query.id)
+    // console.log(this.$route.params);
     
-    this.getWorkSheet(this.$route.params.suhu)
-    this.getCert()
+    // this.getWorkSheet(this.$route.params.suhu)
+    // this.getCert()
   },
 
   methods: {
