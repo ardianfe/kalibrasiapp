@@ -186,6 +186,7 @@
 <style scoped>
 	p{
 		letter-spacing: .1pt;
+    font-family: 'Times New Roman', serif;
 	}
 	table {
     border-collapse: collapse;
@@ -197,6 +198,7 @@
     overflow-x: scroll hidden;
   } table {
     border-collapse: collapse;
+    font-family: 'Times New Roman', serif;
     border: 1px solid grey;
   } 
 
