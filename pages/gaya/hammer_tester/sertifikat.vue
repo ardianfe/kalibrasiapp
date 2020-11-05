@@ -236,7 +236,7 @@
                           <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Date of acceptance</p>
                         </div>
                         <div>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.acceptance_date }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ convertDate(certificate.acceptance_date) }}</p>
                         </div>
                       </v-layout>
                     </v-flex>
@@ -247,7 +247,7 @@
                           <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Date of Calibration</p>
                         </div>
                         <div>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_date }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ convertDate(certificate.calibration_date) }}</p>
                         </div>
                       </v-layout>
                     </v-flex>
@@ -623,7 +623,7 @@ export default {
       this.certificate.owner.address = co.alamat
       this.certificate.standard.name = alat['Standar dipakai']
       this.certificate.standard.traceability = ''
-      this.certificate.acceptance_date = alat['Tanggal periksa']
+      this.certificate.acceptance_date = alat.tanggal_diterima
       this.certificate.calibration_date = alat['Tanggal kalibrasi']
       this.certificate.env_condition.room_temp = ''
       this.certificate.env_condition.humidity = ''

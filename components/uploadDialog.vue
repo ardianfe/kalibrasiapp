@@ -26,7 +26,7 @@
             <v-spacer></v-spacer>
             <v-btn :disabled="!this.file.name" @click="submit" class="primary">Kirim</v-btn>
             <v-btn @click="close">Batal</v-btn>
-            <v-btn @click="submit">tes</v-btn>
+            <!-- <v-btn @click="submit">tes</v-btn> -->
           </v-card-actions>
         </template>
 

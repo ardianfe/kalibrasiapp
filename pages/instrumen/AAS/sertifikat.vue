@@ -629,7 +629,7 @@ export default {
         room_temp: data.deskripsi.kondisi_ling.suhu_ruang,
         humidity: data.deskripsi.kondisi_ling.kelembaban_udara,
       }
-      this.certificate.acceptance_date = this.convertDate(data.tgl_terima)
+      this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)
       this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
       this.certificate.calibration_location = data.deskripsi.lokasi
       this.certificate.calibration_method = data.metode_kalibrasi

@@ -633,7 +633,7 @@ export default {
         humidity: data['Kelembaban'],
         corrected_humidity: data['Kelembaban Terkoreksi']
       }
-      this.certificate.acceptance_date = ''
+      this.certificate.acceptance_date = this.convertDate(data.tanggal_diterima)
       this.certificate.calibration_date = this.convertDate(data['Tanggal kalibrasi'])
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data

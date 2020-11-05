@@ -44,7 +44,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn flat large class="white primary--text" @click="$router.push(getSlug(sampel_name)+'?id='+$route.query.id)">Lihat Detail</v-btn>
-                <v-btn flat large class="white primary--text" @click="getSlug(sampel_name)">tes</v-btn>
+                <!-- <v-btn flat large class="white primary--text" @click="getSlug(sampel_name)">tes</v-btn> -->
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -207,12 +207,15 @@ export default {
     },
 
     getSlug(name) {
-      let array_name = this.$store.state.bidang[this.$store.state.nama_bidang[name]].slug.split('/');
+      // console.log(this.$store.state.bidang[this.$store.state.nama_bidang[name][0]])
+      // console.log(this.$store.state.nama_bidang[name])
+      let array_name = this.$store.state.bidang[this.$store.state.nama_bidang[name][0]].slug.split('/');
       array_name.pop()
       array_name.push('sertifikat')
 
       var string_name = array_name.join('/')
-      // console.log(string_name)
+
+      console.log(string_name);
       return string_name
     }
   },

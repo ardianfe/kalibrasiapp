@@ -216,7 +216,7 @@
 											95 % dengan faktor cakupan k=2
 										</p>
 
-                    <p style="width: 90%" class="my-5">
+                    <p style="width: 90%" class="my-4">
                       <span class="i">Catatan:</span> <br>							
                       Massa ini telah dikalibrasi di Laboratorium Kalibrasi B4T, dengan massa <br>
                       standar yang dikerjakan pada kondisi udara yang massa dan massa jenisnya diketahui <br>
