@@ -21,12 +21,13 @@
               <p class="text-xs-center" v-else>{{file.name}}</p>
             </v-layout>
             <v-select :items="cats" v-model="cat" item-text="name" item-value="value" label="Pilih Kategori"></v-select>
+            <v-select v-if="subcats[cat]" :items="subcats[cat]" v-model="subcat" item-text="name" item-value="value" label="Pilih Sub Kategori"></v-select>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn :disabled="!this.file.name" @click="submit" class="primary">Kirim</v-btn>
             <v-btn @click="close">Batal</v-btn>
-            <!-- <v-btn @click="submit">tes</v-btn> -->
+            <v-btn @click="submit">tes</v-btn>
           </v-card-actions>
         </template>
 
@@ -72,8 +73,16 @@ export default {
         { name: 'Timbangan', value: 'timbangan'},
         { name: 'Volumetrik', value: 'volumetrik'}
       ],
+      subcats: {
+        timbangan: [
+          { name: 'Timbangan Elektronik', value: 39},
+          { name: 'Timbangan Mekanik Industri', value: 40},
+          { name: 'Timbangan Mekanik', value: 41}
+        ],
+      },
 
-      cat: ''
+      cat: '',
+      subcat: ''
     }
   },
 
@@ -99,13 +108,21 @@ export default {
     },
 
     async submit() {
-      // console.log(this.$store.state.bidang[this.$store.state.nama_bidang[this.$store.state.dialog.sample_name]].id);
+      let sample = this.$store.state.nama_bidang[this.$store.state.dialog.sample_name][0]
+      let name = this.$store.state.dialog.sample_name
+      console.log('name :', name);
+
+      if (name == 'Hammer Tester' && this.cat == 'tekanan') {
+        sample = 36
+      }
+      
       this.is_uploading = true
       try {
         const req = await this.$calibrate.upload({
           file: this.file,
           cat: this.cat,
-          sample: this.$store.state.nama_bidang[this.$store.state.dialog.sample_name][0],
+          sample: sample,
+          // sample: this.$store.state.nama_bidang[this.$store.state.dialog.sample_name][0],
 
           order_id: this.$store.state.dialog.order_number,
           sample_number: this.$store.state.dialog.sample_number
