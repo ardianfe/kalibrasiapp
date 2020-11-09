@@ -3,8 +3,20 @@
     <v-flex xs12 sm8 md6>
       <massaHeader></massaHeader>
 
+      <v-flex xs12 class="mt-4 mb-1">
+        <label for="mass">Pilih Ukuran massa</label>
+        <v-select
+          :items="mass"
+          id="mass"
+          v-model="selectedMass"
+          label="Pilih ukuran massa"
+          solo
+          background-color="white" @change="elementMapping()"
+        ></v-select>
+      </v-flex>
+
       <v-layout row>
-        <v-card width="100%" class="mt-4 v-main-card elevation-8">
+        <v-card width="100%" class="v-main-card elevation-8">
           <v-card-title>
             <p class="accent--text lato font-weight-bold title ma-0">Cetak Sertifikat</p>
           </v-card-title>
@@ -19,13 +31,39 @@
                 append-icon="expand_more"
               ></v-select>
             </v-layout> -->
+            <v-flex xs12 sm6 md4>
+              <v-dialog
+                ref="dialog"
+                v-model="modal"
+                :return-value.sync="published_date"
+                persistent
+                lazy
+                full-width
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="published_date"
+                    label="Tanggal diterbitkan"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="published_date" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.dialog.save(published_date)">OK</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </v-flex>
           </v-card-text>
-          <v-card-title>
+          <v-card-actions class="pa-2">
             <v-spacer></v-spacer>
-            <v-btn :disabled="signatory == '' || nip == ''" class="primary elevation-0" @click="printWrapper">
+            <v-btn class="primary elevation-0" @click="printWrapper">
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
-          </v-card-title>
+          </v-card-actions>
         </v-card>
       </v-layout>
 
@@ -72,28 +110,37 @@
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.name }}</p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: {{ certificate.equipment.name }}</p>
                       </v-layout>
 
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
-                        <div style="width: 32mm">
-                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kapasitas</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Capacity</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.capacity }}</p>
-                      </v-layout>
-
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">3.</p>
                         <div style="width: 32mm">
                           <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Tipe/Model</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Type/Model</p>
                         </div>
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
                       </v-layout>
+                      
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">3.</p>
+                        <div style="width: 32mm">
+                          <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Suhu</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
+                      </v-layout>
 
+                      <!-- <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
+                        <div style="width: 32mm">
+                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kapasitas</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Capacity</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.capacity }}</p>
+                      </v-layout> -->
                     </v-flex>
+
                     <v-flex xs6>
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
@@ -113,7 +160,7 @@
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.brand }} / {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
                       <!-- <v-layout>
@@ -235,7 +282,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{ certificate.env_condition.room_temp }}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -244,7 +291,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{ certificate.env_condition.humidity }}</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -279,7 +326,7 @@
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p>
+                      <p class="roman" style="font-size: 9pt; margin: 0;" v-html="certificate.refference"></p>
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
                     </div>
                   </v-layout>
@@ -300,7 +347,7 @@
                   <v-layout style="margin-top: 1mm">
                     <v-flex xs8>
                       <v-layout row>
-                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ certificate.published_date }}</span></p>
+                        <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">DITERBITKAN TANGGAL : <span class="helve"> {{ convertDate(published_date) }}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs4>
@@ -407,7 +454,7 @@
                         <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
                         <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
                       </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">__</p>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">3</p>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -467,12 +514,12 @@ export default {
   },
 
   head: {
-    title: 'Sertifikat | Bidang Massa',
+    title: 'Sertifikat | Bidang Instrumen Analisis',
     meta: [
       {
-        hid: 'Massa',
-        name: 'Massa',
-        content: 'Bidang Massa'
+        hid: 'Instrumen Analisis',
+        name: 'Instrumen Analisis',
+        content: 'Bidang Instrumen Analisis'
       }
     ],
 
@@ -491,6 +538,7 @@ export default {
         model: '',
         serial_number: '',
         manufacture: '',
+        brand: '',
         internal_dimension: '',
         temperature: '',
         others: '-',
@@ -525,25 +573,65 @@ export default {
     ],
 
     kan: true,
-    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
+    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'},
+
+    published_date: new Date().toISOString().substr(0, 10),
+    menu: false,
+    modal: false,
+    menu2: false,
+
+    data_alat: {
+      "1 g":{
+        "acuan":[
+          "\" The Calibration of Weights and Balances\" E.C Morris, ",
+          "  and Kitty M.K Fen, NMI,Third Edition,Australia,2010,Butir 3"
+        ],
+        "alat_kalibrasi":{
+          "Massa Standar":{
+            "KTP":"0.004",
+            "MS":"1.000021",
+            "MT":"1",
+            "kelas":"E2",
+            "no seri":"158850"
+          },
+          "Timbangan":{
+            "daya_baca":1e-05,
+            "jenis":"Timbangan Elektronik",
+            "no_seri":1118252772
+          }
+        },
+        "description":{
+          "bahan":"Stainless Steel",
+          "buatan":"Germany",
+          "kelas":"F1",
+          "kelembaban":"61 \u00b1 5",
+          "lokasi":"Laboratorium Kalibrasi B4T",
+          "massa":"1 g",
+          "merk":"Kern",
+          "no_seri":"G962938",
+          "suhu":"20 \u00b1 1"
+        },
+        "dikalibrasi":{
+          "date":"2020-02-12 00:00:00",
+          "person":"Satrio O."
+        },
+        "diperiksa":{
+          "date":"2020-02-12 00:00:00",
+          "person":"Agus SP"
+        },
+        "metode_kalibrasi":"PC-306-03"
+      },
+    },
+    owner: {
+      alamat: '',
+      nama_co: ''
+    },
+    mass: [],
+    selectedMass: '1 g'
   }),
 
-  mounted() {    
-    // console.log(cert_data);
-    this.certificate_number = this.$route.query.cert_no
-
+  mounted() {
     this.getCertData()
-    
-    if (!this.$store.state.isLoggedIn) {
-      // this.$router.push('/')
-    }
-
-    this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
-
-    console.log(this.data);
-    if (this.$route.query.attribute == 'lampiran') {
-      this.createElement()
-    }
   },
 
   methods: {
@@ -576,32 +664,45 @@ export default {
         console.log('get LK: ', req);
         let req_data = req.results[0]
 
+        this.certificate_number = req_data.no_laporan
+
+        this.data_alat = req_data.data_alat
+        this.owner = req_data.data_co
+
+        this.mass = Object.keys(req_data.data_alat)
+
+        console.log(this.data_alat);
+        this.selectedMass = this.mass[0]
+        // this.data_kal = req_data.data_kal
+
         this.elementMapping()
+        
       } catch (error) {
         console.log(error);
       }
     },
 
     elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = 'Concrete Test Hammer'
-      this.certificate.equipment.capacity = '10 - 100 Unit'
-      this.certificate.equipment.model = 'HT 225'
-      this.certificate.equipment.serial_number = 308813
-      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      this.certificate.acceptance_date = '30 Mei 2017'
-      this.certificate.calibration_date = '2 Juni 2017'
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      this.certificate.published_date = '30 Mei 2107'
+      this.certificate.equipment.name = 'Massa Standar'
+      // this.certificate.equipment.capacity = this.data_alat[this.selectedMass].kapasitas
+      this.certificate.equipment.model = this.data_alat[this.selectedMass].description.bahan
+      this.certificate.equipment.brand = this.data_alat[this.selectedMass].description.merk
+      this.certificate.equipment.serial_number = this.data_alat[this.selectedMass].description.no_seri
+      this.certificate.equipment.manufacture = this.data_alat[this.selectedMass].description.buatan
+      this.certificate.equipment.temperature = this.data_alat[this.selectedMass].description.suhu
+      this.certificate.owner.name = this.owner.nama_co
+      this.certificate.owner.address = this.owner.alamat
+      // this.certificate.standard.name = this.data_alat[this.selectedMass].alat_kalibrasi.larutan_standar[0] + ' ' + this.data_alat[this.selectedMass].alat_kalibrasi.larutan_standar[1]
+      this.certificate.standard.traceability = 'Hasil Kalibrasi yang dilaporkan  tertelusur  kesatuan  pengukuran  SI melalui BSN, Laboratorium SNSU dan LK-022-IDN'
+      this.certificate.env_condition = {
+        room_temp: this.data_alat[this.selectedMass].description.suhu,
+        humidity: this.data_alat[this.selectedMass].description.kelembaban,
+      }
+      this.certificate.acceptance_date = this.convertDate(this.data_alat[this.selectedMass].diterima)
+      this.certificate.calibration_date = this.convertDate(this.data_alat[this.selectedMass].dikalibrasi.date)
+      this.certificate.calibration_location = this.data_alat[this.selectedMass].description.lokasi
+      this.certificate.calibration_method = this.data_alat[this.selectedMass].metode_kalibrasi
+      this.certificate.refference = this.data_alat[this.selectedMass].acuan[0] + '<br>' + this.data_alat[this.selectedMass].acuan[1]
     },
 
     printWrapper() {

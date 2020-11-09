@@ -12,9 +12,9 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/massa')" 
+            @click="$router.push('/timbangan')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
-            Bidang Massa dan Timbangan
+            Bidang Timbangan
           </span>
         </v-hover>
       </p>
@@ -44,26 +44,26 @@ export default {
     return {
       menus: [
         { 
-          name: 'massa-anak_timbangan_f1-f2-lk',
-          text: 'Massa (gram)',
-          url: '/massa/anak_timbangan_f1-f2/lk?id='+this.$route.query.id 
+          name: 'timbangan-timbangan_mekanik_industri-lk',
+          text: 'Lembar Kerja',
+          url: '/timbangan/timbangan_mekanik_industri/lk?id='+this.$route.query.id 
         },
         { 
-          name: 'massa-anak_timbangan_f1-f2-mpe',
-          text: 'mpe',
-          url: '/massa/anak_timbangan_f1-f2/mpe?id='+this.$route.query.id 
+          name: 'timbangan-timbangan_mekanik_industri-ketidakpastian',
+          text: 'Ketidakpastian',
+          url: '/timbangan/timbangan_mekanik_industri/ketidakpastian?id='+this.$route.query.id 
         },
         { 
-          name: 'massa-anak_timbangan_f1-f2-sertifikat',
+          name: 'timbangan-timbangan_mekanik_industri-sertifikat',
           text: 'Sertifikat',
-          url: '/massa/anak_timbangan_f1-f2/sertifikat?id='+this.$route.query.id 
+          url: '/timbangan/timbangan_mekanik_industri/sertifikat?id='+this.$route.query.id 
         },
         { 
-          name: 'massa-anak_timbangan_f1-f2-lampiran',
+          name: 'timbangan-timbangan_mekanik_industri-lampiran',
           text: 'Lampiran',
-          url: '/massa/anak_timbangan_f1-f2/lampiran?id='+this.$route.query.id 
+          url: '/timbangan/timbangan_mekanik_industri/lampiran?id='+this.$route.query.id 
         },
-        ]
+      ]
     }
   },
 

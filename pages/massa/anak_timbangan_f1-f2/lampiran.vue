@@ -31,7 +31,7 @@
 
       <v-layout justify-center>
         <v-card width="210mm" class="mt-3 v-main-card elevation-8">        
-          <v-card-text style="height: 300mm" class="pt-0">
+          <v-card-text style="height: 310mm" class="pt-0">
             <div id="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm;">
               <no-ssr>
                 <v-card-title style="z-index: 2; height: 75px; padding: 10mm 0 0 0">
@@ -278,11 +278,13 @@
 <style scoped>
 	p{
 		letter-spacing: .1pt;
+    font-family: 'Times New Roman', serif;
 	}
 	table {
     border-collapse: collapse;
   } table, th, td {
     border: 1px solid grey;
+    font-family: 'Times New Roman', serif;
     padding: 3px
   }
   #wrapper {

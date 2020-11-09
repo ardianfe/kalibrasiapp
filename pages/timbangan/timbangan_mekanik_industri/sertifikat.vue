@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <instrumenHeader></instrumenHeader>
+      <timbanganHeader></timbanganHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -57,7 +57,7 @@
 
       <v-layout justify-center>
         <v-card width="210mm" class="mt-3 v-main-card elevation-8">        
-          <v-card-text style="height: 320mm" class="pt-0">
+          <v-card-text style="height: 300mm" class="pt-0">
             <div id="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm;">
               <no-ssr>
                 <v-card-title style="z-index: 2; height: 75px; padding: 10mm 0 0 0">
@@ -491,23 +491,23 @@ p{
   }
 </style>
 <script>
-import instrumenHeader from '~/components/instrumen/aas.vue'
+import timbanganHeader from '~/components/timbangan/timbangan_mekanik_industri.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    instrumenHeader
+    timbanganHeader
   },
 
   head: {
-    title: 'Sertifikat | Bidang Instrumen Analisis',
+    title: 'Sertifikat | Bidang Timbangan',
     meta: [
       {
-        hid: 'Instrumen Analisis',
-        name: 'Instrumen Analisis',
-        content: 'Bidang Instrumen Analisis'
+        hid: 'Timbangan',
+        name: 'Timbangan',
+        content: 'Bidang Timbangan'
       }
     ],
 
@@ -603,17 +603,7 @@ export default {
         console.log('get LK: ', req);
         let req_data = req.results[0]
 
-        this.no_cert = req_data.no_laporan
-        this.data_alat = req_data.data_alat
-
-          // this.mass = Object.keys(req_data.data_alat)
-
-          // console.log(this.mass);
-          // this.selectedMass = this.mass[0]
-
-          // this.kal = req_data.data_kal
-          // this.ktp = req_data.data_ktp
-        // this.data_kal = req_data.data_kal
+        this.certificate_number = req_data.no_laporan
 
         this.elementMapping(req_data.data_alat, req_data.data_co)
         

@@ -105,6 +105,8 @@ export default {
     close() {
       this.$store.commit('closeDialog')
       this.file = {}
+      this.cat = ''
+      this.subcat = ''
     },
 
     async submit() {
@@ -121,7 +123,7 @@ export default {
         const req = await this.$calibrate.upload({
           file: this.file,
           cat: this.cat,
-          sample: sample,
+          sample: this.subcat ? this.subcat : sample,
           // sample: this.$store.state.nama_bidang[this.$store.state.dialog.sample_name][0],
 
           order_id: this.$store.state.dialog.order_number,

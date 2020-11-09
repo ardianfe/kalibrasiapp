@@ -107,8 +107,8 @@ export const state = () => ({
     37: { id: 'tekanan2', slug: '/tekanan/pressure_gauge/lk', name: 'Pressure Gauge', cat: 'tekanan' },
     38: { id: 'timbangan1', slug: '/timbangan/moisture_balance/lk', name: 'Moisture Balance', cat: 'timbangan' },
     39: { id: 'timbangan2', slug: '/timbangan/timbangan_elektronik/lk', name: 'Timbangan Elektronik', cat: 'timbangan' },
-    40: { id: 'timbangan3', slug: '/timbangan/timbangan_mekanik_industri/lk', name: 'Timbangan Mekanik Industri', cat: 'timbangan' },
-    41: { id: 'timbangan4', slug: '/timbangan/timbangan_mekanik/lk', name: 'Timbangan Mekanik', cat: 'timbangan' },
+    40: { id: 'timbangan3', slug: '/timbangan/timbangan_mekanik_industri/lk', name: 'Timbangan', cat: 'timbangan' },
+    41: { id: 'timbangan4', slug: '/timbangan/timbangan_mekanik/lk', name: 'Timbangan', cat: 'timbangan' },
     42: { id: 'Volumetrik1', slug: '/volumetrik/buret/lk', name: 'Buret', cat: 'Volumetrik' },
     43: { id: 'Volumetrik2', slug: '/volumetrik/piknometer/lk', name: 'Piknometer', cat: 'Volumetrik' },
     99: { id: 'notfound'}
