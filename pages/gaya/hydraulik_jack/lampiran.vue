@@ -378,17 +378,20 @@ export default {
 
     async getCertData() {
       try {
-        // const req = await this.$calibrate.getDataCertificate({
-        //   id : this.certificate_number
-        // })    
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        // console.log(req);
-        // this.data = req
-        this.elementMapping()
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
 
-        
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal.hasil
+
+        this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95
+        this.uc = req_data.data_ktp.hasil.uc
+        this.data_ktp = req_data.data_ktp.data['Unnamed: 8']
       } catch (error) {
-        console.log(error);
+        console.log('get LK err: ', error.response);
       }
     },
 

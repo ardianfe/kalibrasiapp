@@ -671,48 +671,29 @@ export default {
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
-
-    this.cekCORS()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
-
-    // this.hk.d_min = durometer.result[0].data_kal.d_minimum_1
-    // this.hk.d_max = durometer.result[0].data_kal.d_maksimum_1
-
-    // this.hk.hasil.unnamed7 = durometer.result[0].data_kal.hk1['Unnamed: 7']
-    // this.hk.hasil.unnamed9 = durometer.result[0].data_kal.hk1['Unnamed: 9']
-    // this.hk.hasil.unnamed11 = durometer.result[0].data_kal.hk1['Unnamed: 11']
-    // this.hk.hasil.unnamed13 = durometer.result[0].data_kal.hk1['Unnamed: 13']
+    this.getLK()
   },
 
   methods: {
-    async cekCORS() {
+    async getLK() {
       try {
-        const req = await this.$calibrate.testCors()
+        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
-        console.log('test cors', req);
+        console.log('get LK: ', req);
+        let req_data = req.results[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_kal = req_data.data_kal.hasil
+
+        this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95
+        this.uc = req_data.data_ktp.hasil.uc
+        this.data_ktp = req_data.data_ktp.data['Unnamed: 8']
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('get LK err: ', error.response);
       }
     },
+
     fileSelected(e) {
       var reader = new FileReader();
       console.log(e.target.files[0]);

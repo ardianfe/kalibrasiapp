@@ -263,7 +263,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.equipment.temperature}}</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.room_temp}}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -272,7 +272,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}}</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -613,23 +613,22 @@ export default {
     },
 
     elementMapping(alat, co) {
-      this.certificate.equipment.name = alat['Deskripsi Alat']
-      this.certificate.equipment.capacity = alat['Kapasitas'] + ' Unit'
-      this.certificate.equipment.model = alat['Merek']
-      this.certificate.equipment.serial_number = alat['No Seri']
-      this.certificate.equipment.manufacture = alat['No Seri'] + ' / ' + alat['Buatan']
-      this.certificate.equipment.temperature = alat['Suhu']
+      this.certificate.equipment.name = alat.deskripsi.nama_alat
+      this.certificate.equipment.capacity = alat.deskripsi.kapasitas + ' / ' + alat.deskripsi.indikator.nilai[0] + ' ' + alat.deskripsi.indikator.nilai[1]
+      this.certificate.equipment.model = alat.deskripsi.tipe
+      this.certificate.equipment.serial_number = alat.deskripsi.no_seri + ' / ' + alat.deskripsi.indikator.no_seri
+      this.certificate.equipment.manufacture = alat.deskripsi.indikator.merek + ' / ' + alat.deskripsi.indikator.buatan
       this.certificate.owner.name = co.nama_co
       this.certificate.owner.address = co.alamat
       this.certificate.standard.name = alat['Standar dipakai']
-      this.certificate.standard.traceability = ''
+      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  PUSLIT KIM LIPI Serpong'
       this.certificate.acceptance_date = alat.tanggal_diterima
-      this.certificate.calibration_date = alat['Tanggal kalibrasi']
-      this.certificate.env_condition.room_temp = ''
-      this.certificate.env_condition.humidity = ''
-      this.certificate.calibration_location = alat['Lokasi Kalibrasi']
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = alat['Standar acuan']
+      this.certificate.calibration_date = alat.dikalibrasi.date
+      this.certificate.env_condition.room_temp = alat.deskripsi.suhu.bawah + ' - ' + alat.deskripsi.suhu.atas
+      this.certificate.env_condition.humidity = alat.deskripsi.kelembaban
+      this.certificate.calibration_location = alat.deskripsi.lokasi
+      this.certificate.calibration_method = alat.metode_kalibrasi
+      this.certificate.refference = alat.standar_acuan
     },
 
     printWrapper() {

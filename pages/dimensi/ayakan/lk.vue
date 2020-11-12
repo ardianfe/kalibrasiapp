@@ -106,7 +106,7 @@
                   <td>Ukuran Luar</td>
                   <td>Ukuran Dalam</td>
                 </tr>
-                <template v-if="data_kal['Pembacaan']">
+                <!-- <template v-if="data_kal['Pembacaan']">
                   <tr v-for="(item, index) in data_kal['Pembacaan'].length" :key="index">
                     <td>{{data_kal['Pembacaan'][index]}}</td>
                     <td>
@@ -144,7 +144,7 @@
                       <span v-else>&nbsp;</span>
                     </td>
                   </tr>
-                </template>
+                </template> -->
               </tbody>
             </table>
 
