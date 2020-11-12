@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <tekananHeader></tekananHeader>
+      <dimensiHeader></dimensiHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -66,58 +66,105 @@
                   </div>
 
 									<v-layout justify-center align-center column>
-										<table class="text-xs-center">
+										<table width="90%" class="text-xs-center">
                       <thead>
                         <tr>
-                          <th rowspan="3">Penunjukan Pressure Gauge</th>
-                          <th colspan="4">Penunjukan Standar</th>
-                          <th colspan="2" rowspan="2">Kesalahan</th>
-                          <th colspan="2" rowspan="2">Ketidakpastian</th>
+                          <th rowspan="2">Pembacaan Nominal Standar (mm)</th>
+                          <th rowspan="2">Nilai Aktual Standar mm</th>
+                          <th colspan="2">Pembacaan Alat (mm)</th>
+                          <th colspan="2">Kesalahan (mm)</th>
+                          <th rowspan="2">*)Ketidakpastian (mm)</th>
                         </tr>
                         <tr>
-                          <td colspan="2">Sebelum Set</td>
-                          <td colspan="2">Setelah Set</td>
-                        </tr>
-                        <tr>
-                          <td>Naik</td>
-                          <td>Turun</td>
-                          <td>Naik</td>
-                          <td>Turun</td>
-                          <td>Naik</td>
-                          <td>Turun</td>
-                          <td>Naik</td>
-                          <td>Turun</td>
-                        </tr>
-                        <tr>
-                          <td>bar</td>
-                          <td>bar</td>
-                          <td>bar</td>
-                          <td>bar</td>
-                          <td>bar</td>
-                          <td>%</td>
-                          <td>%</td>
-                          <td>%</td>
-                          <td>%</td>
+                          <th>Ukuran Luar</th>
+                          <th>Ukuran Dalam</th>
+                          <th>Ukuran Luar</th>
+                          <th>Ukuran Dalam</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <tr v-for="(item, index) in 10" :key="index">
+                          <td>{{data_kal['Pembacaan'][index]}}</td>
+                          <td v-if="data_kal['Nilai Aktual'][index]">{{data_kal['Nilai Aktual'][index].toFixed(5)}}</td>
+                          <td>{{data_kal['Pembacaan Alat '][index]}}</td>
+                          <td>{{data_kal['Unnamed: 4'][index]}}</td>
+                          <td v-if="data_kal['Kesalahan    '][index]">{{data_kal['Kesalahan    '][index].toFixed(5)}}</td>
+                          <td v-if="data_kal['Unnamed: 8'][index]">{{data_kal['Unnamed: 8'][index].toFixed(5)}}</td>
+                          <td v-if="item == 1" rowspan="10">{{ktp_u95}}</td>
+                        </tr>
+                        
+                        <!-- <tr>
+                          <td>50</td>
+                          <td>50.00163</td>
+                          <td>50.00</td>
+                          <td>50.02</td>
+                          <td>-0.00163</td>
+                          <td>0.01837</td>
+                        </tr>
                         <tr>
-                          <td colspan="9"></td>
-                        </tr>
-                        <tr v-for="(item, index) in 6" :key="index">
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
-                          <td>{{index}}</td>
+                          <td>70</td>
+                          <td>69.99893</td>
+                          <td>70.00</td>
+                          <td>70.00</td>
+                          <td>0.00107</td>
+                          <td>0.00107</td>
                         </tr>
                         <tr>
-                          <td colspan="9"></td>
+                          <td>100</td>
+                          <td>99.99829</td>
+                          <td>100.00</td>
+                          <td>100.00</td>
+                          <td>0.00171</td>
+                          <td>0.00171</td>
                         </tr>
+                        <tr>
+                          <td>150</td>
+                          <td>149.99992</td>
+                          <td>150.00</td>
+                          <td>150.00</td>
+                          <td>0.00008</td>
+                          <td>0.00008</td>
+                        </tr>
+                        <tr>
+                          <td>170</td>
+                          <td>169.99722</td>
+                          <td>170.00</td>
+                          <td>170.00</td>
+                          <td>0.00278</td>
+                          <td>0.00278</td>
+                        </tr>
+                        <tr>
+                          <td>200</td>
+                          <td>199.99658</td>
+                          <td>200.00</td>
+                          <td>200.00</td>
+                          <td>0.00342</td>
+                          <td>0.00342</td>
+                        </tr>
+                        <tr>
+                          <td>250</td>
+                          <td>249.99821</td>
+                          <td>250.00</td>
+                          <td>250.00</td>
+                          <td>0.00179</td>
+                          <td>0.00179</td>
+                        </tr>
+                        <tr>
+                          <td>270 </td>
+                          <td>269.99551 </td>
+                          <td>270.00 </td>
+                          <td>270.00 </td>
+                          <td>0.00449 </td>
+                          <td>0.00449 </td>
+                        </tr>
+                        <tr>
+                          <td>300 </td>
+                          <td>299.99487 </td>
+                          <td>300.00 </td>
+                          <td>300.00 </td>
+                          <td>0.00513 </td>
+                          <td>0.00513 </td>
+                        </tr> -->
                       </tbody>
                     </table>
 										<p style="width: 90%; margin: 50px 0 150px 0">
@@ -184,6 +231,7 @@
 	}
 	table {
     border-collapse: collapse;
+    font-family: 'Times New Roman', serif;
   } table, th, td {
     border: 1px solid grey;
     padding: 3px
@@ -192,7 +240,6 @@
     overflow-x: scroll hidden;
   } table {
     border-collapse: collapse;
-    font-family: 'Times New Roman', serif;
     border: 1px solid grey;
   } 
 
@@ -219,23 +266,23 @@
   }
 </style>
 <script>
-import tekananHeader from '~/components/tekanan/pressure.vue'
+import dimensiHeader from '~/components/dimensi/ayakan.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    tekananHeader
+    dimensiHeader
   },
 
   head: {
-    title: 'Lampiran Sertifikat | Bidang Tekanan',
+    title: 'Lampiran Sertifikat | Bidang Dimensi',
     meta: [
       {
-        hid: 'Tekanan',
-        name: 'Tekanan',
-        content: 'Bidang Tekanan'
+        hid: 'dimensi',
+        name: 'dimensi',
+        content: 'Bidang Dimensi'
       }
     ],
 
@@ -247,6 +294,55 @@ export default {
   data: () => ({
     active: null,
     certificate_number: '',
+    certificate: {
+      equipment: {
+        name: '',
+        capacity: '',
+        model: '',
+        serial_number: '',
+        manufacture: '',
+        internal_dimension: '',
+        temperature: '',
+        others: '-',
+      },
+      owner: {
+        name: '',
+        address: ''
+      },
+      standard: {
+        name: '',
+        traceability: ''
+      },
+      acceptance_date: '',
+      calibration_date: '',
+      env_condition: {
+        room_temp: '',
+        humidity: ''
+      },
+      calibration_location: '',
+      calibration_method: '',
+      refference: '',
+      result: '',
+      published_date: '',
+      director_name: '',
+      director_nip: '',
+    },
+    data: {},
+
+    data_kal: {
+      "Kesalahan    ": [],
+      "Mampu Ulang ": [],
+      "Nilai Aktual": [],
+      "Pembacaan": [],
+      "Pembacaan Alat ": [],
+      "Rata-rata": [],
+      "Unnamed: 4": [],
+      "Unnamed: 6": [],
+      "Unnamed: 8": [],
+      "Unnamed: 10": [],
+    },
+
+    ktp_u95 : '',
 
     signatories: [
       { id: 1, data: {name: 'AJI MAHMUD SOLIH', nip: '19720802 200701 1 003', jabatan: 'Kepala Seksi Kalibrasi'} },
@@ -254,52 +350,25 @@ export default {
     ],
 
     kan: true,
-    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'},
-
-    data_kal: {
-      h_max_2: 0,
-      h_max_3: 0,
-      h_standar_2: 0,
-      h_standar_3: 0,
-      havg_2: 0,
-      havg_3: 0,
-      hk2: {
-        "Unnamed: 5": [], 
-        "Unnamed: 8": []},
-      hk3: {  
-        "Unnamed: 5": [], 
-        "Unnamed: 8": []},
-      hmin_2: 0,
-      hmin_3: 0,
-      kesalahan_2: 0,
-      kesalahan_3: 0,
-      repeatability_2: 0,
-      repeatability_3: 0
-    },
-
-    data_alat: {
-      "Buatan": "",
-      "Deskripsi Alat": "",
-      "Dikalibrasi": "",
-      "Diperiksa": "",
-      "Kapasitas": "",
-      "Lokasi Kalibrasi": "",
-      "Merek": "",
-      "Metoda verifikasi": "",
-      "No Seri": "",
-      "Resolusi": "",
-      "Standar acuan": "",
-      "Standar dipakai": "",
-      "Suhu": "",
-      "Tanggal kalibrasi": "",
-      "Tanggal periksa": "",
-      "Tipe": "",
-      "Tipe penetrator": ""
-    }
+    signatory: {name: 'ELIS SOFIANTI', nip: '19710930 199403 2 001', jabatan: 'Kepala Bidang Standarisasi'}
   }),
 
-  mounted() {
+  mounted() {    
+    // console.log(cert_data);
+    this.certificate_number = this.$route.query.cert_no
+
     this.getCertData()
+    
+    if (!this.$store.state.isLoggedIn) {
+      // this.$router.push('/')
+    }
+
+    this.data = JSON.parse(localStorage.getItem(this.$route.query.attribute))
+
+    console.log(this.data);
+    if (this.$route.query.attribute == 'lampiran') {
+      this.createElement()
+    }
   },
 
   methods: {
@@ -332,9 +401,10 @@ export default {
         console.log('get LK: ', req);
         let req_data = req.results[0]
 
-        this.no_cert = req_data.no_laporan
+        this.certificate_number = req_data.no_laporan
         this.data_alat = req_data.data_alat
-        this.data_kal = req_data.data_kal
+        this.data_kal = req_data.data_kal.hasil
+        this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95[3].toFixed(4)
       } catch (error) {
         console.log('get LK err: ', error.response);
       }

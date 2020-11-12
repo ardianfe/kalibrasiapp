@@ -12,16 +12,16 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/gaya')" 
+            @click="$router.push('/dimensi')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
-            Bidang Gaya
+            Bidang Dimensi
           </span>
         </v-hover>
       </p>
     </v-card-title>
     <v-card-actions v-if="$store.state.isLoggedIn" class="pa-2">
       <v-layout row wrap>
-        <v-flex class="pa-0" xs6 sm3 v-for="(menu, index) in menus" :key="index">
+        <v-flex class="pa-0" v-for="(menu, index) in menus" :key="index">
           <v-hover>
             <v-card 
               slot-scope="{hover}" :to="menu.url"
@@ -43,10 +43,13 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'gaya-hydraulik_jack-lk', text: 'Lembar Kerja', url: '/gaya/hydraulik_jack/lk?id='+this.$route.query.id },
-        { name: 'gaya-hydraulik_jack-ktp', text: 'Ketidakpastian', url: '/gaya/hydraulik_jack/ktp?id=' +this.$route.query.id},
-        { name: 'gaya-hydraulik_jack-lampiran', text: 'Lampiran', url: '/gaya/hydraulik_jack/lampiran?id=' +this.$route.query.id},
-        { name: 'gaya-hydraulik_jack-sertifikat', text: 'Cetak Serifikat', url: '/gaya/hydraulik_jack/sertifikat?id='+this.$route.query.id }
+        { name: 'dimensi-ayakan-lk', text: 'Lembar Kerja', url: '/dimensi/ayakan/lk?id='+this.$route.query.id },
+        { name: 'dimensi-ayakan-sertifikat', text: 'Sertifikat', url: '/dimensi/ayakan/sertifikat?id='+this.$route.query.id },
+        { name: 'dimensi-ayakan-lampiran', text: 'Lampiran', url: '/dimensi/ayakan/lampiran?id='+this.$route.query.id },
+        // { name: 'gaya-durometer-ktp1', text: 'KTP 1', url: '/gaya/durometer/ktp1?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        // { name: 'gaya-durometer-ktp2', text: 'KTP 2', url: '/gaya/durometer/ktp2?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
+        // { name: 'gaya-sertifikat', text: 'Sertifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
+        // { name: 'gaya-durometer-lampiran', text: 'Cetak Lampiran', url: '/gaya/durometer/lampiran' }
       ]
     }
   },

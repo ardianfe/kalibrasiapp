@@ -328,7 +328,7 @@ export default {
   },
 
   head: {
-    title: 'Setelah Set | Bidang Tekanan',
+    title: 'Lembar Kerja | Bidang Tekanan',
     meta: [
       {
         hid: 'Tekanan',

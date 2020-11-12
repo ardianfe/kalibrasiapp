@@ -25,37 +25,37 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr v-for="(item, x) in komponen" :key="x">
+                <tr v-for="(item, x) in komponen" :key="x">
                   <td>{{item.nama}}</td>
                   <td>{{item.satuan}}</td>
                   <td>{{item.distribusi}}</td>
                   <td>
-                    <span v-if="data_ktp.ktp_matrix.u[x]">{{data_ktp.ktp_matrix.u[x].toFixed(3)}}</span></td>
+                    <span v-if="data_ktp.table_data.U[x]">{{data_ktp.table_data.U[x].toFixed(3)}}</span></td>
                   <td>
-                    <span v-if="data_ktp.ktp_matrix.pembagi[x]">{{data_ktp.ktp_matrix.pembagi[x].toFixed(2)}}</span></td>
-                  <td>{{data_ktp.ktp_matrix.vi[x]}}</td>
-                  <td>{{data_ktp.ktp_matrix.ui[x]}}</td>
-                  <td>{{data_ktp.ktp_matrix.ci[x]}}</td>
-                  <td>{{data_ktp.ktp_matrix.uici[x]}}</td>
-                  <td>{{data_ktp.ktp_matrix.uici2[x]}}</td>
-                  <td>{{data_ktp.ktp_matrix.uici4pervi[x]}}</td>
-                </tr> -->
-                <!-- <tr>
+                    <span v-if="data_ktp.table_data.pembagi[x]">{{data_ktp.table_data.pembagi[x].toFixed(2)}}</span></td>
+                  <td>{{data_ktp.table_data.vi[x]}}</td>
+                  <td>{{data_ktp.table_data.ui[x]}}</td>
+                  <td>{{data_ktp.table_data.ci[x]}}</td>
+                  <td>{{data_ktp.table_data.uici[x]}}</td>
+                  <td>{{data_ktp.table_data.uici2[x] ? data_ktp.table_data.uici2[x].toExponential(3) : ''}}</td>
+                  <td>{{data_ktp.table_data.uici4pervi[x] ? data_ktp.table_data.uici4pervi[x].toExponential(3) : ''}}</td>
+                </tr>
+                <tr>
                   <td colspan="11">&nbsp;</td>
                 </tr>
                 <tr>
                   <td colspan="9">Sums</td>
-                  <td>{{data_ktp.sums_ktp2.uici2}}</td>
-                  <td>{{data_ktp.sums_ktp2.uici4pervi}}</td>
+                  <td>{{data_ktp.sums[0] ? data_ktp.sums[0].toFixed(5) : ''}}</td>
+                  <td>{{data_ktp.sums[1] ? data_ktp.sums[1].toFixed(5) : ''}}</td>
                 </tr>
                 <tr>
                   <td colspan="9">Ketidakpastian baku gabungan, uc, ppm</td>
-                  <td>{{data_ktp.ktp_gabungan.toFixed(4)}}</td>
-                  <td>ppm</td>
+                  <td>{{data_ktp.ktp_gabungan ? data_ktp.ktp_gabungan.toFixed(4) : ''}}</td>
+                  <td>Kg/cm²</td>
                 </tr>
                 <tr>
                   <td colspan="9">Derajat kebebasan efektif, veff</td>
-                  <td>{{data_ktp.der_bebas_efektif.toFixed(4)}}</td>
+                  <td>{{data_ktp.derajat_kebebasan ? data_ktp.derajat_kebebasan.toFixed(4) : ''}}</td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -65,9 +65,9 @@
                 </tr>
                 <tr>
                   <td colspan="9">Ketidakpastian bentangan, U = k.uc, ppm</td>
-                  <td>{{data_ktp.ktp_bentangan.toFixed(5)}}</td>
-                  <td>ppm</td>
-                </tr> -->
+                  <td>{{data_ktp.ktp_bentang.satuan_kg_percm2}}</td>
+                  <td>Kg/cm²</td>
+                </tr>
               </tbody>
             </table>
 
@@ -112,7 +112,6 @@
 
 <script>
 import tekananHeader from '~/components/tekanan/pressure.vue'
-import durometer from '~/static/durometer.json'
 
 export default {
   components: {
@@ -120,34 +119,28 @@ export default {
   },
 
   head: {
-    title: 'Ketidakpastian Durometer | Bidang Gaya',
+    title: 'Ketidakpastian Pressure Gauge | Bidang Tekanan',
     meta: [
       {
-        hid: 'gaya',
-        name: 'gaya',
-        content: 'Bidang Gaya'
+        hid: 'Tekanan',
+        name: 'Tekanan',
+        content: 'Bidang Tekanan'
       }
     ],
   },
 
     data: () => ({
     no_cert: '',
-    // Penguji  Bobot  Mati  No.	25/213, 
-    // var suhu	
-    // beda level oli	
-    // var g-lokal	
-    // daya baca	
-    // Daya ulang Pembacaan	
+
 
 
     komponen: [
-      { nama: 'Larutan Standar', satuan: 'mg/l', distribusi: 'normal'},
-      { nama: 'Labu Ukur', satuan: 'ml', distribusi: 'normal'},
-      { nama: 'Buret', satuan: 'ml', distribusi: 'normal'},
-      { nama: 'Pipet Ukur', satuan: 'ml', distribusi: 'normal'},
-      { nama: 'Linearitas kons Larutan std.', satuan: 'abs', distribusi: 'rectangular'},
-      { nama: 'Readability', satuan: 'abs', distribusi: 'rectangular'},
-      { nama: 'Daya ulang Pembacaan', satuan: 'abs', distribusi: 'rectangular'},
+      { nama: 'Penguji  Bobot  Mati  No.	25/213, ', satuan: 'Kg/cm²', distribusi: 'normal'},
+      { nama: 'var suhu	', satuan: '°C', distribusi: 'rectangular'},
+      { nama: 'beda level oli	', satuan: 'm', distribusi: 'normal'},
+      { nama: 'var g-lokal	', satuan: '°C', distribusi: 'rectangular'},
+      { nama: 'daya baca	', satuan: '°C', distribusi: 'rectangular'},
+      { nama: 'Daya ulang Pembacaan	', satuan: '°C', distribusi: 'normal'},
     ],
 
     data_alat: {
@@ -180,21 +173,24 @@ export default {
     },
   
     data_ktp: {
-      der_bebas_efektif: 0,
+      derajat_kebebasan: 0,
       faktor_cakupan: 0,
-      ktp_bentangan: 0,
+      ktp_bentang: {
+        satuan_kg_percm2: 0,
+        satuan_persen: 0
+      },
       ktp_gabungan: 0,
-      ktp_matrix: {
+      table_data: {
         ci: [],
         pembagi: [],
-        u: [],
+        U: [],
         ui: [],
         uici: [],
         uici2: [],
         uici4pervi: [],
         vi: []
       },
-      sums_ktp2: {
+      sums: {
         uici2: 0, 
         uici4pervi: 0
       },
@@ -214,7 +210,7 @@ export default {
         let req_data = req.results[0]
 
         this.no_cert = req_data.no_laporan
-        this.data_ktp = req_data.data_ktp['ktp-2']
+        this.data_ktp = req_data.data_ktp.ktp_pengukuran_kalibrasi_tekanan
         this.data_alat = req_data.data_alat
       } catch (error) {
         console.log('get LK err: ', error.response);

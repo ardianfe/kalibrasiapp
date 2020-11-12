@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <tekananHeader></tekananHeader>
+      <gayaHeader></gayaHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -121,19 +121,11 @@
                         </div>
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
                       </v-layout>
-                      
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
-                        <div style="width: 32mm">
-                          <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature Control</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
-                      </v-layout>
+
                     </v-flex>
                     <v-flex xs6>
                       <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">5.</p>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor Seri</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Serial Number</p>
@@ -144,7 +136,7 @@
                       </v-layout>
 
                       <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">5.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Merk/Buatan</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
@@ -153,18 +145,18 @@
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
-
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
+                      <!-- <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Internal Dimension</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;" v-html="': '+certificate.equipment.internal_dimension"></p>
+                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: 460mm(l)x250mm(p)x340mm(t)</p>
                         </v-flex>
                       </v-layout>
-                      <!-- <v-layout>
+
+                      <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
@@ -173,7 +165,7 @@
                         <v-flex xs6>
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
                         </v-flex>
-                      </v-layout> -->
+                      </v-layout>
 
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">8.</p>
@@ -184,7 +176,7 @@
                         <v-flex xs6>
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.others }}</p>
                         </v-flex>
-                      </v-layout>
+                      </v-layout> -->
                     </v-flex>
                   </v-layout>
 
@@ -271,7 +263,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.room_temp}} ± 0.10 °C</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.equipment.temperature}}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -280,7 +272,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}} ± 	1.0	% RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -493,7 +485,7 @@ p{
   }
 </style>
 <script>
-import tekananHeader from '~/components/tekanan/pressure.vue'
+import gayaHeader from '~/components/gaya/hydraulik_jack.vue'
 import uploadDialog from '~/components/uploadDialog.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
@@ -501,17 +493,17 @@ import jsPDF from 'jspdf'
 
 export default {
   components: {
-    tekananHeader,
+    gayaHeader,
     uploadDialog
   },
 
   head: {
-    title: 'Sertifikat | Bidang Tekanan',
+    title: 'Sertifikat | Bidang Gaya',
     meta: [
       {
-        hid: 'Tekanan',
-        name: 'Tekanan',
-        content: 'Bidang Tekanan'
+        hid: 'gaya',
+        name: 'gaya',
+        content: 'Bidang Gaya'
       }
     ],
 
@@ -621,25 +613,23 @@ export default {
     },
 
     elementMapping(alat, co) {
-      this.certificate.equipment.name = alat.deskripsi.nama_alat
-      this.certificate.equipment.capacity = alat.deskripsi.kapasitas.toFixed(4)
-      this.certificate.equipment.model = alat.deskripsi.tipe
-      this.certificate.equipment.serial_number = alat.deskripsi.no_seri
-      this.certificate.equipment.manufacture = alat.deskripsi.merk + ' / ' + alat.deskripsi.buatan
-      this.certificate.equipment.temperature = '-'
-      this.certificate.equipment.internal_dimension = 'Resolusi : ' + alat.deskripsi.resolusi + 'bar <br> Nominal : ' + alat.deskripsi.nominal + 'mm' 
-      this.certificate.equipment.others = 'Media : ' + alat.deskripsi.media
+      this.certificate.equipment.name = alat['Deskripsi Alat']
+      this.certificate.equipment.capacity = alat['Kapasitas'] + ' Unit'
+      this.certificate.equipment.model = alat['Merek']
+      this.certificate.equipment.serial_number = alat['No Seri']
+      this.certificate.equipment.manufacture = alat['No Seri'] + ' / ' + alat['Buatan']
+      this.certificate.equipment.temperature = alat['Suhu']
       this.certificate.owner.name = co.nama_co
       this.certificate.owner.address = co.alamat
-      this.certificate.standard.name = alat.alat_kalibrasi.alat + ' : ' + alat.alat_kalibrasi.sn
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui Puslit KIM-LIPI, Serpong'
-      this.certificate.acceptance_date = alat.tgl_diterima
-      this.certificate.calibration_date = alat.dikalibrasi.date
-      this.certificate.env_condition.room_temp = alat.deskripsi.kondisi_ling.suhu_ruang.setelah_koreksi
-      this.certificate.env_condition.humidity = alat.deskripsi.kondisi_ling.kelembaban_udara.setelah_koreksi
-      this.certificate.calibration_location = alat.deskripsi.lokasi
-      this.certificate.calibration_method = alat.metode_kalibrasi
-      this.certificate.refference = alat.standar_acuan
+      this.certificate.standard.name = alat['Standar dipakai']
+      this.certificate.standard.traceability = ''
+      this.certificate.acceptance_date = alat.tanggal_diterima
+      this.certificate.calibration_date = alat['Tanggal kalibrasi']
+      this.certificate.env_condition.room_temp = ''
+      this.certificate.env_condition.humidity = ''
+      this.certificate.calibration_location = alat['Lokasi Kalibrasi']
+      this.certificate.calibration_method = 'PC-309-10'
+      this.certificate.refference = alat['Standar acuan']
     },
 
     printWrapper() {
