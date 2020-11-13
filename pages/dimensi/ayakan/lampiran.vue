@@ -11,14 +11,6 @@
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
 
-            <!-- <v-layout row wrap>
-              <v-select 
-                :items="signatories" v-model="signatory" 
-                item-text="data.name" item-value="data" 
-                label="Penandatangan"
-                append-icon="expand_more"
-              ></v-select>
-            </v-layout> -->
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
@@ -66,105 +58,47 @@
                   </div>
 
 									<v-layout justify-center align-center column>
-										<table width="90%" class="text-xs-center">
+										<table class="text-xs-center">
                       <thead>
-                        <tr>
-                          <th rowspan="2">Pembacaan Nominal Standar (mm)</th>
-                          <th rowspan="2">Nilai Aktual Standar mm</th>
-                          <th colspan="2">Pembacaan Alat (mm)</th>
-                          <th colspan="2">Kesalahan (mm)</th>
-                          <th rowspan="2">*)Ketidakpastian (mm)</th>
-                        </tr>
-                        <tr>
-                          <th>Ukuran Luar</th>
-                          <th>Ukuran Dalam</th>
-                          <th>Ukuran Luar</th>
-                          <th>Ukuran Dalam</th>
+                        <tr class="tableizer-firstrow">
+                          <th class="px-3">Pengamatan</th>
+                          <th class="px-3">Nominal <br> ( um )</th>
+                          <th class="px-3">Pengukuran <br> ( mm )</th>
+                          <th class="px-3" colspan="2">Persyaratan sesuai <br> ASTM E-11-2004 <br> ( mm )</th>
+                          <th class="px-3">Ketidakpastian <br> Pengukuran *) <br> ( um )</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(item, index) in 10" :key="index">
-                          <td>{{data_kal['Pembacaan'][index]}}</td>
-                          <td v-if="data_kal['Nilai Aktual'][index]">{{data_kal['Nilai Aktual'][index].toFixed(5)}}</td>
-                          <td>{{data_kal['Pembacaan Alat '][index]}}</td>
-                          <td>{{data_kal['Unnamed: 4'][index]}}</td>
-                          <td v-if="data_kal['Kesalahan    '][index]">{{data_kal['Kesalahan    '][index].toFixed(5)}}</td>
-                          <td v-if="data_kal['Unnamed: 8'][index]">{{data_kal['Unnamed: 8'][index].toFixed(5)}}</td>
-                          <td v-if="item == 1" rowspan="10">{{ktp_u95}}</td>
+                        <tr height="80px">
+                          <th>Width <br> Opening</th>
+                          <td>600</td>
+                          <td>0.621</td>
+                          <td>0.575</td>
+                          <td>0.625</td>
+                          <td>3.08</td>
                         </tr>
-                        
-                        <!-- <tr>
-                          <td>50</td>
-                          <td>50.00163</td>
-                          <td>50.00</td>
-                          <td>50.02</td>
-                          <td>-0.00163</td>
-                          <td>0.01837</td>
+                      </tbody>
+                    </table>
+										
+                    <table class="mt-5 text-xs-center">
+                      <thead>
+                        <tr class="tableizer-firstrow">
+                          <th class="px-3">Pengamatan</th>
+                          <th class="px-3">Nominal <br> ( um )</th>
+                          <th class="px-3">Pengukuran <br> ( mm )</th>
+                          <th class="px-3" colspan="2">Persyaratan sesuai <br> ASTM E-11-2004 <br> ( mm )</th>
+                          <th class="px-3">Ketidakpastian <br> Pengukuran *) <br> ( um )</th>
                         </tr>
-                        <tr>
-                          <td>70</td>
-                          <td>69.99893</td>
-                          <td>70.00</td>
-                          <td>70.00</td>
-                          <td>0.00107</td>
-                          <td>0.00107</td>
+                      </thead>
+                      <tbody>
+                        <tr height="80px">
+                          <th>Diameter of <br> Wire</th>
+                          <td>0.400</td>
+                          <td>0.364</td>
+                          <td>0.340</td>
+                          <td>0.460</td>
+                          <td>0.01</td>
                         </tr>
-                        <tr>
-                          <td>100</td>
-                          <td>99.99829</td>
-                          <td>100.00</td>
-                          <td>100.00</td>
-                          <td>0.00171</td>
-                          <td>0.00171</td>
-                        </tr>
-                        <tr>
-                          <td>150</td>
-                          <td>149.99992</td>
-                          <td>150.00</td>
-                          <td>150.00</td>
-                          <td>0.00008</td>
-                          <td>0.00008</td>
-                        </tr>
-                        <tr>
-                          <td>170</td>
-                          <td>169.99722</td>
-                          <td>170.00</td>
-                          <td>170.00</td>
-                          <td>0.00278</td>
-                          <td>0.00278</td>
-                        </tr>
-                        <tr>
-                          <td>200</td>
-                          <td>199.99658</td>
-                          <td>200.00</td>
-                          <td>200.00</td>
-                          <td>0.00342</td>
-                          <td>0.00342</td>
-                        </tr>
-                        <tr>
-                          <td>250</td>
-                          <td>249.99821</td>
-                          <td>250.00</td>
-                          <td>250.00</td>
-                          <td>0.00179</td>
-                          <td>0.00179</td>
-                        </tr>
-                        <tr>
-                          <td>270 </td>
-                          <td>269.99551 </td>
-                          <td>270.00 </td>
-                          <td>270.00 </td>
-                          <td>0.00449 </td>
-                          <td>0.00449 </td>
-                        </tr>
-                        <tr>
-                          <td>300 </td>
-                          <td>299.99487 </td>
-                          <td>300.00 </td>
-                          <td>300.00 </td>
-                          <td>0.00513 </td>
-                          <td>0.00513 </td>
-                        </tr> -->
                       </tbody>
                     </table>
 										<p style="width: 90%; margin: 50px 0 150px 0">
@@ -294,53 +228,9 @@ export default {
   data: () => ({
     active: null,
     certificate_number: '',
-    certificate: {
-      equipment: {
-        name: '',
-        capacity: '',
-        model: '',
-        serial_number: '',
-        manufacture: '',
-        internal_dimension: '',
-        temperature: '',
-        others: '-',
-      },
-      owner: {
-        name: '',
-        address: ''
-      },
-      standard: {
-        name: '',
-        traceability: ''
-      },
-      acceptance_date: '',
-      calibration_date: '',
-      env_condition: {
-        room_temp: '',
-        humidity: ''
-      },
-      calibration_location: '',
-      calibration_method: '',
-      refference: '',
-      result: '',
-      published_date: '',
-      director_name: '',
-      director_nip: '',
-    },
     data: {},
 
-    data_kal: {
-      "Kesalahan    ": [],
-      "Mampu Ulang ": [],
-      "Nilai Aktual": [],
-      "Pembacaan": [],
-      "Pembacaan Alat ": [],
-      "Rata-rata": [],
-      "Unnamed: 4": [],
-      "Unnamed: 6": [],
-      "Unnamed: 8": [],
-      "Unnamed: 10": [],
-    },
+    data_kal: {},
 
     ktp_u95 : '',
 
@@ -403,33 +293,11 @@ export default {
 
         this.certificate_number = req_data.no_laporan
         this.data_alat = req_data.data_alat
-        this.data_kal = req_data.data_kal.hasil
-        this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95[3].toFixed(4)
+        // this.data_kal = req_data.data_kal.hasil
+        // this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95[3].toFixed(4)
       } catch (error) {
         console.log('get LK err: ', error.response);
       }
-    },
-
-    elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = 'Concrete Test Hammer'
-      this.certificate.equipment.capacity = '10 - 100 Unit'
-      this.certificate.equipment.model = 'HT 225'
-      this.certificate.equipment.serial_number = 308813
-      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      this.certificate.acceptance_date = '30 Mei 2017'
-      this.certificate.calibration_date = '2 Juni 2017'
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      this.certificate.published_date = '30 Mei 2107'
     },
 
     printWrapper() {

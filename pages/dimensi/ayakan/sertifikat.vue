@@ -262,27 +262,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}} ± 3 %RH</span></p>
-                      </v-layout>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout>
-                    <v-flex xs6>
-                      <v-layout row>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">3.</p>
-                        <div style="width: 32mm">
-                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang Terkoreksi</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_room_temp}}</span></p>
-                      </v-layout>
-                    </v-flex>
-                    <v-flex xs6>
-                      <v-layout row>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">4.</p>
-                        <div style="width: 32mm">
-                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan Terkoreksi</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}}</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -617,29 +597,29 @@ export default {
     },
 
     elementMapping(data, owner) {
-      this.certificate.equipment.name = data['Deskripsi Alat']
-      this.certificate.equipment.capacity = data['Kapasitas']
-      this.certificate.equipment.model = data['Tipe']
-      this.certificate.equipment.serial_number = data['No Seri']
-      this.certificate.equipment.manufacture = data['Buatan']
+      this.certificate.equipment.name = data.deskripsi.nama_alat
+      this.certificate.equipment.capacity = data.deskripsi.kapasitas
+      this.certificate.equipment.model = data.deskripsi.model
+      this.certificate.equipment.serial_number = data.deskripsi.no_seri
+      this.certificate.equipment.manufacture = data.deskripsi.buatan
       this.certificate.equipment.temperature = '-'
       this.certificate.owner.name = owner.nama_co
       this.certificate.owner.address = owner.alamat
-      this.certificate.standard.name = data['Standar dipakai']
+      this.certificate.standard.name = data.alat_kalibrasi
       this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui LK-001-IDN'
       this.certificate.env_condition = {
-        room_temp: data['Suhu Ruangan'],
-        corrected_room_temp: data['Suhu Terkoreksi'],
-        humidity: data['Kelembaban'],
-        corrected_humidity: data['Kelembaban Terkoreksi']
+        room_temp: data.deskripsi.suhu_terkoreksi.min.toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi.max.toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi.satuan,
+        corrected_room_temp: '',
+        humidity: data.deskripsi.kelembaban_terkoreksi.nilai.toFixed(3) + ' ' + data.deskripsi.kelembaban_terkoreksi.satuan,
+        corrected_humidity: ''
       }
-      this.certificate.acceptance_date = this.convertDate(data.tanggal_diterima)
-      this.certificate.calibration_date = this.convertDate(data['Tanggal kalibrasi'])
+      this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)
+      this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = data['Lokasi Kalibrasi']
-      this.certificate.calibration_method = data['Metoda Kalibrasi']
-      this.certificate.refference = data['Standar acuan']
+      this.certificate.calibration_location = data.deskripsi.lokasi
+      this.certificate.calibration_method = data.metode_kalibrasi
+      this.certificate.refference = data.standar_acuan[0] + '<br>' + data.standar_acuan[1] 
       this.certificate.published_date = ''
     },
 

@@ -12,149 +12,185 @@
             <v-layout row wrap>
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Deskripsi Alat : {{ data_alat['Deskripsi Alat'] }}</p>
+                  <p class="mb-1">Deskripsi Alat : {{ data_alat.deskripsi.nama_alat }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Tipe / Model : {{ data_alat['Tipe'] }}</p>
+                  <p class="mb-1">Tipe / Model : {{ data_alat.deskripsi.model }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Merek : {{ data_alat['Merek'] }}</p>
+                  <p class="mb-1">Merek : {{ data_alat.deskripsi.merk }}</p>
                 </v-layout>
               </v-flex>
               
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Kapasitas : {{ data_alat['Kapasitas'] }}</p>
+                  <p class="mb-1">Kapasitas : {{ data_alat.deskripsi.kapasitas }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">No Seri : {{ data_alat['No Seri'] }}</p>
+                  <p class="mb-1">No Seri : {{ data_alat.deskripsi.no_seri }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Buatan : {{ data_alat['Buatan'] }}</p>
+                  <p class="mb-1">Buatan : {{ data_alat.deskripsi.buatan }}</p>
                 </v-layout>
               </v-flex>
 
               <v-flex xs12 class="mt-4">
                 <v-layout>
-                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat['Lokasi Kalibrasi'] }}</p>
+                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat.deskripsi.lokasi }}</p>
                 </v-layout>
 
                 <v-layout row wrap>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan : {{ data_alat['Suhu Ruangan'] }}</p>
+                    <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruang.min }} - {{ data_alat.deskripsi.suhu_ruang.max }} {{ data_alat.deskripsi.suhu_ruang.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat['Kelembapan'] }}</p>
+                    <p class="mb-1">Kelembapan : {{ data_alat.deskripsi.kelembaban.nilai }} {{ data_alat.deskripsi.kelembaban.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat['Suhu Terkoreksi'] }}</p>
+                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi.min }} - {{ data_alat.deskripsi.suhu_terkoreksi.max }} {{ data_alat.deskripsi.suhu_terkoreksi.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat['Kelembapan Terkoreksi'] }}</p>
+                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi.kelembaban_terkoreksi.nilai }} {{ data_alat.deskripsi.kelembaban_terkoreksi.satuan }}</p>
                   </v-flex>
                 </v-layout>
 
                 <br>
 
                 <v-layout>
-                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat['Alat Kalibrasi yang digunakan'] }}</p>
+                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat.alat_kalibrasi }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat['Metoda Kalibrasi'] }}</p>
-                </v-layout>
-                <v-layout>
-                  <p class="mb-3">Standar Acuan : {{ data_alat['Standar acuan'] }}</p>
+                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat.metode_kalibrasi }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Dikondisikan tanggal : {{data_alat['Tanggal kalibrasi']}}</p>
-                </v-layout>
-                
+                  <p class="mb-3">Standar Acuan : {{ data_alat.standar_acuan[0] }} &emsp; {{ data_alat.standar_acuan[1] }}</p>
+                </v-layout>                
               </v-flex>
             </v-layout>
           </v-card-text>
 
           <v-card-text>
-            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI JANGKA SORONG</p>
+            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI AYAKAN</p>
 
-            <p class="b">No. Laporan : 3-09-19-00757</p>
+            <p class="b">No. Laporan : {{no_cert}}</p>
             <!-- <pre>
               {{data_kal.hasil}}
             </pre> -->
-            <table>
+            <p>Data Hasil Pengamatan</p>
+            <p class="mb-1">Nominal {{hp_nominal.nilai.nilai}} {{hp_nominal.nilai.satuan}}</p>
+            <table width="100%" class="mb-3">
+              <thead>
+                <tr class="tableizer-firstrow">
+                  <th>Width Opening</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>10</th>
+                </tr>
+              </thead>
+              <tr v-for="(item, index) in hp_nominal.data_table['1'].length" :key="index">
+                <td>{{hp_nominal.data_table['width opening'] ? hp_nominal.data_table['width opening'][index] : ''}}</td>
+                <td v-for="x in 10" :key="x">
+                  {{hp_nominal.data_table[''+x] ? hp_nominal.data_table[''+x][index] : ''}}
+                </td>
+              </tr>
+              <tr>
+                <td>Rata Rata ( mm )</td>
+                <td colspan="5">0.621</td>
+                <td colspan="3">Persyaratan</td>
+                <td>0.575</td>
+                <td>0.625</td>
+              </tr>
+            </table>
+
+            <p class="mb-1">Nominal {{hp_diameter.nilai.nilai}} {{hp_diameter.nilai.satuan}}</p>
+            <table width="100%" class="mb-3">
+              <thead>
+                <tr class="tableizer-firstrow">
+                  <th>Width Opening</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>10</th>
+                </tr>
+              </thead>
+              <tr v-for="(item, index) in hp_diameter.data_table['1'].length" :key="index">
+                <td>{{hp_diameter.data_table['diameter of wire'] ? hp_diameter.data_table['diameter of wire'][index] : ''}}</td>
+                <td v-for="x in 10" :key="x">
+                  {{hp_diameter.data_table[''+x] ? hp_diameter.data_table[''+x][index] : ''}}
+                </td>
+              </tr>
+              <tr>
+                <td>Rata Rata ( mm )</td>
+                <td colspan="5">0.621</td>
+                <td colspan="3">Persyaratan</td>
+                <td>0.340</td>
+                <td>0.460</td>
+              </tr>
+            </table>
+
+            <table width="100%">
+              <thead>
+                <tr>
+                  <th>Ketidakpastian</th>
+                  <th>Alat Standar</th>
+                  <th>Selisih Suhu</th>
+                  <th>Resolusi Profil Projec</th>
+                  <th>Pengaruh Mekanik</th>
+                  <th>Standar Deviasi</th>
+                  <th>Uc</th>
+                  <th>U95</th>
+                </tr>
+              </thead>
+              <!-- alat_std
+              selisih_suhu
+              resolusi_project
+              pengaruh_mekanik
+              stdv
+              uc
+              u95 -->
               <tbody>
                 <tr>
-                  <td rowspan="2">Pembacaan Nominal Standar (mm)</td>
-                  <td rowspan="2">Nilai Aktual Standar (mm)</td>
-                  <td colspan="2">Pembacaan Alat (mm)</td>
-                  <td colspan="2">Rata-rata Pembacaan Alat (mm)</td>
-                  <td colspan="2">Kesalahan (mm)</td>
-                  <td colspan="2">Mampu Ulang (mm)</td>
+                  <th>Width Opening <br> (um)</th>
+                  <td>{{ width_opening.alat_std }}</td>
+                  <td>{{ width_opening.selisih_suhu }}</td>
+                  <td>{{ width_opening.resolusi_project }}</td>
+                  <td>{{ width_opening.pengaruh_mekanik }}</td>
+                  <td>{{ width_opening.stdv.toExponential(4) }}</td>
+                  <td>{{ width_opening.uc }}</td>
+                  <td>{{ width_opening.u95 }}</td>
                 </tr>
                 <tr>
-                  <td>Ukuran Luar</td>
-                  <td>Ukuran Dalam</td>
-                  <td>Ukuran Luar</td>
-                  <td>Ukuran Dalam</td>
-                  <td>Ukuran Luar</td>
-                  <td>Ukuran Dalam</td>
-                  <td>Ukuran Luar</td>
-                  <td>Ukuran Dalam</td>
+                  <th>Diameter of Wire <br> (mm)</th>
+                  <td>{{ diameter_of_wire.alat_std }}</td>
+                  <td>{{ diameter_of_wire.selisih_suhu }}</td>
+                  <td>{{ diameter_of_wire.resolusi_project }}</td>
+                  <td>{{ diameter_of_wire.pengaruh_mekanik }}</td>
+                  <td>{{ diameter_of_wire.stdv.toExponential(4) }}</td>
+                  <td>{{ diameter_of_wire.uc }}</td>
+                  <td>{{ diameter_of_wire.u95 }}</td>
                 </tr>
-                <!-- <template v-if="data_kal['Pembacaan']">
-                  <tr v-for="(item, index) in data_kal['Pembacaan'].length" :key="index">
-                    <td>{{data_kal['Pembacaan'][index]}}</td>
-                    <td>
-                      <span v-if="data_kal['Nilai Aktual'][index].toString().length > 0 ">
-                        {{data_kal['Nilai Aktual'][index].toFixed(3)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>{{data_kal['Pembacaan Alat '][index]}}</td>
-                    <td>{{data_kal['Unnamed: 4'][index]}}</td>
-                    <td>{{data_kal['Rata-rata'][index]}}</td>
-                    <td>{{data_kal['Unnamed: 6'][index]}}</td>
-                    <td>
-                      <span v-if="data_kal['Kesalahan    '][index].toString().length > 0 ">
-                        {{data_kal['Kesalahan    '][index].toFixed(5)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal['Unnamed: 8'][index].toString().length > 0 ">
-                        {{data_kal['Unnamed: 8'][index].toFixed(5)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal['Mampu Ulang '][index].toString().length > 0 ">
-                        {{data_kal['Mampu Ulang '][index].toFixed(2)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal['Unnamed: 10'][index].toString().length > 0 ">
-                        {{data_kal['Unnamed: 10'][index].toFixed(2)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                  </tr>
-                </template> -->
               </tbody>
             </table>
 
-            <p class="mt-3 mb-0">Repeatability</p>
-            <table>
-              <tr v-for="x in 2" :key="x">
-                <td class="text-xs-center" width="80px" v-for="i in 5" :key="i">50.00</td>
-              </tr>
-            </table>
-            
             <v-layout row class='mt-4'>
               <v-flex xs6>
                 Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
@@ -173,180 +209,6 @@
             </v-layout>
           </v-card-text>
         </v-card>
-
-        <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
-          <v-card-text>
-            <table width="100%">
-              <thead>
-                <tr class="tableizer-firstrow">
-                  <th colspan="3">Perhitungan Ketidakpastian Pengukuran</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>a. </td>
-                  <td>Pada alat kalibrasi </td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>Tingkat kepercayaan 95 %, Faktor cakupan k (asumsi) = 2</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>- Gauge Block No Seri 516-970-01, Ketidakpastian dari Sertifikat  Ub1   =  0.19 / 2  =</td>
-                  <td>{{data_ktp[0]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>b.</td>
-                  <td>Resolusi jangka sorong</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub3  = ( (10) / 1.73205 ) =</td>
-                  <td>{{data_ktp[1]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>c.</td>
-                  <td>Selisih koefisien muai</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub7  = ( 2e-6 / 1.73205  )  x 150000           =</td>
-                  <td>{{data_ktp[2]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>d.</td>
-                  <td>Selisih suhu antara jangka sorong dan gauge block</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub2 = (0.1/ 1.73205) x 3,45 =</td>
-                  <td>{{data_ktp[3]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>e.</td>
-                  <td>Drift Standar</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub5  = ((0.05 + 0.5e-6.L) x Y) / 1.73205 =  ((0.05+0.5e-6x200000)x2 / 1.73205 =</td>
-                  <td>{{data_ktp[4]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>f.</td>
-                  <td>Lapisan Wringing</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub6  = Ö ( k x 0.052) / 1.73205 =  Ö ( 3 x 0.052 ) /  1.73205  =</td>
-                  <td>{{data_ktp[5]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>g.</td>
-                  <td>Kesalahan geometric</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub4 = ( 10  / 1.73205 ) =</td>
-                  <td>{{data_ktp[6]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>h.</td>
-                  <td>Standar deviasi 0.00000 =</td>
-                  <td>{{data_ktp[7]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>Ketidakpastian Gabungan (uc) = </td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>#REF!</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= 8.1774223</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>Ketidakpastian diperluas (U95) =</td>
-                  <td>{{ktp_u95[0]}}</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= {{ktp_u95[1]}}</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= {{ktp_u95[2]}}</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= {{ktp_u95[3]}}</td>
-                  <td>mm</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <v-layout row class='mt-4'>
-              <v-flex xs6>
-                Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
-                Tanggal :	{{data_alat['Tanggal periksa']}} <br>
-                Tanda Tangan :	
-
-                <hr style="width: 50%; margin-top: 100px">	
-              </v-flex>
-              <v-flex xs6>
-                Dikalibrasi oleh : {{data_alat['Dikalibrasi']}} <br>
-                Tanggal :	{{convertDate(data_alat['Tanggal kalibrasi'])}} <br>
-                Tanda-tangan :
-
-                <hr style="width: 50%; margin-top: 100px">	
-              </v-flex>
-            </v-layout>
-          </v-card-text>
-        </v-card>        
-    
       </v-layout>
     </v-flex>
   </v-layout>
@@ -387,23 +249,109 @@ export default {
   data: () => ({
     no_cert: '',
 
-    data_alat: {},
     ktp_u95: [],
     uc: 0,
     data_ktp: [],
 
-    data_kal: {
-      "Kesalahan ": [],
-      "Mampu Ulang ": [],
-      "Nilai Aktual": [],
-      "Pembacaan": [],
-      "Pembacaan Alat ": [],
-      "Rata-rata": [],
-      "Unnamed: 4": [],
-      "Unnamed: 6": [],
-      "Unnamed: 8": [],
-      "Unnamed: 10": []
-    }
+    diameter_of_wire: {
+      alat_std: 0,
+      pengaruh_mekanik: 0,
+      resolusi_project: 0,
+      selisih_suhu: 0,
+      stdv: 0,
+      u95: 0,
+      uc: 0
+    },
+    width_opening: {
+      alat_std: 0,
+      pengaruh_mekanik: 0,
+      resolusi_project: 0,
+      selisih_suhu: 0,
+      stdv: 0,
+      u95: 0,
+      uc: 0
+    },
+
+    hp_nominal: {
+      data_table: {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": [],
+        "8": [],
+        "9": [],
+        "10": [],
+        "width opening": []
+      },
+      nilai: {
+        "nilai": 0,
+        "satuan": "mm"
+      }
+    },
+    hp_diameter: {
+      data_table: {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": [],
+        "8": [],
+        "9": [],
+        "10": [],
+        "diameter of wire": []
+      },
+      nilai: {
+        "nilai": 0,
+        "satuan": "mm"
+      }
+    },
+
+    data_alat:{
+      alat_kalibrasi: "",
+      deskripsi: {
+          buatan: "",
+          kapasitas: "",
+          kelembaban: {
+            nilai: 0,
+            satuan: ""
+          },
+          kelembaban_terkoreksi:{
+            nilai: 0,
+            satuan: ""
+          },
+          lokasi: "",
+          merk: "",
+          model: "",
+          nama_alat: "",
+          no_seri: 0,
+          suhu_ruang: {
+            max: 0,
+            min: 0,
+            satuan: ""
+          },
+          suhu_terkoreksi: {
+            max: 0,
+            min: 0,
+            satuan: ""
+          }
+      },
+      dikalibrasi: {
+          date: "",
+         person: ""
+      },
+      diperiksa: {
+          date: "",
+          person: ""
+      },
+      metode_kalibrasi: "",
+      standar_acuan: [],
+      tgl_diterima: ""
+    },
   }),
 
   mounted() {
@@ -420,11 +368,11 @@ export default {
 
         this.no_cert = req_data.no_laporan
         this.data_alat = req_data.data_alat
-        this.data_kal = req_data.data_kal.hasil
+        this.hp_nominal = req_data.data_kal.hp_nominal
+        this.hp_diameter = req_data.data_kal.hp_diameter
 
-        this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95
-        this.uc = req_data.data_ktp.hasil.uc
-        this.data_ktp = req_data.data_ktp.data['Unnamed: 8']
+        this.width_opening = req_data.data_ktp.width_opening
+        this.diameter_of_wire = req_data.data_ktp.diameter_of_wire
       } catch (error) {
         console.log('get LK err: ', error.response);
       }
