@@ -69,14 +69,8 @@
 
 export default {
   head: {
-    title: 'Daftar Sampel Jangka Sorong | B4T Kalibrasi',
-    meta: [
-      {
-        hid: 'dimensi',
-        name: 'dimensi',
-        content: 'Bidang Dimensi'
-      }
-    ]
+    title: 'Daftar Sampel | B4T Kalibrasi',
+    meta: []
   },
 
   data: () => ({
