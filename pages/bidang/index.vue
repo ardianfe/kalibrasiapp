@@ -60,12 +60,12 @@
 <script>
 export default {
   head: {
-    title: 'Upload File',
+    title: 'Bidang Suhu',
     meta: [
       {
-        hid: 'temperature',
-        name: 'temperature',
-        content: 'Bidang Temperatur'
+        hid: 'suhu',
+        name: 'suhu',
+        content: 'Bidang Suhu'
       }
     ],
   },
@@ -118,8 +118,29 @@ export default {
       },
       { 
         id: 7,
-        name: 'Water Bath',
+        name: 'Water Bath (hotplate)',
         value: 'water_bath',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=35' 
+      },
+      { 
+        id: 8,
+        name: 'Furnace',
+        value: 'furnace',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=35' 
+      },
+      { 
+        id: 9,
+        name: 'Inkubator',
+        value: 'incubator',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=35' 
+      },
+      { 
+        id: 10,
+        name: 'Freezer',
+        value: 'freexer',
         desc: '-',
         url: '/daftar_sampel?bid_id=35' 
       },

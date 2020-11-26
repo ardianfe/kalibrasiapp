@@ -6,221 +6,158 @@
       <v-layout justify-center column>
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-card-text>
-            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI MICROMETER</p>
+            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI DIAL INDIKATOR</p>
 
             <p class="b">No. Laporan : {{no_cert}}</p>
             <v-layout row wrap>
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Deskripsi Alat : {{ data_alat.deskripsi.nama_alat }}</p>
+                  <p class="mb-1">Deskripsi Alat : {{ data_alat['Deskripsi Alat'] }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Tipe / Model : {{ data_alat.deskripsi.model }}</p>
+                  <p class="mb-1">Tipe / Model : {{ data_alat['Tipe'] }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Merek : {{ data_alat.deskripsi.merk }}</p>
+                  <p class="mb-1">Merek : {{ data_alat['Merek'] }}</p>
                 </v-layout>
               </v-flex>
               
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Kapasitas : {{ data_alat.deskripsi.kapasitas[0] }}, {{ data_alat.deskripsi.kapasitas[1] }}</p>
+                  <p class="mb-1">Kapasitas : {{ data_alat['Kapasitas'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">No Seri : {{ data_alat.deskripsi.no_seri }}</p>
+                  <p class="mb-1">No Seri : {{ data_alat['No Seri'] }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Buatan : {{ data_alat.deskripsi.buatan }}</p>
+                  <p class="mb-1">Buatan : {{ data_alat['Buatan'] }}</p>
                 </v-layout>
               </v-flex>
 
               <v-flex xs12 class="mt-4">
                 <v-layout>
-                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat.deskripsi.lokasi }}</p>
+                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat['Lokasi Kalibrasi'] }}</p>
                 </v-layout>
 
                 <v-layout row wrap>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruangan[0] }} - {{ data_alat.deskripsi.suhu_ruangan[1] }} {{ data_alat.deskripsi.suhu_ruangan[2] }}</p>
+                    <p class="mb-1">Suhu Ruangan : {{ data_alat['Suhu Ruangan'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat.deskripsi['kelembaban_%'] }} {{ data_alat.deskripsi['kelembaban_%'] }}</p>
+                    <p class="mb-1">Kelembapan : {{ data_alat['Kelembapan'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi[0] }} - {{ data_alat.deskripsi.suhu_terkoreksi[1] }} {{ data_alat.deskripsi.suhu_terkoreksi[2] }}</p>
+                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat['Suhu Terkoreksi'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] }} {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] }}</p>
+                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat['Kelembapan Terkoreksi'] }}</p>
                   </v-flex>
                 </v-layout>
 
                 <br>
 
                 <v-layout>
-                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat.alat_kalibrasi }}</p>
+                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat['Alat Kalibrasi yang digunakan'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat.metode_kalibrasi }}</p>
+                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat['Metoda Kalibrasi'] }}</p>
+                </v-layout>
+                <v-layout>
+                  <p class="mb-3">Standar Acuan : {{ data_alat['Standar acuan'] }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-3">Standar Acuan : {{ data_alat.standar_acuan }}</p>
-                </v-layout>                
+                  <p class="mb-1">Dikondisikan tanggal : {{data_alat['Tanggal kalibrasi']}}</p>
+                </v-layout>
+                
               </v-flex>
             </v-layout>
           </v-card-text>
 
           <v-card-text>
-            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI MICROMETER</p>
+            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI DIAL INDIKATOR</p>
 
             <p class="b">No. Laporan : 3-09-19-00757</p>
             <!-- <pre>
               {{data_kal.hasil}}
             </pre> -->
             <table>
-              <thead>
-                <tr>
-                  <th rowspan="2">Pembacaan Nominal Standar (mm)</th>
-                  <th rowspan="2">Nilai Aktual Standar (mm)</th>
-                  <th colspan="3">Pembacaan Alat (mm)</th>
-                  <th rowspan="2">Rata-rata Pembacaan Alat (mm)</th>
-                  <th rowspan="2">Kesalahan (mm)</th>
-                  <th rowspan="2">Mampu Ulang (mm)</th>
-                </tr>
-                <tr>
-                  <th>I</th>
-                  <th>II</th>
-                  <th>III</th>
-                </tr>
-              </thead>
               <tbody>
                 <tr>
+                  <th rowspan="2">Penunjukan <br> Dial <br> (X 0,01 mm)</th>
+                  <th colspan="2">Penunjukan Standar <br> (x 0,001 mm)</th>
+                  <th colspan="2">Setelah Koreksi</th>
+                  <th colspan="2">Rata-rata</th>
+                  <th colspan="2">Kesalahan (mm)</th>
+                  <th colspan="2">Mampu Ulang (mm)</th>
                 </tr>
                 <tr>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0</td>
-                  <td>0</td>
+                  <th>Naik</th>
+                  <th>Turun</th>
+                  <th>Naik <br>(x 0.001 mm)</th>
+                  <th>Turun <br>(x 0.001 mm)</th>
+                  <th>Naik <br>(x 0.001 mm)</th>
+                  <th>Turun <br>(x 0.001 mm)</th>
+                  <th>Naik <br>(x 0.01 mm)</th>
+                  <th>Turun <br>(x 0.01 mm)</th>
+                  <th>Naik <br>(x 0.01 mm)</th>
+                  <th>Turun <br>(x 0.01 mm)</th>
                 </tr>
-                <tr>
-                  <td>2.5 </td>
-                  <td>2.50003</td>
-                  <td>2.500</td>
-                  <td>2.500</td>
-                  <td>2.500</td>
-                  <td>2.500</td>
-                  <td>-0.00003</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>5.0 </td>
-                  <td>5.10006</td>
-                  <td>5.000</td>
-                  <td>5.000</td>
-                  <td>5.000</td>
-                  <td>5.000</td>
-                  <td>-0.10006</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>8.0 </td>
-                  <td>7.69992</td>
-                  <td>8.000</td>
-                  <td>8.000</td>
-                  <td>8.000</td>
-                  <td>8.000</td>
-                  <td>0.30008</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>10.0 </td>
-                  <td>10.29993</td>
-                  <td>10.000</td>
-                  <td>10.000</td>
-                  <td>10.000</td>
-                  <td>10.000</td>
-                  <td>-0.29993</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>13.0 </td>
-                  <td>12.89996</td>
-                  <td>13.000</td>
-                  <td>13.000</td>
-                  <td>13.000</td>
-                  <td>13.000</td>
-                  <td>0.10004</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>15.0 </td>
-                  <td>15.00016</td>
-                  <td>15.000</td>
-                  <td>15.000</td>
-                  <td>15.000</td>
-                  <td>15.000</td>
-                  <td>-0.00016</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>18.0 </td>
-                  <td>17.60030</td>
-                  <td>18.000</td>
-                  <td>18.000</td>
-                  <td>18.000</td>
-                  <td>18.000</td>
-                  <td>0.39970</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>20.0 </td>
-                  <td>20.20012</td>
-                  <td>20.000</td>
-                  <td>20.000</td>
-                  <td>20.000</td>
-                  <td>20.000</td>
-                  <td>-0.20012</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>22.5 </td>
-                  <td>22.80025</td>
-                  <td>22.500</td>
-                  <td>22.500</td>
-                  <td>22.500</td>
-                  <td>22.500</td>
-                  <td>-0.30025</td>
-                  <td>0.000 </td>
-                </tr>
-                <tr>
-                  <td>25.0 </td>
-                  <td>25.00020</td>
-                  <td>25.000</td>
-                  <td>25.000</td>
-                  <td>25.000</td>
-                  <td>25.000</td>
-                  <td>-0.00020</td>
-                  <td>0.000 </td>
-                </tr>
+                <template v-if="data_kal['Pembacaan']">
+                  <tr v-for="(item, index) in data_kal['Pembacaan'].length" :key="index">
+                    <td>{{data_kal['Pembacaan'][index]}}</td>
+                    <td>
+                      <span v-if="data_kal['Nilai Aktual'][index].toString().length > 0 ">
+                        {{data_kal['Nilai Aktual'][index].toFixed(3)}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>{{data_kal['Pembacaan Alat '][index]}}</td>
+                    <td>{{data_kal['Pembacaan Alat '][index]}}</td>
+                    <td>{{data_kal['Unnamed: 4'][index]}}</td>
+                    <td>{{data_kal['Rata-rata'][index]}}</td>
+                    <td>{{data_kal['Unnamed: 6'][index]}}</td>
+                    <td>
+                      <span v-if="data_kal['Kesalahan    '][index].toString().length > 0 ">
+                        {{data_kal['Kesalahan    '][index].toFixed(5)}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal['Unnamed: 8'][index].toString().length > 0 ">
+                        {{data_kal['Unnamed: 8'][index].toFixed(5)}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal['Mampu Ulang '][index].toString().length > 0 ">
+                        {{data_kal['Mampu Ulang '][index].toFixed(2)}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                    <td>
+                      <span v-if="data_kal['Unnamed: 10'][index].toString().length > 0 ">
+                        {{data_kal['Unnamed: 10'][index].toFixed(2)}}
+                      </span>
+                      <span v-else>&nbsp;</span>
+                    </td>
+                  </tr>
+                </template>
               </tbody>
             </table>
-            
-            <p class="mb-0 mt-3">Repeatability</p>
-            <table width="350px" class="text-xs-center">
-              <tr v-for="index in 2" :key="index">
-                <td v-for="index2 in 5" :key="index2">15</td>
+
+            <p class="mt-3 mb-0">Pengukuran Berulang</p>
+            <table>
+              <tr v-for="x in 2" :key="x">
+                <td class="text-xs-center" width="80px" v-for="i in 5" :key="i">50.00</td>
               </tr>
             </table>
-
+            
             <v-layout row class='mt-4'>
               <v-flex xs6>
                 Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
@@ -426,12 +363,13 @@
     border-collapse: collapse;
   } table, th, td {
     border: 1px solid grey;
-    padding: 3px
+    padding: 3px;
+    font-size: 10pt
   }
 </style>
 
 <script>
-import dimensiHeader from '~/components/dimensi/micrometer.vue'
+import dimensiHeader from '~/components/dimensi/dial_indikator.vue'
 // import durometer from '~/static/durometer.json' 
 
 export default {
@@ -440,7 +378,7 @@ export default {
   },
 
   head: {
-    title: 'Lembar Kerja Jangka Sorong | Bidang Dimensi',
+    title: 'Lembar Kerja Dial Indikator | Bidang Dimensi',
     meta: [
       {
         hid: 'dimensi',
@@ -452,34 +390,6 @@ export default {
 
   data: () => ({
     no_cert: '',
-
-    data_alat:{
-      alat_kalibrasi: "",
-      deskripsi: {
-          buatan: "",
-          kapasitas: [0, 0],
-          'kelembaban_%': 0,
-          'kelembaban_terkoreksi_%': 0,
-          lokasi: "",
-          merk: "",
-          model: "",
-          nama_alat: "",
-          no_seri: 0,
-          suhu_ruangan: [0, 0, ""],
-          suhu_terkoreksi: [0, 0, ""]
-      },
-      dikalibrasi: {
-          date: "",
-         person: ""
-      },
-      diperiksa: {
-          date: "",
-          person: ""
-      },
-      metode_kalibrasi: "",
-      standar_acuan: [],
-      tgl_diterima: ""
-    },
 
     ktp_u95: [],
     uc: 0,

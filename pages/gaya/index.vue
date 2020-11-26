@@ -109,21 +109,63 @@ export default {
         desc: '-',
         url: '/daftar_sampel?bid_id=9' 
       },
+      { 
+        id: 6,
+        name: 'Mesin Uji Universal',
+        value: 'mesin_uji',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=13' 
+      },
+      { 
+        id: 7,
+        name: 'Mesin Uji Impak',
+        value: 'uji_impak',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=12' 
+      },
+      { 
+        id: 8,
+        name: 'Mesin Abrasi',
+        value: 'abrasi',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=10' 
+      },
+      { 
+        id: 9,
+        name: 'Mesin Bending',
+        value: 'bending',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=11' 
+      },
+      { 
+        id: 10,
+        name: 'Mixer',
+        value: 'mixer',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=14' 
+      },
+      { 
+        id: 11,
+        name: 'Proving Ring',
+        value: 'proving_ring',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=15' 
+      },
+      { 
+        id: 12,
+        name: 'Spring Impact',
+        value: 'spring_impact',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=16' 
+      },
+      { 
+        id: 13,
+        name: 'Surface Roughness',
+        value: 'surface_roughness',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=17' 
+      },
     ],
-
-    // 6: { id: 'gaya1', slug: '/gaya/durometer/lk', name: 'Durometer', cat: 'gaya' },
-    // 7: { id: 'gaya2', slug: '/gaya/hammer_tester/before_set', name: 'Hammer Tester', cat: 'gaya' },
-    // 8: { id: 'gaya3', slug: '/gaya/hydraulik_jack/lk', name: 'Hydraulic Jack', cat: 'gaya' },
-    // 9: { id: 'gaya4', slug: '/gaya/load_cell/lk', name: 'Load Cell', cat: 'gaya' },
-    // 10: { id: 'gaya5', slug: '/gaya/abrasi/lk', name: 'Mesin Abrasi', cat: 'gaya' },
-    // 11: { id: 'gaya6', slug: '/gaya/bending/lk', name: 'Mesin Bending', cat: 'gaya' },
-    // 12: { id: 'gaya7', slug: '/gaya/uji_impak/lk', name: 'Mesin Uji Impak', cat: 'gaya' },
-    // 13: { id: 'gaya8', slug: '/gaya/uji/lk', name: 'Mesin Uji', cat: 'gaya' },
-    // 14: { id: 'gaya9', slug: '/gaya/mixer/lk', name: 'Mixer', cat: 'gaya' },
-    // 15: { id: 'gaya10', slug: '/gaya/proving_ring/lk', name: 'Proving Ring', cat: 'gaya' },
-    // 16: { id: 'gaya11', slug: '/gaya/spring_impact/lk', name: 'Spring Impact', cat: 'gaya' },
-    // 17: { id: 'gaya12', slug: '/gaya/surface_roughness/lk', name: 'Surface Roughness', cat: 'gaya' },
-    // 18: { id: 'gaya13', slug: '/gaya/uji_kekerasan/lk', name: 'Uji Kekerasan', cat: 'gaya' },
 
     filename: '',
     file: {},
