@@ -76,14 +76,14 @@ export default {
     fields: [
       { 
         id: 1, 
-        name: 'Buret', 
+        name: 'Pipet Ukur - Gelas Ukur - Buret', 
         value: 'buret', 
         desc: '-', 
         url: '/daftar_sampel?bid_id=42' 
       },
       { 
         id: 2, 
-        name: 'Piknometer', 
+        name: 'Labu Ukur - Pipet Seukuran - Piknometer', 
         value: 'piknometer', 
         desc: '-', 
         url: '/daftar_sampel?bid_id=43' 
