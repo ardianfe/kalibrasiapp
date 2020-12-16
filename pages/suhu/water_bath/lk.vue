@@ -29,23 +29,23 @@
                   <tr v-for="(tp_header, index) in tp_headers" :key="index">
                     <th v-for="(header, index2) in tp_header" :key="index2" :colspan="header.cspan" :rowspan="header.rspan">{{header.text}}</th>
                   </tr>
-                  <template v-if="data_kal['hk_'+selected_temp]">
+                  <template v-if="data_kal['hk'+selected_temp]">
                     <tr v-for="(item, index) in titik_uji" :key="index">
                       <td>{{item}}</td>
                       <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][index].toFixed(2)}}
+                        {{data_kal['hk'+selected_temp][key][index].toFixed(2)}}
                       </td>
                     </tr>
                     <tr>
                       <td>Indikator</td>
                       <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][titik_uji]}}
+                        {{data_kal['hk'+selected_temp][key][titik_uji]}}
                       </td>
                     </tr>
                     <tr>
                       <td>Ambient</td>
                       <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][titik_uji+1]}}
+                        {{data_kal['hk'+selected_temp][key][titik_uji+1]}}
                       </td>
                     </tr>
                   </template>
@@ -57,7 +57,7 @@
 
               <!-- ketidakpastian -->
               <p class="font-weight-bold" style="margin-top: 50px">Ketidakpastian</p>
-              <table v-if="selected_temp != '150'" width="100%">
+              <table v-if="selected_temp == '300'" width="100%">
                 <template v-if="selected_temp">
                   <tr>
                     <th v-for="(header2, index) in header2" :key="index">
@@ -67,39 +67,39 @@
 
                   <tr v-for="(key, index) in ktp_110_komponen[0].length" :key="index">
                     <td>
-                      {{ktp_110_komponen[0][index]}}
+                      {{data_ktp['ktp_'+selected_temp].table_ktp.komponen[index]}}
                     </td>
                     <td>°C</td>
                     <td>{{ktp_110_komponen[1][index]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['U'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['pembagi'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['ui'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['ci'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['uici'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['uici2'][index+1]}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].table_ktp['U'][index]}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].table_ktp['pembagi'][index]}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].table_ktp['ui'][index]}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].table_ktp['ci'][index]}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].table_ktp['uici'][index]}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].table_ktp['uici2'][index]}}</td>
                   </tr>
                   
                   <tr>
                     <td colspan="8">Sums</td>
-                    <td>{{data_ktp['ktp_sums_'+selected_temp].toFixed(5)}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].sums}}</td>
                   </tr>
                   <tr>
                     <td colspan="8">Ketidakpastian baku gabungan, uc, (mg)</td>
-                    <td>{{data_ktp['ktp_gabungan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_gabungan_'+selected_temp].besaran}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].ktp_gab.nilai.toFixed(4)}} {{data_ktp['ktp_'+selected_temp].ktp_gab.besaran}}</td>
                   </tr>
                   <tr>
                     <td colspan="8">Faktor cakupan, k-student’s untuk neff dan CL 95 %</td>
-                    <td>{{data_ktp['ktp_fc_'+selected_temp]}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].ktp_fc}}</td>
                   </tr>
                   <tr>
                     <td colspan="8">Ketidak pastian bentangan, U = k.uc</td>
-                    <td>{{data_ktp['ktp_bentangan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_bentangan_'+selected_temp].besaran}}</td>
+                    <td>{{data_ktp['ktp_'+selected_temp].ktp_bentangan.nilai.toFixed(4)}} {{data_ktp['ktp_'+selected_temp].ktp_bentangan.besaran}}</td>
                   </tr>
                 </template>
 
               </table>
 
-              <table v-else width="50%">
+              <table v-if="selected_temp && selected_temp != '300'" width="50%">
                 <tr>
                   <th v-for="(header, index) in ktpheader" :key="index">
                     {{header}}
@@ -108,12 +108,12 @@
                 <tr v-for="(key, index) in ktp_150_komponen.length" :key="index">
                   <td>{{ktp_150_komponen[index]}}</td>
                   <td>°C</td>
-                  <td>{{data_ktp.ktp_data_150['uici'][index].toFixed(3)}}</td>
-                  <td>{{data_ktp.ktp_data_150['uici2'][index].toFixed(3)}}</td>
+                  <td>{{data_ktp['ktp_'+selected_temp].table_ktp['UiCi'][index].toFixed(3)}}</td>
+                  <td>{{data_ktp['ktp_'+selected_temp].table_ktp['UiCi2'][index].toFixed(3)}}</td>
                 </tr>
                 <tr>
                   <td colspan="3">Ketidak pastian bentangan, U = k.uc</td>
-                  <td>{{data_ktp.ktp_bentangan_150}}</td>
+                  <td>{{data_ktp['ktp_'+selected_temp].ktp_bentangan}}</td>
                 </tr>
                 <!-- <tr v-for="(item, index) in 4" :key="index">
                   <td>{{sheets.ktp[index]['Komponen']}}</td>
@@ -171,7 +171,7 @@ export default {
 
   data: () => ({
     active: null,
-    temps: [ "110", "150" ],
+    temps: [ "150", "200", "300" ],
     selected_temp: '',
     titik_uji: 0,
     ktp_110_komponen: [

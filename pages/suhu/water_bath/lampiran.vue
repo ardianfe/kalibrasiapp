@@ -111,63 +111,63 @@
                       <tr>
                         <td class="i">Parameters</td>
                         <td class="i">Position</td>
-                        <td class="b">SET 110°C</td>
                         <td class="b">SET 150°C</td>
+                        <td class="b">SET 200°C</td>
                       </tr>
 
-                      <tr v-for="(item, index) in 9" :key="index">
-                        <td v-if="index == 0" :rowspan="9">Measured Value</td>
+                      <tr v-for="(item, index) in data_kal.lampiran_sert150.measure_value.length" :key="index">
+                        <td v-if="index == 0" :rowspan="data_kal.lampiran_sert150.measure_value.length">Measured Value</td>
                         <td>{{index+1}}</td>
-                        <td>{{data_kal.lampiran_sert110.measure_value[index]}}</td>
                         <td>{{data_kal.lampiran_sert150.measure_value[index]}}</td>
+                        <td>{{data_kal.lampiran_sert200.measure_value[index]}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured Enclosure Temperature (MET)</td>
-                        <td>{{data_kal.lampiran_sert110.met.toFixed(2)}}</td>
                         <td>{{data_kal.lampiran_sert150.met.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert200.met.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Indicated enclosure temperature (IET)</td>
-                        <td>{{data_kal.lampiran_sert110.iet.toFixed(2)}}</td>
                         <td>{{data_kal.lampiran_sert150.iet.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert200.iet.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured spatial variation (MSV)</td>
-                        <td>{{data_kal.lampiran_sert110.msv.toFixed(2)}}</td>
                         <td>{{data_kal.lampiran_sert150.msv.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert200.msv.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Measured temporal variation (MTV)</td>
-                        <td>{{data_kal.lampiran_sert110.mtv}}</td>
                         <td>{{data_kal.lampiran_sert150.mtv}}</td>
+                        <td>{{data_kal.lampiran_sert200.mtv}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Maximum measured temperature (MAX)</td>
-                        <td>{{data_kal.lampiran_sert110.max.toFixed(2)}}</td>
                         <td>{{data_kal.lampiran_sert150.max.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert200.max.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Minimum measured temperature (MIN)</td>
-                        <td>{{data_kal.lampiran_sert110.min.toFixed(2)}}</td>
                         <td>{{data_kal.lampiran_sert150.min.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert200.min.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td colspan="2">Overall variation (OV)</td>
-                        <td>{{data_kal.lampiran_sert110.ov.toFixed(2)}}</td>
                         <td>{{data_kal.lampiran_sert150.ov.toFixed(2)}}</td>
+                        <td>{{data_kal.lampiran_sert200.ov.toFixed(2)}}</td>
                       </tr>
 
                       <tr>
                         <td class="b" colspan="2">Ketidakpastian</td>
-                        <td class="b">{{data_kal.ktp_110.nilai.toFixed(2)}}</td>
-                        <td class="b">{{data_kal.ktp_150}}</td>
+                        <td class="b">{{data_kal.ktp_150.ktp_bentangan}}</td>
+                        <td class="b">{{data_kal.ktp_200.ktp_bentangan}}</td>
                       </tr>
                     </table>
                 
@@ -452,7 +452,7 @@ export default {
     active: null,
     certificate_number: '',
     data_kal: {
-      lampiran_sert110: {
+      lampiran_sert200: {
         iet: 0,
         max: 0,
         measure_value: [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -471,8 +471,8 @@ export default {
         ov: 0
       },
 
-      ktp_110: {besaran: '', nilai: 0},
-      ktp_150: 0
+      ktp_200: {ktp_bentangan: 0},
+      ktp_150: {ktp_bentangan: 0},
     },
     signatories: [
       { id: 1, data: {name: 'AJI MAHMUD SOLIH', nip: '19720802 200701 1 003', jabatan: 'Kepala Seksi Kalibrasi'} },
@@ -514,8 +514,8 @@ export default {
         this.certificate_number = req_data.no_laporan
         this.data_kal = req_data.data_kal
 
-        this.data_kal.ktp_110 = req_data.data_ktp.ktp_bentangan_110
-        this.data_kal.ktp_150 = req_data.data_ktp.ktp_bentangan_150
+        this.data_kal.ktp_200 = req_data.data_ktp.ktp_200
+        this.data_kal.ktp_150 = req_data.data_ktp.ktp_150
 
         this.titik_uji = req_data.data_alat.deskripsi.jumlah_titik
 

@@ -17,11 +17,11 @@
 
             <p>
               <span class="b">UNCERTAINTY BUDGET SEBAGAI PENDUKUNG KLAIM CMC</span> <br>
-              Besaran yang diukur : {{cmc.deskripsi['Besaran yang diukur ']}} <br>
-              Jenis alat yang dikalibrasi : {{cmc.deskripsi['Jenis alat yang dikalibrasi']}} <br>
-              Standar yang digunakan : {{cmc.deskripsi['Standar yang digunakan']}} <br>
-              Model matematis pengukuran : {{cmc.deskripsi['Model matematis pengukuran']}} <br>
-              Rentang ukur : {{cmc.deskripsi['Rentang ukur']}} <br>
+              Besaran yang diukur : {{cmc.besaran_diukur}} <br>
+              Jenis alat yang dikalibrasi : {{cmc.jenis_kalibrasi}} <br>
+              Standar yang digunakan : {{cmc.standar_digunakan}} <br>
+              Model matematis pengukuran : {{cmc.model_matematis}} <br>
+              Rentang ukur : {{cmc.rentang_ukur}} <br>
             </p>
 
             <table class="tableizer-table">
@@ -42,20 +42,22 @@
                   </tr>
               </thead>
               <tbody>
-                <template v-if="cmc.data['Unnamed: 5']">
-                  <tr v-for="(item, index) in header[0]" :key="index">
+                
+                <template v-if="cmc.data_tbl.data.komponen">
+                  <tr v-for="(item, index) in cmc.data_tbl.data.komponen" :key="index">
                     <td>{{item}}</td>
-                    <td>{{header[1][index]}}</td>
-                    <td>{{header[2][index]}}</td>
-                    <td>{{header[3][index]}}</td>
-                    <td v-if="cmc.data['Unnamed: 5'][index]">{{cmc.data['Unnamed: 5'][index].toFixed(2)}}</td>
-                    <td v-if="cmc.data['Unnamed: 6'][index]">{{cmc.data['Unnamed: 6'][index].toFixed(2)}}</td>
-                    <td v-if="cmc.data['Unnamed: 7'][index]">{{cmc.data['Unnamed: 7'][index]}}</td>
-                    <td v-if="cmc.data['Unnamed: 8'][index]">{{cmc.data['Unnamed: 8'][index].toFixed(2)}}</td>
-                    <td v-if="cmc.data['Unnamed: 9'][index]">{{cmc.data['Unnamed: 9'][index]}}</td>
-                    <td v-if="cmc.data['Unnamed: 10'][index]">{{cmc.data['Unnamed: 10'][index].toFixed(2)}}</td>
-                    <td v-if="cmc.data['Unnamed: 11'][index]">{{cmc.data['Unnamed: 11'][index].toFixed(2)}}</td>
-                    <td v-if="cmc.data['Unnamed: 12'][index]">{{cmc.data['Unnamed: 12'][index]}}</td>
+                    <td>{{cmc.data_tbl.data.satuan[index]}}</td>
+                    <td>{{cmc.data_tbl.data.tipe_distrubusi[index]}}</td>
+                    <td>{{cmc.data_tbl.data.simbol[index]}}</td>
+                    <td>{{cmc.data_tbl.data.var_interval[index].toFixed(2)}}</td>
+                    <td>{{cmc.data_tbl.data.pembagi[index].toFixed(2)}}</td>
+                    <!-- <td v-if="cmc.data_tbl.data.vi[index]">{{cmc.data_tbl.data.vi[index]}}</td> -->
+                    <td v-if="cmc.data_tbl.data.vi[index]">{{cmc.data_tbl.data.vi[index] > 0 ? parseInt(cmc.data_tbl.data.vi[index]).toExponential(4) : cmc.data_tbl.data.vi[index]}}</td>
+                    <td>{{cmc.data_tbl.data.ui[index].toFixed(2)}}</td>
+                    <td>{{koef[index]}}</td>
+                    <td>{{cmc.data_tbl.data.uici[index].toFixed(2)}}</td>
+                    <td>{{cmc.data_tbl.data.uici2[index].toFixed(2)}}</td>
+                    <td>{{cmc.data_tbl.data.uici4pervi[index].toFixed(2)}}</td>
                   </tr>
                 </template>
                   <tr>
@@ -63,28 +65,28 @@
                   </tr>
                   <tr>
                     <td colspan="10">Sums</td>
-                    <td v-if="cmc.sum.uc2">{{cmc.sum.uc2.toFixed(4)}}</td>
-                    <td v-if="cmc.sum.uc4">{{cmc.sum.uc4.toFixed(4)}}</td>
+                    <td><!-- {{ -->cmc.sum.uc2.toFixed(4)}}</td>
+                    <td><!-- {{ -->cmc.sum.uc4.toFixed(4)}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Ketidakpastian baku gabungan, uc, um</td>
-                    <td colspan="2">{{cmc.ktp_uc_um}} um</td>
+                    <td colspan="2"><!-- {{ -->cmc.ktp_uc_um}} um</td>
                   </tr>
                   <tr>
                     <td colspan="10">Derajat kebebasan efektif, veff</td>
-                    <td colspan="2">{{cmc.der_kebbs_effective}}</td>
+                    <td colspan="2"><!-- {{ -->cmc.der_kebbs_effective}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Faktor cakupan, k-student's for veff and CL 95%</td>
-                    <td colspan="2">{{cmc.faktor_k}}</td>
+                    <td colspan="2"><!-- {{ -->cmc.faktor_k}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Ketidakpastian bentangan, U = k.uc, um</td>
-                    <td colspan="2">{{cmc.ktp_bentang.um}} um</td>
+                    <td colspan="2"><!-- {{ -->cmc.ktp_bentang.um}} um</td>
                   </tr>
                   <tr>
                     <td colspan="10"></td>
-                    <td colspan="2">{{cmc.ktp_bentang.mm}} mm</td>
+                    <td colspan="2"><!-- {{ -->cmc.ktp_bentang.mm}} mm</td>
                   </tr>
               </tbody>
             </table>
@@ -131,59 +133,40 @@ export default {
 
     data_alat: {},
     cmc: {
-      data: {
-        "Unnamed: 5:": [],
-        "Unnamed: 6:": [],
-        "Unnamed: 7:": [],
-        "Unnamed: 8:": [],
-        "Unnamed: 9:": [],
-        "Unnamed: 10:": [],
-        "Unnamed: 11:": [],
-        "Unnamed: 12:": []
-      },
-      der_kebbs_effective: {},
-      deskripsi: {
-        "Besaran yang diukur ": "", 
-        "Jenis alat yang dikalibrasi": "", 
-        "Model matematis pengukuran": "", 
-        "Rentang ukur": "", 
-        "Standar yang digunakan": ""
-      },
-      faktor_k: {},
-      ktp_bentang: {},
-      ktp_uc_um: {},
-      sum: {},
-    },
-    data_ktp: {
-      cmc: {
+      besaran_diukur: "Dimensi ",
+      data_tbl: {
         data: {
-          "Unnamed: 5:": {},
-          "Unnamed: 6:": {},
-          "Unnamed: 7:": {},
-          "Unnamed: 8:": {},
-          "Unnamed: 9:": {},
-          "Unnamed: 10:": {},
-          "Unnamed: 11:": {},
-          "Unnamed: 12:": {}
-        },
-        der_kebbs_effective: {},
-        deskripsi: {},
-        faktor_k: {},
-        ktp_bentang: {},
-        ktp_uc_um: {},
-        sum: {},
-      }
+          ci: [],
+          komponen: [],
+          tipe_distrubusi: [],
+          satuan: [],
+          simbol: [],
+          var_interval: [],
+          pembagi: [],
+          vi: [],
+          ui: [],
+          uici: [],
+          uici2: [],
+          uici4pervi: [],
+        }, 
+        faktor_cakupan: 2, 
+        ktp_bentang: [8.324508311988382, "um"], 
+        nilai_ktp: [0.008324508311988381, "mm"], 
+        sums: [17.324359659090916, 0.005282631810529538], 
+        uc_um: [4.162254155994191, "um"], 
+        veff: 56815.13464544311
+      },
+      jenis_kalibrasi: "Dial Indikator",
+      model_matematis: "E = L – Ls + Ls (qs da +as dq ) – LD  - LW + LG",
+      rentang_ukur: "0 - 25 mm",
+      standar_digunakan: "Calibration Tester"
     },
+
+    koef: [1, 1, 1, 25000, 2.875, 1, 1, 1],
+    data_ktp: {},
     data_kal: {
       nilai_gauge: {}
     },
-
-    header: [
-      ["Repeatability", "Readability", "Gauge Block (Sertifikat)", "Selisih Koefisien muai", "Selisih temperatur", "Drift", "Wringing", "Geometrik"],
-      ["mm", "mm", "mm", "/° C", "°C", "mm", "mm", "mm"],
-      ["normal", "rectangular", "normal", "rectangular", "rectangular", "rectangular", "rectangular", "rectangular"],
-      ["m(L1)", "m(L2)", "m(Ls1)", "m(da)", "m(qs)", "m(LD)", "m(Lw)", "m(LG)"]
-    ],
 
     data_co: {}
   }),
@@ -200,11 +183,12 @@ export default {
         console.log('get LK: ', req);
         let req_data = req.results[0]
 
+        this.data_co = req_data.data_co
+        this.cmc = req_data.data_ktp.cmc
+
         this.no_cert = req_data.no_laporan
         this.data_alat = req_data.data_alat
-        this.cmc = req_data.data_ktp.cmc
         this.data_kal = req_data.data_kal
-        this.data_co = req_data.data_co
       } catch (error) {
         console.log('get LK err: ', error.response);
       }

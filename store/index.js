@@ -69,7 +69,7 @@ export const state = () => ({
 
   bidang: {
     1: { id: 'dimensi1', slug: '/dimensi/ayakan/lk', name: 'Ayakan', cat: 'dimensi' },
-    2: { id: 'dimensi2', slug: '/dimensi/dial_indikator/lk', name: 'Dial Indikator', cat: 'dimensi' },
+    2: { id: 'dimensi2', slug: '/dimensi/dial_indikator/data_entry', name: 'Dial Indicator', cat: 'dimensi' },
     3: { id: 'dimensi3', slug: '/dimensi/jangka_sorong/lk', name: 'Jangka Sorong', cat: 'dimensi' },
     4: { id: 'dimensi4', slug: '/dimensi/micrometer/lk', name: 'Mikrometer Eksternal', cat: 'dimensi' },
     5: { id: 'dimensi5', slug: '/dimensi/stopwatch/lk', name: 'Stopwatch', cat: 'dimensi' },
@@ -102,7 +102,7 @@ export const state = () => ({
     32: { id: 'suhu4', slug: '/suhu/termometer_dial/lk', name: 'Termometer Dial', cat: 'suhu' },
     33: { id: 'suhu5', slug: '/suhu/termometer_digital/lk', name: 'Termometer Digital', cat: 'suhu' },
     34: { id: 'suhu6', slug: '/suhu/termometer_gelas/lk', name: 'Termometer Gelas', cat: 'suhu' },
-    35: { id: 'suhu7', slug: '/suhu/water_bath/lk', name: 'Water Bath', cat: 'suhu' },
+    35: { id: 'suhu7', slug: '/suhu/water_bath/lk', name: 'Hot Plate', cat: 'suhu' }, // hotplate
     36: { id: 'tekanan1', slug: '/tekanan/hammer_tester/before_set', name: 'Hammer Tester', cat: 'tekanan' },
     37: { id: 'tekanan2', slug: '/tekanan/pressure_gauge/lk', name: 'Pressure Gauge', cat: 'tekanan' },
     38: { id: 'timbangan1', slug: '/timbangan/moisture_balance/lk', name: 'Moisture Balance', cat: 'timbangan' },

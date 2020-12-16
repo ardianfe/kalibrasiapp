@@ -12,81 +12,75 @@
             <v-layout row wrap>
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Deskripsi Alat : {{ data_alat['Deskripsi Alat'] }}</p>
+                  <p class="mb-1">Deskripsi Alat : {{ data_alat.deskripsi.nama_alat }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Tipe / Model : {{ data_alat['Tipe'] }}</p>
+                  <p class="mb-1">Tipe / Model : {{ data_alat.deskripsi.model }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Merek : {{ data_alat['Merek'] }}</p>
+                  <p class="mb-1">Merek : {{ data_alat.deskripsi.merk }}</p>
                 </v-layout>
               </v-flex>
               
               <v-flex xs12 sm6>
                 <v-layout>
-                  <p class="mb-1">Kapasitas : {{ data_alat['Kapasitas'] }}</p>
+                  <p class="mb-1">Kapasitas : {{ data_alat.deskripsi.kapasitas }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">No Seri : {{ data_alat['No Seri'] }}</p>
+                  <p class="mb-1">No Seri : {{ data_alat.deskripsi.no_seri }}</p>
                 </v-layout>
                 
                 <v-layout>
-                  <p class="mb-1">Buatan : {{ data_alat['Buatan'] }}</p>
+                  <p class="mb-1">Buatan : {{ data_alat.deskripsi.buatan }}</p>
                 </v-layout>
               </v-flex>
 
               <v-flex xs12 class="mt-4">
                 <v-layout>
-                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat['Lokasi Kalibrasi'] }}</p>
+                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat.deskripsi.lokasi_kalibrasi }}</p>
                 </v-layout>
 
                 <v-layout row wrap>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan : {{ data_alat['Suhu Ruangan'] }}</p>
+                    <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruangan[0] }} - {{ data_alat.deskripsi.suhu_ruangan[1] }} {{ data_alat.deskripsi.suhu_ruangan[2] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat['Kelembapan'] }}</p>
+                    <p class="mb-1">Kelembapan : {{ data_alat.deskripsi['kelembaban_%'] + ' %' }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat['Suhu Terkoreksi'] }}</p>
+                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi[0].toFixed(4) }} - {{ data_alat.deskripsi.suhu_terkoreksi[1].toFixed(4) }} {{ data_alat.deskripsi.suhu_terkoreksi[2] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat['Kelembapan Terkoreksi'] }}</p>
+                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] + ' %' }}</p>
                   </v-flex>
                 </v-layout>
 
                 <br>
 
                 <v-layout>
-                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat['Alat Kalibrasi yang digunakan'] }}</p>
+                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat.alat_kalibrasi[0] }}, {{ data_alat.alat_kalibrasi[1] }} </p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat['Metoda Kalibrasi'] }}</p>
-                </v-layout>
-                <v-layout>
-                  <p class="mb-3">Standar Acuan : {{ data_alat['Standar acuan'] }}</p>
+                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat.metode_kalibrasi }}</p>
                 </v-layout>
 
                 <v-layout>
-                  <p class="mb-1">Dikondisikan tanggal : {{data_alat['Tanggal kalibrasi']}}</p>
-                </v-layout>
-                
+                  <p class="mb-3">Standar Acuan : {{ data_alat.standar_acuan }}</p>
+                </v-layout>                
               </v-flex>
             </v-layout>
           </v-card-text>
 
           <v-card-text>
-            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI DIAL INDIKATOR</p>
-
             <p class="b">No. Laporan : 3-09-19-00757</p>
             <!-- <pre>
               {{data_kal.hasil}}
             </pre> -->
-            <table>
+            <table style="font-size: 9pt;">
               <tbody>
                 <tr>
                   <th rowspan="2">Penunjukan <br> Dial <br> (X 0,01 mm)</th>
@@ -94,7 +88,8 @@
                   <th colspan="2">Setelah Koreksi</th>
                   <th colspan="2">Rata-rata</th>
                   <th colspan="2">Kesalahan (mm)</th>
-                  <th colspan="2">Mampu Ulang (mm)</th>
+                  <th rowspan="2">Kesalahan <br> Retrace <br> (x 0,001mm)</th>
+                  <th colspan="2">Kesalahan Adjacent (mm)</th>
                 </tr>
                 <tr>
                   <th>Naik</th>
@@ -108,67 +103,36 @@
                   <th>Naik <br>(x 0.01 mm)</th>
                   <th>Turun <br>(x 0.01 mm)</th>
                 </tr>
-                <template v-if="data_kal['Pembacaan']">
-                  <tr v-for="(item, index) in data_kal['Pembacaan'].length" :key="index">
-                    <td>{{data_kal['Pembacaan'][index]}}</td>
-                    <td>
-                      <span v-if="data_kal['Nilai Aktual'][index].toString().length > 0 ">
-                        {{data_kal['Nilai Aktual'][index].toFixed(3)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>{{data_kal['Pembacaan Alat '][index]}}</td>
-                    <td>{{data_kal['Pembacaan Alat '][index]}}</td>
-                    <td>{{data_kal['Unnamed: 4'][index]}}</td>
-                    <td>{{data_kal['Rata-rata'][index]}}</td>
-                    <td>{{data_kal['Unnamed: 6'][index]}}</td>
-                    <td>
-                      <span v-if="data_kal['Kesalahan    '][index].toString().length > 0 ">
-                        {{data_kal['Kesalahan    '][index].toFixed(5)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal['Unnamed: 8'][index].toString().length > 0 ">
-                        {{data_kal['Unnamed: 8'][index].toFixed(5)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal['Mampu Ulang '][index].toString().length > 0 ">
-                        {{data_kal['Mampu Ulang '][index].toFixed(2)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
-                    <td>
-                      <span v-if="data_kal['Unnamed: 10'][index].toString().length > 0 ">
-                        {{data_kal['Unnamed: 10'][index].toFixed(2)}}
-                      </span>
-                      <span v-else>&nbsp;</span>
-                    </td>
+                <template v-if="data_kal.table_lk_graph['penunjukan dial']">
+                  <tr v-for="(item, index) in data_kal.table_lk_graph['penunjukan dial']" :key="index">
+                    <td>{{item}}</td>
+                    <td>{{data_kal.table_lk_graph.pnjukan_std_naik[index]}}</td>
+                    <td>{{data_kal.table_lk_graph.pnjukan_std_turun[index]}}</td>
+                    <td>{{data_kal.table_lk_graph.stlh_koreksi_naik[index]}}</td>
+                    <td>{{data_kal.table_lk_graph.stlh_koreksi_turun[index]}}</td>
+                    <td>{{data_kal.table_lk_graph.rata2_naik[index]}}</td>
+                    <td>{{data_kal.table_lk_graph.rata2_naik[index]}}</td>
+                    <td>{{data_kal.table_lk_graph.kesalahan_naik[index] ? data_kal.table_lk_graph.kesalahan_naik[index].toFixed(1) : ''}}</td>
+                    <td>{{data_kal.table_lk_graph.kesalahan_turun[index] ? data_kal.table_lk_graph.kesalahan_turun[index].toFixed(1) : ''}}</td>
+                    <td>{{data_kal.table_lk_graph.kesalahan_retrace[index]}}</td>
+                    <td>{{data_kal.table_lk_graph.kesalahan_adj_naik[index] ? data_kal.table_lk_graph.kesalahan_adj_naik[index].toFixed(1) : ''}}</td>
+                    <td>{{data_kal.table_lk_graph.kesalahan_adj_turun[index] ? data_kal.table_lk_graph.kesalahan_adj_turun[index].toFixed(1) : ''}}</td>
                   </tr>
                 </template>
               </tbody>
             </table>
-
-            <p class="mt-3 mb-0">Pengukuran Berulang</p>
-            <table>
-              <tr v-for="x in 2" :key="x">
-                <td class="text-xs-center" width="80px" v-for="i in 5" :key="i">50.00</td>
-              </tr>
-            </table>
             
             <v-layout row class='mt-4'>
               <v-flex xs6>
-                Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
-                Tanggal :	{{data_alat['Tanggal periksa']}} <br>
+                Diperiksa oleh : {{data_alat.diperiksa}} <br>
+                Tanggal :	{{convertDate(data_alat.tgl_diterima)}} <br>
                 Tanda Tangan :	
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
               <v-flex xs6>
-                Dikalibrasi oleh : {{data_alat['Dikalibrasi']}} <br>
-                Tanggal :	{{convertDate(data_alat['Tanggal kalibrasi'])}} <br>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
                 Tanda-tangan :
 
                 <hr style="width: 50%; margin-top: 100px">	
@@ -179,177 +143,102 @@
 
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-card-text>
-            <table width="100%">
-              <thead>
-                <tr class="tableizer-firstrow">
-                  <th colspan="3">Perhitungan Ketidakpastian Pengukuran</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>a. </td>
-                  <td>Pada alat kalibrasi </td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>Tingkat kepercayaan 95 %, Faktor cakupan k (asumsi) = 2</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>- Gauge Block No Seri 516-970-01, Ketidakpastian dari Sertifikat  Ub1   =  0.19 / 2  =</td>
-                  <td>{{data_ktp[0]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>b.</td>
-                  <td>Resolusi jangka sorong</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub3  = ( (10) / 1.73205 ) =</td>
-                  <td>{{data_ktp[1]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>c.</td>
-                  <td>Selisih koefisien muai</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub7  = ( 2e-6 / 1.73205  )  x 150000           =</td>
-                  <td>{{data_ktp[2]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>d.</td>
-                  <td>Selisih suhu antara jangka sorong dan gauge block</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub2 = (0.1/ 1.73205) x 3,45 =</td>
-                  <td>{{data_ktp[3]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>e.</td>
-                  <td>Drift Standar</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub5  = ((0.05 + 0.5e-6.L) x Y) / 1.73205 =  ((0.05+0.5e-6x200000)x2 / 1.73205 =</td>
-                  <td>{{data_ktp[4]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>f.</td>
-                  <td>Lapisan Wringing</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub6  = Ö ( k x 0.052) / 1.73205 =  Ö ( 3 x 0.052 ) /  1.73205  =</td>
-                  <td>{{data_ktp[5]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>g.</td>
-                  <td>Kesalahan geometric</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>ub4 = ( 10  / 1.73205 ) =</td>
-                  <td>{{data_ktp[6]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>h.</td>
-                  <td>Standar deviasi 0.00000 =</td>
-                  <td>{{data_ktp[7]}} um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>Ketidakpastian Gabungan (uc) = </td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>#REF!</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= 8.1774223</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>Ketidakpastian diperluas (U95) =</td>
-                  <td>{{ktp_u95[0]}}</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= {{ktp_u95[1]}}</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= {{ktp_u95[2]}}</td>
-                  <td>um</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>= {{ktp_u95[3]}}</td>
-                  <td>mm</td>
-                </tr>
-              </tbody>
-            </table>
+            <v-layout row wrap>
+              <v-flex sm6 xs12 class="px-2">
+                <table class="tableizer-table" width="100%">
+                  <thead>
+                    <tr class="tableizer-firstrow">
+                      <th>X</th>
+                      <th>Y1</th>
+                      <th>Y2</th>
+                      <th>kesalahan <br> retrace</th>
+                      <th colspan="3"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template v-if="data_kal.kesalahan_retrace">
+                      <tr v-for="(item, index) in data_kal.kesalahan_retrace.kesalahan_retrace" :key="index">
+                        <td>{{data_kal.kesalahan_retrace['X'][index]}}</td>
+                        <td>{{data_kal.kesalahan_retrace['Y1'][index].toFixed(1)}}</td>
+                        <td>{{data_kal.kesalahan_retrace['Y2'][index].toFixed(1)}}</td>
+                        <td>{{item.toFixed(1)}} </td>
+                        <td></td>
+                        <td>{{data_kal.kesalahan_retrace['Y1'][index].toFixed(1)}}</td>
+                        <td>{{data_kal.kesalahan_retrace['Y2'][index].toFixed(1)}}</td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </v-flex>
+
+              <v-flex sm6 xs12 class="px-2">
+                <table class="tableizer-table">
+                  <thead>
+                    <tr class="tableizer-firstrow">
+                      <th colspan="2">kesalahan adjacent</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template v-if="data_kal.kesalahan_adj">
+                      <tr v-for="(item, index) in data_kal.kesalahan_adj.col1" :key="index">
+                        <td style="height: 23.33px">{{item ? item.toFixed(1) : item}}</td>
+                        <td>{{data_kal.kesalahan_adj.col2[index] ? data_kal.kesalahan_adj.col2[index].toFixed(1) : data_kal.kesalahan_adj.col2[index]}}</td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </v-flex>
+            </v-layout>
+            
 
             <v-layout row class='mt-4'>
               <v-flex xs6>
-                Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
-                Tanggal :	{{data_alat['Tanggal periksa']}} <br>
+                Diperiksa oleh : {{data_alat.diperiksa}} <br>
+                Tanggal :	{{convertDate(data_alat.tgl_diterima)}} <br>
                 Tanda Tangan :	
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
               <v-flex xs6>
-                Dikalibrasi oleh : {{data_alat['Dikalibrasi']}} <br>
-                Tanggal :	{{convertDate(data_alat['Tanggal kalibrasi'])}} <br>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
                 Tanda-tangan :
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
             </v-layout>
           </v-card-text>
-        </v-card>        
-    
+        </v-card>
+
+        <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
+          <v-card-text>
+            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI DIAL INDIKATOR</p>
+            <p>Grafik putaran vs kesalahan indikator</p>
+
+            <canvas id="myChart"></canvas>
+            <p class="text-xs-center">Putaran</p>
+
+            <canvas id="myChart2"></canvas>
+            <p class="text-xs-center">Putaran</p>
+
+            <v-layout row class='mt-4'>
+              <v-flex xs6>
+                Diperiksa oleh : {{data_alat.diperiksa}} <br>
+                Tanggal :	{{convertDate(data_alat.tgl_diterima)}} <br>
+                Tanda Tangan :	
+
+                <hr style="width: 50%; margin-top: 100px">	
+              </v-flex>
+              <v-flex xs6>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
+                Tanda-tangan :
+
+                <hr style="width: 50%; margin-top: 100px">	
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
       </v-layout>
     </v-flex>
   </v-layout>
@@ -364,13 +253,15 @@
   } table, th, td {
     border: 1px solid grey;
     padding: 3px;
-    font-size: 10pt
+    font-size: 9pt
   }
 </style>
 
 <script>
 import dimensiHeader from '~/components/dimensi/dial_indikator.vue'
-// import durometer from '~/static/durometer.json' 
+import dial from '~/static/dial_indicator.json' 
+
+import Chart from 'chart.js'  
 
 export default {
   components: {
@@ -396,24 +287,125 @@ export default {
     data_ktp: [],
 
     data_kal: {
-      "Kesalahan ": [],
-      "Mampu Ulang ": [],
-      "Nilai Aktual": [],
-      "Pembacaan": [],
-      "Pembacaan Alat ": [],
-      "Rata-rata": [],
-      "Unnamed: 4": [],
-      "Unnamed: 6": [],
-      "Unnamed: 8": [],
-      "Unnamed: 10": []
-    }
+      "graph_besar":{},
+      "graph_kecil":{},
+      "kesalahan_adj":{},
+      "kesalahan_indikator":{},
+      "kesalahan_indikator_lk":{},
+      "kesalahan_retrace":{},
+      "pengukuran_berulang":[],
+      "table_lk_graph":{},
+      "table_lk_ringkas":{},
+    },
+    
+    data_alat: {
+      alat_kalibrasi: [],
+      deskripsi: {
+        buatan: "",
+        kapasitas: "",
+        'kelembaban_%':  0,
+        'kelembaban_terkoreksi_%':  0,
+        lokasi_kalibrasi: "",
+        merk: "",
+        nama_alat: "",
+        no_seri:  0,
+        suhu_ruangan: [],
+        suhu_terkoreksi: [ 0.1000, 0.1000, '%'],
+        tipe_model: "-"
+      },
+      dikalibrasi: {
+        date: "",
+        person: ""
+      },
+      diperiksa: "",
+      metode_kalibrasi: "",
+      standar_acuan: "",
+      tgl_diterima: ""
+    },
+
+    kesalahan_indikator: {
+      type: 'line',
+      data: {
+        labels: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.5, 3, 3.5, 4, 4.5, 5, 6, 7, 8, 9, 10],
+        datasets: [
+          { 
+            label: 'Naik',
+            data: [],
+            borderColor: [ '#1E88E5' ],
+            borderWidth: 3
+          },
+          { 
+            label: 'Turun',
+            data: [],
+            backgroundColor: [ '#ffe5e5' ],
+            borderColor: [ '#ff4c4c' ],
+            borderWidth: 3
+          },
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            stacked: false
+          }]
+        }
+      }
+    },
+    kesalahan_indikator2: {
+      type: 'line',
+      data: {
+        labels: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2],
+        datasets: [
+          { 
+            label: 'Naik',
+            data: [],
+            borderColor: [ '#1E88E5' ],
+            borderWidth: 3
+          },
+          { 
+            label: 'Turun',
+            data: [],
+            backgroundColor: [ '#ffe5e5' ],
+            borderColor: [ '#ff4c4c' ],
+            borderWidth: 3
+          },
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            stacked: false
+          }]
+        }
+      }
+    },
   }),
 
   mounted() {
     this.getLK()
+
+    console.log("KAL", dial.results[0].data_kal);
+
+    this.data_kal = dial.results[0].data_kal
+    this.data_alat = dial.results[0].data_alat
+
   },
 
-  methods: {
+  methods: {    
+    drawBarChart() {
+      this.kesalahan_indikator.data.labels = this.data_kal.graph_besar['X']
+      this.kesalahan_indikator.data.datasets[0].data = this.data_kal.graph_besar['Y1']
+      this.kesalahan_indikator.data.datasets[1].data = this.data_kal.graph_besar['Y2']
+      const ctx = document.getElementById('myChart')
+      const myBarChart = new Chart(ctx, this.kesalahan_indikator);
+
+      this.kesalahan_indikator2.data.labels = this.data_kal.graph_kecil['X']
+      this.kesalahan_indikator2.data.datasets[0].data = this.data_kal.graph_kecil['Y1']
+      this.kesalahan_indikator2.data.datasets[1].data = this.data_kal.graph_kecil['Y2']
+      const ctx2 = document.getElementById('myChart2')
+      const myBarChart2 = new Chart(ctx2, this.kesalahan_indikator2);
+    },
+
     async getLK() {
       try {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
@@ -423,7 +415,8 @@ export default {
 
         this.no_cert = req_data.no_laporan
         this.data_alat = req_data.data_alat
-        this.data_kal = req_data.data_kal.hasil
+        this.data_kal = req_data.data_kal
+        this.drawBarChart()
 
         this.ktp_u95 = req_data.data_ktp.hasil.ktp_u95
         this.uc = req_data.data_ktp.hasil.uc

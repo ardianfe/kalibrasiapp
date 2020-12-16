@@ -21,6 +21,7 @@
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/pwa": "^2.6.0",
     "axios": "^0.19.2",
+    "chart.js": "^2.9.4",
     "cross-env": "^5.2.0",
     "jsonschema": "^1.2.5",
     "jspdf": "^1.5.3",
