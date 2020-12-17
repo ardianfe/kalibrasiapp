@@ -6,67 +6,62 @@
       <v-layout justify-center column>
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-card-text>
-            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI GELAS UKUR</p>
+            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI LABU UKUR</p>
 
+            <p>No. Sertifikat : {{no_cert}}</p>
             <v-layout row wrap>
               <table>
-                <thead>
-                  <tr>
-                    <td class="b">No. Sertifikat :</td>
-                    <td class="b" colspan="3">3-04-20-00021</td>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td colspan="4">Diskripsi Alat</td>
                   </tr>
                   <tr>
                     <td width="20%">Kapasitas Nominal :</td>
-                    <td width="30%">500 ml</td>
+                    <td width="30%">{{data_alat.deskripsi.kapasitas}} ml</td>
                   </tr>
                   <tr>
                     <td>Skala Subdivisi :</td>
-                    <td>5 ml</td>
+                    <td>{{data_alat.deskripsi.skala}} ml</td>
                     <td>Suhu vesel :</td>
-                    <td>27.5 °C</td>
+                    <td>{{data_alat.deskripsi.suhu_vesel}} °C</td>
                   </tr>
                   <tr>
                     <td>Kelas/Toleransi :</td>
-                    <td>B /± 3.75 ml</td>
+                    <td>{{data_alat.deskripsi.kelas_toleransi[0]}} /± {{data_alat.deskripsi.kelas_toleransi[1]}} ml</td>
                     <td>Waktu alir :</td>
-                    <td>- s</td>
+                    <td>{{data_alat.deskripsi.waktu_alir}}</td>
                   </tr>
                   <tr>
                     <td rowspan="2">Toleransi acuan :</td>
-                    <td>Kelas A :± 2.000 ml</td>
+                    <td>Kelas A :± {{data_alat.deskripsi.toleransi_acuan.KelasA}} ml</td>
                     <td>Bahan :</td>
-                    <td>Borosilikat</td>
+                    <td>{{data_alat.deskripsi.bahan}}</td>
                   </tr>
                   <tr>
-                    <td>Kelas B :± 3.000 ml</td>
+                    <td>Kelas B :± {{data_alat.deskripsi.toleransi_acuan.KelasB}} ml</td>
                     <td>Koefesien muai panas kubik bahan (J) :</td>
-                    <td>0.0000099 /°C</td>
+                    <td>{{ktp_poripropilen}} /°C</td>
                   </tr>
                   <tr>
                     <td>Merek/Buatan :</td>
-                    <td>Western / Germany</td>
+                    <td>{{data_alat.deskripsi.merk_Buatan}}</td>
                     <td>Lokasi Kalibrasi :</td>
-                    <td>Laboratorium Volumetrik dan Instrument Analisa Kalibrasi B4T, Bandung</td>
+                    <td>{{data_alat.lokasi}}</td>
                   </tr>
                   <tr>
                     <td>No.Seri :</td>
-                    <td>GU.500.1</td>
+                    <td>{{data_alat.deskripsi.no_seri}}</td>
                   </tr>
                   <tr>
                     <td>Metoda Kalibrasi :</td>
-                    <td colspan="3">PC 304-01</td>
+                    <td colspan="3">{{data_alat.metode_kalibrasi}}</td>
                   </tr>
                   <tr>
                     <td rowspan="2">Standar Acuan :</td>
-                    <td colspan="3">1. ISO 4787-2010 : Laboratoty glassware-Volumetric Methods for testing of capacity and for use.</td>
+                    <td colspan="3">{{data_alat.standar_acuan[0]}}</td>
                   </tr>
                   <tr>
-                    <td colspan="3">2. ISO 4788-2005 : Laboratory glassware- Graduated Measuring cylinders.</td>
+                    <td colspan="3">{{data_alat.standar_acuan[1]}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -79,24 +74,24 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>1. Timbangan Elektronik,</td>
+                    <td>1. {{data_alat.alat_kalibrasi.alat1}},</td>
                     <td>No.seri  :</td>
-                    <td>1118252662</td>
+                    <td>{{data_alat.alat_kalibrasi.value1}}</td>
                   </tr>
                   <tr>
-                    <td>2. Termometer Digital,</td>
+                    <td>2. {{data_alat.alat_kalibrasi.alat2}},</td>
                     <td>No.seri  :</td>
-                    <td>5750384</td>
+                    <td>{{data_alat.alat_kalibrasi.value2}}</td>
                   </tr>
                   <tr>
-                    <td>3. Barometer,</td>
+                    <td>3. {{data_alat.alat_kalibrasi.alat3}},</td>
                     <td>No.seri  :</td>
-                    <td>UZ - 0001</td>
+                    <td>{{data_alat.alat_kalibrasi.value3}}</td>
                   </tr>
                   <tr>
-                    <td>4. Hygrometer, </td>
+                    <td>4. {{data_alat.alat_kalibrasi.alat4}}, </td>
                     <td>No.seri  :</td>
-                    <td>L-KAL 8</td>
+                    <td>{{data_alat.alat_kalibrasi.value4}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -105,25 +100,24 @@
                 <tr>
                   <td class="b">Pemilik / Perusahaan </td>
                   <td>:</td>
-                  <td>PEMPROV JABAR - Dinas Kelautan dan Perikanan</td>
+                  <td>{{data_co.nama_co}}</td>
                 </tr>
                 <tr>
                   <td class="b">Alamat</td>
                   <td>:</td>
-                  <td>Jl. Sutawinangun No. 2 Cirebon 45131</td>
+                  <td>{{data_co.alamat}}</td>
                 </tr>
                 <tr>
                   <td class="b">Ketelusuran</td>
                   <td>:</td>
                   <td>
-                    Hasil Kalibrasi yang dilaporkan tertelusur kesatuan Pengukuran SI melalui  Puslit  KIM <br>
-                    LIPI  Serpong  Tangerang, LK 022-IDN dan LK 001-IDN
+                    {{data_alat.ketelusuran}}
                   </td>
                 </tr>
                 <tr>
                   <td class="b">Tanggal Pendaftaran</td>
                   <td>:</td>
-                  <td>12 Februari 2020</td>
+                  <td>{{data_alat.tgl_daftar}}</td>
                 </tr>
               </table>
 
@@ -144,32 +138,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Suhu udara °C</td>
-                    <td>20.8</td>
-                    <td>20.7</td>
-                    <td>20.75</td>
-                    <td>0.10</td>
-                    <td>0.64776539</td>
-                    <td>0.64</td>
-                  </tr>
-                  <tr>
-                    <td>Kelemb udara %</td>
-                    <td>44</td>
-                    <td>45</td>
-                    <td>44.5</td>
-                    <td>-1.00</td>
-                    <td>21.24241041</td>
-                    <td>3.2</td>
-                  </tr>
-                  <tr>
-                    <td>Tek. Udara mmHg</td>
-                    <td>615</td>
-                    <td>616</td>
-                    <td>615.5</td>
-                    <td>-1.00</td>
-                    <td>1.345362405</td>
-                    <td>0.9</td>
+                  <tr v-for="(item, index) in data_alat.kondisi_ling.parameter" :key="index">
+                    <td>{{item}}</td>
+                    <td>{{data_alat.kondisi_ling.penunjuk_alat_awal[index]}}</td>
+                    <td>{{data_alat.kondisi_ling.penunjuk_alat_akhir[index]}}</td>
+                    <td>{{data_alat.kondisi_ling['rata-rata'][index]}}</td>
+                    <td>{{data_alat.kondisi_ling.selisih[index]}}</td>
+                    <td>{{data_alat.kondisi_ling.koreksi[index]}}</td>
+                    <td>{{data_alat.kondisi_ling.nilaiM_sertf[index]}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -185,37 +161,17 @@
                 <thead>
                   <tr>
                     <th>Volume Nominal <br> ( ml )</th>
-                    <th>Volume sebenarnya pada <br> suhu 27.5 &deg;C <br> (ml)</th>
+                    <th>Volume sebenarnya pada <br> suhu {{data_alat.deskripsi.suhu_vesel}} &deg;C <br> (ml)</th>
                     <th>Koreksi <br> ( ml )</th>
                     <th>Ketidakpastian *) <br> ( ml )</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>100</td>
-                    <td>101.443</td>
-                    <td>-1.443</td>
-                    <td rowspan="5">0.577</td>
-                  </tr>
-                  <tr>
-                    <td>200</td>
-                    <td>199.027</td>
-                    <td>0.973</td>
-                  </tr>
-                  <tr>
-                    <td>300</td>
-                    <td>300.260</td>
-                    <td>-0.260</td>
-                  </tr>
-                  <tr>
-                    <td>400</td>
-                    <td>399.850</td>
-                    <td>0.150</td>
-                  </tr>
-                  <tr>
-                    <td>500</td>
-                    <td>501.928</td>
-                    <td>-1.928</td>
+                    <td>{{data_kal.hasil_kalibrasi.volume_nominal}}</td>
+                    <td>{{data_kal.hasil_kalibrasi.volume_sebenarnya_pada_suhu}}</td>
+                    <td>{{data_kal.hasil_kalibrasi.koreksi}}</td>
+                    <td>{{data_kal.hasil_kalibrasi.ketidakpastian}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -238,37 +194,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>101.1400</td>
-                    <td>20.0</td>
-                    <td>20</td>
-                    <td>751.8</td>
-                    <td>55.00</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>101.1500</td>
-                    <td>20.0</td>
-                    <td>20</td>
-                    <td>751.8</td>
-                    <td>50.00</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>101.1500</td>
-                    <td>20.1</td>
-                    <td>20.2</td>
-                    <td>751.9</td>
-                    <td>50.00</td>
-                  </tr>
-                  <tr>
-                    <td>RATA2</td>
-                    <td>101.1467</td>
-                    <td>20.0</td>
-                    <td>20.1</td>
-                    <td>751.8</td>
-                    <td>52</td>
+                  <tr v-for="(item, index) in data_kal.hasil_pengukuran.table.run" :key="index">
+                    <td>{{item}}</td>
+                    <td>{{data_kal.hasil_pengukuran.table.berat_air[index]}}</td>
+                    <td>{{data_kal.hasil_pengukuran.table.suhu_udara[index]}}</td>
+                    <td>{{data_kal.hasil_pengukuran.table.suhu_air[index]}}</td>
+                    <td>{{data_kal.hasil_pengukuran.table.tekanan_udara[index]}}</td>
+                    <td>{{data_kal.hasil_pengukuran.table.kelembaban[index]}}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Densitas udara, (pu) g/cm<sup>3</sup> </td>
@@ -276,7 +208,7 @@
                       <span class="u">K1ru + hr (K2tu+K3)</span> <br>
                       ta + 273,15
                     </td>
-                    <td>0.0011850</td>
+                    <td>{{data_kal.hasil_pengukuran.densitas_air}}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Densitas air, (pa)  g/cm<sup>3</sup></td>
@@ -284,22 +216,22 @@
                       <span class="u">a5[1 - (t-a1)2x(t+a2) ]</span> <br>
                       a3(t-a4)
                     </td>
-                    <td>0.998193</td>
+                    <td>{{data_kal.hasil_pengukuran.densitas_udara}}</td>
                   </tr>
                   <tr>
                     <td colspan="5">
                       <v-img src="/volumetri/buret1.png" height="30px" contain></v-img>
                     </td>
-                    <td>101.435</td>
+                    <td>{{data_kal.hasil_pengukuran.ia}}</td>
                   </tr>
                   <tr>
                     <td colspan="5">Periksa toleransi, (V20 - kapasitas nominal),  ml </td>
-                    <td>1.435</td>
+                    <td>{{data_kal.hasil_pengukuran.periksa_toleransi}}</td>
                   </tr>
                   <tr>
                     <td colspan="2">Volume air pada suhu vesel 27.5 °C),</td>
                     <td colspan="3">Vt<sub>2</sub>, ml = Vt<sub>1</sub> { 1 + J ( t<sub>2</sub> - t<sub>1</sub> )} </td>
-                    <td>101.4426</td>
+                    <td>{{data_kal.hasil_pengukuran.v_air_suhu_vesel}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -307,15 +239,15 @@
 
             <v-layout row class='mt-4'>
               <v-flex xs6>
-                Diperiksa oleh : Agus Surya Permana <br>
-                Tanggal :	30 Juni 2017 <br>
+                Diperiksa oleh : {{data_alat.diperiksa.person}} <br>
+                Tanggal :	{{data_alat.diperiksa.date}} <br>
                 Tanda Tangan :	
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
               <v-flex xs6>
-                Dikalibrasi oleh : Sudrajat <br>
-                Tanggal :	2 Juni 2017 <br>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
                 Tanda-tangan :
 
                 <hr style="width: 50%; margin-top: 100px">	
@@ -324,7 +256,7 @@
           </v-card-text>
         </v-card>
 
-        <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
+        <!-- <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-card-text>
             <p class="mt-3 mb-0">
               PERIKSA TITIK	2	(	200	)	ml
@@ -649,7 +581,7 @@
               </tbody>
             </table>
           </v-card-text>
-        </v-card>
+        </v-card> -->
       </v-layout>
     </v-flex>
   </v-layout>
@@ -670,7 +602,6 @@
 
 <script>
 import volHeader from '~/components/volumetrik/piknometer.vue'
-import durometer from '~/static/durometer.json'
 
 export default {
   components: {
@@ -678,76 +609,114 @@ export default {
   },
 
   head: {
-    title: 'Lembar Kerja | Bidang Gelas Volumetri',
+    title: 'Lembar Kerja Piknometer | Bidang Volumetrik',
     meta: [
       {
-        hid: 'mass',
-        name: 'mass',
-        content: 'Bidang Massa'
+        hid: 'Volumetrik',
+        name: 'Volumetrik',
+        content: 'Bidang Volumetrik'
       }
     ],
   },
 
   data: () => ({
-    no_cert: '3-09-10-0490',
-    equipment: {
-      name : '',
-      capacity : '',
-      brand : '',
-      serial_number : '',
-      type : '',
-      made_in : '',
-      location : '',
-      temperature : '',
-      standard : '',
-      methods : '',
+    no_cert: '-',
+    
+    data_alat: {
+      alat_kalibrasi: {
+        alat1: "Timbangan Elektronik",
+        alat2: "Termometer Digital",
+        alat3: "Barometer  ",
+        alat4: "Hygrometer  ",
+        value1: "30505123",
+        value2: "5750384",
+        value3: "UZ - 0001",
+        value4: "L-KAL 8"
+      },
+      deskripsi: {
+        bahan: "Polipropilen",
+        kapasitas: 100,
+        kelas_toleransi: ["-", 0.3],
+        koofesien_muai: "0.0000086",
+        merk_Buatan: "MC / China",
+        no_seri: "LUP.100.1",
+        skala: "-",
+        suhu_vesel: 20,
+        toleransi_acuan: {
+          KelasA: 0.1,
+          KelasB: 0.3
+        },
+        waktu_alir: "-"
+      },
+      dikalibrasi: {
+        date: "2020-08-31 14:50:26",
+        person: "Satrio O."
+      },
+      diperiksa: {
+        date: "5 Mei 2020",
+        person: "Agus Surya P"
+      },
+      ketelusuran: "Hasil Kalibrasi yang dilaporkan tertelusur kesatuan Pengukuran SI melalui  Puslit  KIM  LIPI  Serpong  Tangerang, LK 022-IDN dan LK 001-IDN",
+      kondisi_ling: {
+        koreksi: [
+          0.6477653896280661,
+          3.3526109228480423,
+          0.9
+        ],
+        nilaiM_sertf: [
+          0.64,
+          3.2,
+          0.9
+        ],
+        parameter: ["Suhu udara \u00b0C", "Kelemb udara %", "Tek. Udara mmHg"],
+        penunjuk_alat_akhir: [19.6, 60, 759],
+        penunjuk_alat_awal: [19.5, 59, 759],
+        "rata-rata": [19.55, 59.5, 759],
+        selisih: [-0.142, -1, 0]
+      },
+      lokasi: "Laboratorium Kalibrasi B4T",
+      metode_kalibrasi: "PC 304-01",
+      standar_acuan: [
+        "1. ISO 4787-2010 : Laboratoty glassware-Volumetric Methods for testing of capacity and for use.",
+        "2. ISO 1042-1998  : Laboratory glassware- One mark volumetric flasks."
+      ],
+      tgl_daftar: "30 April 2020",
+      tgl_diterima: "2020-08-31"
     },
 
-    hk: {
-      d_min: [0,0],
-      d_max: [0,0],
-      h_minumum: 401,
-      h_rata_rata: 401.6,
-      hasil: {
-        unnamed7: [],
-        unnamed9: [],
-        unnamed11: [],
-        unnamed13: [],
+    data_kal: {
+      hasil_kalibrasi: {
+        ketidakpastian: 0,
+        koreksi: 0,
+        volume_nominal: 0,
+        volume_sebenarnya_pada_suhu: 0
+      },
+      hasil_pengukuran: {
+        densitas_air: 0,
+        densitas_udara: 0,
+        ia: 0,
+        periksa_toleransi: 0,
+        table: {
+          berat_air: [ 0, 0, 0, 0 ],
+          kelembaban: [ 0, 0, 0, 0 ],
+          run: [ 0, 0, 0, 0 ],
+          suhu_air: [ 0, 0, 0, 0 ],
+          suhu_udara: [ 0, 0, 0, 0 ],
+          tekanan_udara: [ 0, 0, 0, 0 ]
+        },
+        v_air_suhu_vesel: 0
       }
-    }
+    },
+
+    data_co: {
+      alamat: '',
+      nama_co: ''
+    },
+    ktp_poripropilen: 0
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
-
     this.getLK()
-
-    console.log('cal?', durometer);
-    var data = durometer.result[0].data_alat
-    this.equipment.name = data['Deskripsi Alat']
-    this.equipment.capacity = data['Kapasitas']
-    this.equipment.brand = data['Merek']
-    this.equipment.serial_number = data['No Seri']
-    this.equipment.type = data['Tipe']
-    this.equipment.made_in = data['Buatan']
-    this.equipment.location = data['Lokasi Kalibrasi']
-    this.equipment.temperature = data['Suhu']
-    this.equipment.standard = data['Standar acuan']
-    this.equipment.methods = data['Metoda verifikasi']
-
-    console.log('eq ', this.equipment);
-
-    this.ketidakpastian = durometer.result
-
-    // this.hk.d_min = durometer.result[0].data_kal.d_minimum_1
-    // this.hk.d_max = durometer.result[0].data_kal.d_maksimum_1
-
-    // this.hk.hasil.unnamed7 = durometer.result[0].data_kal.hk1['Unnamed: 7']
-    // this.hk.hasil.unnamed9 = durometer.result[0].data_kal.hk1['Unnamed: 9']
-    // this.hk.hasil.unnamed11 = durometer.result[0].data_kal.hk1['Unnamed: 11']
-    // this.hk.hasil.unnamed13 = durometer.result[0].data_kal.hk1['Unnamed: 13']
   },
 
   methods: {
@@ -756,61 +725,21 @@ export default {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.result[0]
+        let req_data = req.results[0]
+
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.ktp_poripropilen = req_data.data_ktp.koofesien_muai_bahan.poripropilen
+        this.data_co = req_data.data_co
+        this.data_kal = req_data.data_kal
       } catch (error) {
-        console.log('cek cors :', error.response);
+        console.log('get LK err: ', error.response);
       }
     },
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
-    },
-
-    async fileUpload() {
-      this.uploading = true
-      try {
-        const req = await this.$calibrate.uploadFile({
-          file: this.file,
-          category: this.selected
-        })
-
-        // console.log(this.file);
-
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-        
-      } catch (error) {
-        alert('gagal mengupload file')
-        setTimeout(() => {
-          this.uploading = false
-          this.$router.go(-1);
-        }, 300);
-      }
-    },
-
-    sheetPush(id, name, str) {
-      this.sheets.push({'id': id, 'name': name, 'htmlstr': str})
-      // document.getElementById(''+id).innerHTML += str;
-    },
-
-    createElement() {
-      for (const key in this.sheets) {
-        if (this.sheets.hasOwnProperty(key)) {
-          const element = this.sheets[key];
-          
-          document.getElementById(''+element.id).innerHTML += element.htmlstr;
-          console.log(document.getElementById(element.id));
-        }
-      }
-
-      let tds = document.querySelectorAll('td')
-      // console.log(tds);
-      tds.remove()
-      
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
 }

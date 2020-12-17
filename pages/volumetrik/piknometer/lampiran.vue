@@ -51,7 +51,7 @@
 										<p class="helve b c u" style="margin: 0; height: 4.2mm; font-size: 12pt;">LAMPIRAN SERTIFIKAT KALIBRASI</p>
 										<p class="helve i c" style="margin-bottom: 2mm; font-size: 10pt;">ATTACHMENT OF CALIBRATION CERTIFICATE</p>
 									</div>
-                  <div style="width: 90%; margin-left: 40px" class="mt-2 mb-5">
+                  <div style="width: 90%; margin-left: 40px" class="mt-4 mb-5">
                     <v-layout>
                       <v-flex xs1>
                         <p class="helve u" style="font-size: 11pt; margin: 0; height: 4.2mm;">Nomor</p>
@@ -66,165 +66,38 @@
                   </div>
 
 									<v-layout justify-center align-center column>
-										<v-layout row>
-                      <v-flex class="pa-2">
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Nilai Nominal <br> ( g )</th>
-                              <th>Nilai Konvensional <br> ( g )</th>
-                              <th>Ketidakpastian *) <br> ( mg ) </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>0.99997</td>
-                              <td>0.0087</td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>2.00002</td>
-                              <td>0.0096</td>
-                            </tr>
-                            <tr>
-                              <td> 2*</td>
-                              <td>2.00002</td>
-                              <td>0.0096</td>
-                            </tr>
-                            <tr>
-                              <td>5</td>
-                              <td>5.00002</td>
-                              <td>0.013</td>
-                            </tr>
-                            <tr>
-                              <td>10</td>
-                              <td>9.99997</td>
-                              <td>0.018</td>
-                            </tr>
-                            <tr>
-                              <td>20</td>
-                              <td>20.00007</td>
-                              <td>0.031</td>
-                            </tr>
-                            <tr>
-                              <td> 20*</td>
-                              <td>20.00004</td>
-                              <td>0.031</td>
-                            </tr>
-                            <tr>
-                              <td>50</td>
-                              <td>49.99990</td>
-                              <td>0.075</td>
-                            </tr>
-                            <tr>
-                              <td>100</td>
-                              <td>99.99958</td>
-                              <td>0.15</td>
-                            </tr>
-                            <tr>
-                              <td>200</td>
-                              <td>199.99947</td>
-                              <td>0.29</td>
-                            </tr>
-                            <tr>
-                              <td> 200*</td>
-                              <td>199.99991</td>
-                              <td>0.29</td>
-                            </tr>
-                            <tr>
-                              <td>500</td>
-                              <td>499.9980</td>
-                              <td>0.72</td>
-                            </tr>
-                            <tr>
-                              <td>1000</td>
-                              <td>999.9995</td>
-                              <td>1.63</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </v-flex>
+                    <table width="80%" class="text-xs-center">
+                      <thead>
+                        <tr>
+                          <th>Volume Nominal <br> ( ml )</th>
+                          <th>Volume sebenarnya pada <br> suhu {{data_alat.deskripsi.suhu_vesel}} &deg;C <br> (ml)</th>
+                          <th>Koreksi <br> ( ml )</th>
+                          <th>Ketidakpastian *) <br> ( ml )</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="height: 100px;">{{data_kal.hasil_kalibrasi.volume_nominal}}</td>
+                          <td>{{data_kal.hasil_kalibrasi.volume_sebenarnya_pada_suhu.toFixed(3)}}</td>
+                          <td>{{data_kal.hasil_kalibrasi.koreksi.toFixed(3)}}</td>
+                          <td>{{data_kal.hasil_kalibrasi.ketidakpastian.toFixed(3)}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-                      <v-flex class="pa-2">
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Nilai Nominal <br> ( mg )</th>
-                              <th>Nilai Konvensional <br> ( mg )</th>
-                              <th>Ketidakpastian *) <br> ( mg ) </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>2</td>
-                              <td>1.99</td>
-                              <td>0.0079</td>
-                            </tr>
-                            <tr>
-                              <td> 2*</td>
-                              <td>2.00</td>
-                              <td>0.0079</td>
-                            </tr>
-                            <tr>
-                              <td>10</td>
-                              <td>10.01</td>
-                              <td>0.0079</td>
-                            </tr>
-                            <tr>
-                              <td>20</td>
-                              <td>20.03</td>
-                              <td>0.0079</td>
-                            </tr>
-                            <tr>
-                              <td> 20*</td>
-                              <td>20.00</td>
-                              <td>0.0079</td>
-                            </tr>
-                            <tr>
-                              <td>50</td>
-                              <td>49.98</td>
-                              <td>0.0079</td>
-                            </tr>
-                            <tr>
-                              <td>100</td>
-                              <td>100.04</td>
-                              <td>0.0079</td>
-                            </tr>
-                            <tr>
-                              <td>200</td>
-                              <td>200.02</td>
-                              <td>0.0082</td>
-                            </tr>
-                            <tr>
-                              <td> 200*</td>
-                              <td>200.02</td>
-                              <td>0.0082</td>
-                            </tr>
-                            <tr>
-                              <td>500</td>
-                              <td>500.01</td>
-                              <td>0.0082</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </v-flex>
-                    </v-layout>
-										<p style="width: 90%;">
+										<p style="width: 90%;" class="mt-5">
 											Ketidakpastian yang dilaporkan adalah ketidakpastian bentangan pada tingkat kepercayaan
 											<br>
 											95 % dengan faktor cakupan k=2
 										</p>
-
-                    <p style="width: 90%" class="my-4">
-                      <span class="i">Catatan:</span> <br>							
-                      Massa ini telah dikalibrasi di Laboratorium Kalibrasi B4T, dengan massa <br>
-                      standar yang dikerjakan pada kondisi udara yang massa dan massa jenisnya diketahui <br>
-                      Massa yang dikalibrasi diduga massa jenisnya 8000 kg/m3  dan <br>												
-                      pada kondisi udara dengan massa jenis 1,2 kg/m3.
-                    </p>
 									</v-layout>
-
+                  
+                  <div style="width: 90%; margin-left: 40px; margin-bottom: 250px" class="mt-2">
+                    <p class="helve u b" style="font-size: 11pt; margin: 0; height: 4.2mm;">EVALUASI</p>
+                    <p class="helve i" style="font-size: 9pt; margin: 0; height: 18px;">Evaluation</p>
+                    <p>Gelas ukur tersebut termasuk dalam toleransi kelas A, <br> 
+                      memenuhi persyaratan acuan ISO 4788 - 1980</p>
+                  </div>
                 </div>
 
                 <!-- Keterangan -->
@@ -344,39 +217,48 @@ export default {
 
   data: () => ({
     active: null,
-    certificate_number: '3-01-19-00472',
-    certificate: {
-      equipment: {
-        name: '',
-        capacity: '',
-        model: '',
-        serial_number: '',
-        manufacture: '',
-        internal_dimension: '',
-        temperature: '',
-        others: '-',
+    certificate_number: '',
+
+    data_alat: {
+      deskripsi: {
+        bahan: "Polipropilen",
+        kapasitas: 100,
+        kelas_toleransi: ["-", 0.3],
+        koofesien_muai: "0.0000086",
+        merk_Buatan: "MC / China",
+        no_seri: "LUP.100.1",
+        skala: "-",
+        suhu_vesel: 20,
+        toleransi_acuan: {
+          KelasA: 0.1,
+          KelasB: 0.3
+        },
+        waktu_alir: "-"
       },
-      owner: {
-        name: '',
-        address: ''
+    },
+
+    data_kal: {
+      hasil_kalibrasi: {
+        ketidakpastian: 0,
+        koreksi: 0,
+        volume_nominal: 0,
+        volume_sebenarnya_pada_suhu: 0
       },
-      standard: {
-        name: '',
-        traceability: ''
-      },
-      acceptance_date: '',
-      calibration_date: '',
-      env_condition: {
-        room_temp: '',
-        humidity: ''
-      },
-      calibration_location: '',
-      calibration_method: '',
-      refference: '',
-      result: '',
-      published_date: '',
-      director_name: '',
-      director_nip: '',
+      hasil_pengukuran: {
+        densitas_air: 0,
+        densitas_udara: 0,
+        ia: 0,
+        periksa_toleransi: 0,
+        table: {
+          berat_air: [ 0, 0, 0, 0 ],
+          kelembaban: [ 0, 0, 0, 0 ],
+          run: [ 0, 0, 0, 0 ],
+          suhu_air: [ 0, 0, 0, 0 ],
+          suhu_udara: [ 0, 0, 0, 0 ],
+          tekanan_udara: [ 0, 0, 0, 0 ]
+        },
+        v_air_suhu_vesel: 0
+      }
     },
     data: {},
 
@@ -421,35 +303,17 @@ export default {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.result[0]
-        this.elementMapping()
+        let req_data = req.results[0]
 
+        this.certificate_number = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        // this.ktp_poripropilen = req_data.data_ktp.koofesien_muai_bahan.poripropilen
+        // this.data_co = req_data.data_co
+        this.data_kal = req_data.data_kal
         
       } catch (error) {
         console.log(error);
       }
-    },
-
-    elementMapping() {
-      let cert_data = this.data.data_perusahaan
-      this.certificate.equipment.name = 'Concrete Test Hammer'
-      this.certificate.equipment.capacity = '10 - 100 Unit'
-      this.certificate.equipment.model = 'HT 225'
-      this.certificate.equipment.serial_number = 308813
-      this.certificate.equipment.manufacture = 'HT 225 / CHINA'
-      // this.certificate.equipment.temperature = cert_data['Pengontrol Suhu'][0]
-      this.certificate.owner.name = 'TEKNIK SIPIL FAKULTAS SAINS DAN TEKNOLOGI UNIVERSITAS ISLAM NAHDLATUL ULAMA'
-      this.certificate.owner.address = 'Jl. Taman Siswa (Pekeng) Tahunan Jepara 59427'
-      this.certificate.standard.name = 'Blok Standar Anvil No.E04/193'
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI  melalui  Schmidt Proceq, Switzerland'
-      this.certificate.acceptance_date = '30 Mei 2017'
-      this.certificate.calibration_date = '2 Juni 2017'
-      // this.certificate.env_condition.room_temp = cert_data
-      // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
-      this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
-      this.certificate.published_date = '30 Mei 2107'
     },
 
     printWrapper() {
