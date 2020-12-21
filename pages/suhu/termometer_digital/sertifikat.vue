@@ -421,7 +421,7 @@ p{
   }
 </style>
 <script>
-import suhuHeader from '~/components/suhu/water_bath.vue'
+import suhuHeader from '~/components/suhu/termo_digital.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
@@ -432,7 +432,7 @@ export default {
   },
 
   head: {
-    title: 'Sertififkat Water Bath | Bidang Suhu',
+    title: 'Sertififkat Termometer Digital | Bidang Suhu',
     meta: [
       {
         hid: 'Suhu',

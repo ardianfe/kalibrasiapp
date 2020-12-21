@@ -110,7 +110,7 @@ export const state = () => ({
     40: { id: 'timbangan3', slug: '/timbangan/timbangan_mekanik_industri/lk', name: 'Timbangan', cat: 'timbangan' },
     41: { id: 'timbangan4', slug: '/timbangan/timbangan_mekanik/lk', name: 'Timbangan', cat: 'timbangan' },
     42: { id: 'Volumetrik1', slug: '/volumetrik/buret/lk', name: 'Buret', cat: 'Volumetrik' },
-    43: { id: 'Volumetrik2', slug: '/volumetrik/piknometer/lk', name: 'Piknometer', cat: 'Volumetrik' },
+    43: { id: 'Volumetrik2', slug: '/volumetrik/piknometer/lk', name: 'Pipet Ukur', cat: 'Volumetrik' },
     99: { id: 'notfound'}
   }
 })
