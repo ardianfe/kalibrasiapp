@@ -96,65 +96,6 @@
                         </tr>
                       </tbody>
                     </table>
-                    <!-- <table class="tableizer-table">
-                      <tr class="tableizer-firstrow">
-                        <th>PENUNJUKAN ALAT <br> ( °C )</th>
-                        <th>PENUNJUKAN STANDAR <br> ( °C )</th>
-                        <th>KESALAHAN <br> ( °C )</th>
-                        <th>KETIDAKPASTIAN *) <br> ( °C )</th>
-                      </tr>
-                      <tr>
-                        <td>-20</td>
-                        <td>-25.06</td>
-                        <td>5.06</td>
-                        <td rowspan="10">0.3</td>
-                      </tr>
-                      <tr>
-                        <td>0</td>
-                        <td>-3.91</td>
-                        <td>3.91</td>
-                      </tr>
-                      <tr>
-                        <td>10</td>
-                        <td>6.53</td>
-                        <td>3.47</td>
-                      </tr>
-                      <tr>
-                        <td>30</td>
-                        <td>28.01</td>
-                        <td>1.99</td>
-                      </tr>
-                      <tr>
-                        <td>50</td>
-                        <td>48.32</td>
-                        <td>1.68</td>
-                      </tr>
-                      <tr>
-                        <td>70</td>
-                        <td>67.97</td>
-                        <td>2.03</td>
-                      </tr>
-                      <tr>
-                        <td>90</td>
-                        <td>86.89</td>
-                        <td>3.11</td>
-                      </tr>
-                      <tr>
-                        <td>110</td>
-                        <td>105.45</td>
-                        <td>4.55</td>
-                      </tr>
-                      <tr>
-                        <td>130</td>
-                        <td>123.05</td>
-                        <td>6.95</td>
-                      </tr>
-                      <tr>
-                        <td>150</td>
-                        <td>140.68</td>
-                        <td>9.32</td>
-                      </tr>
-                    </table> -->
                     <p class="roman" style="font-size: 10pt; margin-bottom: 60px">
                       *) Ketidakpastian yang dilaporkan adalah ketidakpastian bentangan pada tingkat <br>
                       kepercayaan 95% pada faktor cakupan k=2
