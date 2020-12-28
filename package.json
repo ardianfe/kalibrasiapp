@@ -26,6 +26,7 @@
     "jsonschema": "^1.2.5",
     "jspdf": "^1.5.3",
     "nuxt": "^2.4.0",
+    "read-excel-file": "^5.0.0",
     "vuetify": "^1.5.5",
     "vuetify-loader": "^1.2.1"
   },
