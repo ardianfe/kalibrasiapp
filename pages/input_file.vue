@@ -42,6 +42,7 @@
           
           <span>{{ filename ? filename : 'Input File CSV, XLS, XLSX'}}</span>
           <input type="file" id="input-excel" hidden @change="fileSelected"/>
+          <a id="downloadAnchorElem" style="display:none"></a>
           <v-btn class="primary" @click="triggerInput" v-if="filename == ''">Pilih File</v-btn>
           <v-btn class="error" @click="() => {file = {}, filename = ''}" v-else>Hapus</v-btn>
           <v-btn :disabled="selected == '' || filename == ''" :loading="uploading" class="primary" @click="fileUpload" v-if="file != null">Upload</v-btn>
@@ -66,6 +67,8 @@
 </style>
 
 <script>
+import readXlsxFile from 'read-excel-file'
+
 export default {
   head: {
     title: 'Upload File',
@@ -99,9 +102,14 @@ export default {
   }),
 
   mounted() {
-    // if (!this.$store.state.isLoggedIn) {
-    //   this.$router.push('/')
-    // }
+    // const input = document.getElementById('input-excel')
+
+    // input.addEventListener('change', () => {
+    //   readXlsxFile(input.files[0]).then((rows) => {
+    //     // `rows` is an array of rows
+    //     // each row being an array of cells.
+    //   })
+    // })
   },
 
   methods: {
@@ -119,11 +127,42 @@ export default {
       document.getElementById(''+id).style = "display: block;"
     },
 
-    fileSelected(e) {
-      var reader = new FileReader();
-      console.log(e.target.files[0]);
-      this.filename = e.target.files[0].name
-      this.file = e.target.files[0]
+    download(name, data) {
+      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+      var dlAnchorElem = document.getElementById('downloadAnchorElem');
+      dlAnchorElem.setAttribute("href",     dataStr     );
+      dlAnchorElem.setAttribute("download", name+".json");
+      dlAnchorElem.click();
+    },
+
+    async fileSelected(e) {
+      try {
+        let sheets_list = []
+        const input = document.getElementById('input-excel')
+  
+        await readXlsxFile(input.files[0], { getSheets: true }).then((sheets) => {
+          sheets_list = sheets
+          console.log("inside", sheets_list);
+          // sheets === [{ name: 'Sheet1' }, { name: 'Sheet2' }]
+        })
+  
+        for (const x in sheets_list) {
+          if (Object.hasOwnProperty.call(sheets_list, x)) {
+            const sheet_name = sheets_list[x].name;
+  
+            await readXlsxFile(input.files[0], { sheet: sheet_name }).then((data) => {
+              sheets_list[x].data = data
+              this.download(sheet_name, data)
+            })
+
+          }
+        }
+        console.log("outside", sheets_list);
+        this.sheets = sheets_list
+        this.download()
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     async fileUpload() {
