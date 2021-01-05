@@ -1,9 +1,7 @@
 <template>
-  <v-layout
-    column justifyh-center
-  >
+  <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <suhuHeader></suhuHeader>
+      <dimensiHeader></dimensiHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -42,7 +40,7 @@
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-btn :disabled="signatory == '' || nip == ''" class="primary elevation-0" @click="printWrapper">
+            <v-btn class="primary elevation-0" @click="printWrapper">
               cetak <v-icon right>print</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
@@ -86,7 +84,6 @@
                   <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Equipment</p>
                   <v-layout>
                     <v-flex xs6>
-
                       <v-layout row>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
                         <div style="width: 32mm">
@@ -114,17 +111,18 @@
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
                       </v-layout>
 
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
-                        <div style="width: 32mm">
-                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor Seri</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Serial Number</p>
-                        </div>
-                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.serial_number }}</p>
-                      </v-layout>
-
                     </v-flex>
                     <v-flex xs6>
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
+                        <v-flex xs5>
+                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor Seri</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Serial Number</p>
+                        </v-flex>
+                        <v-flex xs6>
+                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: {{ certificate.equipment.serial_number }}</p>
+                        </v-flex>
+                      </v-layout>
 
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">5.</p>
@@ -133,29 +131,28 @@
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.brand }} / {{ certificate.equipment.manufacture }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
                         </v-flex>
                       </v-layout>
 
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
                         <v-flex xs5>
-                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
-                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Internal Dimension</p>
-                        </v-flex>
-                        <v-flex xs6>
-                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: {{certificate.equipment.internal_dimension}}</p>
-                        </v-flex>
-                      </v-layout>
-
-                      <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
-                        <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Pengontrol Suhu</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Temperature Control</p>
                         </v-flex>
                         <v-flex xs6>
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
+                        </v-flex>
+                      </v-layout>
+                      <!-- <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
+                        <v-flex xs5>
+                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Internal Dimension</p>
+                        </v-flex>
+                        <v-flex xs6>
+                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: 460mm(l)x250mm(p)x340mm(t)</p>
                         </v-flex>
                       </v-layout>
 
@@ -168,8 +165,7 @@
                         <v-flex xs6>
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.others }}</p>
                         </v-flex>
-                      </v-layout>
-
+                      </v-layout> -->
                     </v-flex>
                   </v-layout>
 
@@ -257,7 +253,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.room_temp}}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -266,7 +262,27 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}} ± 3 %RH</span></p>
+                      </v-layout>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout>
+                    <v-flex xs6>
+                      <v-layout row>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">3.</p>
+                        <div style="width: 32mm">
+                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang Terkoreksi</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_room_temp}}</span></p>
+                      </v-layout>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-layout row>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">4.</p>
+                        <div style="width: 32mm">
+                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan Terkoreksi</p>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} ± 3 %RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -334,6 +350,66 @@
                       <p contenteditable class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">NIP. {{signatory.nip}}</p>
                     </v-flex>
                   </v-layout>
+
+                  <!-- <div>
+                    <table style="margin-top: 10px; width: 100%; border: 1px solid black; border-collapse: collapse;">
+                      <tr>
+                        <td style="border: 1px solid black; padding: 0 5px;">
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">DISETUJUI</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Approved by</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: Tatto Bustomi</p>
+                          </v-layout>
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">TANGGAL</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Date</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: __ Juni 2017</p>
+                          </v-layout>
+                        </td>
+                        <td style="border: 1px solid black; padding: 0 5px;">
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">DIPERIKSA</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Checked by</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: Tatto Bustomi</p>
+                          </v-layout>
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">TANGGAL</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Date</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: __ Juni 2017</p>
+                          </v-layout>
+                        </td>
+                        <td style="border: 1px solid black; padding: 0 5px;">
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">DISIAPKAN</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Prepared by</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: Agus Surya Permana</p>
+                          </v-layout>
+                          <v-layout>
+                            <div>
+                              <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">TANGGAL</p>
+                              <p class="helve i" style="font-size: 7pt; margin: 0;">Date</p>
+                            </div>
+                            <p class="roman" style="font-size: 9pt; margin: 7px 10px; height: 4.2mm;">: __ Juni 2017</p>
+                          </v-layout>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid black; height: 75px;"></td>
+                        <td style="border: 1px solid black; height: 75px;"></td>
+                        <td style="border: 1px solid black; height: 75px;"></td>
+                      </tr>
+                    </table>
+                  </div> -->
                 </div>
 
                 <!-- Keterangan -->
@@ -349,9 +425,6 @@
                       <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
                         2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
                       </p>
-                      <!-- <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
-                        3. Laboratorium ini diakreditasi KAN LK-022-IDN.
-                      </p> -->
                     </v-flex>
                   </v-layout>
                 </div>
@@ -372,7 +445,7 @@
                         <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
                         <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
                       </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">3</p>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -421,25 +494,26 @@ p{
   }
 </style>
 <script>
-import suhuHeader from '~/components/suhu/auto_clave.vue'
+import dimensiHeader from '~/components/dimensi/stopwatch.vue'
 import jsPDF from 'jspdf'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 // import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    suhuHeader
+    dimensiHeader
   },
 
   head: {
-    title: 'Sertififkat Auto Clave | Bidang Suhu',
+    title: 'Sertifikat | Bidang Gaya',
     meta: [
       {
-        hid: 'Suhu',
-        name: 'Suhu',
-        content: 'Bidang Suhu'
+        hid: 'gaya',
+        name: 'gaya',
+        content: 'Bidang Gaya'
       }
     ],
+
     script: [
       { src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js' }
     ]
@@ -447,7 +521,7 @@ export default {
 
   data: () => ({
     active: null,
-    certificate_number: '',
+    certificate_number: '3-01-19-00472',
     certificate: {
       equipment: {
         name: '',
@@ -455,7 +529,6 @@ export default {
         model: '',
         serial_number: '',
         manufacture: '',
-        brand: '',
         internal_dimension: '',
         temperature: '',
         others: '-',
@@ -472,7 +545,9 @@ export default {
       calibration_date: '',
       env_condition: {
         room_temp: '',
-        humidity: ''
+        corrected_room_temp: '',
+        humidity: '',
+        corrected_humidity: ''
       },
       calibration_location: '',
       calibration_method: '',
@@ -498,7 +573,7 @@ export default {
     menu2: false
   }),
 
-  mounted() { 
+  mounted() {
     this.getCertData()
   },
 
@@ -542,34 +617,32 @@ export default {
     },
 
     elementMapping(data, owner) {
-      this.certificate.equipment.name = data.deskripsi.nama_alat
-      this.certificate.equipment.internal_dimension = data.deskripsi.dimensi.lebar+'mm(l)x'+data.deskripsi.dimensi.panjang+'mm(p)x'+data.deskripsi.dimensi.tinggi+'mm(t)'
-      this.certificate.equipment.capacity = data.kapasitas
-      this.certificate.equipment.model = data.deskripsi.model
-      this.certificate.equipment.brand = data.deskripsi.merk
-      this.certificate.equipment.serial_number = data.deskripsi.no_seri
-      this.certificate.equipment.manufacture = data.deskripsi.buatan
-      this.certificate.equipment.temperature = data.deskripsi.pengontrol_suhu
+      this.certificate.equipment.name = data['Deskripsi Alat']
+      this.certificate.equipment.capacity = data['Kapasitas']
+      this.certificate.equipment.model = data['Tipe']
+      this.certificate.equipment.serial_number = data['No Seri']
+      this.certificate.equipment.manufacture = data['Buatan']
+      this.certificate.equipment.temperature = '-'
       this.certificate.owner.name = owner.nama_co
       this.certificate.owner.address = owner.alamat
-      this.certificate.standard.name = data.standar_dipakai
-      this.certificate.standard.traceability = data.ketertelusuran
-      // this.certificate.env_condition = {
-      //   room_temp: data['Suhu Ruangan'],
-      //   corrected_room_temp: data['Suhu Terkoreksi'],
-      //   humidity: data['Kelembaban'],
-      //   corrected_humidity: data['Kelembaban Terkoreksi']
-      // }
-      this.certificate.acceptance_date = this.convertDate(data.tgl_terima)
-      this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
+      this.certificate.standard.name = data['Standar dipakai']
+      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui LK-001-IDN'
+      this.certificate.env_condition = {
+        room_temp: data['Suhu Ruangan'],
+        corrected_room_temp: data['Suhu Terkoreksi'],
+        humidity: data['Kelembaban'],
+        corrected_humidity: data['Kelembaban Terkoreksi']
+      }
+      this.certificate.acceptance_date = this.convertDate(data.tanggal_diterima)
+      this.certificate.calibration_date = this.convertDate(data['Tanggal kalibrasi'])
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = data.deskripsi.lokasi
-      this.certificate.calibration_method = data.metode_kalibrasi
-      this.certificate.refference = data.standar_acuan
+      this.certificate.calibration_location = data['Lokasi Kalibrasi']
+      this.certificate.calibration_method = data['Metoda Kalibrasi']
+      this.certificate.refference = data['Standar acuan']
       this.certificate.published_date = ''
     },
-    
+
     printWrapper() {
       var printContents = document.getElementById('printable').innerHTML;
       var originalContents = document.body.innerHTML;

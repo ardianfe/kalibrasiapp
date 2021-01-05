@@ -6,129 +6,310 @@
       <suhuHeader></suhuHeader>
 
       <p class="accent--text lato font-weight-bold title mt-5 mb-0">Lembar Kerja</p>
-      <v-card style="overflow-x: scroll;" class="mt-3 elevation-4 v-main-card">
-        <v-card-text xs12 sm6 class="mt-3">
-          <label for="mass">Pilih ukuran suhu</label>
-          <v-select
-            :items="temps"
-            id="temp"
-            v-model="selected_temp"
-            label="Pilih ukuran suhu"
-            solo
-            background-color="white"
-          ></v-select>
-        </v-card-text>
-
-        <v-card flat>
+      <v-card class="mt-3 elevation-4 v-main-card">
+        <!-- <v-card flat> -->
           <v-card-text>
             <div class="pa-1">
-              
-              <!-- {{sheets}} -->
-              <table width="100%">
-                <template>
-                  <tr v-for="(tp_header, index) in tp_headers" :key="index">
-                    <th v-for="(header, index2) in tp_header" :key="index2" :colspan="header.cspan" :rowspan="header.rspan">{{header.text}}</th>
+              <p>No. Sertifikat : {{cert_no}}</p>
+              <table class="tableizer-table">
+                <thead>
+                  <tr class="tableizer-firstrow">
+                    <td>Pemilik :</td>
+                    <td colspan="3">PEMPROV JABAR - DINAS KELAUTAN DAN PERIKANAN</td>
                   </tr>
-                  <template v-if="data_kal['hk_'+selected_temp]">
-                    <tr v-for="(item, index) in titik_uji" :key="index">
-                      <td>{{item}}</td>
-                      <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][index].toFixed(2)}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Indikator</td>
-                      <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][titik_uji]}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ambient</td>
-                      <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][titik_uji+1]}}
-                      </td>
-                    </tr>
-                  </template>
-                  <tr v-else>
-                    <td colspan="15" class="text-xs-center b">Silakan pilih pengaturan suhu</td>
-                  </tr>
-                </template>
-              </table>
-
-              <!-- ketidakpastian -->
-              <p class="font-weight-bold" style="margin-top: 50px">Ketidakpastian</p>
-              <table v-if="selected_temp != '150'" width="100%">
-                <template v-if="selected_temp">
+                </thead>
+                <tbody>
                   <tr>
-                    <th v-for="(header2, index) in header2" :key="index">
-                      {{header2}}
-                    </th>
+                    <td style="width:10%">Nama Alat :</td>
+                    <td style="width:40%">AUTOCLAVE</td>
+                    <td style="width:10%">Resolusi :</td>
+                    <td style="width:40%">Tekanan : 0,4 Mpa</td>
                   </tr>
-
-                  <tr v-for="(key, index) in ktp_110_komponen[0].length" :key="index">
+                  <tr>
+                    <td>Rentang Suhu :</td>
+                    <td>138 ⁰C</td>
+                    <td>Kalibrator :</td>
                     <td>
-                      {{ktp_110_komponen[0][index]}}
+                      1. Digital Thermometer Fluke 52 II S/N : 37430639WS
+                      <br>
+                      2. Thermocouple Wire Tipe K, S/N : K1
                     </td>
-                    <td>°C</td>
-                    <td>{{ktp_110_komponen[1][index]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['U'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['pembagi'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['ui'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['ci'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['uici'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['uici2'][index+1]}}</td>
-                  </tr>
-                  
-                  <tr>
-                    <td colspan="8">Sums</td>
-                    <td>{{data_ktp['ktp_sums_'+selected_temp].toFixed(5)}}</td>
                   </tr>
                   <tr>
-                    <td colspan="8">Ketidakpastian baku gabungan, uc, (mg)</td>
-                    <td>{{data_ktp['ktp_gabungan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_gabungan_'+selected_temp].besaran}}</td>
+                    <td>Tipe/Model :</td>
+                    <td>HVE 50</td>
+                    <td>Ketelusuran :</td>
+                    <td>Hasil Kalibrasi yang dilaporkan tertelusur kesatuan pengukuran SI melalui LK-032-IDN dan LK-0172-IDN</td>
                   </tr>
                   <tr>
-                    <td colspan="8">Faktor cakupan, k-student’s untuk neff dan CL 95 %</td>
-                    <td>{{data_ktp['ktp_fc_'+selected_temp]}}</td>
+                    <td>Merek :</td>
+                    <td>Hirayama</td>
+                    <td>Suhu Ruangan :</td>
+                    <td>-</td>
                   </tr>
                   <tr>
-                    <td colspan="8">Ketidak pastian bentangan, U = k.uc</td>
-                    <td>{{data_ktp['ktp_bentangan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_bentangan_'+selected_temp].besaran}}</td>
+                    <td>No. seri :</td>
+                    <td>787226</td>
+                    <td>Lokasi :</td>
+                    <td>Laboratorium Mikrobiologi - Dinas Kelautan dan Perikanan, Cirebon</td>
                   </tr>
-                </template>
-
-              </table>
-
-              <table v-else width="50%">
-                <tr>
-                  <th v-for="(header, index) in ktpheader" :key="index">
-                    {{header}}
-                  </th>
-                </tr>
-                <tr v-for="(key, index) in ktp_150_komponen.length" :key="index">
-                  <td>{{ktp_150_komponen[index]}}</td>
-                  <td>°C</td>
-                  <td>{{data_ktp.ktp_data_150['uici'][index].toFixed(3)}}</td>
-                  <td>{{data_ktp.ktp_data_150['uici2'][index].toFixed(3)}}</td>
-                </tr>
-                <tr>
-                  <td colspan="3">Ketidak pastian bentangan, U = k.uc</td>
-                  <td>{{data_ktp.ktp_bentangan_150}}</td>
-                </tr>
-                <!-- <tr v-for="(item, index) in 4" :key="index">
-                  <td>{{sheets.ktp[index]['Komponen']}}</td>
-                  <td>{{sheets.ktp[index]['Satuan']}}</td>
-                  <td>{{sheets.ktp[index]['UiCi']}}</td>
-                  <td v-if="sheets.ktp[index]['(UiCi)2'].toFixed(2)">{{sheets.ktp[index]['(UiCi)2'].toFixed(2)}}</td>
-                </tr>
-                <tr>
-                  <th colspan="3">{{sheets.ktp[4]["Komponen"]}}</th>
-                  <th>{{sheets.ktp[4]["(UiCi)2"]}}</th>
-                </tr> -->
+                  <tr>
+                    <td>Buatan :</td>
+                    <td colspan="3">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>Standar Acuan :</td>
+                    <td colspan="3">Monitoring Maintenance Calibration of Autoclaves (For The Purpose of UKAS Acreditation ) QSOP 6" Tahun 2005</td>
+                  </tr>
+                  <tr>
+                    <td>Metoda Kalibrasi :</td>
+                    <td colspan="3">PC-301-06</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </v-card-text>
-        </v-card>
+        <!-- </v-card> -->
+      </v-card>
+      
+      <v-card class="mt-3 elevation-4 v-main-card">
+        <v-card-text>
+          <div class="pa-1">
+            <p class="b">1. Hasil Pengukuran</p>
+
+            <table>
+              <thead>
+                  <tr>
+                    <th colspan="2" rowspan="2">Penunjukan Alat </th>
+                    <th colspan="10">Penunjukan Standar (°C)</th>
+                    <th rowspan="2">Koreksi</th>
+                    <th rowspan="2">Std Deviasi</th>
+                  </tr>
+                  <tr>
+                    <td colspan="3">I</td>
+                    <td colspan="3">II</td>
+                    <td colspan="3">III</td>
+                    <td>Rata-rata</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <td>Mpa</td>
+                    <td> (°C)</td>
+                    <td>Max</td>
+                    <td>Min</td>
+                    <td>rata-rata</td>
+                    <td>Max</td>
+                    <td>Min</td>
+                    <td>rata-rata</td>
+                    <td>Max</td>
+                    <td>Min</td>
+                    <td>rata-rata</td>
+                    <td>I, II dan III</td>
+                    <td>(°C)</td>
+                    <td>(°C)</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="5">0.1</td>
+                    <td rowspan="5">121</td>
+                    <td>120.6</td>
+                    <td>120.5</td>
+                    <td>120.6</td>
+                    <td>120.6</td>
+                    <td>120.5</td>
+                    <td>120.6</td>
+                    <td>120.7</td>
+                    <td>120.5</td>
+                    <td>120.6</td>
+                    <td rowspan="5">120.5</td>
+                    <td rowspan="5">-0.5</td>
+                    <td>0.08</td>
+                  </tr>
+                  <tr>
+                    <td>120.5</td>
+                    <td>120.3</td>
+                    <td>120.4</td>
+                    <td>120.6</td>
+                    <td>120.5</td>
+                    <td>120.6</td>
+                    <td>120.6</td>
+                    <td>120.4</td>
+                    <td>120.5</td>
+                    <td>0.12</td>
+                  </tr>
+                  <tr>
+                    <td>120.7</td>
+                    <td>120.5</td>
+                    <td>120.6</td>
+                    <td>120.7</td>
+                    <td>120.5</td>
+                    <td>120.6</td>
+                    <td>120.6</td>
+                    <td>120.4</td>
+                    <td>120.5</td>
+                    <td>0.12</td>
+                  </tr>
+                  <tr>
+                    <td>120.4</td>
+                    <td>120.2</td>
+                    <td>120.3</td>
+                    <td>120.4</td>
+                    <td>120.2</td>
+                    <td>120.3</td>
+                    <td>120.5</td>
+                    <td>120.3</td>
+                    <td>120.4</td>
+                    <td>0.12</td>
+                  </tr>
+                  <tr>
+                    <td>120.6</td>
+                    <td>120.4</td>
+                    <td>120.5</td>
+                    <td>120.5</td>
+                    <td>120.3</td>
+                    <td>120.4</td>
+                    <td>120.6</td>
+                    <td>120.4</td>
+                    <td>120.5</td>
+                    <td>0.12</td>
+                  </tr>
+              </tbody>
+            </table>
+            <p>Catatan :	Nilai rata-rata telah dibulatkan ke  0,1 °C</p>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <p class="accent--text lato font-weight-bold title mt-5 mb-0">Ketidakpastian</p>
+      <v-card class="mt-3 elevation-4 v-main-card">
+        <v-card-text>
+          <div class="pa-1">
+            <p class="b">Perhitungan Ketidakpastian</p>
+
+            <table class="tableizer-table">
+              <thead>
+                  <tr class="tableizer-firstrow">
+                    <th>Komponen</th>
+                    <th>Satuan</th>
+                    <th>Sebaran</th>
+                    <th>U</th>
+                    <th>Pembagi</th>
+                    <th>Vi</th>
+                    <th>Ui</th>
+                    <th>Ci</th>
+                    <th>UiCi</th>
+                    <th>(UiCi)2</th>
+                    <th>(Ui.Ci)4/Vi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                  </tr>
+                  <tr>
+                    <td>Kalibrator Ind  </td>
+                    <td>°C</td>
+                    <td>Normal</td>
+                    <td>0.2</td>
+                    <td>2.0</td>
+                    <td>30</td>
+                    <td>0.10</td>
+                    <td>1.00</td>
+                    <td>0.10</td>
+                    <td>0.01</td>
+                    <td>3.33333E-06</td>
+                  </tr>
+                  <tr>
+                    <td>Drift Kalibrator</td>
+                    <td>°C</td>
+                    <td>Rectangular</td>
+                    <td>0.02</td>
+                    <td>1.73</td>
+                    <td>50</td>
+                    <td>0.01</td>
+                    <td>1.00</td>
+                    <td>0.01</td>
+                    <td>0.00</td>
+                    <td>3.57245E-10</td>
+                  </tr>
+                  <tr>
+                    <td>Termokopel</td>
+                    <td>°C</td>
+                    <td>Normal</td>
+                    <td>0.52</td>
+                    <td>2.0</td>
+                    <td>50</td>
+                    <td>0.26</td>
+                    <td>1.00</td>
+                    <td>0.26</td>
+                    <td>0.07</td>
+                    <td>9.13952E-05</td>
+                  </tr>
+                  <tr>
+                    <td>Drift Termokopel</td>
+                    <td>°C</td>
+                    <td>Rectangular</td>
+                    <td>0.1</td>
+                    <td>1.73</td>
+                    <td>30</td>
+                    <td>0.03</td>
+                    <td>1.00</td>
+                    <td>0.03</td>
+                    <td>0.00</td>
+                    <td>2.72087E-08</td>
+                  </tr>
+                  <tr>
+                    <td>Pembacaan ulang</td>
+                    <td>°C</td>
+                    <td>Normal</td>
+                    <td>0.1</td>
+                    <td>1.73</td>
+                    <td>5</td>
+                    <td>0.07</td>
+                    <td>1.00</td>
+                    <td>0.07</td>
+                    <td>0.00</td>
+                    <td>4.78025E-06</td>
+                  </tr>
+                  <tr>
+                    <td>Resolusi Alat</td>
+                    <td>°C</td>
+                    <td>Rectangular</td>
+                    <td>1</td>
+                    <td>1.73</td>
+                    <td>30</td>
+                    <td>0.58</td>
+                    <td>1.00</td>
+                    <td>0.58</td>
+                    <td>0.33</td>
+                    <td>0.003703704</td>
+                  </tr>
+                  <tr>
+                    <td colspan="9">Sums</td>
+                    <td>0.42</td>
+                    <td>0.00380324</td>
+                  </tr>
+                  <tr>
+                    <td colspan="9">Ketidakpastian baku gabungan, uc, (mg)</td>
+                    <td>0.65</td>
+                    <td>°C</td>
+                  </tr>
+                  <tr>
+                    <td colspan="9">Faktor cakupan (k) pada tingkat kepercayaan 95% (dari tabel )</td>
+                    <td>2.00</td>
+                    <td>°C</td>
+                  </tr>
+                  <tr>
+                    <td colspan="9">Ketidak pastian bentangan, U = k.uc</td>
+                    <td>1.3</td>
+                    <td>°C</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </v-card-text>
       </v-card>
 
     </v-flex>
@@ -148,7 +329,7 @@
 </style>
 
 <script>
-import suhuHeader from '~/components/suhu/water_bath.vue'
+import suhuHeader from '~/components/suhu/auto_clave.vue'
 
 export default {
   components: {
@@ -156,7 +337,7 @@ export default {
   },
 
   head: {
-    title: 'Lembar Kerja Water Bath | Bidang Suhu',
+    title: 'Lembar Kerja Auto Clave | Bidang Suhu',
     meta: [
       {
         hid: 'Suhu',
@@ -225,6 +406,8 @@ export default {
 
     data_kal: {},
     data_ktp: {},
+
+    cert_no: ''
 
   }),
 

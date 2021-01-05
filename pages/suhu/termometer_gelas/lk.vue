@@ -1,136 +1,303 @@
 <template>
-  <v-layout
-    column
-  >
+  <v-layout column>
     <v-flex xs12 sm8 md6>
-      <suhuHeader></suhuHeader>
+      <volHeader></volHeader>
 
-      <p class="accent--text lato font-weight-bold title mt-5 mb-0">Lembar Kerja</p>
-      <v-card style="overflow-x: scroll;" class="mt-3 elevation-4 v-main-card">
-        <v-card-text xs12 sm6 class="mt-3">
-          <label for="mass">Pilih ukuran suhu</label>
-          <v-select
-            :items="temps"
-            id="temp"
-            v-model="selected_temp"
-            label="Pilih ukuran suhu"
-            solo
-            background-color="white"
-          ></v-select>
-        </v-card-text>
-
-        <v-card flat>
+      <v-layout justify-center column>
+        <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-card-text>
-            <div class="pa-1">
-              
-              <!-- {{sheets}} -->
-              <table width="100%">
-                <template>
-                  <tr v-for="(tp_header, index) in tp_headers" :key="index">
-                    <th v-for="(header, index2) in tp_header" :key="index2" :colspan="header.cspan" :rowspan="header.rspan">{{header.text}}</th>
-                  </tr>
-                  <template v-if="data_kal['hk_'+selected_temp]">
-                    <tr v-for="(item, index) in titik_uji" :key="index">
-                      <td>{{item}}</td>
-                      <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][index].toFixed(2)}}
-                      </td>
+            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI TERMOMETER DIGITAL</p>
+
+            <p>No. Sertifikat : {{no_cert}}</p>
+            <v-layout row wrap>
+              <table>
+                <tr>
+                  <td>Pemilik :</td>
+                  <td colspan="3">{{data_co.nama_co}}</td>
+                </tr>
+                <tr>
+                  <td>Nama Alat :</td>
+                  <td style="width: 35%">{{data_alat.deskripsi.nama_alat}}</td>
+                  <td>Res :</td>
+                  <td>0.1 C</td>
+                </tr>
+                <tr>
+                  <td>Rentang Suhu :</td>
+                  <td>{{data_alat.deskripsi.rentang_suhu}}</td>
+                  <td>Alat Standard:</td>
+                  <td>{{data_alat.alat_standard.name}}</td>
+                </tr>
+                <tr>
+                  <td>Tipe/Model :</td>
+                  <td>{{data_alat.deskripsi.tipe_model}}</td>
+                  <td>No. seri :</td>
+                  <td>{{data_alat.alat_standard.no_seri}}</td>
+                </tr>
+                <tr>
+                  <td>Merek :</td>
+                  <td>{{data_alat.deskripsi.merk}}</td>
+                  <td>Ketelusuran :</td>
+                  <td>{{data_alat.ketertelusuran}}</td>
+                </tr>
+                <tr>
+                  <td>No. seri :</td>
+                  <td>{{data_alat.deskripsi.no_seri}}</td>
+                  <td>Suhu Ruangan :</td>
+                  <td>{{data_alat.suhu_ruangan}}</td>
+                </tr>
+                <tr>
+                  <td>Buatan :</td>
+                  <td>{{data_alat.deskripsi.buatan}}</td>
+                  <td>Lokasi :</td>
+                  <td>{{data_alat.deskripsi.lokasi_kalibrasi}}</td>
+                </tr>
+                <tr>
+                  <td>No. Spesifikasi :</td>
+                  <td>{{data_alat.deskripsi.no_spesifikasi}}</td>
+                  <td>Standar Acuan :</td>
+                  <td>{{data_alat.standar_acuan}}</td>
+                </tr>
+              </table>
+            </v-layout>
+
+            <p>
+              Metoda Kalibrasi : {{data_alat.metode_kalibrasi}}
+            </p>
+
+            <v-layout column>
+              <div style="width: 32mm" class="mt-3">
+                <p class="u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">1. Hasil Kalibrasi</p>
+                <p class="i" style="font-size: 9pt; margin: 0; height: 18px;">Result of Calibration</p>
+              </div>
+
+              <table>
+                <thead>
+                    <tr>
+                      <th rowspan="2">Penunjukan Alat<br> (C)</th>
+                      <th colspan="5">Penunjukan Standar (C)</th>
+                      <th rowspan="2">Rata - rata <br> (C)</th>
+                      <th rowspan="2">Kesalahan <br> (C)</th>
+                      <th rowspan="2">Ketidakpastian <br> (C)</th>
                     </tr>
                     <tr>
-                      <td>Indikator</td>
-                      <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][titik_uji]}}
-                      </td>
+                      <td>I</td>
+                      <td>ll</td>
+                      <td>lll</td>
+                      <td>lV</td>
+                      <td>V</td>
                     </tr>
-                    <tr>
-                      <td>Ambient</td>
-                      <td v-for="(key, keyindex) in hk_keys" :key="keyindex">
-                        {{data_kal['hk_'+selected_temp][key][titik_uji+1]}}
-                      </td>
-                    </tr>
-                  </template>
-                  <tr v-else>
-                    <td colspan="15" class="text-xs-center b">Silakan pilih pengaturan suhu</td>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in data_kal.penunjukan_alat" :key="index">
+                    <td>{{item}}</td>
+                    <td>{{data_kal.pnjk_std_i[index].toFixed(4)}}</td>
+                    <td>{{data_kal.pnjk_std_ii[index].toFixed(4)}}</td>
+                    <td>{{data_kal.pnjk_std_iii[index].toFixed(4)}}</td>
+                    <td>{{data_kal.pnjk_std_iv[index].toFixed(4)}}</td>
+                    <td>{{data_kal.pnjk_std_v[index].toFixed(4)}}</td>
+                    <td>{{data_kal.rata_rata[index].toFixed(4)}}</td>
+                    <td>{{data_kal.kesalahan[index].toFixed(4)}}</td>
+                    <td>{{data_kal.ketidakpastian[index].toFixed(4)}}</td>
                   </tr>
-                </template>
+                </tbody>
               </table>
+            </v-layout>
 
-              <!-- ketidakpastian -->
-              <p class="font-weight-bold" style="margin-top: 50px">Ketidakpastian</p>
-              <table v-if="selected_temp != '150'" width="100%">
-                <template v-if="selected_temp">
-                  <tr>
-                    <th v-for="(header2, index) in header2" :key="index">
-                      {{header2}}
-                    </th>
-                  </tr>
+            <v-layout row class='mt-4'>
+              <v-flex xs6>
+                Diperiksa oleh : {{data_alat.diperiksa.person}} <br>
+                Tanggal :	{{data_alat.diperiksa.date}} <br>
+                Tanda Tangan :	
 
-                  <tr v-for="(key, index) in ktp_110_komponen[0].length" :key="index">
-                    <td>
-                      {{ktp_110_komponen[0][index]}}
-                    </td>
-                    <td>°C</td>
-                    <td>{{ktp_110_komponen[1][index]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['U'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['pembagi'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['ui'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['ci'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['uici'][index+1]}}</td>
-                    <td>{{data_ktp['ktp_data_'+selected_temp]['uici2'][index+1]}}</td>
-                  </tr>
-                  
-                  <tr>
-                    <td colspan="8">Sums</td>
-                    <td>{{data_ktp['ktp_sums_'+selected_temp].toFixed(5)}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="8">Ketidakpastian baku gabungan, uc, (mg)</td>
-                    <td>{{data_ktp['ktp_gabungan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_gabungan_'+selected_temp].besaran}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="8">Faktor cakupan, k-student’s untuk neff dan CL 95 %</td>
-                    <td>{{data_ktp['ktp_fc_'+selected_temp]}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="8">Ketidak pastian bentangan, U = k.uc</td>
-                    <td>{{data_ktp['ktp_bentangan_'+selected_temp].nilai.toFixed(5)}} {{data_ktp['ktp_bentangan_'+selected_temp].besaran}}</td>
-                  </tr>
-                </template>
+                <hr style="width: 50%; margin-top: 100px">	
+              </v-flex>
+              <v-flex xs6>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
+                Tanda-tangan :
 
-              </table>
-
-              <table v-else width="50%">
-                <tr>
-                  <th v-for="(header, index) in ktpheader" :key="index">
-                    {{header}}
-                  </th>
-                </tr>
-                <tr v-for="(key, index) in ktp_150_komponen.length" :key="index">
-                  <td>{{ktp_150_komponen[index]}}</td>
-                  <td>°C</td>
-                  <td>{{data_ktp.ktp_data_150['uici'][index].toFixed(3)}}</td>
-                  <td>{{data_ktp.ktp_data_150['uici2'][index].toFixed(3)}}</td>
-                </tr>
-                <tr>
-                  <td colspan="3">Ketidak pastian bentangan, U = k.uc</td>
-                  <td>{{data_ktp.ktp_bentangan_150}}</td>
-                </tr>
-                <!-- <tr v-for="(item, index) in 4" :key="index">
-                  <td>{{sheets.ktp[index]['Komponen']}}</td>
-                  <td>{{sheets.ktp[index]['Satuan']}}</td>
-                  <td>{{sheets.ktp[index]['UiCi']}}</td>
-                  <td v-if="sheets.ktp[index]['(UiCi)2'].toFixed(2)">{{sheets.ktp[index]['(UiCi)2'].toFixed(2)}}</td>
-                </tr>
-                <tr>
-                  <th colspan="3">{{sheets.ktp[4]["Komponen"]}}</th>
-                  <th>{{sheets.ktp[4]["(UiCi)2"]}}</th>
-                </tr> -->
-              </table>
-            </div>
+                <hr style="width: 50%; margin-top: 100px">	
+              </v-flex>
+            </v-layout>
           </v-card-text>
         </v-card>
-      </v-card>
+        
+        <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
+          <v-card-text>
+            <p class="text-xs-center b title my-4">KETIDAKPASTIAN PENGUKURAN</p>
 
+            <p>No. Sertifikat : {{no_cert}}</p>
+            <p class="b">Analisa Tipe B</p>
+
+            <p class="mb-0">Tingkat Kepercayaan 95%</p>
+            <table style="width: 90%">
+              <tr>
+                <td style="width: 60%">Ketidakpastian termometer acuan, No B86732</td>
+                <td style="width: 15%">(dari sertifikat) :</td>
+                <td style="width: 15%">{{data_ktp.ktp_termometer_acuan_B86732.dari_sertifikat}}</td>
+                <td style="width: 10%">C</td>
+              </tr>
+              <tr>
+                <td>Asumsi k=2,0</td>
+                <td>(µb1) :</td>
+                <td>{{data_ktp.ktp_termometer_acuan_B86732.mb1}}</td>
+                <td>C</td>
+              </tr>
+            </table>
+
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td style="width: 60%">Ketidakpastian termometer acuan, No</td>
+                <td style="width: 15%">(dari sertifikat)  :</td>
+                <td style="width: 15%">{{data_ktp.ktp_termometer_acuan_007872.dari_sertifikat}}</td>
+                <td style="width: 10%">C</td>
+              </tr>
+              <tr>
+                <td>Asumsi k=2,0</td>
+                <td>(µb1) :</td>
+                <td>{{data_ktp.ktp_termometer_acuan_007872.mb1}}</td>
+                <td>C</td>
+              </tr>
+            </table>
+
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td style="width: 60%">Ketidakpastian kesetabilan suhu</td>
+                <td style="width: 15%">(dari sertifikat)  :</td>
+                <td style="width: 15%">{{data_ktp.ktp_ketidakstabilan_suhu.dari_sertifikat}}</td>
+                <td style="width: 10%">C</td>
+              </tr>
+              <tr>
+                <td> Asumsi k=2,0</td>
+                <td>(µb2) :</td>
+                <td>{{data_ktp.ktp_ketidakstabilan_suhu.mb2}}</td>
+                <td>C</td>
+              </tr>
+            </table>
+
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td style="width: 60%">Ketidakpastian keseragaman suhu</td>
+                <td style="width: 15%">(dari sertifikat)  :</td>
+                <td style="width: 15%">{{data_ktp.ktp_keseragaman_suhu.dari_sertifikat}}</td>
+                <td style="width: 10%">C</td>
+              </tr>
+              <tr>
+                <td>Asumsi k=2,0</td>
+                <td>(µb3) :</td>
+                <td>{{data_ktp.ktp_keseragaman_suhu.mb3}}</td>
+                <td>C</td>
+              </tr>
+            </table>
+
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td style="width: 60%">Drift alat</td>
+                <td style="width: 15%">(dari sertifikat)  :</td>
+                <td style="width: 15%">{{data_ktp.ktp_drift_alat.dari_sertifikat}}</td>
+                <td style="width: 10%">C</td>
+              </tr>
+              <tr>
+                <td>Asumsi k=2,0</td>
+                <td>(µb4) :</td>
+                <td>{{data_ktp.ktp_drift_alat.mb4}}</td>
+                <td>C</td>
+              </tr>
+            </table>
+
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td colspan="4">Pada Indikator alat :</td>
+              </tr>
+              <tr>
+                <td style="width:60%">Readibility =</td>
+                <td>{{data_ktp.ktp_pada_indikator_alat.readibility}}</td>
+                <td>C</td>
+                <td>Distribusi rectangular (a) = ±</td>
+              </tr>
+            <!-- </table>
+
+            <table style="width: 90%" class="mt-2"> -->
+              <tr>
+                <td colspan="4">Estimasi Reliability (R) = 10%,  Derajat kebebasan v = 50</td>
+              </tr>
+              <tr>
+                <td style="width:60%">Ketidakpastian standar pada indikator</td>
+                <td>(µb5) :</td>
+                <td>{{data_ktp.ktp_pada_indikator_alat.mb5.toFixed(4)}}</td>
+                <td>C</td>
+              </tr>
+            </table>
+
+            <p class="b my-2">Analisa Tipe A</p>
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td>Repeatibility =</td>
+                <td>{{data_ktp.ktp_analisis_tipe_A.repeatability}}</td>
+                <td>C</td>
+                <td>Distribusi rectangular (a) = ±</td>
+              </tr>
+              <tr>
+                <td>Reliability (R) =</td>
+                <td>20%.</td>
+                <td colspan="2">Derajat kebebasan v = 12,5</td>
+              </tr>
+            </table>
+
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td>Ketidakpastian hasil pengukuran (µA1) =  ±</td>
+                <td>{{data_ktp.ktp_analisis_tipe_A.ktp_hasil_ukur_mA1}}</td>
+                <td>C</td>
+              </tr>
+              <tr>
+                <td colspan="3">Ketidakpastian Gabungan ( µc ) :</td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <v-img src="/ktp_termo_digital.png" width="auto" height="80px" contain alt=""></v-img>
+                </td>
+              </tr>
+              <tr>
+                <td>µc =</td>
+                <td>{{data_ktp.ktp_analisis_tipe_A.ktp_gab_mc}}</td>
+                <td>C</td>
+              </tr>
+            </table>
+
+            <table style="width: 90%" class="mt-2">
+              <tr>
+                <td colspan="2">Ketidakpastian diperluas (µ95) dan faktor cakupan = 2,0</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>µ95 = k.µc</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>µ95 = ± {{data_ktp.ktp_analisis_tipe_A.ktp_diperluas_m95}} C</td>
+              </tr>
+            </table>
+
+            <v-layout row class='mt-4'>
+              <v-flex xs6>
+                Diperiksa oleh : {{data_alat.diperiksa.person}} <br>
+                Tanggal :	{{data_alat.diperiksa.date}} <br>
+                Tanda Tangan :	
+
+                <hr style="width: 50%; margin-top: 100px">	
+              </v-flex>
+              <v-flex xs6>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
+                Tanda-tangan :
+
+                <hr style="width: 50%; margin-top: 100px">	
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -140,23 +307,24 @@
     overflow-x: hidden;
     /* overflow: scroll; */
   } table {
+    font-size: 9pt;
     border-collapse: collapse;
   } table, th, td {
     border: 1px solid grey;
-    padding: 4px;
+    padding: 3px
   }
 </style>
 
 <script>
-import suhuHeader from '~/components/suhu/water_bath.vue'
+import volHeader from '~/components/suhu/termo_gelas.vue'
 
 export default {
   components: {
-    suhuHeader
+    volHeader
   },
 
   head: {
-    title: 'Lembar Kerja Water Bath | Bidang Suhu',
+    title: 'Lembar Kerja Termometer Gelas | Bidang Suhu',
     meta: [
       {
         hid: 'Suhu',
@@ -164,68 +332,103 @@ export default {
         content: 'Bidang Suhu'
       }
     ],
-    script: [
-      { src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js' }
-    ]
   },
 
   data: () => ({
-    active: null,
-    temps: [ "110", "150" ],
-    selected_temp: '',
-    titik_uji: 0,
-    ktp_110_komponen: [
-      [
-        "Ketidakpastian Standar",
-        "Ketidakpastian Thermocouple ",
-        "Drift",
-        "Readibility",
-        "Repeatibility",
-        "Ketidapkastian Temporal",
-        "Ketidakpastian Spasial",
-      ],
-      [ "Normal", "Normal", "Rectangular", "Rectangular", "T-Student", "Rectangular", "Rectangular" ]
-    ],
-    ktp_150_komponen: [
-      "Ketidakpastian Thermocouple", "Repeatibility", "Ketidapkastian Temporal", "Ketidakpastian Spasial"
-    ],
-    hk_keys: [ '1max', '1min', '2max', '2min', '3max', '3min', '4max', '4min', '5max', '5min', 'mid_range', 'variasi_tempora' ],
-    ktpheader: [ "Komponen", "Satuan", "UiCi", "(UiCi)2" ],
-    header2: [ "Komponen", "Satuan", "Distribusi", "U", "Pembagi", "Ui", "Ci", "UiCi", "(UiCi)2" ],
-
-    tp_headers: {
-      0: [
-        { text: 'Titik Uji', cspan: 1, rspan: 3},
-        { text: 'PENGAMATAN KE ( °C )', cspan: 10, rspan: 1},
-        { text: 'MID RANGE (°C)', cspan: 1, rspan: 3},
-        { text: 'VARIASI TEMPORAL (°C)', cspan: 1, rspan: 3},
-      ],
-      1: [
-        { text: '1', cspan: 2, rspan: 1},
-        { text: '2', cspan: 2, rspan: 1},
-        { text: '3', cspan: 2, rspan: 1},
-        { text: '4', cspan: 2, rspan: 1},
-        { text: '5', cspan: 2, rspan: 1},
-      ],
-      2: [
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-      ],
+    no_cert: '-',
+    
+    data_alat: {
+      alat_standard: {
+        name: "",
+        no_seri: ""
+      },
+      deskripsi:{
+        buatan: "",
+        lokasi_kalibrasi: "",
+        merk: "",
+        nama_alat: "",
+        no_seri: 0,
+        no_spesifikasi: "-",
+        rentang_suhu: "",
+        tipe_model: ""
+      },
+      dikalibrasi: {
+        date: "",
+        person: ""
+      },
+      diperiksa: {
+        date: "",
+        person: ""
+      },
+      kelembaban: "",
+      ketertelusuran: "",
+      metode_kalibrasi: "",
+      standar_acuan: "",
+      suhu_ruangan: "",
+      tgl_terima: ""
     },
 
-    sheets: {},
+    data_kal: {
+      hasil_kalibrasi: {
+        ketidakpastian: 0,
+        koreksi: 0,
+        volume_nominal: 0,
+        volume_sebenarnya_pada_suhu: 0
+      },
+      hasil_pengukuran: {
+        densitas_air: 0,
+        densitas_udara: 0,
+        ia: 0,
+        periksa_toleransi: 0,
+        table: {
+          berat_air: [ 0, 0, 0, 0 ],
+          kelembaban: [ 0, 0, 0, 0 ],
+          run: [ 0, 0, 0, 0 ],
+          suhu_air: [ 0, 0, 0, 0 ],
+          suhu_udara: [ 0, 0, 0, 0 ],
+          tekanan_udara: [ 0, 0, 0, 0 ]
+        },
+        v_air_suhu_vesel: 0
+      }
+    },
 
-    data_kal: {},
-    data_ktp: {},
+    data_co: {
+      alamat: '',
+      nama_co: ''
+    },
 
+    data_ktp: {
+      ktp_analisis_tipe_A: {
+        ktp_diperluas_m95: 0,
+        ktp_gab_mc: 0,
+        ktp_hasil_ukur_mA1: 0,
+        repeatability: 0
+      },
+      ktp_drift_alat: {
+        dari_sertifikat: 0,
+        mb4: 0
+      },
+      ktp_keseragaman_suhu: {
+        dari_sertifikat: 0,
+        mb3: 0
+      },
+      ktp_ketidakstabilan_suhu: {
+        dari_sertifikat: 0,
+        mb2: 0
+      },
+      ktp_pada_indikator_alat: {
+        mb5: 0,
+        readibility: 0
+      },
+      ktp_termometer_acuan_007872: {
+        dari_sertifikat: 0,
+        mb1: 0
+      },
+      ktp_termometer_acuan_B86732: {
+        dari_sertifikat: 0,
+        mb1: 0
+      }
+    },
   }),
 
   mounted() {
@@ -237,17 +440,22 @@ export default {
       try {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
 
+        console.log('get LK: ', req);
         let req_data = req.results[0]
 
-        console.log(req_data);
-
-        this.data_kal = req_data.data_kal
+        this.no_cert = req_data.no_laporan
+        this.data_alat = req_data.data_alat
+        this.data_co = req_data.data_co
+        this.data_kal = req_data.data_kal.data_pengamatan
         this.data_ktp = req_data.data_ktp
-
-        this.titik_uji = req_data.data_alat.deskripsi.jumlah_titik
       } catch (error) {
         console.log('get LK err: ', error.response);
       }
+    },
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
 }
