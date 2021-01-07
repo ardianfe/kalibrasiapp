@@ -43,9 +43,9 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'kelistrikan-load_bank-lk', text: 'Lembar Kerja & KTP', url: '/kelistrikan/load_bank/lk?id='+this.$route.query.id },
-        { name: 'kelistrikan-load_bank-sertifikat', text: 'Cetak Serifikat', url: '/kelistrikan/load_bank/sertifikat?id='+this.$route.query.id },
-        { name: 'kelistrikan-load_bank-lampiran', text: 'Cetak Lampiran', url: '/kelistrikan/load_bank/lampiran?id='+this.$route.query.id }
+        { name: 'kelistrikan-battery_charge-lk', text: 'Lembar Kerja & KTP', url: '/kelistrikan/battery_charge/lk?id='+this.$route.query.id },
+        { name: 'kelistrikan-battery_charge-sertifikat', text: 'Cetak Serifikat', url: '/kelistrikan/battery_charge/sertifikat?id='+this.$route.query.id },
+        { name: 'kelistrikan-battery_charge-lampiran', text: 'Cetak Lampiran', url: '/kelistrikan/battery_charge/lampiran?id='+this.$route.query.id }
       ]
     }
   },
