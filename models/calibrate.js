@@ -18,6 +18,16 @@ const model = $axios => ({
     formData.append('sample', sample)
     return $axios.$post(base_url2 + '/upload/' + order_id + '/' + sample_number, formData)
   },
+  
+  uploads({file, cat, sample, order_id, sample_number, sheet_name}) {
+    // kalibrasiapis/uploads/?id_order=20746&id_sample=20082873001&cat=gaya&sample=13&sheet=GRP-100kN,5223
+    // let formData = new FormData()
+    // formData.append('file', file)
+    // formData.append('sheet', sheet_name)
+    // formData.append('cat', cat)
+    // formData.append('sample', sample)
+    return $axios.$post(base_url2 + '/uploads/?id_order='+order_id+'&id_sample='+sample_number+'&cat='+cat+'&sample='+sample+'&sheet='+sheet_name, file)
+  },
 
   getCertData({no_cert}) {
     return $axios.$get(url + '/data_cert/' + no_cert)

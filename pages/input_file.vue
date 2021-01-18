@@ -102,14 +102,6 @@ export default {
   }),
 
   mounted() {
-    // const input = document.getElementById('input-excel')
-
-    // input.addEventListener('change', () => {
-    //   readXlsxFile(input.files[0]).then((rows) => {
-    //     // `rows` is an array of rows
-    //     // each row being an array of cells.
-    //   })
-    // })
   },
 
   methods: {
@@ -137,8 +129,10 @@ export default {
 
     async fileSelected(e) {
       try {
+
         let sheets_list = []
         const input = document.getElementById('input-excel')
+        console.log("e:",input.files[0]);
   
         await readXlsxFile(input.files[0], { getSheets: true }).then((sheets) => {
           sheets_list = sheets

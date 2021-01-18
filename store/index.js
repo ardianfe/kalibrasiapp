@@ -80,7 +80,7 @@ export const state = () => ({
     10: { id: 'gaya5', slug: '/gaya/abrasi/lk', name: 'Mesin Abrasi', cat: 'gaya' },
     11: { id: 'gaya6', slug: '/gaya/bending/lk', name: 'Mesin Bending', cat: 'gaya' },
     12: { id: 'gaya7', slug: '/gaya/uji_impak/lk', name: 'Mesin Uji Impak', cat: 'gaya' },
-    13: { id: 'gaya8', slug: '/gaya/uji/lk', name: 'Mesin Uji', cat: 'gaya' },
+    13: { id: 'gaya8', slug: '/gaya/mesin_uji/lk', name: 'Mesin Uji Universal', cat: 'gaya', type: 'sequential'},
     14: { id: 'gaya9', slug: '/gaya/mixer/lk', name: 'Mixer', cat: 'gaya' },
     15: { id: 'gaya10', slug: '/gaya/proving_ring/lk', name: 'Proving Ring', cat: 'gaya' },
     16: { id: 'gaya11', slug: '/gaya/spring_impact/lk', name: 'Spring Impact', cat: 'gaya' },
