@@ -69,7 +69,7 @@ export const state = () => ({
 
   bidang: {
     1: { id: 'dimensi1', slug: '/dimensi/ayakan/lk', name: 'Ayakan', cat: 'dimensi' },
-    2: { id: 'dimensi2', slug: '/dimensi/dial_indikator/data_entry', name: 'Dial Indicator', cat: 'dimensi' },
+    2: { id: 'dimensi2', slug: '/dimensi/dial_indikator/lk', name: 'Dial Indicator', cat: 'dimensi' },
     3: { id: 'dimensi3', slug: '/dimensi/jangka_sorong/lk', name: 'Jangka Sorong', cat: 'dimensi' },
     4: { id: 'dimensi4', slug: '/dimensi/micrometer/lk', name: 'Mikrometer Eksternal', cat: 'dimensi' },
     5: { id: 'dimensi5', slug: '/dimensi/stopwatch/lk', name: 'Stopwatch', cat: 'dimensi' },

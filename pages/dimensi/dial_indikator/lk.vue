@@ -76,7 +76,7 @@
           </v-card-text>
 
           <v-card-text>
-            <p class="b">No. Laporan : 3-09-19-00757</p>
+            <p class="b">No. Laporan : {{no_cert}}</p>
             <!-- <pre>
               {{data_kal.hasil}}
             </pre> -->

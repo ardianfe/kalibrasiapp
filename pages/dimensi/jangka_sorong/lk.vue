@@ -48,13 +48,13 @@
                     <p class="mb-1">Suhu Ruangan : {{ data_alat['Suhu Ruangan'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat['Kelembapan'] }}</p>
+                    <p class="mb-1">Kelembaban : {{ data_alat['Kelembapan'] }}</p>
                   </v-flex>
                   <v-flex xs6>
                     <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat['Suhu Terkoreksi'] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat['Kelembapan Terkoreksi'] }}</p>
+                    <p class="mb-1">Kelembaban Terkoreksi : {{ data_alat['Kelembapan Terkoreksi'] }}</p>
                   </v-flex>
                 </v-layout>
 

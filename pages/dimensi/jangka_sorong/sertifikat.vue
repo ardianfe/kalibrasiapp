@@ -260,9 +260,9 @@
                       <v-layout row>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">2.</p>
                         <div style="width: 32mm">
-                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
+                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembaban</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}} ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}} ± 3 % RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -280,9 +280,9 @@
                       <v-layout row>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 0; height: 4.2mm;">4.</p>
                         <div style="width: 32mm">
-                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan Terkoreksi</p>
+                          <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembaban Terkoreksi</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} ± 3 % RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>

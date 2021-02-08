@@ -48,13 +48,13 @@
                     <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruangan[0] }} - {{ data_alat.deskripsi.suhu_ruangan[1] }} {{ data_alat.deskripsi.suhu_ruangan[2] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat.deskripsi['kelembaban_%'] + ' %' }}</p>
+                    <p class="mb-1">Kelembaban : {{ data_alat.deskripsi['kelembaban_%'] + ' %' }}</p>
                   </v-flex>
                   <v-flex xs6>
                     <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi[0].toFixed(4) }} - {{ data_alat.deskripsi.suhu_terkoreksi[1].toFixed(4) }} {{ data_alat.deskripsi.suhu_terkoreksi[2] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] + ' %' }}</p>
+                    <p class="mb-1">Kelembaban Terkoreksi : {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] + ' %' }}</p>
                   </v-flex>
                 </v-layout>
 
@@ -356,7 +356,40 @@ export default {
 
     ktp_u95: [],
     uc: 0,
-    data_ktp: [],
+    data_ktp: {
+      ktp_gab: 0,
+      ktp_u95: [],
+      stdev: {
+        key: 0,
+        value: 0
+      },
+      ub1: 0,
+      ub2: 0,
+      ub3: {
+        key: "",
+        value: 0
+      },
+      ub4: {
+        key: "",
+        value: 0
+      },
+      ub5: {
+        key: "",
+        value: 0
+      },
+      ub6: {
+        key: "",
+        value: 0
+      },
+      ub7: {
+        key: "",
+        value: 0
+      },
+      ub8: {
+        key: "",
+        value: 0
+      }
+    },
 
     data_kal: {
       "Kesalahan ": [],

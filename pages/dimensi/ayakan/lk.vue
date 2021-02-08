@@ -45,16 +45,16 @@
 
                 <v-layout row wrap>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruang.min }} - {{ data_alat.deskripsi.suhu_ruang.max }} {{ data_alat.deskripsi.suhu_ruang.satuan }}</p>
+                    <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruang.min.toFixed(2) }} - {{ data_alat.deskripsi.suhu_ruang.max }} {{ data_alat.deskripsi.suhu_ruang.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
                     <p class="mb-1">Kelembapan : {{ data_alat.deskripsi.kelembaban.nilai }} {{ data_alat.deskripsi.kelembaban.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi.min }} - {{ data_alat.deskripsi.suhu_terkoreksi.max }} {{ data_alat.deskripsi.suhu_terkoreksi.satuan }}</p>
+                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi.min.toFixed(2) }} - {{ data_alat.deskripsi.suhu_terkoreksi.max }} {{ data_alat.deskripsi.suhu_terkoreksi.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi.kelembaban_terkoreksi.nilai }} {{ data_alat.deskripsi.kelembaban_terkoreksi.satuan }}</p>
+                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi.kelembaban_terkoreksi.nilai.toFixed(2) }} {{ data_alat.deskripsi.kelembaban_terkoreksi.satuan }}</p>
                   </v-flex>
                 </v-layout>
 
@@ -193,15 +193,15 @@
 
             <v-layout row class='mt-4'>
               <v-flex xs6>
-                Diperiksa oleh : {{data_alat['Diperiksa']}} <br>
-                Tanggal :	{{data_alat['Tanggal periksa']}} <br>
+                Diperiksa oleh : {{data_alat.diperiksa.person}} <br>
+                Tanggal :	{{data_alat.diperiksa.date}} <br>
                 Tanda Tangan :	
 
                 <hr style="width: 50%; margin-top: 100px">	
               </v-flex>
               <v-flex xs6>
-                Dikalibrasi oleh : {{data_alat['Dikalibrasi']}} <br>
-                Tanggal :	{{convertDate(data_alat['Tanggal kalibrasi'])}} <br>
+                Dikalibrasi oleh : {{data_alat.dikalibrasi.person}} <br>
+                Tanggal :	{{convertDate(data_alat.dikalibrasi.date)}} <br>
                 Tanda-tangan :
 
                 <hr style="width: 50%; margin-top: 100px">	

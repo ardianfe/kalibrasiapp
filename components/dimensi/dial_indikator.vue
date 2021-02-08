@@ -43,8 +43,8 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'dimensi-dial_indikator-data_entry', text: 'Entry Data', url: '/dimensi/dial_indikator/data_entry?id='+this.$route.query.id },
-        { name: 'dimensi-dial_indikator-lk', text: 'Lembar Kerja', url: '/dimensi/dial_indikator/lk?id='+this.$route.query.id },
+        { name: 'dimensi-dial_indikator-lk', text: 'LK + Grafik', url: '/dimensi/dial_indikator/lk?id='+this.$route.query.id },
+        { name: 'dimensi-dial_indikator-ktp', text: 'LK + KTP', url: '/dimensi/dial_indikator/ktp?id='+this.$route.query.id },
         { name: 'dimensi-dial_indikator-cmc', text: 'CMC', url: '/dimensi/dial_indikator/cmc?id='+this.$route.query.id },
         { name: 'dimensi-dial_indikator-sertifikat', text: 'Sertifikat', url: '/dimensi/dial_indikator/sertifikat?id='+this.$route.query.id },
         { name: 'dimensi-dial_indikator-lampiran', text: 'Lampiran', url: '/dimensi/dial_indikator/lampiran?id='+this.$route.query.id },

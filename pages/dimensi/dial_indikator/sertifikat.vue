@@ -200,7 +200,7 @@
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;">{{certificate.standard.name}}</p>
+                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;"><span v-for="(item, index) in certificate.standard.name" :key="index">{{item}} <br> </span></p>
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">2. Thermocouple Wire Tipe K, S/N : K2</p> -->
                     </div>
                   </v-layout>
@@ -597,27 +597,27 @@ export default {
     elementMapping(data, owner) {
       this.certificate.equipment.name = data.deskripsi.nama_alat
       this.certificate.equipment.capacity = data.deskripsi.kapasitas
-      this.certificate.equipment.model = data.deskripsi.model
+      this.certificate.equipment.model = data.deskripsi.tipe_model
       this.certificate.equipment.serial_number = data.deskripsi.no_seri
       this.certificate.equipment.manufacture = data.deskripsi.buatan
       this.certificate.equipment.temperature = '-'
       this.certificate.owner.name = owner.nama_co
       this.certificate.owner.address = owner.alamat
       this.certificate.standard.name = data.alat_kalibrasi
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui LK-001-IDN'
+      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui Puslit KIM LIPI Serpong'
       this.certificate.env_condition = {
-        room_temp: data.deskripsi.suhu_terkoreksi.min.toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi.max.toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi.satuan,
+        room_temp: data.deskripsi.suhu_terkoreksi[0].toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi[1].toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi[2],
         corrected_room_temp: '',
-        humidity: data.deskripsi.kelembaban_terkoreksi.nilai.toFixed(3) + ' ' + data.deskripsi.kelembaban_terkoreksi.satuan,
+        humidity: data.deskripsi['kelembaban_terkoreksi_%'] + '%',
         corrected_humidity: ''
       }
       this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)
       this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = data.deskripsi.lokasi
+      this.certificate.calibration_location = data.deskripsi.lokasi_kalibrasi
       this.certificate.calibration_method = data.metode_kalibrasi
-      this.certificate.refference = data.standar_acuan[0] + '<br>' + data.standar_acuan[1] 
+      this.certificate.refference = data.standar_acuan
       this.certificate.published_date = ''
     },
 

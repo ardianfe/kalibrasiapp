@@ -52,7 +52,8 @@
                     <td>{{cmc.data_tbl.data.var_interval[index].toFixed(2)}}</td>
                     <td>{{cmc.data_tbl.data.pembagi[index].toFixed(2)}}</td>
                     <!-- <td v-if="cmc.data_tbl.data.vi[index]">{{cmc.data_tbl.data.vi[index]}}</td> -->
-                    <td v-if="cmc.data_tbl.data.vi[index]">{{cmc.data_tbl.data.vi[index] > 0 ? parseInt(cmc.data_tbl.data.vi[index]).toExponential(4) : cmc.data_tbl.data.vi[index]}}</td>
+                    <td v-if="cmc.data_tbl.data.vi[index]">{{cmc.data_tbl.data.vi[index].length > 2 ? parseInt(cmc.data_tbl.data.vi[index]).toExponential() : cmc.data_tbl.data.vi[index]}}
+                    </td>
                     <td>{{cmc.data_tbl.data.ui[index].toFixed(2)}}</td>
                     <td>{{koef[index]}}</td>
                     <td>{{cmc.data_tbl.data.uici[index].toFixed(2)}}</td>
@@ -65,28 +66,28 @@
                   </tr>
                   <tr>
                     <td colspan="10">Sums</td>
-                    <td><!-- {{ -->cmc.sum.uc2.toFixed(4)}}</td>
-                    <td><!-- {{ -->cmc.sum.uc4.toFixed(4)}}</td>
+                    <td>{{cmc.data_tbl.sums[0].toFixed(4)}}</td>
+                    <td>{{cmc.data_tbl.sums[1].toFixed(4)}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Ketidakpastian baku gabungan, uc, um</td>
-                    <td colspan="2"><!-- {{ -->cmc.ktp_uc_um}} um</td>
+                    <td colspan="2">{{cmc.data_tbl.uc_um[0].toFixed(2)}} um</td>
                   </tr>
                   <tr>
                     <td colspan="10">Derajat kebebasan efektif, veff</td>
-                    <td colspan="2"><!-- {{ -->cmc.der_kebbs_effective}}</td>
+                    <td colspan="2">{{cmc.data_tbl.veff.toFixed(2)}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Faktor cakupan, k-student's for veff and CL 95%</td>
-                    <td colspan="2"><!-- {{ -->cmc.faktor_k}}</td>
+                    <td colspan="2">{{cmc.data_tbl.faktor_cakupan}}</td>
                   </tr>
                   <tr>
                     <td colspan="10">Ketidakpastian bentangan, U = k.uc, um</td>
-                    <td colspan="2"><!-- {{ -->cmc.ktp_bentang.um}} um</td>
+                    <td colspan="2">{{cmc.data_tbl.ktp_bentang[0].toFixed(2)}} um</td>
                   </tr>
                   <tr>
                     <td colspan="10"></td>
-                    <td colspan="2"><!-- {{ -->cmc.ktp_bentang.mm}} mm</td>
+                    <td colspan="2">{{cmc.data_tbl.nilai_ktp[0].toFixed(4)}} mm</td>
                   </tr>
               </tbody>
             </table>
