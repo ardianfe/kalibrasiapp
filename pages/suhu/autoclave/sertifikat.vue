@@ -257,7 +257,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">26 ± 1 °C</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_room_temp}} °C</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -266,7 +266,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembapan</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} %RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -472,7 +472,9 @@ export default {
       calibration_date: '',
       env_condition: {
         room_temp: '',
-        humidity: ''
+        corrected_room_temp: '',
+        humidity: '',
+        corrected_humidity: ''
       },
       calibration_location: '',
       calibration_method: '',
@@ -543,10 +545,10 @@ export default {
 
     elementMapping(data, owner) {
       this.certificate.equipment.name = data.deskripsi.nama_alat
-      this.certificate.equipment.internal_dimension = data.deskripsi.dimensi.lebar+'mm(l)x'+data.deskripsi.dimensi.panjang+'mm(p)x'+data.deskripsi.dimensi.tinggi+'mm(t)'
-      this.certificate.equipment.capacity = data.kapasitas
-      this.certificate.equipment.model = data.deskripsi.model
-      this.certificate.equipment.brand = data.deskripsi.merk
+      // this.certificate.equipment.internal_dimension = data.deskripsi.dimensi.lebar+'mm(l)x'+data.deskripsi.dimensi.panjang+'mm(p)x'+data.deskripsi.dimensi.tinggi+'mm(t)'
+      this.certificate.equipment.capacity = data.deskripsi.kapasitas + '/ tekanan : ' + data.deskripsi.tekanan
+      this.certificate.equipment.model = data.deskripsi.tipe_model[0]
+      this.certificate.equipment.brand = data.deskripsi.merk_buatan[0] + " / " + data.deskripsi.merk_buatan[1]
       this.certificate.equipment.serial_number = data.deskripsi.no_seri
       this.certificate.equipment.manufacture = data.deskripsi.buatan
       this.certificate.equipment.temperature = data.deskripsi.pengontrol_suhu
@@ -554,19 +556,19 @@ export default {
       this.certificate.owner.address = owner.alamat
       this.certificate.standard.name = data.standar_dipakai
       this.certificate.standard.traceability = data.ketertelusuran
-      // this.certificate.env_condition = {
-      //   room_temp: data['Suhu Ruangan'],
-      //   corrected_room_temp: data['Suhu Terkoreksi'],
-      //   humidity: data['Kelembaban'],
-      //   corrected_humidity: data['Kelembaban Terkoreksi']
-      // }
+      this.certificate.env_condition = {
+        room_temp: data.kondisi_lingkungan.suhu.awal,
+        corrected_room_temp: data.kondisi_lingkungan.suhu.akhir,
+        humidity: data.kondisi_lingkungan.kelembaban.awal_RH,
+        corrected_humidity: data.kondisi_lingkungan.kelembaban.akhir_RH 
+      }
       this.certificate.acceptance_date = this.convertDate(data.tgl_terima)
       this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
       // this.certificate.env_condition.room_temp = cert_data
       // this.certificate.env_condition.humidity = cert_data
-      this.certificate.calibration_location = data.deskripsi.lokasi
+      this.certificate.calibration_location = data.kondisi_lingkungan.lokasi_kalibrasi
       this.certificate.calibration_method = data.metode_kalibrasi
-      this.certificate.refference = data.standar_acuan
+      this.certificate.refference = data.standar_acuan[0] + '<br>' + data.standar_acuan[1]
       this.certificate.published_date = ''
     },
     
