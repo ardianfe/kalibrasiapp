@@ -115,7 +115,7 @@ export const state = () => ({
     45: { id: 'suhu9', slug: '/suhu/inkubator/lk', name: 'Incubator', cat: 'suhu' },
     46: { id: 'suhu10', slug: '/suhu/freezer/lk', name: 'Freezer', cat: 'suhu' },
     47: { id: 'instrumen7', slug: '/instrumen/turbidimeter/lk', name: 'Turbidimeter', cat: 'instrumen' },
-    48: { id: 'instrumen8', slug: '/instrumen/konduktometer/lk', name: 'Konduktometer', cat: 'instrumen' },
+    // 48: { id: 'instrumen8', slug: '/instrumen/konduktometer/lk', name: 'Konduktometer', cat: 'instrumen' },
     99: { id: 'notfound'}
   }
 })

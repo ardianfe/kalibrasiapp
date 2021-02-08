@@ -3,8 +3,8 @@ let base_url = process.env.base
 let base_url2 = process.env.base2
 
 const model = $axios => ({
-  getListOrders() {
-    return $axios.$get(base_url2+'/orders/?per_page=50&page=1')
+  getListOrders({perpage, page}) {
+    return $axios.$get(base_url2+'/orders/?per_page='+perpage+'&page='+page)
   },
 
   testCors() {

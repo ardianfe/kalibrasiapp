@@ -13,8 +13,18 @@
           Kembali
         </p>
         <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer> 
+        <v-select box width="100px" background-color="white" :items="perpage_list" v-model="perpage" @change="()=> {page = 1, getListOrder()}" label="Jumlah Data Per-halaman"></v-select>
       </v-card-title>
-      <p class="text-xs-right">Untuk input data silakan klik daftar sample</p>
+      <v-layout row wrap>
+        <v-flex xs12 sm6>
+          <p class="text-xs-left">Jumlah Data : {{showed_item_count}}</p>
+        </v-flex>
+        <v-flex xs12 sm6>
+          <p class="text-xs-right">Untuk input data silakan klik daftar sample</p>
+        </v-flex>
+      </v-layout>
       <template v-if="$store.state.isLoggedIn">
         <table style="width: 100%" class="f-table my-2">
           <tr class="tr-head white--text pt-sans font-weight-bold">
@@ -56,7 +66,16 @@
               <v-progress-linear indeterminate color="primary"></v-progress-linear>
             </td>
           </tr>
-        </table>     
+        </table>
+
+        <v-card-actions>
+          <v-spacer />
+          <v-btn class="white f-button" icon round @click="()=>{ page = page-1, getListOrder()}"><v-icon color="primary">chevron_left</v-icon></v-btn>
+          <v-btn class="white f-button" icon round readonly>{{page}}</v-btn>
+          <v-btn class="white f-button" icon round @click="()=>{ page = page+1, getListOrder()}"><v-icon color="primary">chevron_right</v-icon></v-btn>
+          <v-spacer />
+        </v-card-actions>
+
       </template>
     </v-flex>
     <uploadDialog></uploadDialog>
@@ -102,9 +121,23 @@ export default {
     order_number: '',
     dialog: false,
 
+    pagination: {},
+
+    perpage: 50,
+    perpage_list: [
+      10,
+      25,
+      50,
+      75,
+      100
+    ],
+    totalItems: 100,
+    showed_item_count: 0,
+    page: 1,
+    pags: 10,
     file: {},
 
-    loading: true,
+    loading: false,
     is_uploading: false,
 
     cats: [
@@ -126,16 +159,31 @@ export default {
     this.getListOrder()
   },
 
+  computed: {
+    pages () {
+      if (this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      ) return 0
+      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+    }
+  },
+
   methods: {
     async getListOrder() {
+      this.loading = true
       try {
-        const req = await this.$calibrate.getListOrders()
+        const req = await this.$calibrate.getListOrders({
+          perpage: this.perpage, page: this.page
+        })
 
         console.log('test cors', req);
         this.lo = req.result
+        this.showed_item_count = req.result.length
 
         this.loading = false
       } catch (error) {
+        this.loading = false
+        this.lo = [{"id": '00000', "nama_perusahaan": "Tidak Ada Data", "tanggal_terima": "", "tanggal_kalibrasi": "", "daftar_sampel": [{"sampel": "Tidak Ada Data", "jumlah_sertifikat": -1, "KAN": false, "jumlah_sample": -1, "no_sample": ['Tidak Ada Data']}]}]
         console.log(error.response);
       }
     },
