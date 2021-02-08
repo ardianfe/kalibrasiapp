@@ -12,16 +12,16 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/bidang?bid=temperatur&sub=oven')" 
+            @click="$router.push('/gaya')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
-            Bidang Suhu
+            Bidang Gaya
           </span>
         </v-hover>
       </p>
     </v-card-title>
     <v-card-actions v-if="$store.state.isLoggedIn" class="pa-2">
       <v-layout row wrap>
-        <v-flex class="pa-0" v-for="(menu, index) in menus" :key="index">
+        <v-flex class="pa-0" xs6 sm3 v-for="(menu, index) in menus" :key="index">
           <v-hover>
             <v-card 
               slot-scope="{hover}" :to="menu.url"
@@ -43,9 +43,10 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'suhu-water_bath-lk', text: 'Lembar Kerja', url: '/suhu/water_bath/lk?id='+this.$route.query.id },
-        { name: 'suhu-water_bath-sertifikat', text: 'Sertifikat', url: '/suhu/water_bath/sertifikat?id='+this.$route.query.id },
-        { name: 'suhu-water_bath-lampiran', text: 'Lampiran', url: '/suhu/water_bath/lampiran?id='+this.$route.query.id },
+        { name: 'gaya-mesin_uji_impak-lk', text: 'Lembar Kerja', url: '/gaya/mesin_uji_impak/lk?id='+this.$route.query.id },
+        { name: 'gaya-mesin_uji_impak-ktp', text: 'Ketidakpastian', url: '/gaya/mesin_uji_impak/ktp?id=' +this.$route.query.id},
+        { name: 'gaya-mesin_uji_impak-lampiran', text: 'Lampiran', url: '/gaya/mesin_uji_impak/lampiran?id=' +this.$route.query.id},
+        { name: 'gaya-mesin_uji_impak-sertifikat', text: 'Cetak Serifikat', url: '/gaya/mesin_uji_impak/sertifikat?id='+this.$route.query.id }
       ]
     }
   },

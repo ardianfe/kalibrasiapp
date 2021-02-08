@@ -79,7 +79,7 @@ export const state = () => ({
     9: { id: 'gaya4', slug: '/gaya/load_cell/lk', name: 'Load Cell', cat: 'gaya' },
     10: { id: 'gaya5', slug: '/gaya/abrasi/lk', name: 'Mesin Abrasi', cat: 'gaya' },
     11: { id: 'gaya6', slug: '/gaya/bending/lk', name: 'Mesin Bending', cat: 'gaya' },
-    12: { id: 'gaya7', slug: '/gaya/uji_impak/lk', name: 'Mesin Uji Impak', cat: 'gaya' },
+    12: { id: 'gaya7', slug: '/gaya/mesin_uji_impak/lk', name: 'Mesin Uji Impact', cat: 'gaya' },
     13: { id: 'gaya8', slug: '/gaya/mesin_uji/lk', name: 'Mesin Uji Universal', cat: 'gaya', type: 'sequential'},
     14: { id: 'gaya9', slug: '/gaya/mixer/lk', name: 'Mixer', cat: 'gaya' },
     15: { id: 'gaya10', slug: '/gaya/proving_ring/lk', name: 'Proving Ring', cat: 'gaya' },
@@ -99,7 +99,7 @@ export const state = () => ({
     29: { id: 'suhu1', slug: '/suhu/autoclave/lk', name: 'Autoclave', cat: 'suhu' },
     30: { id: 'suhu2', slug: '/suhu/oven/bath/lembar-kerja', name: 'Oven/Bath', cat: 'suhu' },
     31: { id: 'suhu3', slug: '/suhu/temp_recorder/lk', name: 'Temperature Recorder', cat: 'suhu' },
-    32: { id: 'suhu4', slug: '/suhu/termometer_dial/lk', name: 'Termometer Dial', cat: 'suhu' },
+    32: { id: 'suhu4', slug: '/suhu/termometer_dial/lk', name: 'Termometer Gauge', cat: 'suhu' },
     33: { id: 'suhu5', slug: '/suhu/termometer_digital/lk', name: 'Termometer Digital', cat: 'suhu' },
     34: { id: 'suhu6', slug: '/suhu/termometer_gelas/lk', name: 'Termometer Gelas', cat: 'suhu' },
     35: { id: 'suhu7', slug: '/suhu/water_bath/lk', name: 'Hot Plate', cat: 'suhu' }, // hotplate
@@ -111,6 +111,11 @@ export const state = () => ({
     41: { id: 'timbangan4', slug: '/timbangan/timbangan_mekanik/lk', name: 'Timbangan', cat: 'timbangan' },
     42: { id: 'Volumetrik1', slug: '/volumetrik/buret/lk', name: 'Buret', cat: 'Volumetrik' },
     43: { id: 'Volumetrik2', slug: '/volumetrik/piknometer/lk', name: 'Pipet Ukur', cat: 'Volumetrik' },
+    44: { id: 'suhu8', slug: '/suhu/furnace/lk', name: 'Furnace', cat: 'suhu' },
+    45: { id: 'suhu9', slug: '/suhu/inkubator/lk', name: 'Incubator', cat: 'suhu' },
+    46: { id: 'suhu10', slug: '/suhu/freezer/lk', name: 'Freezer', cat: 'suhu' },
+    47: { id: 'instrumen7', slug: '/instrumen/turbidimeter/lk', name: 'Turbidimeter', cat: 'instrumen' },
+    48: { id: 'instrumen8', slug: '/instrumen/konduktometer/lk', name: 'Konduktometer', cat: 'instrumen' },
     99: { id: 'notfound'}
   }
 })

@@ -12,7 +12,7 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/suhu')" 
+            @click="$router.push('/bidang?bid=temperatur&sub=oven')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
             Bidang Suhu
           </span>

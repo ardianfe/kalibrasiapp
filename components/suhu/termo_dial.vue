@@ -43,9 +43,9 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'suhu-water_bath-lk', text: 'Lembar Kerja', url: '/suhu/water_bath/lk?id='+this.$route.query.id },
-        { name: 'suhu-water_bath-sertifikat', text: 'Sertifikat', url: '/suhu/water_bath/sertifikat?id='+this.$route.query.id },
-        { name: 'suhu-water_bath-lampiran', text: 'Lampiran', url: '/suhu/water_bath/lampiran?id='+this.$route.query.id },
+        { name: 'suhu-termometer_dial-lk', text: 'Lembar Kerja & KTP', url: '/suhu/termometer_dial/lk?id='+this.$route.query.id },
+        { name: 'suhu-termometer_dial-sertifikat', text: 'Sertifikat', url: '/suhu/termometer_dial/sertifikat?id='+this.$route.query.id },
+        { name: 'suhu-termometer_dial-lampiran', text: 'Lampiran', url: '/suhu/termometer_dial/lampiran?id='+this.$route.query.id },
       ]
     }
   },

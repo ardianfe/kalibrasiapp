@@ -97,7 +97,7 @@ export default {
       },
       { 
         id: 4,
-        name: 'Termometer Dial',
+        name: 'Termometer Dial / Gauge',
         value: 'termo_dial',
         desc: '-',
         url: '/daftar_sampel?bid_id=32' 

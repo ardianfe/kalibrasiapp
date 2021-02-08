@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <tekananHeader></tekananHeader>
+      <gayaHeader></gayaHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -485,19 +485,20 @@ p{
   }
 </style>
 <script>
-import tekananHeader from '~/components/tekanan/hammer.vue'
+import gayaHeader from '~/components/gaya/mesin_uji.vue'
 import uploadDialog from '~/components/uploadDialog.vue'
 import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas';
+// import VuetifyLogo from '~/components/VuetifyLogo.vue'
+// import cert_data from '~/static/data_cert_v2.json'
 
 export default {
   components: {
-    tekananHeader,
+    gayaHeader,
     uploadDialog
   },
 
   head: {
-    title: 'Sertifikat | Bidang Tekanan',
+    title: 'Sertifikat | Bidang Gaya',
     meta: [
       {
         hid: 'gaya',
@@ -571,6 +572,28 @@ export default {
   },
 
   methods: {
+    downloadPDF() {
+      var doc = new jsPDF();
+      var elementHTML = $('#printable').html();
+      var specialElementHandlers = {
+          '#elementH': function (element, renderer) {
+              return true;
+          }
+      };
+      doc.fromHTML(elementHTML, 0, 0, {
+          'width': 170,
+          'elementHandlers': specialElementHandlers
+      });
+
+      // Save the PDF
+      setTimeout(() => {
+        doc.save('sample-document.pdf');
+      }, 500);
+
+      console.log(elementHTML);
+      
+    },
+
     async getCertData() {
       try {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
@@ -610,30 +633,14 @@ export default {
     },
 
     printWrapper() {
-      console.log('width : ', document.getElementById('printable').style.height);
-      // let print_canvas = document.getElementById('elementH')
-      const doc = new jsPDF();
+      var printContents = document.getElementById('printable').innerHTML;
+      var originalContents = document.body.innerHTML;
 
-      // console.log(print_canvas);
-      let options = {
-        width: 794,
-        height: 1134,
-        dpi: 144,
-        scale: 2
-        // x: 18, y: 18
-      };
-      html2canvas(document.getElementById('printable'), options).then(function(canvas) {
-        // print_canvas.appendChild(canvas);
-        //addImage(imageData, format, x, y, width(mm), height(mm), alias, compression, rotation)
-        doc.addImage(canvas, 'JPEG', 8, -8, 210, 300, 'sertifikat', 'NONE', 0)
-        // doc.getContext('2d', canvas)
-        doc.save('sample-document.pdf');
-        console.log('canvas64', doc.output('datauri'));
-        // document.body.innerHTML = originalContents; 
-      });
-
+      document.body.innerHTML = printContents;
+      window.print();
+      // document.body.innerHTML = originalContents; 
       // location.reload()
-      // this.changeStatus()
+      this.changeStatus()
     },
 
     async changeStatus() {

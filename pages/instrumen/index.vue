@@ -117,6 +117,13 @@ export default {
         desc: '-',
         url: '/daftar_sampel?bid_id=24'  
       },
+      { 
+        id: 6,
+        name: 'Turbidimeter',
+        value: '',
+        desc: '-',
+        url: '/daftar_sampel?bid_id=47'  
+      },
     ],
 
     filename: '',

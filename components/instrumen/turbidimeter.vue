@@ -12,9 +12,9 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/bidang?bid=temperatur&sub=oven')" 
+            @click="$router.push('/instrumen')" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
-            Bidang Suhu
+            Bidang Instrumen Analisa
           </span>
         </v-hover>
       </p>
@@ -43,9 +43,10 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'suhu-water_bath-lk', text: 'Lembar Kerja', url: '/suhu/water_bath/lk?id='+this.$route.query.id },
-        { name: 'suhu-water_bath-sertifikat', text: 'Sertifikat', url: '/suhu/water_bath/sertifikat?id='+this.$route.query.id },
-        { name: 'suhu-water_bath-lampiran', text: 'Lampiran', url: '/suhu/water_bath/lampiran?id='+this.$route.query.id },
+        { name: 'instrumen-turbidimeter-lk', text: 'Lembar Kerja', url: '/instrumen/turbidimeter/lk?id='+this.$route.query.id },
+        { name: 'instrumen-turbidimeter-ktp', text: 'KTP', url: '/instrumen/turbidimeter/ktp?id='+this.$route.query.id },
+        { name: 'instrumen-turbidimeter-sertifikat', text: 'Cetak Serifikat', url: '/instrumen/turbidimeter/sertifikat?id='+this.$route.query.id },
+        { name: 'instrumen-turbidimeter-lampiran', text: 'Cetak Lampiran', url: '/instrumen/turbidimeter/lampiran?id='+this.$route.query.id }
       ]
     }
   },

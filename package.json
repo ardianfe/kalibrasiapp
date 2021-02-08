@@ -23,6 +23,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.4",
     "cross-env": "^5.2.0",
+    "html2canvas": "^1.0.0-rc.7",
     "jsonschema": "^1.2.5",
     "jspdf": "^1.5.3",
     "nuxt": "^2.4.0",

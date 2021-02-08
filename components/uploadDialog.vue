@@ -111,7 +111,7 @@ export default {
       cat: '',
       subcat: '',
       forbidden_sheets: [
-        'KONSEP', 'JADI', 'SRTFKT', 'POL.TEK.2950', 'POL.TEK.2824', 'LK.100.5223&2824', 'DRIFT'
+        'KONSEP', 'JADI', 'SRTFKT', 'POL.TEK.2950', 'POL.TEK.2824', 'LK.100.5223&2824', 'DRIFT', 'KON', 'SERT'
       ],
       sheets: [
         // { name: '0932', data: {} },

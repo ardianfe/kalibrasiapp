@@ -111,6 +111,19 @@ const model = $axios => ({
 
   deleteDataCert({id}) {
     return $axios.$delete(base_url + '/work/' + id + '/')
+  },
+
+  //sipeja
+  sipeja_upload(data) {
+    return $axios.$push(process.env.sipeja_base + '/uploadLaporan', {
+      // "{
+      //   ""id_order""	:123,
+      //   ""3-09-20-00002""	: CURLFile,
+      //   ""3-09-20-00003""	: CURLFile
+      // }"
+      
+      data
+    })
   }
 });
 

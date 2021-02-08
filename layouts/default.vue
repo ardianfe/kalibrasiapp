@@ -57,12 +57,6 @@
       </p>
     </v-navigation-drawer> -->
     
-    <v-footer
-      :fixed="fixed"
-      app
-    >
-      <!-- <span>&copy; @abdurahmanfz 2k20</span> -->
-    </v-footer>
   </v-app>
 </template>
 

@@ -21,52 +21,50 @@
                 <tbody>
                   <tr>
                     <td style="width:10%">Nama Alat :</td>
-                    <td style="width:40%">AUTOCLAVE</td>
-                    <td style="width:10%">Resolusi :</td>
-                    <td style="width:40%">Tekanan : 0,4 Mpa</td>
+                    <td style="width:40%">{{data_alat.deskripsi.nama_alat}}</td>
+                    <td style="width:10%">Resolusi : {{data_alat.deskripsi.resolusi}}</td>
+                    <td style="width:40%">{{data_alat.deskripsi.tekanan}}</td>
                   </tr>
                   <tr>
                     <td>Rentang Suhu :</td>
-                    <td>138 ⁰C</td>
+                    <td>{{data_alat.deskripsi.kapasitas}}</td>
                     <td>Kalibrator :</td>
                     <td>
-                      1. Digital Thermometer Fluke 52 II S/N : 37430639WS
-                      <br>
-                      2. Thermocouple Wire Tipe K, S/N : K1
+                      {{data_alat.standar_dipakai}}
                     </td>
                   </tr>
                   <tr>
                     <td>Tipe/Model :</td>
-                    <td>HVE 50</td>
+                    <td>{{data_alat.deskripsi.tipe_model[0]}}</td>
                     <td>Ketelusuran :</td>
-                    <td>Hasil Kalibrasi yang dilaporkan tertelusur kesatuan pengukuran SI melalui LK-032-IDN dan LK-0172-IDN</td>
+                    <td>{{data_alat.ketertelusuran}}</td>
                   </tr>
                   <tr>
                     <td>Merek :</td>
-                    <td>Hirayama</td>
+                    <td>{{data_alat.deskripsi.merk_buatan[0]}}</td>
                     <td>Suhu Ruangan :</td>
                     <td>-</td>
                   </tr>
                   <tr>
                     <td>No. seri :</td>
-                    <td>787226</td>
+                    <td>{{data_alat.deskripsi.no_seri}}</td>
                     <td>Lokasi :</td>
-                    <td>Laboratorium Mikrobiologi - Dinas Kelautan dan Perikanan, Cirebon</td>
+                    <td>{{data_alat.kondisi_lingkungan.lokasi_kalibrasi}}</td>
                   </tr>
                   <tr>
                     <td>Buatan :</td>
-                    <td colspan="3">&nbsp;</td>
+                    <td colspan="3">{{data_alat.deskripsi.merk_buatan[1]}}</td>
                   </tr>
                   <tr>
                     <td colspan="4">&nbsp;</td>
                   </tr>
                   <tr>
                     <td>Standar Acuan :</td>
-                    <td colspan="3">Monitoring Maintenance Calibration of Autoclaves (For The Purpose of UKAS Acreditation ) QSOP 6" Tahun 2005</td>
+                    <td colspan="3"><span v-for="(x, index) in data_alat.standar_acuan" :key="index">{{x}}</span></td>
                   </tr>
                   <tr>
                     <td>Metoda Kalibrasi :</td>
-                    <td colspan="3">PC-301-06</td>
+                    <td colspan="3">{{data_alat.metode_kalibrasi}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -96,86 +94,38 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                    <td>Mpa</td>
-                    <td> (°C)</td>
-                    <td>Max</td>
-                    <td>Min</td>
-                    <td>rata-rata</td>
-                    <td>Max</td>
-                    <td>Min</td>
-                    <td>rata-rata</td>
-                    <td>Max</td>
-                    <td>Min</td>
-                    <td>rata-rata</td>
-                    <td>I, II dan III</td>
-                    <td>(°C)</td>
-                    <td>(°C)</td>
-                  </tr>
-                  <tr>
-                    <td rowspan="5">0.1</td>
-                    <td rowspan="5">121</td>
-                    <td>120.6</td>
-                    <td>120.5</td>
-                    <td>120.6</td>
-                    <td>120.6</td>
-                    <td>120.5</td>
-                    <td>120.6</td>
-                    <td>120.7</td>
-                    <td>120.5</td>
-                    <td>120.6</td>
-                    <td rowspan="5">120.5</td>
-                    <td rowspan="5">-0.5</td>
-                    <td>0.08</td>
-                  </tr>
-                  <tr>
-                    <td>120.5</td>
-                    <td>120.3</td>
-                    <td>120.4</td>
-                    <td>120.6</td>
-                    <td>120.5</td>
-                    <td>120.6</td>
-                    <td>120.6</td>
-                    <td>120.4</td>
-                    <td>120.5</td>
-                    <td>0.12</td>
-                  </tr>
-                  <tr>
-                    <td>120.7</td>
-                    <td>120.5</td>
-                    <td>120.6</td>
-                    <td>120.7</td>
-                    <td>120.5</td>
-                    <td>120.6</td>
-                    <td>120.6</td>
-                    <td>120.4</td>
-                    <td>120.5</td>
-                    <td>0.12</td>
-                  </tr>
-                  <tr>
-                    <td>120.4</td>
-                    <td>120.2</td>
-                    <td>120.3</td>
-                    <td>120.4</td>
-                    <td>120.2</td>
-                    <td>120.3</td>
-                    <td>120.5</td>
-                    <td>120.3</td>
-                    <td>120.4</td>
-                    <td>0.12</td>
-                  </tr>
-                  <tr>
-                    <td>120.6</td>
-                    <td>120.4</td>
-                    <td>120.5</td>
-                    <td>120.5</td>
-                    <td>120.3</td>
-                    <td>120.4</td>
-                    <td>120.6</td>
-                    <td>120.4</td>
-                    <td>120.5</td>
-                    <td>0.12</td>
-                  </tr>
+                <tr>
+                  <td>Mpa</td>
+                  <td> (°C)</td>
+                  <td>Max</td>
+                  <td>Min</td>
+                  <td>rata-rata</td>
+                  <td>Max</td>
+                  <td>Min</td>
+                  <td>rata-rata</td>
+                  <td>Max</td>
+                  <td>Min</td>
+                  <td>rata-rata</td>
+                  <td>I, II dan III</td>
+                  <td>(°C)</td>
+                  <td>(°C)</td>
+                </tr>
+                <tr v-for="(item, index) in hasil_pengukuran.Mpa" :key="index">
+                  <td>{{item}}</td>
+                  <td>{{hasil_pengukuran.koreksi_derajat_C[index] ? hasil_pengukuran.koreksi_derajat_C[index].toFixed(2) : hasil_pengukuran.koreksi_derajat_C[index]}}</td>
+                  <td>{{hasil_pengukuran.I_max[index] ? hasil_pengukuran.I_max[index].toFixed(2) : hasil_pengukuran.I_max[index]}}</td>
+                  <td>{{hasil_pengukuran.I_min[index] ? hasil_pengukuran.I_min[index].toFixed(2) : hasil_pengukuran.I_min[index]}}</td>
+                  <td>{{hasil_pengukuran.I_rata[index] ? hasil_pengukuran.I_rata[index].toFixed(2) : hasil_pengukuran.I_rata[index]}}</td>
+                  <td>{{hasil_pengukuran.II_max[index] ? hasil_pengukuran.II_max[index].toFixed(2) : hasil_pengukuran.II_max[index]}}</td>
+                  <td>{{hasil_pengukuran.II_min[index] ? hasil_pengukuran.II_min[index].toFixed(2) : hasil_pengukuran.II_min[index]}}</td>
+                  <td>{{hasil_pengukuran.II_rata[index] ? hasil_pengukuran.II_rata[index].toFixed(2) : hasil_pengukuran.II_rata[index]}}</td>
+                  <td>{{hasil_pengukuran.III_max[index] ? hasil_pengukuran.III_max[index].toFixed(2) : hasil_pengukuran.III_max[index]}}</td>
+                  <td>{{hasil_pengukuran.III_min[index] ? hasil_pengukuran.III_min[index].toFixed(2) : hasil_pengukuran.III_min[index]}}</td>
+                  <td>{{hasil_pengukuran.III_rata[index] ? hasil_pengukuran.III_rata[index].toFixed(2) : hasil_pengukuran.III_rata[index]}}</td>
+                  <td>{{hasil_pengukuran.rata_rata[index] ? hasil_pengukuran.rata_rata[index].toFixed(2) : hasil_pengukuran.rata_rata[index]}}</td>
+                  <td>{{hasil_pengukuran.derajat_C[index] ? hasil_pengukuran.derajat_C[index].toFixed(2) : hasil_pengukuran.derajat_C[index]}}</td>
+                  <td>{{hasil_pengukuran.stdv_C[index] ? hasil_pengukuran.stdv_C[index].toFixed(2) : hasil_pengukuran.stdv_C[index]}}</td>
+                </tr>
               </tbody>
             </table>
             <p>Catatan :	Nilai rata-rata telah dibulatkan ke  0,1 °C</p>
@@ -206,85 +156,18 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                  </tr>
-                  <tr>
-                    <td>Kalibrator Ind  </td>
-                    <td>°C</td>
-                    <td>Normal</td>
-                    <td>0.2</td>
-                    <td>2.0</td>
-                    <td>30</td>
-                    <td>0.10</td>
-                    <td>1.00</td>
-                    <td>0.10</td>
-                    <td>0.01</td>
-                    <td>3.33333E-06</td>
-                  </tr>
-                  <tr>
-                    <td>Drift Kalibrator</td>
-                    <td>°C</td>
-                    <td>Rectangular</td>
-                    <td>0.02</td>
-                    <td>1.73</td>
-                    <td>50</td>
-                    <td>0.01</td>
-                    <td>1.00</td>
-                    <td>0.01</td>
-                    <td>0.00</td>
-                    <td>3.57245E-10</td>
-                  </tr>
-                  <tr>
-                    <td>Termokopel</td>
-                    <td>°C</td>
-                    <td>Normal</td>
-                    <td>0.52</td>
-                    <td>2.0</td>
-                    <td>50</td>
-                    <td>0.26</td>
-                    <td>1.00</td>
-                    <td>0.26</td>
-                    <td>0.07</td>
-                    <td>9.13952E-05</td>
-                  </tr>
-                  <tr>
-                    <td>Drift Termokopel</td>
-                    <td>°C</td>
-                    <td>Rectangular</td>
-                    <td>0.1</td>
-                    <td>1.73</td>
-                    <td>30</td>
-                    <td>0.03</td>
-                    <td>1.00</td>
-                    <td>0.03</td>
-                    <td>0.00</td>
-                    <td>2.72087E-08</td>
-                  </tr>
-                  <tr>
-                    <td>Pembacaan ulang</td>
-                    <td>°C</td>
-                    <td>Normal</td>
-                    <td>0.1</td>
-                    <td>1.73</td>
-                    <td>5</td>
-                    <td>0.07</td>
-                    <td>1.00</td>
-                    <td>0.07</td>
-                    <td>0.00</td>
-                    <td>4.78025E-06</td>
-                  </tr>
-                  <tr>
-                    <td>Resolusi Alat</td>
-                    <td>°C</td>
-                    <td>Rectangular</td>
-                    <td>1</td>
-                    <td>1.73</td>
-                    <td>30</td>
-                    <td>0.58</td>
-                    <td>1.00</td>
-                    <td>0.58</td>
-                    <td>0.33</td>
-                    <td>0.003703704</td>
+                  <tr v-for="(item, index) in perhitungan_ktp.data_ktp.Komponen" :key="index">
+                    <td>{{item}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.satuan[index]}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.U[index]}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.Pembagi[index]}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.Sebaran[index]}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.Vi[index]}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.Ui[index].toExponential(4)}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.Ci[index]}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.UiCi[index].toExponential(4)}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.UiCiSquare[index].toExponential(4)}}</td>
+                    <td>{{perhitungan_ktp.data_ktp.UiCi4perVi[index].toExponential(4)}}</td>
                   </tr>
                   <tr>
                     <td colspan="9">Sums</td>
@@ -309,6 +192,23 @@
               </tbody>
             </table>
           </div>
+
+          <v-layout row class='mt-4'>
+            <v-flex xs6>
+              Diperiksa oleh : data_alat.diperiksa.person}} <br>
+              Tanggal :	data_alat.diperiksa.date}} <br>
+              Tanda Tangan :	
+
+              <hr style="width: 50%; margin-top: 100px">	
+            </v-flex>
+            <v-flex xs6>
+              Dikalibrasi oleh : data_alat.dikalibrasi.person}} <br>
+              Tanggal :	convertDate(data_alat.dikalibrasi.date)}} <br>
+              Tanda-tangan :
+
+              <hr style="width: 50%; margin-top: 100px">	
+            </v-flex>
+          </v-layout>
         </v-card-text>
       </v-card>
 
@@ -351,63 +251,88 @@ export default {
   },
 
   data: () => ({
-    active: null,
-    temps: [ "110", "150" ],
-    selected_temp: '',
-    titik_uji: 0,
-    ktp_110_komponen: [
-      [
-        "Ketidakpastian Standar",
-        "Ketidakpastian Thermocouple ",
-        "Drift",
-        "Readibility",
-        "Repeatibility",
-        "Ketidapkastian Temporal",
-        "Ketidakpastian Spasial",
-      ],
-      [ "Normal", "Normal", "Rectangular", "Rectangular", "T-Student", "Rectangular", "Rectangular" ]
-    ],
-    ktp_150_komponen: [
-      "Ketidakpastian Thermocouple", "Repeatibility", "Ketidapkastian Temporal", "Ketidakpastian Spasial"
-    ],
-    hk_keys: [ '1max', '1min', '2max', '2min', '3max', '3min', '4max', '4min', '5max', '5min', 'mid_range', 'variasi_tempora' ],
-    ktpheader: [ "Komponen", "Satuan", "UiCi", "(UiCi)2" ],
-    header2: [ "Komponen", "Satuan", "Distribusi", "U", "Pembagi", "Ui", "Ci", "UiCi", "(UiCi)2" ],
+    cert_no: '',
 
-    tp_headers: {
-      0: [
-        { text: 'Titik Uji', cspan: 1, rspan: 3},
-        { text: 'PENGAMATAN KE ( °C )', cspan: 10, rspan: 1},
-        { text: 'MID RANGE (°C)', cspan: 1, rspan: 3},
-        { text: 'VARIASI TEMPORAL (°C)', cspan: 1, rspan: 3},
-      ],
-      1: [
-        { text: '1', cspan: 2, rspan: 1},
-        { text: '2', cspan: 2, rspan: 1},
-        { text: '3', cspan: 2, rspan: 1},
-        { text: '4', cspan: 2, rspan: 1},
-        { text: '5', cspan: 2, rspan: 1},
-      ],
-      2: [
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-        { text: 'MAX', cspan: 1, rspan: 1},
-        { text: 'MIN', cspan: 1, rspan: 1},
-      ],
+    data_alat: {
+      deskripsi: {
+        jumlah_titik: 0,
+        kapasitas: "",
+        merk_buatan: [0,0],
+        nama_alat: "",
+        no_seri: "",
+        pengontrol_suhu: "",
+        resolusi: '',
+        tekanan: "",
+        tipe_model: []
+      },
+      dikalibrasi: {
+        date: "",
+        person: ""
+      },
+      diperiksa: "",
+      ketertelusuran: "",
+      kondisi_lingkungan: {
+        kelembaban: {
+          akhir_RH: 0,
+          awal_RH: 0
+        },
+        lokasi_kalibrasi: "",
+        suhu: {
+          akhir: 0,
+          awal: 0
+        }
+      },
+      metode_kalibrasi: "",
+      standar_acuan: [],
+      standar_dipakai: "",
+      tgl_terima: ""
     },
 
-    sheets: {},
+    hasil_pengukuran:{
+      III_max:[],
+      III_min:[],
+      III_rata:[],
+      II_max:[],
+      II_min:[],
+      II_rata:[],
+      I_max:[],
+      I_min:[],
+      I_rata:[],
+      Mpa:[],
+      derajat_C:[],
+      koreksi_derajat_C:[],
+      rata_rata:[],
+      stdv_C:[]
+    },
 
-    data_kal: {},
-    data_ktp: {},
-
-    cert_no: ''
+    perhitungan_ktp: {
+      data_ktp: {
+        Ci: [],
+        Komponen: [],
+        Pembagi: [],
+        Sebaran: [],
+        U: [],
+        Ui: [],
+        UiCi: [],
+        UiCi4perVi: [],
+        UiCiSquare: [],
+        Vi: [],
+        satuan: []
+      },
+      faktor_cakupan: {
+        besaran:  "",
+        nilai: 0
+      },
+      ktp_baku_gabungan: {
+        besaran:  "",
+        nilai: 0
+      },
+      ktp_bentangan: {
+        besaran: "",
+        nilai: 0
+      },
+      sums: []
+    }
 
   }),
 
@@ -424,13 +349,20 @@ export default {
 
         console.log(req_data);
 
-        this.data_kal = req_data.data_kal
-        this.data_ktp = req_data.data_ktp
+        this.data_alat = req_data.data_alat
+        this.hasil_pengukuran = req_data.data_kal.hasil_pengukuran
+        this.perhitungan_ktp = req_data.data_ktp.perhitungan_ktp
 
         this.titik_uji = req_data.data_alat.deskripsi.jumlah_titik
       } catch (error) {
         console.log('get LK err: ', error.response);
       }
+    },
+
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     }
   },
 }
