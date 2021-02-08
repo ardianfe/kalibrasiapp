@@ -19,7 +19,7 @@
       </v-card-title>
       <v-layout row wrap>
         <v-flex xs12 sm6>
-          <p class="text-xs-left">Jumlah Data : {{showed_item_count}}</p>
+          <p class="text-xs-left">Jumlah data ditampilkan : {{showed_item_count}}</p>
         </v-flex>
         <v-flex xs12 sm6>
           <p class="text-xs-right">Untuk input data silakan klik daftar sample</p>
@@ -70,9 +70,13 @@
 
         <v-card-actions>
           <v-spacer />
-          <v-btn class="white f-button" icon round @click="()=>{ page = page-1, getListOrder()}"><v-icon color="primary">chevron_left</v-icon></v-btn>
-          <v-btn class="white f-button" icon round readonly>{{page}}</v-btn>
-          <v-btn class="white f-button" icon round @click="()=>{ page = page+1, getListOrder()}"><v-icon color="primary">chevron_right</v-icon></v-btn>
+          <div class="text-xs-center pt-2">
+            <v-pagination @change="getListOrder" total-visible="5" v-model="page" :length="pages"
+            @next="getListOrder"
+            @previous="getListOrder"
+            @input="getListOrder"
+            ></v-pagination>
+          </div>
           <v-spacer />
         </v-card-actions>
 
@@ -161,10 +165,10 @@ export default {
 
   computed: {
     pages () {
-      if (this.pagination.rowsPerPage == null ||
-        this.pagination.totalItems == null
+      if (this.perpage == null ||
+        this.totalItems == null
       ) return 0
-      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+      return Math.ceil(this.totalItems / this.perpage)
     }
   },
 
@@ -179,6 +183,7 @@ export default {
         console.log('test cors', req);
         this.lo = req.result
         this.showed_item_count = req.result.length
+        this.totalItems = req.total_order
 
         this.loading = false
       } catch (error) {

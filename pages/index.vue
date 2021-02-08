@@ -250,7 +250,7 @@ export default {
       this.loading.lo = true
       this.loading.laporan = true
       try {
-        const req = await this.$calibrate.getListOrders()
+        const req = await this.$calibrate.getListOrders({page: 1, perpage: 10})
 
         console.log('get lo', req.result);
         this.lo = req.result
