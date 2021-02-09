@@ -143,18 +143,43 @@
                         </v-flex>
                       </v-layout>
 
-                      <v-layout>
+                      <!-- <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Merk/Buatan</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.manufacture }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: </p>
+                          {{ certificate.equipment.manufacture }}
+                        </v-flex>
+                      </v-layout> -->
+
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
+                        <v-flex xs5 style="width: 32mm">
+                          <p class="helve b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Merk/Buatan</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Manufacture</p>
+                        </v-flex>
+                        <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
+                        <v-flex xs5>
+                          <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">{{certificate.equipment.manufacture}}</p>
                         </v-flex>
                       </v-layout>
 
                       <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
+                        <v-flex xs5 style="width: 32mm">
+                          <p class="helve b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
+                          <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Interal Dimension</p>
+                        </v-flex>
+                        <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
+                        <v-flex xs5>
+                          <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.equipment.internal_dimension"> </p>
+                        </v-flex>
+                      </v-layout>
+
+                      <!-- <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
@@ -163,7 +188,8 @@
                         <v-flex xs6>
                           <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;" v-html="': '+certificate.equipment.internal_dimension"></p>
                         </v-flex>
-                      </v-layout>
+                      </v-layout> -->
+
                       <!-- <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
                         <v-flex xs5>
@@ -313,9 +339,9 @@
                       <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
                       <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Refference</p>
                     </div>
-                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p>
+                      <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{certificate.refference}}</p>
+                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p> -->
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
                     </div>
                   </v-layout>
@@ -636,7 +662,7 @@ export default {
       this.certificate.acceptance_date = alat.tgl_diterima
       this.certificate.calibration_date = alat.dikalibrasi.date
       this.certificate.env_condition.room_temp = alat.deskripsi.kondisi_ling.suhu_ruang.setelah_koreksi
-      this.certificate.env_condition.humidity = alat.deskripsi.kondisi_ling.kelembaban_udara.setelah_koreksi
+      this.certificate.env_condition.humidity = alat.deskripsi.kondisi_ling.kelembaban_udara.setelah_koreksi.toFixed(1)
       this.certificate.calibration_location = alat.deskripsi.lokasi
       this.certificate.calibration_method = alat.metode_kalibrasi
       this.certificate.refference = alat.standar_acuan

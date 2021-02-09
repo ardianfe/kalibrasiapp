@@ -295,9 +295,9 @@
                       <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
                       <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Refference</p>
                     </div>
-                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p>
+                      <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{certificate.refference}}</p>
+                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p> -->
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
                     </div>
                   </v-layout>
@@ -608,7 +608,7 @@ export default {
       this.certificate.env_condition = {
         room_temp: data.deskripsi.suhu_terkoreksi[0].toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi[1].toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi[2],
         corrected_room_temp: '',
-        humidity: data.deskripsi['kelembaban_terkoreksi_%'] + '%',
+        humidity: data.deskripsi['kelembaban_terkoreksi_%'] + ' %',
         corrected_humidity: ''
       }
       this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)

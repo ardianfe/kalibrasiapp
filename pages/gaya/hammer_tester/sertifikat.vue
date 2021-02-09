@@ -272,7 +272,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembaban</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">69 ± 3 % RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -305,9 +305,9 @@
                       <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
                       <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Refference</p>
                     </div>
-                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p>
+                      <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{certificate.refference}}</p>
+                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p> -->
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
                     </div>
                   </v-layout>

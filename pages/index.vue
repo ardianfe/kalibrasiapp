@@ -137,7 +137,7 @@
               <tr class="tr-head white--text pt-sans font-weight-bold">
                 <td class="primary td-header">No Sampel</td>
                 <td class="primary td-header">Nama Sampel</td>
-                <td class="primary td-header" width="20%">Tanggal Terbit</td>
+                <td class="primary td-header" width="20%">Tanggal Diterima</td>
                 <td class="primary td-header">Status</td>
               </tr>
 
