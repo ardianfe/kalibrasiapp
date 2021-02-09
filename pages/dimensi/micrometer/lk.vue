@@ -48,13 +48,13 @@
                     <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruangan[0] }} - {{ data_alat.deskripsi.suhu_ruangan[1] }} {{ data_alat.deskripsi.suhu_ruangan[2] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat.deskripsi['kelembaban_%'] }} {{ data_alat.deskripsi['kelembaban_%'] }}</p>
+                    <p class="mb-1">Kelembaban : {{ data_alat.deskripsi['kelembaban_%'] }} {{ data_alat.deskripsi['kelembaban_%'] }}</p>
                   </v-flex>
                   <v-flex xs6>
                     <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi[0] }} - {{ data_alat.deskripsi.suhu_terkoreksi[1] }} {{ data_alat.deskripsi.suhu_terkoreksi[2] }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] }} {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] }}</p>
+                    <p class="mb-1">Kelembaban Terkoreksi : {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] }} {{ data_alat.deskripsi['kelembaban_terkoreksi_%'] }}</p>
                   </v-flex>
                 </v-layout>
 

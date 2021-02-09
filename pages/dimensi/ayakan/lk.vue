@@ -48,13 +48,13 @@
                     <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruang.min.toFixed(2) }} - {{ data_alat.deskripsi.suhu_ruang.max }} {{ data_alat.deskripsi.suhu_ruang.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat.deskripsi.kelembaban.nilai }} {{ data_alat.deskripsi.kelembaban.satuan }}</p>
+                    <p class="mb-1">Kelembaban : {{ data_alat.deskripsi.kelembaban.nilai }} {{ data_alat.deskripsi.kelembaban.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
                     <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi.min.toFixed(2) }} - {{ data_alat.deskripsi.suhu_terkoreksi.max }} {{ data_alat.deskripsi.suhu_terkoreksi.satuan }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan Terkoreksi : {{ data_alat.deskripsi.kelembaban_terkoreksi.nilai.toFixed(2) }} {{ data_alat.deskripsi.kelembaban_terkoreksi.satuan }}</p>
+                    <p class="mb-1">Kelembaban Terkoreksi : {{ data_alat.deskripsi.kelembaban_terkoreksi.nilai.toFixed(2) }} {{ data_alat.deskripsi.kelembaban_terkoreksi.satuan }}</p>
                   </v-flex>
                 </v-layout>
 

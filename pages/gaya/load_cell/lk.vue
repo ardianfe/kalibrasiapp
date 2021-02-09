@@ -48,7 +48,7 @@
                     <p class="mb-1">Suhu Ruangan : {{ data_alat.suhu.nilai +" "+ data_alat.suhu.besaran +" "+ data_alat.suhu.plus_minus }}</p>
                   </v-flex>
                   <v-flex xs6>
-                    <p class="mb-1">Kelembapan : {{ data_alat.kelembaban.nilai +" "+ data_alat.kelembaban.besaran +" "+ data_alat.kelembaban.plus_minus }}</p>
+                    <p class="mb-1">Kelembaban : {{ data_alat.kelembaban.nilai +" "+ data_alat.kelembaban.besaran +" "+ data_alat.kelembaban.plus_minus }}</p>
                   </v-flex>
                 </v-layout>
 
