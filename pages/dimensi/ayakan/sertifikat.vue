@@ -776,32 +776,16 @@ export default {
         // x: 18, y: 18
       };
 
-      for(let i = 0; i < pages.length; i++){
-        await html2canvas(pages[i], {width: 794, height: 1134, scale: 2, dpi: 144}).then(canvas=>{
-          if(i > 0){
-            doc.addPage();
-          }
-
-          doc.setPage(i+1);
-          let dataURL = canvas.toDataURL('image/jpeg');
-          console.log('i dataurl : ',dataURL);
-          doc.addImage(dataURL, 'JPEG', 8, 0, 210, 300)
-        })
-      }
-
-      /* for (const key in pages) {
-        if (Object.hasOwnProperty.call(pages, key)) {
-          // const element = pages[key];
-          // console.log(element);
-          
+      for (const key in pages) {
+        if (Object.hasOwnProperty.call(pages, key)) {          
           await html2canvas(pages[key], options).then((canvas) => {
             // print_canvas.appendChild(canvas);
             //addImage(imageData, format, x, y, width(mm), height(mm), alias, compression, rotation)
             key > 0 ? doc.addPage() : ''
-            doc.addImage(canvas, 'JPEG', 8, 0, 210, 300, 'sertifikat', 'NONE', 0)
+            doc.addImage(canvas, 'JPEG', 8, 0, 210, 300, key, 'NONE', 0)
           });   
         }
-      } */
+      }
 
       await doc.save(cert_name);
 
