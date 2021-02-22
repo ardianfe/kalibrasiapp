@@ -11,6 +11,13 @@
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
 
+            <v-layout class="mb-2" justify-space-between row fill-height>
+              <v-flex xs12 sm6>
+                <v-text-field box append-icon="attach_file" label="Pilih Berkas Lampiran" readonly @click:append="upload"></v-text-field> <!-- only recieve .pdf file -->
+              </v-flex>
+              <input type="file" name="file" id="file" hidden>
+            </v-layout>
+
             <v-flex xs12 sm6 md4>
               <v-dialog
                 ref="dialog"
@@ -50,7 +57,7 @@
       <v-layout justify-center>
         <v-card width="210mm" class="mt-3 v-main-card elevation-8">        
           <v-card-text style="height: 300mm" class="pt-0">
-            <div id="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm;">
+            <div id="printable" class="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm;">
               <no-ssr>
                 <v-card-title style="z-index: 2; height: 75px; padding: 10mm 0 0 0">
                   <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
@@ -436,14 +443,156 @@
           </v-card-text>
         </v-card>
       </v-layout>
+
+      <v-layout justify-center>
+        <v-card width="210mm" class="mt-3 v-main-card elevation-8">        
+          <v-card-text style="height: 300mm" class="pt-0">
+            <div id="printable" class="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm;">
+              <no-ssr>
+                <v-card-title style="z-index: 2; height: 75px; padding: 10mm 0 0 0">
+                  <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
+                  <v-spacer/>
+                  <img v-if="kan" contain src="/kan.png" height="auto" width="95" style="object-fit: contain; margin: 3mm 5mm 0 0">
+                </v-card-title>
+                <div id="header" style="margin-top: -75px; padding-top: 10mm">
+                  <p class="helve c" style="margin-bottom: 1px; font-size: 9pt; margin-top: 3mm">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</p>
+                  <p class="helve c b" style="margin-bottom: 1px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
+                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
+                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
+                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">E-mail : b4t@b4t.go.id  Website : http://www.b4t.go.id</p>
+                </div>
+                <div id="body-content" style="border: 1px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm">
+									<div class="my-4">
+										<p class="helve b c u" style="margin: 0; height: 4.2mm; font-size: 12pt;">LAMPIRAN SERTIFIKAT KALIBRASI</p>
+										<p class="helve i c" style="margin-bottom: 2mm; font-size: 10pt;">ATTACHMENT OF CALIBRATION CERTIFICATE</p>
+									</div>
+                  <div style="width: 90%; margin-left: 40px" class="mt-2 mb-5">
+                    <v-layout>
+                      <v-flex xs1>
+                        <p class="helve u" style="font-size: 11pt; margin: 0; height: 4.2mm;">Nomor</p>
+                        <p class="helve i" style="font-size: 9pt; margin: 0; height: 18px;">Number</p>
+                      </v-flex>
+                      <v-flex>
+                        <p class="helve i" style="font-size: 11pt; margin: 7px 0; height: 4.2mm;">: {{certificate_number}}</p>
+                      </v-flex>
+                    </v-layout>
+										<p class="helve u b" style="font-size: 11pt; margin: 0; height: 4.2mm;">HASIL KALIBRASI</p>
+										<p class="helve i" style="font-size: 9pt; margin: 0; height: 18px;">Result of Calibration</p>
+                  </div>
+
+									<v-layout justify-center align-center column>
+										<table class="text-xs-center">
+                      <thead>
+                        <tr class="tableizer-firstrow">
+                          <th class="px-3">Pengamatan</th>
+                          <th class="px-3">Nominal <br> ( um )</th>
+                          <th class="px-3">Pengukuran <br> ( mm )</th>
+                          <th class="px-3" colspan="2">Persyaratan sesuai <br> ASTM E-11-2004 <br> ( mm )</th>
+                          <th class="px-3">Ketidakpastian <br> Pengukuran *) <br> ( um )</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr height="80px">
+                          <th>Width <br> Opening</th>
+                          <td>600</td>
+                          <td>0.621</td>
+                          <td>0.575</td>
+                          <td>0.625</td>
+                          <td>3.08</td>
+                        </tr>
+                      </tbody>
+                    </table>
+										
+                    <table class="mt-5 text-xs-center">
+                      <thead>
+                        <tr class="tableizer-firstrow">
+                          <th class="px-3">Pengamatan</th>
+                          <th class="px-3">Nominal <br> ( um )</th>
+                          <th class="px-3">Pengukuran <br> ( mm )</th>
+                          <th class="px-3" colspan="2">Persyaratan sesuai <br> ASTM E-11-2004 <br> ( mm )</th>
+                          <th class="px-3">Ketidakpastian <br> Pengukuran *) <br> ( um )</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr height="80px">
+                          <th>Diameter of <br> Wire</th>
+                          <td>0.400</td>
+                          <td>0.364</td>
+                          <td>0.340</td>
+                          <td>0.460</td>
+                          <td>0.01</td>
+                        </tr>
+                      </tbody>
+                    </table>
+										<p style="width: 90%; margin: 50px 0 150px 0">
+											Kesalahan maksimum =		0.03 	mm	Syarat Kesalahan Maksimum =   ± 0.08 mm	dan ketidakpatian
+                      <br><br>
+                      *)Ketidakpastian yang dilaporkan adalah ketidakpastian bentangan pada tingkat kepercayaan 95 % dengan <br>	faktor cakupan k = 2					
+										</p>
+									</v-layout>
+
+                </div>
+
+                <!-- Keterangan -->
+                <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 1mm 4mm">
+                  <v-layout row>
+                    <v-flex style="width: 37px">
+                      <p class="helve" style="font-size: 8pt;">Keterangan :</p>
+                    </v-flex>
+                    <v-flex>
+                      <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                        1. Dilarang memproduksi sertifikat ini tanpa izin tertulis dari B4T kecuali secara keseluruhan.
+                      </p>
+                      <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
+                        2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
+                      </p>
+                    </v-flex>
+                  </v-layout>
+                </div>
+                
+                <!-- Footer -->
+                <v-layout row style="margin-top: 2mm">
+                  <v-flex>
+                    <p class="helve" style="font-size: 8pt;">F. 02 b/05</p>
+                  </v-flex>
+                  <v-flex>
+                    <v-layout right>
+                      <div>
+                        <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Halaman</p>
+                        <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Page</p>
+                      </div>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
+                      <div>
+                        <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
+                        <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
+                      </div>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
+                    </v-layout>
+                  </v-flex>
+                </v-layout>
+              </no-ssr>
+            </div>
+            <div id="elementH"> 
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
 
 <style scoped>
-p{
-  letter-spacing: .1pt;
-}
+  p{
+		letter-spacing: .1pt;
+    font-family: 'Times New Roman', serif;
+	}
+	table {
+    border-collapse: collapse;
+    font-family: 'Times New Roman', serif;
+  } table, th, td {
+    border: 1px solid grey;
+    padding: 3px
+  }
   #wrapper {
     overflow-x: scroll hidden;
   } table {
@@ -476,8 +625,7 @@ p{
 <script>
 import dimensiHeader from '~/components/dimensi/ayakan.vue'
 import jsPDF from 'jspdf'
-// import VuetifyLogo from '~/components/VuetifyLogo.vue'
-// import cert_data from '~/static/data_cert_v2.json'
+import html2canvas from 'html2canvas';
 
 export default {
   components: {
@@ -558,28 +706,6 @@ export default {
   },
 
   methods: {
-    downloadPDF() {
-      var doc = new jsPDF();
-      var elementHTML = $('#printable').html();
-      var specialElementHandlers = {
-          '#elementH': function (element, renderer) {
-              return true;
-          }
-      };
-      doc.fromHTML(elementHTML, 0, 0, {
-          'width': 170,
-          'elementHandlers': specialElementHandlers
-      });
-
-      // Save the PDF
-      setTimeout(() => {
-        doc.save('sample-document.pdf');
-      }, 500);
-
-      console.log(elementHTML);
-      
-    },
-
     async getCertData() {
       try {
         const req = await this.$category.getLembarKerja({id: this.$route.query.id})
@@ -610,7 +736,7 @@ export default {
       this.certificate.env_condition = {
         room_temp: data.deskripsi.suhu_terkoreksi.min.toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi.max.toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi.satuan,
         corrected_room_temp: '',
-        humidity: data.deskripsi.kelembaban_terkoreksi.nilai.toFixed(3) + ' ' + data.deskripsi.kelembaban_terkoreksi.satuan,
+        humidity: data.deskripsi.kelembaban_terkoreksi.nilai.toFixed(0) + ' ' + data.deskripsi.kelembaban_terkoreksi.satuan,
         corrected_humidity: ''
       }
       this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)
@@ -623,15 +749,64 @@ export default {
       this.certificate.published_date = ''
     },
 
-    printWrapper() {
-      var printContents = document.getElementById('printable').innerHTML;
-      var originalContents = document.body.innerHTML;
+    upload(){
+      alert('test')
+    },
 
-      document.body.innerHTML = printContents;
-      window.print();
-      // document.body.innerHTML = originalContents; 
+    // printWrapper() {
+    //   var doc = document.getElementsByClassName('printable')
+    //   console.log(doc);
+    // },
+
+    async printWrapper() {
+      console.log('width : ', document.getElementById('printable'));
+      let pages = document.querySelectorAll(".printable");
+      let print_canvas = document.getElementById('elementH')
+
+      const doc = new jsPDF('p', 'mm','a4');
+      
+
+      // console.log(print_canvas);
+      const cert_name = this.certificate.equipment.name + ' ['+this.certificate_number+'].pdf'
+      let options = {
+        width: 794,
+        height: 1134,
+        dpi: 144,
+        scale: 2
+        // x: 18, y: 18
+      };
+
+      for(let i = 0; i < pages.length; i++){
+        await html2canvas(pages[i], {width: 794, height: 1134, scale: 2, dpi: 144}).then(canvas=>{
+          if(i > 0){
+            doc.addPage();
+          }
+
+          doc.setPage(i+1);
+          let dataURL = canvas.toDataURL('image/jpeg');
+          console.log('i dataurl : ',dataURL);
+          doc.addImage(dataURL, 'JPEG', 8, 0, 210, 300)
+        })
+      }
+
+      /* for (const key in pages) {
+        if (Object.hasOwnProperty.call(pages, key)) {
+          // const element = pages[key];
+          // console.log(element);
+          
+          await html2canvas(pages[key], options).then((canvas) => {
+            // print_canvas.appendChild(canvas);
+            //addImage(imageData, format, x, y, width(mm), height(mm), alias, compression, rotation)
+            key > 0 ? doc.addPage() : ''
+            doc.addImage(canvas, 'JPEG', 8, 0, 210, 300, 'sertifikat', 'NONE', 0)
+          });   
+        }
+      } */
+
+      await doc.save(cert_name);
+
       // location.reload()
-      this.changeStatus()
+      // this.changeStatus()
     },
 
     async changeStatus() {

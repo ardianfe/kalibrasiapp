@@ -3,85 +3,126 @@
     <v-flex xs12 sm8 md6>
       <dimensiHeader></dimensiHeader>
 
+      <v-dialog width="450px" v-model="verification_dialog">
+        <v-card>
+          <v-card-actions>
+            <v-spacer/>
+            <v-btn class="f-button" icon @click="verification_dialog = false"><v-icon>close</v-icon></v-btn>
+          </v-card-actions>
+          <v-card-text class="pt-0">
+            <v-checkbox color="primary" label="Verifikasi Sub-Koordinator"></v-checkbox>
+            <v-checkbox color="primary" label="Verifikasi Koordinator" readonly></v-checkbox>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="f-button primary" @click="verification_dialog = false">Kirim</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-layout justify-center column>
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
+          <v-progress-linear class="ma-0" indeterminate v-if="isLoading"></v-progress-linear>
           <v-card-text>
-            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI MESH (AYAKAN)</p>
+            <p class="text-xs-center b title my-4">FORM LEMBAR KERJA KALIBRASI MESH (AYAKAN)</p>
 
-            <p class="b">No. Laporan : {{no_cert}}</p>
-            <v-layout row wrap>
-              <v-flex xs12 sm6>
-                <v-layout>
-                  <p class="mb-1">Deskripsi Alat : {{ data_alat.deskripsi.nama_alat }}</p>
+            <p class="b">No. Laporan : {{no_cert ? no_cert : 'Belum upload'}}</p>
+            <p class="pointer" @click="verification_dialog=true"><span class="b">Status Verifikasi :</span> {{'Belum Terverifikasi'}}</p>
+
+            <template v-if="!isLoading">
+              <v-layout class="mb-2" justify-space-between row fill-height>
+                <v-flex xs8>
+                  <v-text-field box append-icon="attach_file" label="Pilih Berkas Lembar Kerja" readonly @click:append="upload"></v-text-field> <!-- only recieve .pdf file -->
+                </v-flex>
+                <input type="file" name="file" id="file" hidden>
+              </v-layout>
+              <v-layout class="mb-2" justify-space-between row fill-height>
+                <v-flex xs8>
+                  <v-text-field box append-icon="attach_file" label="Pilih Berkas Lampiran" readonly @click:append="upload"></v-text-field> <!-- only recieve .pdf file -->
+                </v-flex>
+                <input type="file" name="file" id="file" hidden>
+              </v-layout>
+
+              <template v-if="no_cert != ''">
+                <p class="title mb-1">Data Alat</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="mb-4">
+                    <v-text-field label="No Sertifikat" readonly v-model="no_cert"></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs8 class="">
+                    <v-text-field label="Nama Alat" v-model="certificate.equipment.name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Kapasitas" v-model="certificate.equipment.capacity"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Tipe/Model" v-model="certificate.equipment.model"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Nomor Seri" v-model="certificate.equipment.serial_number"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Merk/Buatan" v-model="certificate.equipment.manufacture"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Pengontrol Suhu" v-model="certificate.equipment.temperature"></v-text-field>
+                  </v-flex>
                 </v-layout>
                 
-                <v-layout>
-                  <p class="mb-1">Tipe / Model : {{ data_alat.deskripsi.model }}</p>
+                <p class="title mb-1">Pemilik</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Nama" v-model="certificate.owner.name" readonly></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Alamat" v-model="certificate.owner.address" readonly></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <p class="title mb-1">Standar</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Nama" v-model="certificate.standard.name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Ketelusuran" v-model="certificate.standard.traceability"></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <p class="title mb-1">Kondisi Lingkungan</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Suhu Ruang" v-model="certificate.env_condition.room_temp"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Kelembaban" v-model="certificate.env_condition.humidity"></v-text-field>
+                  </v-flex>
                 </v-layout>
                 
-                <v-layout>
-                  <p class="mb-1">Merek : {{ data_alat.deskripsi.merk }}</p>
-                </v-layout>
-              </v-flex>
-              
-              <v-flex xs12 sm6>
-                <v-layout>
-                  <p class="mb-1">Kapasitas : {{ data_alat.deskripsi.kapasitas }}</p>
-                </v-layout>
-
-                <v-layout>
-                  <p class="mb-1">No Seri : {{ data_alat.deskripsi.no_seri }}</p>
+                <p class="title mb-1">Lokasi Kalibrasi</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Lokasi" v-model="certificate.calibration_location"></v-text-field>
+                  </v-flex>
                 </v-layout>
                 
-                <v-layout>
-                  <p class="mb-1">Buatan : {{ data_alat.deskripsi.buatan }}</p>
-                </v-layout>
-              </v-flex>
-
-              <v-flex xs12 class="mt-4">
-                <v-layout>
-                  <p class="mb-1">Lokasi Kalibrasi : {{ data_alat.deskripsi.lokasi }}</p>
-                </v-layout>
-
-                <v-layout row wrap>
-                  <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan : {{ data_alat.deskripsi.suhu_ruang.min.toFixed(2) }} - {{ data_alat.deskripsi.suhu_ruang.max }} {{ data_alat.deskripsi.suhu_ruang.satuan }}</p>
-                  </v-flex>
-                  <v-flex xs6>
-                    <p class="mb-1">Kelembaban : {{ data_alat.deskripsi.kelembaban.nilai }} {{ data_alat.deskripsi.kelembaban.satuan }}</p>
-                  </v-flex>
-                  <v-flex xs6>
-                    <p class="mb-1">Suhu Ruangan Terkoreksi : {{ data_alat.deskripsi.suhu_terkoreksi.min.toFixed(2) }} - {{ data_alat.deskripsi.suhu_terkoreksi.max }} {{ data_alat.deskripsi.suhu_terkoreksi.satuan }}</p>
-                  </v-flex>
-                  <v-flex xs6>
-                    <p class="mb-1">Kelembaban Terkoreksi : {{ data_alat.deskripsi.kelembaban_terkoreksi.nilai.toFixed(2) }} {{ data_alat.deskripsi.kelembaban_terkoreksi.satuan }}</p>
+                <p class="title mb-1">Metoda Kalibrasi</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Metoda" v-model="certificate.calibration_method"></v-text-field>
                   </v-flex>
                 </v-layout>
+              </template>
+            </template>
 
-                <br>
-
-                <v-layout>
-                  <p class="mb-3">Alat Kalibrasi yang digunakan: {{ data_alat.alat_kalibrasi }}</p>
-                </v-layout>
-
-                <v-layout>
-                  <p class="mb-1">Metoda Kalibrasi : {{ data_alat.metode_kalibrasi }}</p>
-                </v-layout>
-
-                <v-layout>
-                  <p class="mb-3">Standar Acuan : {{ data_alat.standar_acuan[0] }} &emsp; {{ data_alat.standar_acuan[1] }}</p>
-                </v-layout>                
-              </v-flex>
-            </v-layout>
+            
           </v-card-text>
 
-          <v-card-text>
-            <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI AYAKAN</p>
+          <v-card-text v-if="no_cert != ''">
+            <!-- <p class="text-xs-center b title my-4">LEMBAR KERJA KALIBRASI AYAKAN</p> -->
 
-            <p class="b">No. Laporan : {{no_cert}}</p>
-            <!-- <pre>
-              {{data_kal.hasil}}
-            </pre> -->
+            <!-- <p class="b">No. Laporan : {{no_cert}}</p>
             <p>Data Hasil Pengamatan</p>
             <p class="mb-1">Nominal {{hp_nominal.nilai.nilai}} {{hp_nominal.nilai.satuan}}</p>
             <table width="100%" class="mb-3">
@@ -160,13 +201,6 @@
                   <th>U95</th>
                 </tr>
               </thead>
-              <!-- alat_std
-              selisih_suhu
-              resolusi_project
-              pengaruh_mekanik
-              stdv
-              uc
-              u95 -->
               <tbody>
                 <tr>
                   <th>Width Opening <br> (um)</th>
@@ -189,7 +223,7 @@
                   <td>{{ diameter_of_wire.u95 }}</td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
 
             <v-layout row class='mt-4'>
               <v-flex xs6>
@@ -248,6 +282,45 @@ export default {
 
   data: () => ({
     no_cert: '',
+    isLoading: true,
+
+    verification_dialog: false,
+
+    certificate: {
+      equipment: {
+        name: '',
+        capacity: '',
+        model: '',
+        serial_number: '',
+        manufacture: '',
+        internal_dimension: '',
+        temperature: '',
+        others: '-',
+      },
+      owner: {
+        name: '',
+        address: ''
+      },
+      standard: {
+        name: '',
+        traceability: ''
+      },
+      acceptance_date: '',
+      calibration_date: '',
+      env_condition: {
+        room_temp: '',
+        corrected_room_temp: '',
+        humidity: '',
+        corrected_humidity: ''
+      },
+      calibration_location: '',
+      calibration_method: '',
+      refference: '',
+      result: '',
+      published_date: '',
+      director_name: '',
+      director_nip: '',
+    },
 
     ktp_u95: [],
     uc: 0,
@@ -368,15 +441,51 @@ export default {
 
         this.no_cert = req_data.no_laporan
         this.data_alat = req_data.data_alat
-        this.hp_nominal = req_data.data_kal.hp_nominal
-        this.hp_diameter = req_data.data_kal.hp_diameter
+        // this.hp_nominal = req_data.data_kal.hp_nominal
+        // this.hp_diameter = req_data.data_kal.hp_diameter
 
-        this.width_opening = req_data.data_ktp.width_opening
-        this.diameter_of_wire = req_data.data_ktp.diameter_of_wire
+        // this.width_opening = req_data.data_ktp.width_opening
+        // this.diameter_of_wire = req_data.data_ktp.diameter_of_wire
+
+        this.isLoading = false
+        this.elementMapping(req_data.data_alat, req_data.data_co)
       } catch (error) {
         console.log('get LK err: ', error.response);
+        this.isLoading = false
       }
     },
+
+    upload(){
+      alert('test')
+    },
+
+    elementMapping(data, owner) {
+      this.certificate.equipment.name = data.deskripsi.nama_alat
+      this.certificate.equipment.capacity = data.deskripsi.kapasitas
+      this.certificate.equipment.model = data.deskripsi.tipe_model
+      this.certificate.equipment.serial_number = data.deskripsi.no_seri
+      this.certificate.equipment.manufacture = data.deskripsi.buatan
+      this.certificate.equipment.temperature = '-'
+      this.certificate.owner.name = owner.nama_co
+      this.certificate.owner.address = owner.alamat
+      this.certificate.standard.name = data.alat_kalibrasi
+      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui Puslit KIM LIPI Serpong'
+      this.certificate.env_condition = {
+        room_temp: data.deskripsi.suhu_terkoreksi.min.toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi.max.toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi.satuan,
+        corrected_room_temp: '',
+        humidity: data.deskripsi.kelembaban_terkoreksi.nilai.toFixed(2) + ' %',
+        corrected_humidity: ''
+      }
+      this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)
+      this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
+      // this.certificate.env_condition.room_temp = cert_data
+      // this.certificate.env_condition.humidity = cert_data
+      this.certificate.calibration_location = data.deskripsi.lokasi
+      this.certificate.calibration_method = data.metode_kalibrasi
+      this.certificate.refference = data.standar_acuan
+      this.certificate.published_date = ''
+    },
+
     convertDate(date_string) {
       // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
       const options = { year: 'numeric', month: 'long', day: 'numeric' };

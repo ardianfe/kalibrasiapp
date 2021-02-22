@@ -44,8 +44,8 @@ export default {
     return {
       menus: [
         { name: 'dimensi-ayakan-lk', text: 'Lembar Kerja', url: '/dimensi/ayakan/lk?id='+this.$route.query.id },
-        { name: 'dimensi-ayakan-sertifikat', text: 'Sertifikat', url: '/dimensi/ayakan/sertifikat?id='+this.$route.query.id },
-        { name: 'dimensi-ayakan-lampiran', text: 'Lampiran', url: '/dimensi/ayakan/lampiran?id='+this.$route.query.id },
+        { name: 'dimensi-ayakan-sertifikat', text: 'Laporan', url: '/dimensi/ayakan/sertifikat?id='+this.$route.query.id },
+        // { name: 'dimensi-ayakan-lampiran', text: 'Lampiran', url: '/dimensi/ayakan/lampiran?id='+this.$route.query.id },
         // { name: 'gaya-durometer-ktp1', text: 'KTP 1', url: '/gaya/durometer/ktp1?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
         // { name: 'gaya-durometer-ktp2', text: 'KTP 2', url: '/gaya/durometer/ktp2?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},
         // { name: 'gaya-sertifikat', text: 'Sertifikat', url: '/gaya/sertifikat?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
