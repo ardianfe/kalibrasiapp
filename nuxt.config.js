@@ -12,7 +12,8 @@ export default {
     base: process.env.base,
     base2: process.env.base2,
     title: process.env.title,
-    desc: process.env.desc
+    desc: process.env.desc,
+    api_key: process.env.api_key
   },
 
   auth: {

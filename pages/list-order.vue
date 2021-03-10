@@ -101,6 +101,8 @@
 // import Logo from '~/components/Logo.vue'
 // import VuetifyLogo from '~/components/VuetifyLogo.vue'
 import uploadDialog from '~/components/uploadDialog.vue'
+// import path from 'path'
+// import Storage from '@google-cloud/storage'
 
 export default {
   head: {
@@ -203,11 +205,49 @@ export default {
     },
 
     openDialog(sample_name, order_number, sample_number) {
-      this.$store.commit('openDialog', {
-        sample_name: sample_name,
-        order_number: order_number,
-        sample_number: sample_number
-      })
+      // let index = this.$store.state.nama_bidang[sample_name]
+      // let url = this.$store.state.bidang[index].slug
+
+      // alert(order_number+'-'+ sample_number)
+      this.getNoLaporan(order_number, sample_number)
+
+      // this.$router.push(url+'?id='+sample_number+'&bid_id='+index)
+      // this.$store.commit('openDialog', {
+      //   sample_name: sample_name,
+      //   order_number: order_number,
+      //   sample_number: sample_number
+      // })
+    },
+
+    async getNoLaporan(id_order, no_sampel) {
+      try {
+        const req = await this.$calibrate.getNomorLaporan({
+          id_order: id_order, no_sample: no_sampel
+        })
+
+        this.createReport(id_order, req.Nama_sample, req.no_laporan, 'dibuat_untuk')
+
+        console.log('getNoLaporan :', req);
+      } catch (error) {
+        alert('gagal mengambil nomor laporan')
+        console.log(error.response);
+      }
+    },
+
+    async createReport(id_order, nama_sample, no_laporan, dibuat_untuk) {
+      try {
+        const req = await this.$calibrate.createReport({
+          _id: id_order,
+          nama_sample,
+          no_laporan,
+          dibuat_untuk: 'Balai Besar Logam'
+        })
+
+        console.log('createreport :', req);
+      } catch (error) {
+        alert('gagal membuat report')
+        console.log(error.response);
+      }
     },
 
     chooseFile() {

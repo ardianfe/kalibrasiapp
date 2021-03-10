@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "serve -p $PORT dist/",
     "generate": "nuxt generate"
   },
   "config": {

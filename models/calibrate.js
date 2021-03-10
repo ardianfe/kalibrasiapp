@@ -20,22 +20,12 @@ const model = $axios => ({
   },
   
   uploads({file, cat, sample, order_id, sample_number, sheet_name}) {
-    // kalibrasiapis/uploads/?id_order=20746&id_sample=20082873001&cat=gaya&sample=13&sheet=GRP-100kN,5223
-    // let formData = new FormData()
-    // formData.append('file', file)
-    // formData.append('sheet', sheet_name)
-    // formData.append('cat', cat)
-    // formData.append('sample', sample)
     return $axios.$post(base_url2 + '/uploads/?id_order='+order_id+'&id_sample='+sample_number+'&cat='+cat+'&sample='+sample+'&sheet='+sheet_name, file)
   },
 
   getCertData({no_cert}) {
     return $axios.$get(url + '/data_cert/' + no_cert)
   },
-
-  // getWorkSheet({no_cert, temperature}) {
-  //   return $axios.$get(url + '/lembar_kerja/' + no_cert + '/' + temperature)
-  // },
 
   getAllCertificate() {
     return $axios.$get(url + '/data_cert/')
@@ -113,6 +103,20 @@ const model = $axios => ({
     return $axios.$delete(base_url + '/work/' + id + '/')
   },
 
+  createReport({
+    _id,
+    nama_sample,
+    no_laporan,
+    dibuat_untuk
+  }) {
+    return $axios.$post(base_url2 + '/upload', {
+      _id, 
+      nama_sample,
+      no_laporan,
+      dibuat_untuk
+    })
+  },
+
   //sipeja
   sipeja_upload(data) {
     return $axios.$push(process.env.sipeja_base + '/uploadLaporan', {
@@ -123,6 +127,15 @@ const model = $axios => ({
       // }"
       
       data
+    })
+  },
+
+  getNomorLaporan({id_order, no_sample}) {
+    // return $axios.$get(process.env.sipeja_basenew, {
+    return $axios.$get(process.env.sipeja_basenew, {
+      params: {
+        id_order, no_sample
+      }
     })
   }
 });

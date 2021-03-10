@@ -113,6 +113,13 @@
                     <v-text-field label="Metoda" v-model="certificate.calibration_method"></v-text-field>
                   </v-flex>
                 </v-layout>
+                
+                <p class="title mb-1">Acuan</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field label="Standar Acuan" v-model="certificate.refference"></v-text-field>
+                  </v-flex>
+                </v-layout>
               </template>
             </template>
 

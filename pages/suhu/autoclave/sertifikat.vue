@@ -204,7 +204,7 @@
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;">{{certificate.standard.name}}</p>
+                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 280px;" v-html="certificate.standard.name"></p>
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">2. Thermocouple Wire Tipe K, S/N : K2</p> -->
                     </div>
                   </v-layout>
@@ -266,7 +266,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembaban</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} %RH</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.corrected_humidity}} % RH</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -372,7 +372,7 @@
                         <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
                         <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
                       </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">3</p>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -546,7 +546,7 @@ export default {
     elementMapping(data, owner) {
       this.certificate.equipment.name = data.deskripsi.nama_alat
       // this.certificate.equipment.internal_dimension = data.deskripsi.dimensi.lebar+'mm(l)x'+data.deskripsi.dimensi.panjang+'mm(p)x'+data.deskripsi.dimensi.tinggi+'mm(t)'
-      this.certificate.equipment.capacity = data.deskripsi.kapasitas + '/ tekanan : ' + data.deskripsi.tekanan
+      this.certificate.equipment.capacity = data.deskripsi.kapasitas + '/ ' + data.deskripsi.tekanan
       this.certificate.equipment.model = data.deskripsi.tipe_model[0]
       this.certificate.equipment.brand = data.deskripsi.merk_buatan[0] + " / " + data.deskripsi.merk_buatan[1]
       this.certificate.equipment.serial_number = data.deskripsi.no_seri
@@ -555,6 +555,7 @@ export default {
       this.certificate.owner.name = owner.nama_co
       this.certificate.owner.address = owner.alamat
       this.certificate.standard.name = data.standar_dipakai
+      console.log('data.standar_dipakai',data.standar_dipakai);
       this.certificate.standard.traceability = data.ketertelusuran
       this.certificate.env_condition = {
         room_temp: data.kondisi_lingkungan.suhu.awal,

@@ -11,6 +11,13 @@
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
 
+            <v-layout class="mb-2" justify-space-between row fill-height>
+              <v-flex xs12 sm6>
+                <v-text-field box append-icon="attach_file" label="Pilih Berkas Lampiran" readonly @click:append="upload"></v-text-field> <!-- only recieve .pdf file -->
+              </v-flex>
+              <input type="file" name="file" id="file" hidden>
+            </v-layout>
+
             <!-- <v-layout row wrap>
               <v-select 
                 :items="signatories" v-model="signatory" 
@@ -209,9 +216,9 @@
                       <p class="helve b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
                       <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
                     </div>
-                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
+                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{certificate.standard.name}}</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;">{{certificate.standard.name}}</p>
+                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;">{{certificate.standard.name}}</p> -->
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">2. Thermocouple Wire Tipe K, S/N : K2</p> -->
                     </div>
                   </v-layout>
@@ -607,6 +614,10 @@ export default {
       this.certificate.calibration_location = alat['Lokasi Kalibrasi']
       this.certificate.calibration_method = 'PC-309-10'
       this.certificate.refference = alat['Standar acuan']
+    },
+
+    upload(){
+      alert('test')
     },
 
     printWrapper() {
