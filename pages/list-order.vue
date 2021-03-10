@@ -225,25 +225,30 @@ export default {
           id_order: id_order, no_sample: no_sampel
         })
 
-        this.createReport(id_order, req.Nama_sample, req.no_laporan, 'dibuat_untuk')
 
+        if (req.error == true) {
+          alert(req.message)
+        } else {
+          this.createReport(req.laporan[0].no_sample, req.laporan[0].Nama_sample, req.laporan[0].no_laporan, 'dibuat_untuk')
+        }
         console.log('getNoLaporan :', req);
       } catch (error) {
         alert('gagal mengambil nomor laporan')
-        console.log(error.response);
+        console.log(error);
       }
     },
 
-    async createReport(id_order, nama_sample, no_laporan, dibuat_untuk) {
+    async createReport(id_sampel, nama_sample, no_laporan, dibuat_untuk) {
       try {
         const req = await this.$calibrate.createReport({
-          _id: id_order,
+          _id: id_sampel,
           nama_sample,
           no_laporan,
           dibuat_untuk: 'Balai Besar Logam'
         })
 
         console.log('createreport :', req);
+        alert('Berhasil membuat laporan')
       } catch (error) {
         alert('gagal membuat report')
         console.log(error.response);

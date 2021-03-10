@@ -109,7 +109,7 @@ const model = $axios => ({
     no_laporan,
     dibuat_untuk
   }) {
-    return $axios.$post(base_url2 + '/upload', {
+    return $axios.$post(process.env.basenew, {
       _id, 
       nama_sample,
       no_laporan,
@@ -134,7 +134,7 @@ const model = $axios => ({
     // return $axios.$get(process.env.sipeja_basenew, {
     return $axios.$get(process.env.sipeja_basenew, {
       params: {
-        id_order, no_sample
+        id_order, id_sample: no_sample
       }
     })
   }
