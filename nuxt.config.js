@@ -22,7 +22,7 @@ export default {
       logout: '/',
       callback: '/login',
       user: '/',
-      home: '/banksoal'
+      home: '/'
     },
     strategies: { 
       local1: {
