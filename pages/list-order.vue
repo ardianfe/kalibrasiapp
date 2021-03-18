@@ -54,7 +54,7 @@
               <td class="td-body">
                 <p v-for="(data, x) in item.daftar_sampel" :key="x">
                   <v-hover v-for="(no_sample) in data.no_sample" :key="no_sample">
-                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="openDialog(data.sampel, item.id, no_sample)">{{data.sampel}} ({{no_sample}}) <br></span>
+                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="openDialog(data.sampel, item.id, no_sample, item.nama_perusahaan, item.tanggal_terima, item.tanggal_kalibrasi)">{{data.sampel}} ({{no_sample}}) <br></span>
                   </v-hover>
                 </p>
               </td>
@@ -204,12 +204,12 @@ export default {
       console.log(this.dialog, this.order_number, this.sample_name, this.sample_number);
     },
 
-    openDialog(sample_name, order_number, sample_number) {
+    openDialog(sample_name, order_number, sample_number, nama_perusahaan, tanggal_terima, tanggal_kalibrasi) {
       // let index = this.$store.state.nama_bidang[sample_name]
       // let url = this.$store.state.bidang[index].slug
 
       // alert(order_number+'-'+ sample_number)
-      this.getNoLaporan(order_number, sample_number)
+      this.getNoLaporan(order_number, sample_number, nama_perusahaan, tanggal_terima, tanggal_kalibrasi)
 
       // this.$router.push(url+'?id='+sample_number+'&bid_id='+index)
       // this.$store.commit('openDialog', {
@@ -219,7 +219,7 @@ export default {
       // })
     },
 
-    async getNoLaporan(id_order, no_sampel) {
+    async getNoLaporan(id_order, no_sampel, nama_perusahaan, tanggal_terima, tanggal_kalibrasi) {
       try {
         const req = await this.$calibrate.getNomorLaporan({
           id_order: id_order, no_sample: no_sampel
@@ -229,7 +229,7 @@ export default {
         if (req.error == true) {
           alert(req.message)
         } else {
-          this.createReport(req.laporan[0].no_sample, req.laporan[0].Nama_sample, req.laporan[0].no_laporan, 'dibuat_untuk')
+          this.createReport(req.laporan[0].no_sample, req.laporan[0].Nama_sample, req.laporan[0].no_laporan, nama_perusahaan, tanggal_terima, tanggal_kalibrasi)
         }
         console.log('getNoLaporan :', req);
       } catch (error) {
@@ -238,17 +238,51 @@ export default {
       }
     },
 
-    async createReport(id_sampel, nama_sample, no_laporan, dibuat_untuk) {
+    async createReport(id_sampel, nama_sample, no_laporan, owner_name, acceptance_date, calibration_date) {
       try {
         const req = await this.$calibrate.createReport({
           _id: id_sampel,
           nama_sample,
           no_laporan,
-          dibuat_untuk: 'Balai Besar Logam'
+          dibuat_untuk: 'Balai Besar Logam',
+          equipment: {
+            name: nama_sample,
+            capacity: "",
+            model: "",
+            serial_number: "",
+            manufacture: "",
+            internal_dimension: '',
+            temperature: '',
+            others: '-',
+          },
+          owner: {
+            name: owner_name,
+            address: ""
+          },
+          acceptance_date: acceptance_date,
+          calibration_data: calibration_date,
+          standard: {
+            name: '',
+            traceability: ''
+          },
+          env_cond: {
+            room_temp: '',
+            corrected_room_temp: '',
+            humidity: '',
+            corrected_humidity: ''
+          },
+          calibration_location: '',
+          calibration_method: null,
+          refference: '',
+          result: '',
+          published_date: '',
+          director_name: '',
+          director_nip: '',
         })
 
         console.log('createreport :', req);
         alert('Berhasil membuat laporan')
+        this.$router.push('/lk?id='+id_sampel)
       } catch (error) {
         alert('gagal membuat report')
         console.log(error.response);

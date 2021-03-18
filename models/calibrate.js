@@ -107,13 +107,39 @@ const model = $axios => ({
     _id,
     nama_sample,
     no_laporan,
-    dibuat_untuk
+    dibuat_untuk,
+    equipment, 
+    owner,
+    acceptance_date,
+    calibration_data,
+    standard,
+    env_cond,
+    calibration_location,
+    calibration_method,
+    refference,
+    result,
+    published_date,
+    director_name,
+    director_nip
   }) {
     return $axios.$post(process.env.basenew, {
       _id, 
       nama_sample,
       no_laporan,
-      dibuat_untuk
+      dibuat_untuk,
+      equipment,
+      owner,
+      acceptance_date,
+      calibration_data,
+      standard,
+      env_cond,
+      calibration_location,
+      calibration_method,
+      refference,
+      result,
+      published_date,
+      director_name,
+      director_nip
     })
   },
 
@@ -131,13 +157,26 @@ const model = $axios => ({
   },
 
   getNomorLaporan({id_order, no_sample}) {
-    // return $axios.$get(process.env.sipeja_basenew, {
     return $axios.$get(process.env.sipeja_basenew, {
+    // return $axios.$get(process.env.basenew, {
       params: {
         id_order, id_sample: no_sample
       }
     })
-  }
+  },
+
+  //base new
+  getLembarKerja({id}) {
+    return $axios.$get(process.env.basenew + id)
+  },
+
+  uploadReport({id, file, cat}) {
+    let formData = new FormData()
+    formData.append('file', file)
+    // return $axios.$post(base_url + '/upload', formData)
+
+    return $axios.$put(process.env.basefile + id +'?cat='+ cat, formData)
+  },
 });
 
 export default ({

@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-center>
     <v-flex xs12 sm8 md6>
-      <dimensiHeader></dimensiHeader>
+      <mainHeader></mainHeader>
 
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
@@ -10,40 +10,6 @@
           </v-card-title>
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
-
-            <v-layout class="mb-2" justify-space-between row fill-height>
-              <v-flex xs12 sm6>
-                <v-text-field box append-icon="attach_file" label="Pilih Berkas Lampiran" readonly @click:append="upload"></v-text-field> <!-- only recieve .pdf file -->
-              </v-flex>
-              <input type="file" name="file" id="file" hidden>
-            </v-layout>
-
-            <v-flex xs12 sm6 md4>
-              <v-dialog
-                ref="dialog"
-                v-model="modal"
-                :return-value.sync="published_date"
-                persistent
-                lazy
-                full-width
-                width="290px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="published_date"
-                    label="Tanggal diterbitkan"
-                    prepend-icon="event"
-                    readonly
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-date-picker v-model="published_date" scrollable>
-                  <v-spacer></v-spacer>
-                  <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                  <v-btn flat color="primary" @click="$refs.dialog.save(published_date)">OK</v-btn>
-                </v-date-picker>
-              </v-dialog>
-            </v-flex>
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
@@ -443,140 +409,6 @@
           </v-card-text>
         </v-card>
       </v-layout>
-
-      <v-layout justify-center>
-        <v-card width="210mm" class="mt-3 v-main-card elevation-8">        
-          <v-card-text style="height: 300mm" class="pt-0">
-            <div id="printable" class="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm;">
-              <no-ssr>
-                <v-card-title style="z-index: 2; height: 75px; padding: 10mm 0 0 0">
-                  <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
-                  <v-spacer/>
-                  <img v-if="kan" contain src="/kan.png" height="auto" width="95" style="object-fit: contain; margin: 3mm 5mm 0 0">
-                </v-card-title>
-                <div id="header" style="margin-top: -75px; padding-top: 10mm">
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 9pt; margin-top: 3mm">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</p>
-                  <p class="helve c b" style="margin-bottom: 1px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">E-mail : b4t@b4t.go.id  Website : http://www.b4t.go.id</p>
-                </div>
-                <div id="body-content" style="border: 1px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm">
-									<div class="my-4">
-										<p class="helve b c u" style="margin: 0; height: 4.2mm; font-size: 12pt;">LAMPIRAN SERTIFIKAT KALIBRASI</p>
-										<p class="helve i c" style="margin-bottom: 2mm; font-size: 10pt;">ATTACHMENT OF CALIBRATION CERTIFICATE</p>
-									</div>
-                  <div style="width: 90%; margin-left: 40px" class="mt-2 mb-5">
-                    <v-layout>
-                      <v-flex xs1>
-                        <p class="helve u" style="font-size: 11pt; margin: 0; height: 4.2mm;">Nomor</p>
-                        <p class="helve i" style="font-size: 9pt; margin: 0; height: 18px;">Number</p>
-                      </v-flex>
-                      <v-flex>
-                        <p class="helve i" style="font-size: 11pt; margin: 7px 0; height: 4.2mm;">: {{certificate_number}}</p>
-                      </v-flex>
-                    </v-layout>
-										<p class="helve u b" style="font-size: 11pt; margin: 0; height: 4.2mm;">HASIL KALIBRASI</p>
-										<p class="helve i" style="font-size: 9pt; margin: 0; height: 18px;">Result of Calibration</p>
-                  </div>
-
-									<v-layout justify-center align-center column>
-										<table class="text-xs-center">
-                      <thead>
-                        <tr class="tableizer-firstrow">
-                          <th class="px-3">Pengamatan</th>
-                          <th class="px-3">Nominal <br> ( um )</th>
-                          <th class="px-3">Pengukuran <br> ( mm )</th>
-                          <th class="px-3" colspan="2">Persyaratan sesuai <br> ASTM E-11-2004 <br> ( mm )</th>
-                          <th class="px-3">Ketidakpastian <br> Pengukuran *) <br> ( um )</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr height="80px">
-                          <th>Width <br> Opening</th>
-                          <td>600</td>
-                          <td>0.621</td>
-                          <td>0.575</td>
-                          <td>0.625</td>
-                          <td>3.08</td>
-                        </tr>
-                      </tbody>
-                    </table>
-										
-                    <table class="mt-5 text-xs-center">
-                      <thead>
-                        <tr class="tableizer-firstrow">
-                          <th class="px-3">Pengamatan</th>
-                          <th class="px-3">Nominal <br> ( um )</th>
-                          <th class="px-3">Pengukuran <br> ( mm )</th>
-                          <th class="px-3" colspan="2">Persyaratan sesuai <br> ASTM E-11-2004 <br> ( mm )</th>
-                          <th class="px-3">Ketidakpastian <br> Pengukuran *) <br> ( um )</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr height="80px">
-                          <th>Diameter of <br> Wire</th>
-                          <td>0.400</td>
-                          <td>0.364</td>
-                          <td>0.340</td>
-                          <td>0.460</td>
-                          <td>0.01</td>
-                        </tr>
-                      </tbody>
-                    </table>
-										<p style="width: 90%; margin: 50px 0 150px 0">
-											Kesalahan maksimum =		0.03 	mm	Syarat Kesalahan Maksimum =   ± 0.08 mm	dan ketidakpatian
-                      <br><br>
-                      *)Ketidakpastian yang dilaporkan adalah ketidakpastian bentangan pada tingkat kepercayaan 95 % dengan <br>	faktor cakupan k = 2					
-										</p>
-									</v-layout>
-
-                </div>
-
-                <!-- Keterangan -->
-                <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 1mm 4mm">
-                  <v-layout row>
-                    <v-flex style="width: 37px">
-                      <p class="helve" style="font-size: 8pt;">Keterangan :</p>
-                    </v-flex>
-                    <v-flex>
-                      <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
-                        1. Dilarang memproduksi sertifikat ini tanpa izin tertulis dari B4T kecuali secara keseluruhan.
-                      </p>
-                      <p class="helve" style="font-size: 8pt; height: 14px; margin: 0">
-                        2. Hasil kalibrasi ini tidak untuk diumumkan dan hanya berlaku untuk alat yang bersangkutan.
-                      </p>
-                    </v-flex>
-                  </v-layout>
-                </div>
-                
-                <!-- Footer -->
-                <v-layout row style="margin-top: 2mm">
-                  <v-flex>
-                    <p class="helve" style="font-size: 8pt;">F. 02 b/05</p>
-                  </v-flex>
-                  <v-flex>
-                    <v-layout right>
-                      <div>
-                        <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Halaman</p>
-                        <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">Page</p>
-                      </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
-                      <div>
-                        <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
-                        <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
-                      </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
-                    </v-layout>
-                  </v-flex>
-                </v-layout>
-              </no-ssr>
-            </div>
-            <div id="elementH"> 
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -623,13 +455,13 @@
   }
 </style>
 <script>
-import dimensiHeader from '~/components/dimensi/ayakan.vue'
+import mainHeader from '~/components/header.vue'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas';
 
 export default {
   components: {
-    dimensiHeader
+    mainHeader
   },
 
   head: {
