@@ -3,10 +3,19 @@
     <v-flex xs12 sm8 md6>
       <mainHeader></mainHeader>
 
+      <v-dialog v-model="print_loading.state" width="400px" persistent>
+        <v-card>
+          <v-card-title class="pb-0">{{print_loading.message}}</v-card-title>
+          <v-card-actions>
+            <v-progress-linear indeterminate color="primary"></v-progress-linear>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-layout row>
         <v-card width="100%" class="mt-4 v-main-card elevation-8">
           <v-card-title>
-            <p class="accent--text lato font-weight-bold title ma-0">Cetak Sertifikat</p>
+            <p class="accent--text lato font-weight-bold title ma-0">Cetak Laporan | {{certificate.equipment.name}}</p>
           </v-card-title>
           <v-card-text class="py-0">
             <v-checkbox v-model="kan" label="Tampilkan Logo KAN"></v-checkbox>
@@ -226,7 +235,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.room_temp}}</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_cond.room_temp}}</span></p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -235,7 +244,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembaban</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_condition.humidity}}</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_cond.humidity}}</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -247,7 +256,7 @@
                       <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Location of Calibration</p>
                     </div>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_location }}</p>
+                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_loc }}</p>
                     </div>
                   </v-layout>
 
@@ -257,8 +266,13 @@
                       <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">METODA KALIBRASI</p>
                       <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Calibration Method</p>
                     </div>
+                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_method }} </p>
+                      <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">
+                        <span v-for="(item, index) in certificate.calibration_method" :key="index">
+                          {{item}}<span v-if="index != certificate.calibration_method.length -1">,</span>
+                        </span>
+                      </p>
                     </div>
                   </v-layout>
 
@@ -266,11 +280,15 @@
                   <v-layout row style="margin-top: 2.5mm">
                     <div style="width: 37mm">
                       <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
-                      <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Refference</p>
+                      <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">reference</p>
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p>
+                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">
+                        <span v-for="(item, index) in certificate.reference" :key="index">
+                          {{item}}<span v-if="index != certificate.reference.length -1">,</span>
+                        </span>
+                      </p>
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
                     </div>
                   </v-layout>
@@ -295,12 +313,13 @@
                       </v-layout>
                     </v-flex>
                     <v-flex xs4>
-                      <p class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">Bidang Standarisasi</p>
+                      <div style="height: 32mm;"></div>
+                      <!-- <p class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">Bidang Standarisasi</p> -->
 
                       <!-- {{signatory}} -->
-                      <p class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">{{signatory.jabatan}}</p>
+                      <!-- <p class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">{{signatory.jabatan}}</p>
                       <p contenteditable class="helve c u" style="font-size: 8pt; margin: 14mm 0 0 0; height: 4.2mm;">{{signatory.name}}</p>
-                      <p contenteditable class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">NIP. {{signatory.nip}}</p>
+                      <p contenteditable class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">NIP. {{signatory.nip}}</p> -->
                     </v-flex>
                   </v-layout>
 
@@ -409,7 +428,33 @@
           </v-card-text>
         </v-card>
       </v-layout>
+
+      <v-layout justify-center>
+        <v-card width="210mm" class="mt-3 v-main-card elevation-8">
+          <v-card-title>
+            File Lampiran
+            <v-spacer/>
+            <v-btn icon class="primary" :href="certificate.uri_attach" target="_blank">
+              <v-icon color="white">visibility</v-icon>
+            </v-btn>
+          </v-card-title>
+        </v-card>
+      </v-layout>
     </v-flex>
+    <v-scroll-y-transition>
+      <v-btn
+        v-if="printbutton"
+        color="primary"
+        large
+        fixed
+        bottom
+        right
+        fab
+        @click="printWrapper"
+      >
+        <v-icon color="white">print</v-icon>
+      </v-btn>
+    </v-scroll-y-transition>
   </v-layout>
 </template>
 
@@ -475,13 +520,13 @@ export default {
     ],
 
     script: [
-      { src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js' }
+      // { src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js' }
     ]
   },
 
   data: () => ({
     active: null,
-    certificate_number: '3-01-19-00472',
+    certificate_number: '',
     certificate: {
       equipment: {
         name: '',
@@ -503,21 +548,24 @@ export default {
       },
       acceptance_date: '',
       calibration_date: '',
-      env_condition: {
+      env_cond: {
         room_temp: '',
         corrected_room_temp: '',
         humidity: '',
         corrected_humidity: ''
       },
-      calibration_location: '',
-      calibration_method: '',
-      refference: '',
+      calibration_loc: '',
+      calibration_method: [],
+      reference: [],
       result: '',
       published_date: '',
       director_name: '',
       director_nip: '',
     },
     data: {},
+
+    cert_file: {},
+    attachment: {},
 
     signatories: [
       { id: 1, data: {name: 'AJI MAHMUD SOLIH', nip: '19720802 200701 1 003', jabatan: 'Kepala Seksi Kalibrasi'} },
@@ -530,65 +578,92 @@ export default {
     published_date: new Date().toISOString().substr(0, 10),
     menu: false,
     modal: false,
-    menu2: false
+    menu2: false,
+
+    printbutton: false,
+
+    print_loading: {
+      state: false,
+      message: '',
+    },
   }),
 
   mounted() {
     this.getCertData()
+
+    window.onscroll = () => { 
+      if (document.documentElement.scrollTop > 300) {
+        this.printbutton = true
+      } else {
+        this.printbutton = false
+      }
+    }
   },
 
   methods: {
     async getCertData() {
       try {
-        const req = await this.$category.getLembarKerja({id: this.$route.query.id})
+        const req = await this.$calibrate.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        let req_data = req.results[0]
+        let req_data = req
+
+
+        // this.attachment = new File(req.uri_attach);
+
+        // console.log('this.attachment', this.attachment);
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('GET', 'https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/cors_principle.png', true);
+        // xhr.responseType = 'blob';
+        // // xhr.setRequestHeader(header, value)
+        // xhr.setRequestHeader('Content-Type', 'application/pdf');
+        // xhr.setRequestHeader('access-control-allow-origin', '*');
+
+        // xhr.onload = (e) => {
+        //     if (this.status == 200) {
+        //         // Note: .response instead of .responseText
+        //     var blob = new Blob([this.response], {type: 'application/pdf'}),
+        //         url = URL.createObjectURL(blob),
+        //         _iFrame = document.createElement('iframe');
+
+        //     _iFrame.setAttribute('src', url);
+        //     _iFrame.setAttribute('style', 'visibility:hidden;');
+        //     $('#elementH').append(_iFrame)        
+        //   }
+        // };
+
+        // xhr.send();
+
+        fetch(req.uri_attach)
+          .then(res => res.blob())
+          .then(blob => {
+            this.attachment = blob
+            console.log('objectURL', blob);
+
+            // var fileURL = URL.createObjectURL(blob);
+            // window.open(fileURL);
+        });
 
         this.certificate_number = req_data.no_laporan
+        this.certificate = req
+        // const file = await this.$calibrate.getFile({url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'})
+        // this.attachment = file
+        console.log('LK file: ', this.attachment);
 
-        this.elementMapping(req_data.data_alat, req_data.data_co)
-        
       } catch (error) {
         console.log(error);
       }
-    },
-
-    elementMapping(data, owner) {
-      this.certificate.equipment.name = data.deskripsi.nama_alat
-      this.certificate.equipment.capacity = data.deskripsi.kapasitas
-      this.certificate.equipment.model = data.deskripsi.model
-      this.certificate.equipment.serial_number = data.deskripsi.no_seri
-      this.certificate.equipment.manufacture = data.deskripsi.buatan
-      this.certificate.equipment.temperature = '-'
-      this.certificate.owner.name = owner.nama_co
-      this.certificate.owner.address = owner.alamat
-      this.certificate.standard.name = data.alat_kalibrasi
-      this.certificate.standard.traceability = data.traceability
-      this.certificate.env_condition = {
-        room_temp: data.deskripsi.suhu_terkoreksi.min.toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi.max.toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi.satuan,
-        corrected_room_temp: '',
-        humidity: data.deskripsi.kelembaban_terkoreksi.nilai.toFixed(0) + ' ' + data.deskripsi.kelembaban_terkoreksi.satuan,
-        corrected_humidity: ''
-      }
-      this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)
-      this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
-      this.certificate.calibration_location = data.deskripsi.lokasi
-      this.certificate.calibration_method = data.metode_kalibrasi
-      this.certificate.refference = data.standar_acuan[0] + '<br>' + data.standar_acuan[1] 
-      this.certificate.published_date = ''
     },
 
     upload(){
       alert('test')
     },
 
-    // printWrapper() {
-    //   var doc = document.getElementsByClassName('printable')
-    //   console.log(doc);
-    // },
-
     async printWrapper() {
+      this.print_loading.state = true
+      this.print_loading.message = 'Menyiapkan Laporan...'
+
       console.log('width : ', document.getElementById('printable'));
       let pages = document.querySelectorAll(".printable");
       let print_canvas = document.getElementById('elementH')
@@ -612,15 +687,51 @@ export default {
             // print_canvas.appendChild(canvas);
             //addImage(imageData, format, x, y, width(mm), height(mm), alias, compression, rotation)
             key > 0 ? doc.addPage() : ''
-            doc.addImage(canvas, 'JPEG', 8, 0, 210, 300, key, 'NONE', 0)
+            doc.addImage(canvas, 'JPEG', 8, 8, 210, 300, key, 'NONE', 0)
           });   
         }
       }
+      
+      const certificate_file = doc.output('blob', cert_name);
+      
+      this.cert_file = certificate_file
+      this.mergePDF()
+    },
 
-      await doc.save(cert_name);
+    async mergePDF() {
+      this.print_loading.state = true
+      this.print_loading.message = 'Membuat Laporan...'
 
-      // location.reload()
-      // this.changeStatus()
+      try {
+        // const req = await this.$calibrate.getLembarKerja({id: this.$route.query.id})
+
+        const req = await this.$calibrate.mergeFile({
+          cert: this.cert_file, 
+          attch: this.attachment,
+          id: this.$route.query.id
+        })
+
+        console.log('merge pdf : ', req);
+        alert('Berhasil membuat laporan')
+
+        this.uploadSipeja()
+        this.$router.push('/lk?id='+this.$route.query.id)
+
+        this.getCertData()
+      } catch (error) {
+        setTimeout(() => {
+          this.print_loading.state = false
+          this.print_loading.message = 'Error when Merging'
+        }, 500);
+
+        // if (error.response) {
+          alert('Gagal membuat laporan : ', error.response)
+        // } else {
+          // alert('error when merging')
+        // }
+        console.log('error when merging', error.response);
+
+      }
     },
 
     async changeStatus() {

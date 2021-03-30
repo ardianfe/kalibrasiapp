@@ -23,7 +23,17 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-group
+        <v-list-tile to="/list-order">
+          <v-list-tile-action>
+            <v-icon>list</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>List Order</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <!-- <v-list-group
           prepend-icon="folder"
           value="true" no-action
         >
@@ -44,7 +54,7 @@
               <v-icon>{{item.icon}}</v-icon>
             </v-list-tile-action>
           </v-list-tile>
-        </v-list-group>
+        </v-list-group> -->
       </v-list>
     </v-navigation-drawer>
     <v-flex xs12 sm8 md6>
@@ -55,7 +65,7 @@
             <v-card class="v-main-card elevation-9 primary">
               <v-card-text style="font-size: 26px; height: 102px;" class="px-5 text-xs-center white--text pt-sans headline">
                 <span>
-                  Jumlah Pelanggan Perusahaan
+                  Jumlah Order
                 </span>
               </v-card-text>
 
@@ -68,7 +78,7 @@
             <v-card class="v-main-card elevation-9 overview1">
               <v-card-text style="font-size: 26px; height: 102px;" class="px-5 text-xs-center white--text pt-sans headline">
                 <span>
-                  Jumlah Order
+                  Jumlah Terbit
                 </span>
               </v-card-text>
 
@@ -77,11 +87,11 @@
               </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs12 sm4 class="pa-1">
+          <v-flex xs12 sm4 class="pa-1 pointer" @click="$router.push('/on-going')">
             <v-card class="v-main-card elevation-9 overview2">
               <v-card-text style="font-size: 26px; height: 102px;" class="px-5 text-xs-center white--text pt-sans headline">
                 <span>
-                  Telah diterbitkan sertifikat sebanyak
+                  Jumlah On-Going
                 </span>
               </v-card-text>
 
@@ -294,11 +304,11 @@ export default {
     },
 
     openDialog(sample_name, order_number, sample_number) {
-      this.$store.commit('openDialog', {
-        sample_name: sample_name,
-        order_number: order_number,
-        sample_number: sample_number
-      })
+      // this.$store.commit('openDialog', {
+      //   sample_name: sample_name,
+      //   order_number: order_number,
+      //   sample_number: sample_number
+      // })
     },
 
     convertDate(date_string) {

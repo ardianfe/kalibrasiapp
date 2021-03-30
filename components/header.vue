@@ -18,6 +18,23 @@
           </span>
         </v-hover>
       </p>
+      <p class="lato font-weight-bold title mt-3" v-if="$route.name != 'lk'">
+      &nbsp; / &nbsp;
+        <v-hover>
+          <span 
+            class="pointer" slot-scope="{ hover }"  
+            @click="$router.push('/lk?id='+$route.query.id+'&order_id='+this.$route.query.order)" 
+            :class="`${ hover ? 'primary--text' : 'black--text'}`" >
+            Lembar Kerja
+          </span>
+        </v-hover>
+      </p>
+      <p class="lato font-weight-bold title mt-3 grey--text" v-if="$route.name == 'lk'">
+      &nbsp; / &nbsp; Lembar Kerja
+      </p>
+      <p class="lato font-weight-bold title mt-3 grey--text" v-if="$route.name == 'lk-sertifikat'">
+      &nbsp; / &nbsp; Laporan
+      </p>
     </v-card-title>
     <!-- <v-card-actions v-if="$store.state.isLoggedIn" class="pa-2">
       <v-layout row wrap>
@@ -43,8 +60,8 @@ export default {
   data() {
     return {
       menus: [
-        { name: 'lk', text: 'Lembar Kerja', url: '/lk?id='+this.$route.query.id },
-        { name: 'lk-sertifikat', text: 'Laporan', url: '/lk/sertifikat?id='+this.$route.query.id },
+        { name: 'lk', text: 'Lembar Kerja', url: '/lk?id='+this.$route.query.id+'&order_id='+this.$route.query.order },
+        { name: 'lk-sertifikat', text: 'Laporan', url: '/lk/sertifikat?id='+this.$route.query.id+'&order_id='+this.$route.query.order },
         // { name: 'dimensi-ayakan-lampiran', text: 'Lampiran', url: '/dimensi/ayakan/lampiran?id='+this.$route.query.id },
         // { name: 'gaya-durometer-ktp1', text: 'KTP 1', url: '/gaya/durometer/ktp1?cert_no='+ this.$route.query.cert_no +'&id='+this.$route.query.id },
         // { name: 'gaya-durometer-ktp2', text: 'KTP 2', url: '/gaya/durometer/ktp2?cert_no='+ this.$route.query.cert_no +'&id=' +this.$route.query.id},

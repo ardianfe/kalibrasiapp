@@ -275,11 +275,11 @@
                   <v-layout row style="margin-top: 2.5mm">
                     <div style="width: 37mm">
                       <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
-                      <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Refference</p>
+                      <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">Reference</p>
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.refference"></p>
+                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;" v-html="certificate.reference"></p>
                       <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
                     </div>
                   </v-layout>
@@ -511,7 +511,7 @@ export default {
       },
       calibration_location: '',
       calibration_method: '',
-      refference: '',
+      reference: '',
       result: '',
       published_date: '',
       director_name: '',
@@ -603,7 +603,7 @@ export default {
       // this.certificate.env_condition.humidity = cert_data
       this.certificate.calibration_location = 'Lab. Kalibrasi B4T Bandung'
       this.certificate.calibration_method = 'PC-309-10'
-      this.certificate.refference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
+      this.certificate.reference = 'ASTM C 805 : 2002 / manual Concrete Test Hammer'
       this.certificate.published_date = '30 Mei 2107'
     },
 

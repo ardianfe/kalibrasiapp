@@ -18,7 +18,7 @@
           >home</v-icon>
         </v-hover> -->
         <p class="headline lato font-weight-bold title mt-3">
-          List Order
+          On Going Order
         </p>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -243,7 +243,7 @@ export default {
         console.log('open dialog', req);
 
         if (req._id) {
-          this.$router.push('/lk?id='+sample_number+'&order_id='+order.no_order)
+          this.$router.push('/lk?id='+sample_number)
           console.log('sampel sudah dibuat');
         } else {
           console.log('sampel belum dibuat');
@@ -338,7 +338,7 @@ export default {
           }
         }, 300);
         alert('Berhasil membuat laporan')
-        this.$router.push('/lk?id='+id_sampel+'&order_id='+order.no_order)
+        this.$router.push('/lk?id='+id_sampel)
       } catch (error) {
         setTimeout(() => {
           this.sample_loading = {

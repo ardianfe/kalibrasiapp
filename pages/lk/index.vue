@@ -34,57 +34,82 @@
               <v-flex xs12 sm6>
                 <v-layout justify-end align-right>
                   <v-btn class="success" @click="verification_dialog=true">Verifikasi</v-btn>
-                  <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id)" v-if="certificate.status == 2" :disabled="!certificate.uri_report || !certificate.uri_lk">Cetak</v-btn>
+                  <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk">Buat Laporan</v-btn>
                 </v-layout>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap>
+            <v-layout row wrap v-if="!certificate.uri_report">
               <!-- upload file lampiran -->
-              <v-flex xs12 sm6>
+              <v-flex xs12>
                 <v-layout class="mb-0 pa-2" row wrap>
                   <v-flex xs12>
-                    <v-text-field v-if="!certificate.uri_report" v-model="lampiran_file.name" box append-icon="attach_file" label="Pilih Berkas Lampiran" readonly @click:append="chooseLampiran"></v-text-field> <!-- only recieve .pdf file -->
+                    <v-text-field 
+                      v-if="!certificate.uri_attach" 
+                      v-model="lampiran_file.name" 
+                      box readonly clearable 
+                      label="Pilih Berkas Lampiran" 
+                      append-icon="attach_file" 
+                      @click:append=" chooseLampiran"
+                      @click:clear="resetLampiran"
+                    ></v-text-field> <!-- only recieve .pdf file -->
                     <div v-else>
                       <span class="b">File Lampiran :</span> <br>
-                      <v-btn class="primary" :href="certificate.uri_report" target="_blank">Lihat File</v-btn>
-                      <v-btn class="success" v-if="certificate.status < 2">Edit</v-btn>
+                      <v-btn class="primary" :href="certificate.uri_attach" target="_blank">Lihat File</v-btn>
+                      <v-btn class="success" v-if="certificate.status < 2" @click=" chooseLampiran">Edit</v-btn>
                     </div>
                   </v-flex>
-                  <v-flex xs12 v-if="lampiran_file.name">
+                  <!-- <v-flex xs12 v-if="lampiran_file.name">
                     <v-layout align-right justify-end>
                       <v-btn @click="upload('report')" class="success" :loading="loading.lampiran">Upload</v-btn>
                     </v-layout>
-                  </v-flex>
+                  </v-flex> -->
                   <input type="file" name="lampiran_file" id="lampiran_file" hidden @change="processLampiran">
                 </v-layout>
               </v-flex>
 
               <!-- upload file lk -->
-              <v-flex xs12 sm6>
+              <v-flex xs12>
                 <v-layout class="mb-0 pa-2" row wrap>
                   <v-flex xs12>
-                    <v-text-field v-if="!certificate.uri_lk" v-model="lk_file.name" box append-icon="attach_file" label="Pilih Berkas Lembar Kerja" readonly @click:append="chooseLK"></v-text-field>
+                    <v-text-field 
+                      v-if="!certificate.uri_lk" 
+                      v-model="lk_file.name" 
+                      readonly box clearable
+                      append-icon="attach_file" 
+                      label="Pilih Berkas Lembar Kerja"
+                      @click:append="chooseLK"
+                      @click:clear="resetLK"
+                    ></v-text-field>
                     <div v-else>
                       <span class="b">File Lembar Kerja :</span> <br>
                       <v-btn class="primary" :href="certificate.uri_lk" target="_blank">Lihat File</v-btn>
                       <v-btn class="success" v-if="certificate.status < 2">Edit</v-btn>
                     </div>
                   </v-flex>
-                  <v-flex xs12 v-if="lk_file.name">
+                  <v-flex xs12 v-if="lk_file.name || lampiran_file.name">
                     <v-layout align-right justify-end>
-                      <v-btn @click="upload('lembarkerja')" class="success" :loading="loading.lk">Upload</v-btn>
+                      <v-btn @click="upload('lembarkerja')" class="success" :loading="loading.lk">Upload {{filecount}}</v-btn>
                     </v-layout>
                   </v-flex>
                   <input type="file" name="lk_file" id="lk_file" hidden @change="processLK">
                 </v-layout>
               </v-flex>
             </v-layout>
+
+            <v-layout v-else>
+              <!-- <v-layout align-center> -->
+                <!-- File Laporan:  -->
+                <v-btn class="primary" :href="certificate.uri_report" target="_blank">
+                  <v-icon color="white" left>attachment</v-icon> Lihat File Laporan
+                </v-btn>
+              <!-- </v-layout> -->
+            </v-layout>
           </v-card-text>
         </v-card>
 
-        <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
-          <v-progress-linear class="ma-0" indeterminate v-if="isLoading"></v-progress-linear>
+        <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm" v-if="!isLoading">
+          <!-- <v-progress-linear class="ma-0" indeterminate v-if="isLoading"></v-progress-linear> -->
           <v-card-title class="pb-0">
             <p class="title mb-0">Data Alat</p>
             <v-spacer/>
@@ -122,10 +147,10 @@
               <p class="title mb-1">Pemilik</p>
               <v-layout class="mb-2" row wrap>
                 <v-flex xs8 class="">
-                  <v-text-field label="Nama" v-model="certificate.owner.name" readonly></v-text-field>
+                  <v-text-field label="Nama" v-model="certificate.owner.name"></v-text-field>
                 </v-flex>
                 <v-flex xs8 class="">
-                  <v-text-field label="Alamat" v-model="certificate.owner.address" readonly></v-text-field>
+                  <v-text-field label="Alamat" v-model="certificate.owner.address"></v-text-field>
                 </v-flex>
               </v-layout>
 
@@ -149,27 +174,71 @@
                 </v-flex>
               </v-layout>
               
+              <p class="title mb-1">Tanggal Kalibrasi</p>
+              <v-layout class="mb-2" row wrap>
+                <v-flex xs8 class="">
+                  <v-text-field label="Tanggal Kalibrasi" v-model="certificate.calibration_date" readonly></v-text-field>
+                </v-flex>
+              </v-layout>
+              <p class="title mb-1">Tanggal Terima</p>
+              <v-layout class="mb-2" row wrap>
+                <v-flex xs8 class="">
+                  <v-text-field label="Tanggal Terima" v-model="certificate.acceptance_date" readonly></v-text-field>
+                </v-flex>
+              </v-layout>
+
               <p class="title mb-1">Lokasi Kalibrasi</p>
               <v-layout class="mb-2" row wrap>
                 <v-flex xs8 class="">
-                  <v-text-field label="Lokasi" v-model="certificate.calibration_location"></v-text-field>
+                  <v-text-field label="Lokasi" v-model="certificate.calibration_loc"></v-text-field>
                 </v-flex>
               </v-layout>
               
               <p class="title mb-1">Metoda Kalibrasi</p>
-              <v-layout class="mb-2" row wrap>
+              <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.calibration_method" :key="index">
                 <v-flex xs8 class="">
-                  <v-text-field label="Metoda" v-model="certificate.calibration_method"></v-text-field>
+                  <v-text-field label="Metoda" v-model="certificate.calibration_method[index]"></v-text-field>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn small icon class="success" @click="certificate.calibration_method.push('')">
+                    <v-icon small>add</v-icon>
+                  </v-btn>
+                  <v-btn small icon class="warning" @click="certificate.calibration_method.splice(index, 1)">
+                    <v-icon small>delete</v-icon>
+                  </v-btn>
                 </v-flex>
               </v-layout>
               
               <p class="title mb-1">Acuan</p>
-              <v-layout class="mb-2" row wrap>
+              <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.reference" :key="index">
                 <v-flex xs8 class="">
-                  <v-text-field label="Standar Acuan" v-model="certificate.refference"></v-text-field>
+                  <v-text-field label="Standar Acuan" v-model="certificate.reference[index]"></v-text-field>
+                </v-flex>
+                <v-flex xs2>
+                  <v-btn small icon class="success" @click="certificate.reference.push('')">
+                    <v-icon small>add</v-icon>
+                  </v-btn>
+                  <v-btn small icon class="warning" @click="certificate.reference.splice(index, 1)">
+                    <v-icon small>delete</v-icon>
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </template>
+
+            <v-scroll-y-transition>
+              <v-btn
+                v-if="savebutton"
+                color="primary"
+                large
+                fixed
+                bottom
+                right
+                fab
+                @click="submitForm"
+              >
+                <v-icon color="white">save</v-icon>
+              </v-btn>
+            </v-scroll-y-transition>
           </v-card-text>
         </v-card>
       </v-layout>
@@ -198,18 +267,21 @@ export default {
     mainHeader
   },
 
-  head: {
-    title: 'Lembar Kerja Jangka Sorong | Bidang Dimensi',
-    meta: [
-      {
-        hid: 'dimensi',
-        name: 'dimensi',
-        content: 'Bidang Dimensi'
-      }
-    ],
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'dimensi',
+          name: 'dimensi',
+          content: 'Bidang Dimensi'
+        }
+      ],
+    }
   },
 
   data: () => ({
+    title: '',
     no_cert: '',
     isLoading: true,
 
@@ -226,6 +298,16 @@ export default {
       lk: false,
       lampiran: false
     },
+
+    // equipment: Optional[Dict[str,str]]
+    // acceptance_date: Optional[str]
+    // calibration_date: Optional[str]
+    // env_cond: Optional[Dict[str, str]]
+    // calibration_loc: Optional[str]
+    // calibration_method: Optional[List[str]]
+    // reference: Optional[List[str]]
+    // published_date : Optional[str]
+    // status: Optional[bool]
 
     certificate: {
       equipment: {
@@ -255,41 +337,66 @@ export default {
         corrected_humidity: ''
       },
       calibration_location: '',
-      calibration_method: '',
-      refference: '',
+      calibration_method: [],
+      reference: [],
       result: '',
       published_date: '',
       director_name: '',
       director_nip: '',
       status: 0
     },
+
+    savebutton: false,
   }),
+
+  computed: {
+    filecount () {
+      if (this.lk_file.name && this.lampiran_file.name) {
+        return '(2)';
+      } else if (this.lk_file.name || this.lampiran_file.name) {
+        return '(1)';
+      } else {
+        return '(0)';
+      }
+    }
+  },
 
   mounted() {
     this.getLK()
+
+    window.onscroll = () => { 
+      if (document.documentElement.scrollTop > 574) {
+        this.savebutton = true
+      } else {
+        this.savebutton = false
+      }
+    }
   },
 
   methods: {
     async getLK() {
+      this.isLoading = true
       try {
         const req = await this.$calibrate.getLembarKerja({id: this.$route.query.id})
 
         console.log('get LK: ', req);
-        // let req_data = req.results[0]
 
         this.no_cert = req.no_laporan
         this.certificate = req
 
-        console.log('cert : ', this.certificate);
-        // this.data_alat = req_data.data_alat
-        // this.hp_nominal = req_data.data_kal.hp_nominal
-        // this.hp_diameter = req_data.data_kal.hp_diameter
+        this.title = req.equipment.name + ' - ' + 'Form Lembar Kerja '
 
-        // this.width_opening = req_data.data_ktp.width_opening
-        // this.diameter_of_wire = req_data.data_ktp.diameter_of_wire
+        console.log('cert : ', this.certificate);
+
+        if (!this.certificate.calibration_method[0]) {
+          this.certificate.calibration_method.push('')  
+        }
+
+        if (!this.certificate.reference[0]) {
+          this.certificate.reference.push('')  
+        }
 
         this.isLoading = false
-        // this.elementMapping(req_data.data_alat, req_data.data_co)
       } catch (error) {
         console.log('get LK err: ', error.response);
         this.isLoading = false
@@ -299,6 +406,12 @@ export default {
     chooseLampiran(e) {
       document.getElementById('lampiran_file').click()
       console.log(e);
+    },
+
+    resetLampiran() {
+      this.lampiran_file = {
+        name: 'wkwkw'
+      }
     },
 
     processLampiran(e) {
@@ -311,6 +424,12 @@ export default {
       console.log(e);
     },
 
+    resetLK() {
+      this.lk_file = {
+        name: ''
+      }
+    },
+
     processLK(e) {
       this.lk_file = e.target.files[0]
       console.log('LK File : ', e.target.files[0]);
@@ -319,31 +438,39 @@ export default {
     async upload(cat){
       this.loading.lk = true
       this.loading.lampiran = true
-      let selected_file
-      let cat_string
-      cat_string = cat == 'report' ? 'Lampiran' : 'Lembar Kerja'
+      let files;
 
-      if (cat == 'report') {
-        selected_file = this.lampiran_file
-      } else if (cat == 'lembarkerja') {
-        selected_file = this.lk_file
-      } else {
-        alert('Kategori tidak tersedia')
-        abort()
-      }
+      if (this.lk_file.name && this.lampiran_file.name) {
+        files = 'Lembar Kerja & Lampiran'
+      } else if (this.lk_file.name) {
+        files = 'Lembar Kerja'
+      } else if (this.lampiran_file.name) {
+        files = 'Lampiran'
+      } 
+
       try {
-        console.log('selected_file:', selected_file);
-        // const req = await this.$calibrate.uploadReport({id: this.$route.query.id, file: selected_file, cat: cat})
+        if (this.lampiran_file.name) {
+          console.log('upload report :' + this.lampiran_file.name);
+          const req = await this.$calibrate.uploadReport({id: this.$route.query.id, file: this.lampiran_file, cat: 'report'})
+        }
 
-        alert("Berhasil Upload File " + cat_string + ".")
-        console.log('success upload lk file :', req);
+        if (this.lk_file.name) {
+          console.log('upload lk' + this.lk_file.name);
+          const req = await this.$calibrate.uploadReport({id: this.$route.query.id, file: this.lk_file, cat: 'lembarkerja'})
+        }
+
+        alert("Berhasil Upload File "+files+".")
 
         setTimeout(() => {
           this.loading.lk = false
           this.loading.lampiran = false
+          this.lampiran_file = { name: '' }
+          this.lk_file = { name: '' }
+
+          this.getLK()
         }, 500);
       } catch (error) {
-        alert("Gagal mengupload file " + cat_string + ".")
+        alert("Gagal mengupload file "+files+".")
         console.log('upload lk error', error);
         setTimeout(() => {
           this.loading.lk = false
@@ -353,15 +480,20 @@ export default {
     },
 
     async submitForm() {
+      // this.certificate.calibration_method = [this.certificate.calibration_method]
+      
       try {
         const req = await this.$calibrate.saveForm({
+          sample_id: this.$route.query.id,
           certificate: this.certificate
         })
 
         console.log('success submiting form :', req);
+
+        this.getLK()
       } catch (error) {
-        alert('error when submitting form')
-        console.log('error when submitting form :', error);
+        alert(error.response.data.detail[0].msg)
+        console.log('error when submitting form :', error.response.data.detail[0].msg);
       }
     },
 
@@ -388,7 +520,7 @@ export default {
       // this.certificate.env_cond.humidity = cert_data
       this.certificate.calibration_location = data.deskripsi.lokasi
       this.certificate.calibration_method = data.metode_kalibrasi
-      this.certificate.refference = data.standar_acuan
+      this.certificate.reference = data.standar_acuan
       this.certificate.published_date = ''
     },
 

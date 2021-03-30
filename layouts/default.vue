@@ -11,7 +11,7 @@
       </v-btn>
       <v-spacer />
 
-      <v-layout justify-center style="border-radius: 7px; max-width: 290px" class="grey lighten-2">
+      <v-layout justify-center style="border-radius: 7px; max-width: 290px" class="grey lighten-2" v-if="$route.name == 'list-order'">
         <input type="text" style="width: 250px;" class="pa-2 px-3" name="search" id="search" placeholder="Cari no order">
         <v-icon class="pa-2">search</v-icon>
       </v-layout>

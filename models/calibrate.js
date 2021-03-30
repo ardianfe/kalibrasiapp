@@ -111,17 +111,37 @@ const model = $axios => ({
     equipment, 
     owner,
     acceptance_date,
-    calibration_data,
+    calibration_date,
     standard,
     env_cond,
     calibration_location,
     calibration_method,
-    refference,
+    reference,
     result,
     published_date,
     director_name,
     director_nip
   }) {
+    let createdata = {
+      "_id": _id, 
+      "nama_sample": nama_sample,
+      "no_laporan": no_laporan,
+      "dibuat_untuk": dibuat_untuk,
+      "equipment": equipment,
+      "owner": owner,
+      "acceptance_date": acceptance_date,
+      "calibration_date": calibration_date,
+      "standard": standard,
+      "env_cond": env_cond,
+      "calibration_location": calibration_location,
+      "calibration_method": calibration_method,
+      "reference": reference,
+      "result": result,
+      "published_date": published_date,
+      "director_name": director_name,
+      "director_nip": director_nip
+    }
+    // console.log('create report:', createdata);
     return $axios.$post(process.env.basenew, {
       _id, 
       nama_sample,
@@ -130,12 +150,12 @@ const model = $axios => ({
       equipment,
       owner,
       acceptance_date,
-      calibration_data,
+      calibration_date,
       standard,
       env_cond,
-      calibration_location,
+      calibration_loc: calibration_location,
       calibration_method,
-      refference,
+      reference,
       result,
       published_date,
       director_name,
@@ -165,9 +185,17 @@ const model = $axios => ({
     })
   },
 
+  saveForm({sample_id, certificate}) {
+    return $axios.$put(process.env.basenew + sample_id, certificate)
+  },
+
   //base new
   getLembarKerja({id}) {
     return $axios.$get(process.env.basenew + id)
+  },
+
+  getOrderDetails({id}) {
+    return $axios.$get(process.env.base2 + '/orders/' + id)
   },
 
   uploadReport({id, file, cat}) {
@@ -177,6 +205,19 @@ const model = $axios => ({
 
     return $axios.$put(process.env.basefile + id +'?cat='+ cat, formData)
   },
+
+  getFile({url}) {
+    return $axios.$get(url)
+  },
+
+  mergeFile({cert, attch, id}) {
+    let formData = new FormData()
+    formData.append('files', cert)
+    formData.append('files', attch)
+
+    console.log(formData);
+    return $axios.$post(process.env.basepdf + '/uploadpdf/' + id, formData)
+  }
 });
 
 export default ({

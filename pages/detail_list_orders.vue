@@ -1,15 +1,23 @@
 <template>
   <v-layout column>
+    <v-dialog v-model="sample_loading.state" width="400px" persistent>
+      <v-card>
+        <v-card-title class="pb-0">{{sample_loading.message}}</v-card-title>
+        <v-card-actions>
+          <v-progress-linear indeterminate color="primary"></v-progress-linear>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-card-title>
       <v-hover>
         <v-icon x-large
           :color="`${ hover ? 'primary' : 'grey'}`" 
           slot-scope="{ hover }" 
-          @click="$router.go(-1)"
+          @click="$router.push('/list-order')"
         >keyboard_arrow_left</v-icon>
       </v-hover> &nbsp;
       <p class="headline lato font-weight-bold title mt-3">
-        Kembali
+        Detail List Order
       </p>
       <v-spacer></v-spacer>
     </v-card-title>
@@ -73,12 +81,12 @@
             <v-card-text>
               <table width="100%">
                 <tr v-for="(sample, sample_index) in item.no_sample" :key="sample_index">
-                  <td width="60%">{{sample}}</td>
-                  <td>
-                    <v-btn class="primary" @click="openDialog(item.sampel, no_order, sample)">Input Data</v-btn>
-                  </td>
-                  <td>
-                    <v-btn class="primary" @click="$router.push('/details?id='+sample+'&no_order='+no_order+'&sample='+item.sampel)">Lihat Detail</v-btn>
+                  <td width="80%">{{sample}}</td>
+                  <!-- <td>
+                    <v-btn class="primary" @click="$router.push('/lk?id='+sample)">Input Data</v-btn>
+                  </td> -->
+                  <td width="20%">
+                    <v-btn class="primary" @click="getOrderDetails(no_order, item.sampel, sample)">Lihat Laporan</v-btn>
                   </td>
                 </tr>
               </table>
@@ -136,6 +144,11 @@ export default {
     tanggal_pengujian: "",
     daftar_sampel: [],
 
+    sample_loading: {
+      state: false,
+      message: '',
+    },
+
     loading: true
   }),
 
@@ -179,23 +192,141 @@ export default {
       console.log(this.dialog, this.order_number, this.sample_name, this.sample_number);
     },
 
-    chooseFile() {
-      document.getElementById('file').click()
+    async getOrderDetails(order_id, sample_name, sample_number) {
+      this.sample_loading = {
+        state: true,
+        message: 'Mengambil detail order '+ order_id
+      }
+      try {
+        const req = await this.$calibrate.getOrderDetails({id: order_id})
+
+        this.getReportDetail(sample_name, sample_number, req)
+
+      } catch (error) {
+        alert('gagal, tidak bisa mengambil detail order')
+        console.log('failed when get order details', error.response);
+      }
     },
 
-    processFile(e) {
-      this.file = e.target.files[0]
-      console.log(e.target.files[0]);
+    async getReportDetail(sample_name, sample_number, order,) {
+      this.sample_loading = {
+        state: true,
+        message: 'Memuat laporan '+ sample_name +' ('+sample_number+')'
+      }
+      try {
+        const req = await this.$calibrate.getLembarKerja({id: sample_number})
+
+        console.log('open dialog', req);
+
+        if (req._id) {
+          this.$router.push('/lk?id='+sample_number)
+          console.log('sampel sudah dibuat');
+        } else {
+          console.log('sampel belum dibuat');
+          this.getNoLaporan(sample_number, order)
+        }
+  
+        // this.getNoLaporan(sample_number, order)
+      } catch (error) {
+        // alert('error while checking sample_id');
+        this.getNoLaporan(sample_number, order)
+        console.log('error while checking sample_id', error);
+      }
     },
 
-    openDialog(sample_name, order_number, sample_number) {
-      this.$store.commit('openDialog', {
-        sample_name: sample_name,
-        order_number: order_number,
-        sample_number: sample_number
-      })
+    async getNoLaporan(no_sampel, order) {
+      try {
+        const req = await this.$calibrate.getNomorLaporan({
+          id_order: order.no_order, no_sample: no_sampel
+        })
+
+        if (req.error == true) {
+          alert(req.message)
+
+          setTimeout(() => {
+            this.sample_loading = {
+              state: false,
+              message: ''
+            }
+          }, 300);
+        } else {
+          this.createReport(req.laporan[0].no_sample, req.laporan[0].Nama_sample, req.laporan[0].no_laporan, order)
+        }
+        console.log('getNoLaporan :', req);
+      } catch (error) {
+        setTimeout(() => {
+          this.sample_loading = {
+            state: false,
+            message: ''
+          }
+        }, 300);
+        alert('gagal mengambil nomor laporan')
+        console.log(error);
+      }
     },
 
+    async createReport(id_sampel, nama_sample, no_laporan, order) {
+      try {
+        const req = await this.$calibrate.createReport({
+          _id: id_sampel,
+          nama_sample,
+          no_laporan,
+          equipment: {
+            name: nama_sample,
+            capacity: "",
+            model: "",
+            serial_number: "",
+            manufacture: "",
+            internal_dimension: '',
+            temperature: '',
+            others: '-',
+          },
+          owner: {
+            name: order.dibuat_untuk,
+            address: order.alamat
+          },
+          acceptance_date: order.diterima_tanggal,
+          calibration_date: order.tanggal_pengujian,
+          standard: {
+            name: '',
+            traceability: ''
+          },
+          env_cond: {
+            room_temp: '',
+            corrected_room_temp: '',
+            humidity: '',
+            corrected_humidity: ''
+          },
+          calibration_location: '',
+          calibration_method: [],
+          reference: [],
+          result: '',
+          published_date: '',
+          director_name: '',
+          director_nip: '',
+        })
+
+        // console.log('createreport :', req);
+        setTimeout(() => {
+          this.sample_loading = {
+            state: false,
+            message: ''
+          }
+        }, 300);
+        alert('Berhasil membuat laporan')
+        this.$router.push('/lk?id='+id_sampel)
+      } catch (error) {
+        setTimeout(() => {
+          this.sample_loading = {
+            state: false,
+            message: ''
+          }
+        }, 300);
+        alert('gagal membuat report')
+        console.log(error.response);
+      }
+    },
+    
     async submit() {
       this.is_uploading = true
       try {
