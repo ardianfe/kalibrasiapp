@@ -33,7 +33,7 @@
               </v-flex>
               <v-flex xs12 sm6>
                 <v-layout justify-end align-right>
-                  <v-btn class="success" @click="verification_dialog=true">Verifikasi</v-btn>
+                  <v-btn class="success" @click="verification_dialog=true" v-if="!certificate.uri_report">Verifikasi</v-btn>
                   <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk">Buat Laporan</v-btn>
                 </v-layout>
               </v-flex>
@@ -113,132 +113,180 @@
           <v-card-title class="pb-0">
             <p class="title mb-0">Data Alat</p>
             <v-spacer/>
-            <v-btn class="primary" small @click="submitForm">
+            <v-btn class="primary" small @click="validate">
               <v-icon small>save</v-icon> &nbsp; Simpan
             </v-btn>
           </v-card-title>
           <v-card-text v-if="!isLoading">
-            <template v-if="no_cert != ''">
-              <v-layout class="mb-2" row wrap>
-                <v-flex xs8 class="mb-4">
-                  <v-text-field label="No Laporan" readonly v-model="no_cert"></v-text-field>
-                </v-flex>
+            <v-form ref="form" v-model="valid" lazy-validation v-if="no_cert != ''">
+              <template>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="mb-4">
+                    <v-text-field required label="No Laporan" readonly v-model="no_cert"></v-text-field>
+                  </v-flex>
 
-                <v-flex xs8 class="">
-                  <v-text-field label="Nama Alat" v-model="certificate.equipment.name"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Kapasitas" v-model="certificate.equipment.capacity"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Tipe/Model" v-model="certificate.equipment.model"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Nomor Seri" v-model="certificate.equipment.serial_number"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Merk/Buatan" v-model="certificate.equipment.manufacture"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Pengontrol Suhu" v-model="certificate.equipment.temperature"></v-text-field>
-                </v-flex>
-              </v-layout>
-              
-              <p class="title mb-1">Pemilik</p>
-              <v-layout class="mb-2" row wrap>
-                <v-flex xs8 class="">
-                  <v-text-field label="Nama" v-model="certificate.owner.name"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Alamat" v-model="certificate.owner.address"></v-text-field>
-                </v-flex>
-              </v-layout>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      required
+                      :rules="[v => !!v || 'Nama Alat harus diisi !']"
+                      label="Nama Alat"
+                      v-model="certificate.equipment.name"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      required
+                      :rules="[v => !!v || 'Kapasitas harus diisi !']"
+                      label="Kapasitas" 
+                      v-model="certificate.equipment.capacity"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      required
+                      :rules="[v => !!v || 'Tipe/Model harus diisi !']"
+                      label="Tipe/Model"
+                      v-model="certificate.equipment.model"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      required
+                      :rules="[v => !!v || 'Nomor Seri harus diisi !']"
+                      label="Nomor Seri"
+                      v-model="certificate.equipment.serial_number"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      required
+                      :rules="[v => !!v || 'Merk/Buatan harus diisi !']"
+                      label="Merk/Buatan"
+                      v-model="certificate.equipment.manufacture"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field
+                      label="Pengontrol Suhu"
+                      v-model="certificate.equipment.temperature"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+                
+                <p class="title mb-1">Pemilik</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field required label="Nama" v-model="certificate.owner.name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field required label="Alamat" v-model="certificate.owner.address"></v-text-field>
+                  </v-flex>
+                </v-layout>
 
-              <p class="title mb-1">Standar</p>
-              <v-layout class="mb-2" row wrap>
-                <v-flex xs8 class="">
-                  <v-text-field label="Nama" v-model="certificate.standard.name"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Ketelusuran" v-model="certificate.standard.traceability"></v-text-field>
-                </v-flex>
-              </v-layout>
+                <p class="title mb-1">Standar</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      required 
+                      label="Nama"
+                      :rules="[v => !!v || 'Nama Standar harus diisi !']"
+                      v-model="certificate.standard.name">
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      required 
+                      label="Ketelusuran" 
+                      :rules="[v => !!v || 'Ketelusuran harus diisi !']"
+                      v-model="certificate.standard.traceability">
+                    </v-text-field>
+                  </v-flex>
+                </v-layout>
 
-              <p class="title mb-1">Kondisi Lingkungan</p>
-              <v-layout class="mb-2" row wrap>
-                <v-flex xs8 class="">
-                  <v-text-field label="Suhu Ruang" v-model="certificate.env_cond.room_temp"></v-text-field>
-                </v-flex>
-                <v-flex xs8 class="">
-                  <v-text-field label="Kelembaban" v-model="certificate.env_cond.humidity"></v-text-field>
-                </v-flex>
-              </v-layout>
-              
-              <p class="title mb-1">Tanggal Kalibrasi</p>
-              <v-layout class="mb-2" row wrap>
-                <v-flex xs8 class="">
-                  <v-text-field label="Tanggal Kalibrasi" v-model="certificate.calibration_date" readonly></v-text-field>
-                </v-flex>
-              </v-layout>
-              <p class="title mb-1">Tanggal Terima</p>
-              <v-layout class="mb-2" row wrap>
-                <v-flex xs8 class="">
-                  <v-text-field label="Tanggal Terima" v-model="certificate.acceptance_date" readonly></v-text-field>
-                </v-flex>
-              </v-layout>
+                <p class="title mb-1">Kondisi Lingkungan</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      :rules="[v => !!v || 'Suhu Ruang harus diisi !']"
+                      required label="Suhu Ruang" 
+                      suffix="°C"
+                      v-model="certificate.env_cond.room_temp"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field 
+                      :rules="[v => !!v || 'Kelembaban harus diisi !']"
+                      required label="Kelembaban" 
+                      v-model="certificate.env_cond.humidity"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+                
+                <p class="title mb-1">Tanggal Kalibrasi</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field required label="Tanggal Kalibrasi" v-model="certificate.calibration_date" readonly></v-text-field>
+                  </v-flex>
+                </v-layout>
+                <p class="title mb-1">Tanggal Terima</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field required label="Tanggal Terima" v-model="certificate.acceptance_date" readonly></v-text-field>
+                  </v-flex>
+                </v-layout>
 
-              <p class="title mb-1">Lokasi Kalibrasi</p>
-              <v-layout class="mb-2" row wrap>
-                <v-flex xs8 class="">
-                  <v-text-field label="Lokasi" v-model="certificate.calibration_loc"></v-text-field>
-                </v-flex>
-              </v-layout>
-              
-              <p class="title mb-1">Metoda Kalibrasi</p>
-              <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.calibration_method" :key="index">
-                <v-flex xs8 class="">
-                  <v-text-field label="Metoda" v-model="certificate.calibration_method[index]"></v-text-field>
-                </v-flex>
-                <v-flex xs2>
-                  <v-btn small icon class="success" @click="certificate.calibration_method.push('')">
-                    <v-icon small>add</v-icon>
-                  </v-btn>
-                  <v-btn small icon class="warning" @click="certificate.calibration_method.splice(index, 1)">
-                    <v-icon small>delete</v-icon>
-                  </v-btn>
-                </v-flex>
-              </v-layout>
-              
-              <p class="title mb-1">Acuan</p>
-              <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.reference" :key="index">
-                <v-flex xs8 class="">
-                  <v-text-field label="Standar Acuan" v-model="certificate.reference[index]"></v-text-field>
-                </v-flex>
-                <v-flex xs2>
-                  <v-btn small icon class="success" @click="certificate.reference.push('')">
-                    <v-icon small>add</v-icon>
-                  </v-btn>
-                  <v-btn small icon class="warning" @click="certificate.reference.splice(index, 1)">
-                    <v-icon small>delete</v-icon>
-                  </v-btn>
-                </v-flex>
-              </v-layout>
-            </template>
-
-            <v-scroll-y-transition>
-              <v-btn
-                v-if="savebutton"
-                color="primary"
-                large
-                fixed
-                bottom
-                right
-                fab
-                @click="submitForm"
-              >
-                <v-icon color="white">save</v-icon>
-              </v-btn>
-            </v-scroll-y-transition>
+                <p class="title mb-1">Lokasi Kalibrasi</p>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs8 class="">
+                    <v-text-field required label="Lokasi" v-model="certificate.calibration_loc"></v-text-field>
+                  </v-flex>
+                </v-layout>
+                
+                <p class="title mb-1">Metoda Kalibrasi</p>
+                <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.calibration_method" :key="index">
+                  <v-flex xs8 class="">
+                    <v-text-field :rules="[v => !!v || 'Metoda Kalibrasi harus diisi !']" required label="Metoda" v-model="certificate.calibration_method[index]"></v-text-field>
+                  </v-flex>
+                  <v-flex xs2>
+                    <v-btn small icon class="success" @click="certificate.calibration_method.push('')">
+                      <v-icon small>add</v-icon>
+                    </v-btn>
+                    <v-btn v-if="index > 0" small icon class="warning" @click="certificate.calibration_method.splice(index, 1)">
+                      <v-icon small>delete</v-icon>
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+                
+                <p class="title mb-1">Acuan</p>
+                <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.reference" :key="index">
+                  <v-flex xs8 class="">
+                    <v-text-field required label="Standar Acuan" v-model="certificate.reference[index]"></v-text-field>
+                  </v-flex>
+                  <v-flex xs2>
+                    <v-btn small icon class="success" @click="certificate.reference.push('')">
+                      <v-icon small>add</v-icon>
+                    </v-btn>
+                    <v-btn v-if="index > 0" small icon class="warning" @click="certificate.reference.splice(index, 1)">
+                      <v-icon small>delete</v-icon>
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+              </template>
+              <v-scroll-y-transition>
+                <v-btn
+                  v-if="savebutton"
+                  color="primary"
+                  large
+                  fixed
+                  bottom
+                  right
+                  fab
+                  @click="validate"
+                >
+                  <v-icon color="white">save</v-icon>
+                </v-btn>
+              </v-scroll-y-transition>
+            </v-form>
           </v-card-text>
         </v-card>
       </v-layout>
@@ -299,15 +347,7 @@ export default {
       lampiran: false
     },
 
-    // equipment: Optional[Dict[str,str]]
-    // acceptance_date: Optional[str]
-    // calibration_date: Optional[str]
-    // env_cond: Optional[Dict[str, str]]
-    // calibration_loc: Optional[str]
-    // calibration_method: Optional[List[str]]
-    // reference: Optional[List[str]]
-    // published_date : Optional[str]
-    // status: Optional[bool]
+    valid: true,  
 
     certificate: {
       equipment: {
@@ -476,6 +516,12 @@ export default {
           this.loading.lk = false
           this.loading.lampiran = false
         }, 500);
+      }
+    },
+
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.submitForm()
       }
     },
 

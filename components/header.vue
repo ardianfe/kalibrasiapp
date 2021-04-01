@@ -23,7 +23,7 @@
         <v-hover>
           <span 
             class="pointer" slot-scope="{ hover }"  
-            @click="$router.push('/lk?id='+$route.query.id+'&order_id='+this.$route.query.order)" 
+            @click="$router.push('/lk?id='+$route.query.id+'&order_id='+$route.query.order_id)" 
             :class="`${ hover ? 'primary--text' : 'black--text'}`" >
             Lembar Kerja
           </span>

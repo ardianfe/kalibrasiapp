@@ -635,16 +635,21 @@ export default {
 
         // xhr.send();
 
+        let jsonVariable = {};
         fetch(req.uri_attach)
           .then(res => res.blob())
           .then(blob => {
             this.attachment = blob
             console.log('objectURL', blob);
 
+            jsonVariable['id_order'] = this.$route.query.order_id
+            jsonVariable[req.no_laporan] = blob
+
             // var fileURL = URL.createObjectURL(blob);
             // window.open(fileURL);
         });
 
+        this.json_sipeja = jsonVariable
         this.certificate_number = req_data.no_laporan
         this.certificate = req
         // const file = await this.$calibrate.getFile({url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'})
@@ -695,7 +700,16 @@ export default {
       const certificate_file = doc.output('blob', cert_name);
       
       this.cert_file = certificate_file
-      this.mergePDF()
+
+      var fileURL = URL.createObjectURL(this.cert_file);
+      window.open(fileURL);
+
+      // if (this.certificate.uri_report) {
+      //   alert('sudah ada laporan')
+      //   this.$router.push('/lk?id='+this.$route.query.id+'&order_id='+this.$route.query.order_id)
+      // } else {
+      //   this.mergePDF()
+      // }
     },
 
     async mergePDF() {
@@ -714,10 +728,18 @@ export default {
         console.log('merge pdf : ', req);
         alert('Berhasil membuat laporan')
 
-        this.uploadSipeja()
-        this.$router.push('/lk?id='+this.$route.query.id)
+        let uri;
+        fetch(req.uri_report)
+          .then(res => res.blob())
+          .then(blob => {
+            uri = blob
+            console.log('uri', blob);
+        });
 
-        this.getCertData()
+        // this.uploadSipeja(uri, req.no_laporan)
+        // this.$router.push('/lk?id='+this.$route.query.id)
+
+        // this.getCertData()
       } catch (error) {
         setTimeout(() => {
           this.print_loading.state = false
@@ -731,6 +753,32 @@ export default {
         // }
         console.log('error when merging', error.response);
 
+      }
+    },
+
+    async uploadSipeja(file, key) {
+      try {
+        let jsonVariable = {};
+        jsonVariable['id_order'] = this.$route.query.order_id
+        jsonVariable[key] = file
+
+        console.log('jsonVariable', jsonVariable);
+        const req = await this.$calibrate.sipeja_upload(jsonVariable)
+
+        setTimeout(() => {
+          this.print_loading.state = false
+          this.print_loading.message = ''
+        }, 500);
+
+        this.$router.push('/lk?id='+this.$route.query.id+'&order_id='+this.$route.query.order_id)
+      } catch (error) {
+        setTimeout(() => {
+          this.print_loading.state = false
+          this.print_loading.message = ''
+        }, 500);
+
+        alert('Gagal mengupload file ke SIPEJA')
+        console.log('Gagal mengupload file ke SIPEJA', error.response);
       }
     },
 

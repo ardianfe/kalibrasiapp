@@ -59,6 +59,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# catetan aja sih gaperlu dimasukin GIT
+.note
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
