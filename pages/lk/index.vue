@@ -207,13 +207,13 @@
                 <p class="title mb-1">Tanggal Kalibrasi</p>
                 <v-layout class="mb-2" row wrap>
                   <v-flex xs8 class="">
-                    <v-text-field required label="Tanggal Kalibrasi" v-model="certificate.calibration_date" readonly></v-text-field>
+                    <v-text-field required :value="convertDate(certificate.calibration_date)" readonly></v-text-field>
                   </v-flex>
                 </v-layout>
                 <p class="title mb-1">Tanggal Terima</p>
                 <v-layout class="mb-2" row wrap>
                   <v-flex xs8 class="">
-                    <v-text-field required label="Tanggal Terima" v-model="certificate.acceptance_date" readonly></v-text-field>
+                    <v-text-field required :value="convertDate(certificate.acceptance_date)" readonly></v-text-field>
                   </v-flex>
                 </v-layout>
 

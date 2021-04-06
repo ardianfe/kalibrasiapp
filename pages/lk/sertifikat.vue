@@ -208,7 +208,7 @@
                           <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Date of acceptance</p>
                         </div>
                         <div>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.acceptance_date }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ convertDate(certificate.acceptance_date) }}</p>
                         </div>
                       </v-layout>
                     </v-flex>
@@ -219,7 +219,7 @@
                           <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Date of Calibration</p>
                         </div>
                         <div>
-                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.calibration_date }}</p>
+                          <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ convertDate(certificate.calibration_date) }}</p>
                         </div>
                       </v-layout>
                     </v-flex>

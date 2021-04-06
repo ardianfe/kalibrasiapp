@@ -183,15 +183,6 @@ export default {
       }
     },
 
-    select_order(order_number, sample_number, sample_name) {
-      this.dialog = true
-      this.sample_name = sample_name
-      this.order_number = order_number
-      this.sample_number = sample_number
-
-      console.log(this.dialog, this.order_number, this.sample_name, this.sample_number);
-    },
-
     async getOrderDetails(order_id, sample_name, sample_number) {
       this.sample_loading = {
         state: true,
@@ -219,7 +210,7 @@ export default {
         console.log('open dialog', req);
 
         if (req._id) {
-          this.$router.push('/lk?id='+sample_number)
+          this.$router.push('/lk?id='+sample_number+'&order_id='+order.no_order)
           console.log('sampel sudah dibuat');
         } else {
           console.log('sampel belum dibuat');
@@ -314,7 +305,7 @@ export default {
           }
         }, 300);
         alert('Berhasil membuat laporan')
-        this.$router.push('/lk?id='+id_sampel)
+        this.$router.push('/lk?id='+id_sampel+'&order_id='+order.no_order)
       } catch (error) {
         setTimeout(() => {
           this.sample_loading = {
@@ -326,34 +317,6 @@ export default {
         console.log(error.response);
       }
     },
-    
-    async submit() {
-      this.is_uploading = true
-      try {
-        // const req = await this.$calibrate.upload({
-        //   file: this.file,
-        //   cat: this.cat,
-        //   sample: this.sample_name,
-
-        //   order_id: this.order_number,
-        //   sample_number: this.sample_number
-        // })
-
-        setTimeout(() => {
-          this.is_uploading = false
-          this.file = {}
-          this.cat = ''
-          this.sample_name = ''
-          this.order_number = ''
-          this.sample_number = ''
-
-          alert('Upload Berhasil')
-        }, 500);
-
-      } catch (error) {
-        console.log('submit error : ', error.response);
-      }
-    }
   },
 }
 </script>

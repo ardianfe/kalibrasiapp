@@ -207,15 +207,6 @@ export default {
       }
     },
 
-    select_order(order_number, sample_number, sample_name) {
-      this.dialog = true
-      this.sample_name = sample_name
-      this.order_number = order_number
-      this.sample_number = sample_number
-
-      console.log(this.dialog, this.order_number, this.sample_name, this.sample_number);
-    },
-
     async getOrderDetails(order_id, sample_name, sample_number) {
       this.sample_loading = {
         state: true,
@@ -350,43 +341,6 @@ export default {
         console.log(error.response);
       }
     },
-
-    chooseFile() {
-      document.getElementById('file').click()
-    },
-
-    processFile(e) {
-      this.file = e.target.files[0]
-      console.log(e.target.files[0]);
-    },
-
-    async submit() {
-      this.is_uploading = true
-      try {
-        const req = await this.$calibrate.upload({
-          file: this.file,
-          cat: this.cat,
-          sample: this.sample_name,
-
-          order_id: this.order_number,
-          sample_number: this.sample_number
-        })
-
-        setTimeout(() => {
-          this.is_uploading = false
-          this.file = {}
-          this.cat = ''
-          this.sample_name = ''
-          this.order_number = ''
-          this.sample_number = ''
-
-          alert('Upload Berhasil')
-        }, 500);
-
-      } catch (error) {
-        console.log('submit error : ', error.response);
-      }
-    }
   },
 }
 </script>
