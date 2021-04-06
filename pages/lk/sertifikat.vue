@@ -704,12 +704,12 @@ export default {
       var fileURL = URL.createObjectURL(this.cert_file);
       window.open(fileURL);
 
-      // if (this.certificate.uri_report) {
-      //   alert('sudah ada laporan')
-      //   this.$router.push('/lk?id='+this.$route.query.id+'&order_id='+this.$route.query.order_id)
-      // } else {
-      //   this.mergePDF()
-      // }
+      if (this.certificate.uri_report) {
+        alert('sudah ada laporan')
+        this.$router.push('/lk?id='+this.$route.query.id+'&order_id='+this.$route.query.order_id)
+      } else {
+        this.mergePDF()
+      }
     },
 
     async mergePDF() {
@@ -736,10 +736,14 @@ export default {
             console.log('uri', blob);
         });
 
-        // this.uploadSipeja(uri, req.no_laporan)
+        this.uploadSipeja(uri, req.no_laporan)
         // this.$router.push('/lk?id='+this.$route.query.id)
 
         // this.getCertData()
+        setTimeout(() => {
+          this.print_loading.state = false
+          this.print_loading.message = ''
+        }, 500);
       } catch (error) {
         setTimeout(() => {
           this.print_loading.state = false

@@ -43,6 +43,23 @@ export default {
         tokenRequired: true,
         tokenType: 'Bearer',
       },
+      sipeja: {
+        _scheme: 'local',
+        endpoints: {
+          login: {
+            url: process.env.sipeja_login + '/api/v1/employee',
+            method: 'post',
+            propertyName: 'data.name'
+          },
+          logout: false,
+          // user: {
+          //   url: process.env.sipeja_login + '/api/v1/employee',
+          //   method: 'get',
+          //   propertyName: ''
+          // }
+        },
+        tokenRequired: true,
+      },
     }
   },
 
@@ -108,7 +125,13 @@ export default {
   ** Axios module configuration
   */
   axios: {
+    proxy: false
     // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  proxy: {
+    '/api/': process.env.sipeja_login,
+    // '/api/': { target: process.env.sipeja_login, pathRewrite: {'^/api/': ''} }
   },
 
   /*

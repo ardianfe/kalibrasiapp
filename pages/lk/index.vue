@@ -2,24 +2,6 @@
   <v-layout column>
     <v-flex xs12 sm8 md6>
       <mainHeader></mainHeader>
-
-      <v-dialog width="450px" v-model="verification_dialog">
-        <v-card>
-          <v-card-actions>
-            <v-spacer/>
-            <v-btn class="f-button" icon @click="verification_dialog = false"><v-icon>close</v-icon></v-btn>
-          </v-card-actions>
-          <v-card-text class="pt-0">
-            <v-checkbox color="primary" label="Verifikasi Sub-Koordinator"></v-checkbox>
-            <v-checkbox color="primary" label="Verifikasi Koordinator"></v-checkbox>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class="f-button primary" @click="() => {verification_dialog = false, certificate.status = 2}">Kirim</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
       <v-layout justify-center column>
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-progress-linear class="ma-0" indeterminate v-if="isLoading"></v-progress-linear>
@@ -29,12 +11,17 @@
             <v-layout row wrap>
               <v-flex xs12 sm6>
                 <p class="b">No. Laporan : {{no_cert ? no_cert : 'Belum upload'}}</p>
-                <p><span class="b">Status Verifikasi :</span> {{ certificate.status == 2 ? 'Sudah Terverifikasi' : 'Belum Terverifikasi'}}</p>
+                <p><span class="b">Status Verifikasi :</span> {{verifications[certificate.status]}}</p>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-layout justify-end align-right>
-                  <v-btn class="success" @click="verification_dialog=true" v-if="!certificate.uri_report">Verifikasi</v-btn>
-                  <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk">Buat Laporan</v-btn>
+                  <!-- {{$auth.$state}} -->
+                  <!-- {{isNotEmpty}} -->
+                  <template v-if="isNotEmpty">
+                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 'Petugas' && certificate.status == 0">Verifikasi</v-btn>
+                    <v-btn class="success" @click="changeStatus(2)" v-if="role == 'Kasi' && certificate.status == 1">Verifikasi</v-btn>
+                    <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk">Buat Laporan</v-btn>
+                  </template>
                 </v-layout>
               </v-flex>
             </v-layout>
@@ -59,12 +46,7 @@
                       <v-btn class="success" v-if="certificate.status < 2" @click=" chooseLampiran">Edit</v-btn>
                     </div>
                   </v-flex>
-                  <!-- <v-flex xs12 v-if="lampiran_file.name">
-                    <v-layout align-right justify-end>
-                      <v-btn @click="upload('report')" class="success" :loading="loading.lampiran">Upload</v-btn>
-                    </v-layout>
-                  </v-flex> -->
-                  <input type="file" name="lampiran_file" id="lampiran_file" hidden @change="processLampiran">
+                  <input type="file" name="lampiran_file" id="lampiran_file" hidden @change="processLampiran" accept="application/pdf">
                 </v-layout>
               </v-flex>
 
@@ -334,6 +316,7 @@ export default {
     isLoading: true,
 
     verification_dialog: false,
+    verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi'],
 
     lampiran_file: {
       name: ''
@@ -347,7 +330,10 @@ export default {
       lampiran: false
     },
 
-    valid: true,  
+    valid: true,
+    
+    sub_verification: false,
+    verification: false,
 
     certificate: {
       equipment: {
@@ -387,6 +373,7 @@ export default {
     },
 
     savebutton: false,
+    role: ''
   }),
 
   computed: {
@@ -398,10 +385,31 @@ export default {
       } else {
         return '(0)';
       }
-    }
+    },
+
+    isNotEmpty() {
+      if (
+        this.certificate.equipment.capacity == "" ||
+        this.certificate.equipment.model == "" ||
+        this.certificate.equipment.serial_number == "" ||
+        this.certificate.equipment.manufacture == "" ||
+        this.certificate.standard.name == "" ||
+        this.certificate.standard.traceability == "" ||
+        this.certificate.env_cond.room_temp == "" ||
+        this.certificate.env_cond.humidity == "" || 
+        this.certificate.calibration_loc == ""
+        // this.certificate.refference[0] == "" &&
+        // this.certificate.calibration_method[0] == ""
+        ) {
+        return false
+      } else {
+        return true
+      }
+    },
   },
 
   mounted() {
+    this.role = this.$auth.$storage.getUniversal('role')
     this.getLK()
 
     window.onscroll = () => { 
@@ -427,6 +435,8 @@ export default {
         this.title = req.equipment.name + ' - ' + 'Form Lembar Kerja '
 
         console.log('cert : ', this.certificate);
+        // console.log(this.certificate.calibration_method[0]);
+        // console.log(this.certificate.reference[0]);
 
         if (!this.certificate.calibration_method[0]) {
           this.certificate.calibration_method.push('')  
@@ -543,31 +553,23 @@ export default {
       }
     },
 
-    elementMapping(data, owner) {
-      this.certificate.equipment.name = data.deskripsi.nama_alat
-      this.certificate.equipment.capacity = data.deskripsi.kapasitas
-      this.certificate.equipment.model = data.deskripsi.tipe_model
-      this.certificate.equipment.serial_number = data.deskripsi.no_seri
-      this.certificate.equipment.manufacture = data.deskripsi.buatan
-      this.certificate.equipment.temperature = '-'
-      this.certificate.owner.name = owner.nama_co
-      this.certificate.owner.address = owner.alamat
-      this.certificate.standard.name = data.alat_kalibrasi
-      this.certificate.standard.traceability = 'Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui Puslit KIM LIPI Serpong'
-      this.certificate.env_cond = {
-        room_temp: data.deskripsi.suhu_terkoreksi.min.toFixed(2) + ' - ' + data.deskripsi.suhu_terkoreksi.max.toFixed(2) + ' ' + data.deskripsi.suhu_terkoreksi.satuan,
-        corrected_room_temp: '',
-        humidity: data.deskripsi.kelembaban_terkoreksi.nilai.toFixed(2) + ' %',
-        corrected_humidity: ''
+    async changeStatus(value) {
+      this.certificate.status = value      
+      try {
+        const req = await this.$calibrate.saveForm({
+          sample_id: this.$route.query.id,
+          certificate: this.certificate
+        })
+
+        alert('Verifikasi '+this.role+' Berhasil.')
+
+        console.log('berhasil mengubah status :', req);
+
+        this.getLK()
+      } catch (error) {
+        alert(error.response.data.detail[0].msg)
+        console.log('error when changing status :', error.response.data.detail[0].msg);
       }
-      this.certificate.acceptance_date = this.convertDate(data.tgl_diterima)
-      this.certificate.calibration_date = this.convertDate(data.dikalibrasi.date)
-      // this.certificate.env_cond.room_temp = cert_data
-      // this.certificate.env_cond.humidity = cert_data
-      this.certificate.calibration_location = data.deskripsi.lokasi
-      this.certificate.calibration_method = data.metode_kalibrasi
-      this.certificate.reference = data.standar_acuan
-      this.certificate.published_date = ''
     },
 
     convertDate(date_string) {

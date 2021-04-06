@@ -110,6 +110,13 @@ export default {
 
   methods: {
     async logout() {
+      this.$auth.$storage.removeUniversal('role')
+      this.$auth.$storage.removeUniversal('appkey')
+      this.$auth.$storage.removeUniversal('email')
+      this.$auth.$storage.removeUniversal('nip')
+      this.$auth.$storage.removeUniversal('name')
+      this.$auth.$storage.removeUniversal('phone')
+      this.$auth.$storage.removeUniversal('username')
       await this.$auth.logout();
       setTimeout(function(){ 
         window.location.reload(); 

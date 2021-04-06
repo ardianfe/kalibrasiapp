@@ -165,11 +165,6 @@ const model = $axios => ({
 
   //sipeja
   sipeja_upload(data) {
-    // let jsondata = {
-    //   "id_order": 123,
-    //   "3-09-20-00002": CURLFile,
-    //   "3-09-20-00003": CURLFile
-    // }
     return $axios.$post(process.env.sipeja_base + '/uploadLaporan', {
       data
     })

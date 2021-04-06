@@ -87,6 +87,12 @@
       }
     }, 
 
+    mounted() {
+      if (this.$route.query.nip && this.$route.query.appkey) {
+        this.loginWithSipeja()
+      }
+    },
+
     methods: {
       async login() {
         this.loading = true
@@ -117,6 +123,51 @@
             this.loading = false
           }, 500);
         }
+      },
+
+      async loginWithSipeja() {
+        this.loading = true
+        try {
+          const request = await this.$auth.loginWith('sipeja', {
+            params: {
+              nip: this.$route.query.nip,
+              appkey: this.$route.query.appkey
+            },
+          });
+
+          console.log('request.data', request.data);
+
+          if (request.data.name) {
+            this.$auth.$storage.setUniversal('role', this.$route.query.role)
+            this.$auth.$storage.setUniversal('appkey', this.$route.query.appkey)
+            this.$auth.$storage.setUniversal('email', request.data.email)
+            this.$auth.$storage.setUniversal('nip', request.data.nip)
+            this.$auth.$storage.setUniversal('name', request.data.name)
+            this.$auth.$storage.setUniversal('phone', request.data.phone_number)
+            this.$auth.$storage.setUniversal('username', request.data.username)
+            setTimeout(() => {
+              this.loading = false
+              this.$router.push('/')
+            }, 500);
+          } else {
+            this.logout()
+          }
+          
+        } catch (error) {
+          console.log(error.response);
+          alert('Internal Server Error')
+          setTimeout(() => {
+            this.loading = false
+          }, 500);
+        }
+      },
+
+      async logout() {
+        await this.$auth.logout();
+        setTimeout(function(){ 
+          // window.location.reload(); 
+          alert('appkey / nip salah')
+        }, 500);
       },
     },
   }
