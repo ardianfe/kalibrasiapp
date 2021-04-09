@@ -93,19 +93,17 @@
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.model }}</p>
                       </v-layout>
 
-                    </v-flex>
-                    <v-flex xs6>
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">4.</p>
-                        <v-flex xs5>
-                          <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nomor Seri</p>
+                        <div style="width: 32mm">
+                          <p class="helve u b" style="font-size: 9pt;margin: 0; height: 4.2mm;">Nomor Seri</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Serial Number</p>
-                        </v-flex>
-                        <v-flex xs6>
-                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: {{ certificate.equipment.serial_number }}</p>
-                        </v-flex>
+                        </div>
+                        <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.serial_number }}</p>
                       </v-layout>
+                    </v-flex>
 
+                    <v-flex xs6>
                       <v-layout>
                         <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">5.</p>
                         <v-flex xs5>
@@ -127,14 +125,14 @@
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.temperature }}</p>
                         </v-flex>
                       </v-layout>
-                      <!-- <v-layout>
-                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">6.</p>
+                      <v-layout>
+                        <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">7.</p>
                         <v-flex xs5>
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Ukuran Dalam</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Internal Dimension</p>
                         </v-flex>
                         <v-flex xs6>
-                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: 460mm(l)x250mm(p)x340mm(t)</p>
+                          <p contenteditable="true" class="roman" style="font-size: 9pt; margin: 7px -14px 7px 0; height: 4.2mm;">: {{ certificate.equipment.internal_dimension }}</p>
                         </v-flex>
                       </v-layout>
 
@@ -147,7 +145,7 @@
                         <v-flex xs6>
                           <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.others }}</p>
                         </v-flex>
-                      </v-layout> -->
+                      </v-layout>
                     </v-flex>
                   </v-layout>
 
@@ -160,7 +158,7 @@
                       <p class="helve b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
                       <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
                     </div>
-                    <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.owner.name }}</p>
+                    <p class="roman b" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.owner.name }}</p>
                   </v-layout>
                   <v-layout>
                     <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
@@ -168,7 +166,7 @@
                       <p class="helve b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Alamat</p>
                       <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Address</p>
                     </div>
-                    <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.owner.address }}</p>
+                    <p class="roman b" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.owner.address }}</p>
                   </v-layout>
 
                   <!-- Standard -->
@@ -608,33 +606,6 @@ export default {
         console.log('get LK: ', req);
         let req_data = req
 
-
-        // this.attachment = new File(req.uri_attach);
-
-        // console.log('this.attachment', this.attachment);
-
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('GET', 'https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/cors_principle.png', true);
-        // xhr.responseType = 'blob';
-        // // xhr.setRequestHeader(header, value)
-        // xhr.setRequestHeader('Content-Type', 'application/pdf');
-        // xhr.setRequestHeader('access-control-allow-origin', '*');
-
-        // xhr.onload = (e) => {
-        //     if (this.status == 200) {
-        //         // Note: .response instead of .responseText
-        //     var blob = new Blob([this.response], {type: 'application/pdf'}),
-        //         url = URL.createObjectURL(blob),
-        //         _iFrame = document.createElement('iframe');
-
-        //     _iFrame.setAttribute('src', url);
-        //     _iFrame.setAttribute('style', 'visibility:hidden;');
-        //     $('#elementH').append(_iFrame)        
-        //   }
-        // };
-
-        // xhr.send();
-
         let jsonVariable = {};
         fetch(req.uri_attach)
           .then(res => res.blob())
@@ -652,8 +623,6 @@ export default {
         this.json_sipeja = jsonVariable
         this.certificate_number = req_data.no_laporan
         this.certificate = req
-        // const file = await this.$calibrate.getFile({url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'})
-        // this.attachment = file
         console.log('LK file: ', this.attachment);
 
       } catch (error) {
@@ -736,7 +705,7 @@ export default {
             console.log('uri', blob);
         });
 
-        this.uploadSipeja(uri, req.no_laporan)
+        this.uploadSipeja()
         // this.$router.push('/lk?id='+this.$route.query.id)
 
         // this.getCertData()
@@ -760,14 +729,12 @@ export default {
       }
     },
 
-    async uploadSipeja(file, key) {
+    async uploadSipeja() {
       try {
-        let jsonVariable = {};
-        jsonVariable['id_order'] = this.$route.query.order_id
-        jsonVariable[key] = file
-
-        console.log('jsonVariable', jsonVariable);
-        const req = await this.$calibrate.sipeja_upload(jsonVariable)
+        const req = await this.$calibrate.sipeja_upload({
+          order_id: this.$route.query.order_id,
+          sample_id: this.$route.query.id,
+        })
 
         setTimeout(() => {
           this.print_loading.state = false

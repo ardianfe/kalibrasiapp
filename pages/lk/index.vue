@@ -150,9 +150,25 @@
                   <v-flex xs8 class="">
                     <v-text-field
                       label="Pengontrol Suhu"
+                      required :rules="[v => !!v || 'Pengontrol Suhu harus diisi !']"
                       v-model="certificate.equipment.temperature"
                     ></v-text-field>
                   </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field
+                      label="Ukuran Dalam"
+                      required :rules="[v => !!v || 'Ukuran Dalam harus diisi !']"
+                      v-model="certificate.equipment.internal_dimension"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs8 class="">
+                    <v-text-field
+                      label="Lain-lain"
+                      required :rules="[v => !!v || 'Lain-lain harus diisi !']"
+                      v-model="certificate.equipment.others"
+                    ></v-text-field>
+                  </v-flex>
+                  
                 </v-layout>
                 
                 <p class="title mb-1">Pemilik</p>

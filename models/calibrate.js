@@ -163,11 +163,9 @@ const model = $axios => ({
     })
   },
 
-  //sipeja
-  sipeja_upload(data) {
-    return $axios.$post(process.env.sipeja_base + '/uploadLaporan', {
-      data
-    })
+  //upload sipeja via another API
+  sipeja_upload(order_id, sample_id) {
+    return $axios.$get(process.env.sipeja_base + '/' + order_id + '/' + sample_id)
   },
 
   getNomorLaporan({id_order, no_sample}) {
@@ -211,7 +209,7 @@ const model = $axios => ({
 
     console.log(formData);
     return $axios.$post(process.env.basepdf + '/uploadpdf/' + id, formData)
-  }
+  },
 });
 
 export default ({
