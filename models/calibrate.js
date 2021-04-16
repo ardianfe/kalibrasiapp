@@ -120,7 +120,8 @@ const model = $axios => ({
     result,
     published_date,
     director_name,
-    director_nip
+    director_nip,
+    id_sipeja
   }) {
     let createdata = {
       "_id": _id, 
@@ -139,7 +140,8 @@ const model = $axios => ({
       "result": result,
       "published_date": published_date,
       "director_name": director_name,
-      "director_nip": director_nip
+      "director_nip": director_nip,
+      "id_sipeja": id_sipeja
     }
     // console.log('create report:', createdata);
     return $axios.$post(process.env.basenew, {
@@ -159,13 +161,14 @@ const model = $axios => ({
       result,
       published_date,
       director_name,
-      director_nip
+      director_nip,
+      id_sipeja
     })
   },
 
   //upload sipeja via another API
-  sipeja_upload(order_id, sample_id) {
-    return $axios.$get(process.env.sipeja_base + '/' + order_id + '/' + sample_id)
+  sipeja_upload({order_id, sample_id, no_laporan}) {
+    return $axios.$get(process.env.sipeja_upload + '/' + order_id + '/' + sample_id + '/' + no_laporan)
   },
 
   getNomorLaporan({id_order, no_sample}) {
@@ -188,6 +191,17 @@ const model = $axios => ({
 
   getOrderDetails({id}) {
     return $axios.$get(process.env.base2 + '/orders/' + id)
+  },
+
+  getOnGoings() {
+    return $axios.$get(process.env.basenew)
+  },
+  getOnGoingsByStatus({stat}) {
+    if (stat == 99) {
+      return $axios.$get(process.env.basenew)
+    } else {
+      return $axios.$get(process.env.basenew + '?status=' + stat)
+    }
   },
 
   uploadReport({id, file, cat}) {

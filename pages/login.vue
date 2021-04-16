@@ -107,6 +107,7 @@
           console.log(request);
           
           setTimeout(() => {
+            this.$auth.$storage.setUniversal('role', 'Admin')
             this.loading = false
             window.location.reload()
           }, 500);

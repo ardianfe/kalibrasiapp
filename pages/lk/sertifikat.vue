@@ -559,6 +559,7 @@ export default {
       published_date: '',
       director_name: '',
       director_nip: '',
+      id_sipeja: ''
     },
     data: {},
 
@@ -675,7 +676,7 @@ export default {
 
       if (this.certificate.uri_report) {
         alert('sudah ada laporan')
-        this.$router.push('/lk?id='+this.$route.query.id+'&order_id='+this.$route.query.order_id)
+        this.$router.push('/lk?id='+this.$route.query.id)
       } else {
         this.mergePDF()
       }
@@ -686,8 +687,6 @@ export default {
       this.print_loading.message = 'Membuat Laporan...'
 
       try {
-        // const req = await this.$calibrate.getLembarKerja({id: this.$route.query.id})
-
         const req = await this.$calibrate.mergeFile({
           cert: this.cert_file, 
           attch: this.attachment,
@@ -695,7 +694,6 @@ export default {
         })
 
         console.log('merge pdf : ', req);
-        alert('Berhasil membuat laporan')
 
         let uri;
         fetch(req.uri_report)
@@ -706,13 +704,6 @@ export default {
         });
 
         this.uploadSipeja()
-        // this.$router.push('/lk?id='+this.$route.query.id)
-
-        // this.getCertData()
-        setTimeout(() => {
-          this.print_loading.state = false
-          this.print_loading.message = ''
-        }, 500);
       } catch (error) {
         setTimeout(() => {
           this.print_loading.state = false
@@ -720,10 +711,7 @@ export default {
         }, 500);
 
         // if (error.response) {
-          alert('Gagal membuat laporan : ', error.response)
-        // } else {
-          // alert('error when merging')
-        // }
+        alert('Gagal membuat laporan : ', error.response)
         console.log('error when merging', error.response);
 
       }
@@ -732,16 +720,12 @@ export default {
     async uploadSipeja() {
       try {
         const req = await this.$calibrate.sipeja_upload({
-          order_id: this.$route.query.order_id,
+          order_id: this.certificate.id_sipeja,
           sample_id: this.$route.query.id,
+          no_laporan: this.certificate_number
         })
 
-        setTimeout(() => {
-          this.print_loading.state = false
-          this.print_loading.message = ''
-        }, 500);
-
-        this.$router.push('/lk?id='+this.$route.query.id+'&order_id='+this.$route.query.order_id)
+        this.changeStatus()
       } catch (error) {
         setTimeout(() => {
           this.print_loading.state = false
@@ -754,14 +738,28 @@ export default {
     },
 
     async changeStatus() {
+      this.certificate.status = 3
       try {
-        const req = await this.$calibrate.updateCertifStatus({
-          id: this.certificate_number, status: 'certified'
+        const req = await this.$calibrate.saveForm({
+          sample_id: this.$route.query.id, certificate: this.certificate
         })
 
-        console.log(this.certificate_number+' status :', req);
-        location.reload()
+        setTimeout(() => {
+          this.print_loading.state = false
+          this.print_loading.message = ''
+        }, 500);
+
+        alert('Berhasil membuat laporan')
+
+        console.log(this.certificate_number+' change status :', req);
+        this.$router.push('/lk?id='+this.$route.query.id)
       } catch (error) {
+
+        setTimeout(() => {
+          this.print_loading.state = false
+          this.print_loading.message = ''
+        }, 500);
+        alert('gagal ubah status')
         console.log(error.response);
         location.reload()
       }

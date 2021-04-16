@@ -21,51 +21,54 @@
           On Going Order
         </p>
         <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer>
         <v-spacer></v-spacer> 
-        <v-select box width="100px" background-color="white" :items="perpage_list" v-model="perpage" @change="()=> {page = 1, getListOrder()}" label="Jumlah Data Per-halaman"></v-select>
+        <v-select box width="100px" background-color="white" :items="perpage_list" v-model="perpage" @change="()=> {page = 1, getListOrder()}" label="Jumlah Data Per-halaman"></v-select> -->
       </v-card-title>
       <v-layout row wrap>
         <v-flex xs12 sm6>
           <p class="text-xs-left">Jumlah data ditampilkan : {{showed_item_count}}</p>
         </v-flex>
         <v-flex xs12 sm6>
-          <p class="text-xs-right">Untuk input data silakan klik daftar sample</p>
+          <v-select 
+            box width="100px" 
+            background-color="white" 
+            :items="statuses" 
+            v-model="status" 
+            @change="getOnGoings" 
+            label="Pilih Status Verifikasi"
+          ></v-select>
         </v-flex>
       </v-layout>
       <template v-if="$store.state.isLoggedIn">
         <table style="width: 100%" class="f-table my-2">
           <tr class="tr-head white--text pt-sans font-weight-bold">
-            <td class="primary td-header">No Order</td>
-            <td class="primary td-header">Nama Pelanggan</td>
-            <td class="primary td-header">Tanggal Order</td>
+            <td class="primary td-header">No Laporan</td>
+            <td class="primary td-header">Nama Alat</td>
+            <td class="primary td-header">Nama Perusahaan</td>
             <td class="primary td-header">Tanggal Kalibrasi</td>
-            <td class="primary td-header">Daftar Sample</td>
+            <td class="primary td-header">Tanggal Cetak</td>
+            <td class="primary td-header">Status</td>
           </tr>
           
           <template v-if="!loading">
-            <tr class="tr-body" v-for="item in lo" :key="item.id">
+            <tr class="tr-body" v-for="item in lo" :key="item._id">
               <td class="td-body">
                 <v-hover>
                   <div class="pointer"
                     :style="`${ hover ? 'color: blue' : 'color: black'}`" 
                     slot-scope="{ hover }"
-                    @click="$router.push('/detail_list_orders?id='+item.id)"
+                    @click="$router.push('/lk?id='+item._id)"
                   >
-                    <span>{{item.id}}</span>
+                    <span>{{item.no_laporan}}</span>
                   </div>
                 </v-hover>
               </td>
-              <td class="td-body">{{item.nama_perusahaan}}</td>
-              <td class="td-body">{{item.tanggal_terima}}</td>
-              <td class="td-body">{{item.tanggal_kalibrasi}}</td>
-              <td class="td-body">
-                <p v-for="(data, x) in item.daftar_sampel" :key="x">
-                  <v-hover v-for="(no_sample) in data.no_sample" :key="no_sample">
-                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="getOrderDetails(item.id, data.sampel, no_sample)">{{data.sampel}} ({{no_sample}}) <br></span>
-                  </v-hover>
-                </p>
-              </td>
+              <td>{{item.equipment.name}}</td>
+              <td>{{item.owner.name}}</td>
+              <td>{{item.calibration_date}}</td>
+              <td>{{item.acceptance_date}}</td>
+              <td>{{verifications[item.status]}}</td>
             </tr>
           </template>
 
@@ -76,7 +79,7 @@
           </tr>
         </table>
 
-        <v-card-actions>
+        <!-- <v-card-actions>
           <v-spacer />
           <div class="text-xs-center pt-2">
             <v-pagination @change="getListOrder" total-visible="5" v-model="page" :length="pages"
@@ -86,7 +89,7 @@
             ></v-pagination>
           </div>
           <v-spacer />
-        </v-card-actions>
+        </v-card-actions> -->
 
       </template>
     </v-flex>
@@ -158,23 +161,21 @@ export default {
       message: '',
     },
 
-    cats: [
-      { name: 'Dimensi', value: 'dimensi'},
-      { name: 'Tekanan', value: 'tekanan'},
-      { name: 'Gaya', value: 'gaya'},
-      { name: 'Instrumen Analisa', value: 'instrumen_analisa'},
-      { name: 'Kelistrikan', value: 'kelistrikan'},
-      { name: 'Massa', value: 'massa'},
-      { name: 'Suhu', value: 'suhu'},
-      { name: 'Timbangan', value: 'timbangan'},
-      { name: 'Volumetrik', value: 'volumetrik'}
+    statuses: [
+      {value: 99, text: 'Semua'}, 
+      {value: 0, text: 'Belum Terverifikasi'}, 
+      {value: 1, text: 'Verifikasi Petugas'}, 
+      {value: 2, text: 'Sudah Terverifikasi'}, 
+      {value: 3, text: 'Sudah Cetak'}
     ],
 
-    cat: ''
+    status: 99,
+
+    verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi', 'Sudah Cetak']
   }),
 
   mounted() {
-    this.getListOrder()
+    this.getOnGoings()
   },
 
   computed: {
@@ -187,17 +188,15 @@ export default {
   },
 
   methods: {
-    async getListOrder() {
+    async getOnGoings() {
       this.loading = true
       try {
-        const req = await this.$calibrate.getListOrders({
-          perpage: this.perpage, page: this.page
-        })
+        const req = await this.$calibrate.getOnGoingsByStatus({stat: this.status})
 
         console.log('test cors', req);
-        this.lo = req.result
-        this.showed_item_count = req.result.length
-        this.totalItems = req.total_order
+        this.lo = req
+        this.showed_item_count = req.length
+        // this.totalItems = req.total_order
 
         this.loading = false
       } catch (error) {

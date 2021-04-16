@@ -37,7 +37,7 @@ export default {
           user: {
             url: process.env.base + '/protected/',
             method: 'get',
-            propertyName: ''
+            propertyName: 'logged_in_as'
           }
         },
         tokenRequired: true,

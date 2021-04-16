@@ -13,20 +13,25 @@
                 <p class="b">No. Laporan : {{no_cert ? no_cert : 'Belum upload'}}</p>
                 <p><span class="b">Status Verifikasi :</span> {{verifications[certificate.status]}}</p>
               </v-flex>
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm6 v-if="certificate.uri_attach && certificate.uri_lk">
                 <v-layout justify-end align-right>
                   <!-- {{$auth.$state}} -->
                   <!-- {{isNotEmpty}} -->
                   <template v-if="isNotEmpty">
                     <v-btn class="success" @click="changeStatus(1)" v-if="role == 'Petugas' && certificate.status == 0">Verifikasi</v-btn>
                     <v-btn class="success" @click="changeStatus(2)" v-if="role == 'Kasi' && certificate.status == 1">Verifikasi</v-btn>
+
+                    <!-- verifikasi super admin -->
+                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 'Admin' && certificate.status == 0">Verifikasi (Petugas)</v-btn>
+                    <v-btn class="success" @click="changeStatus(2)" v-if="role == 'Admin' && certificate.status == 1">Verifikasi (Kasi)</v-btn>
+
                     <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk">Buat Laporan</v-btn>
                   </template>
                 </v-layout>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap v-if="!certificate.uri_report">
+            <v-layout row wrap>
               <!-- upload file lampiran -->
               <v-flex xs12>
                 <v-layout class="mb-0 pa-2" row wrap>
@@ -79,14 +84,14 @@
               </v-flex>
             </v-layout>
 
-            <v-layout v-else>
-              <!-- <v-layout align-center> -->
-                <!-- File Laporan:  -->
+            <!-- <v-layout>
+              <div>
+                <span class="b">File Laporan :</span> <br>
                 <v-btn class="primary" :href="certificate.uri_report" target="_blank">
                   <v-icon color="white" left>attachment</v-icon> Lihat File Laporan
                 </v-btn>
-              <!-- </v-layout> -->
-            </v-layout>
+              </div>
+            </v-layout> -->
           </v-card-text>
         </v-card>
 
@@ -332,7 +337,7 @@ export default {
     isLoading: true,
 
     verification_dialog: false,
-    verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi'],
+    verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi', 'Selesai'],
 
     lampiran_file: {
       name: ''

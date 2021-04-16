@@ -295,6 +295,7 @@ export default {
           published_date: '',
           director_name: '',
           director_nip: '',
+          id_sipeja: this.no_order
         })
 
         // console.log('createreport :', req);
@@ -305,7 +306,7 @@ export default {
           }
         }, 300);
         alert('Berhasil membuat laporan')
-        this.$router.push('/lk?id='+id_sampel+'&order_id='+order.no_order)
+        this.$router.push('/lk?id='+id_sampel)
       } catch (error) {
         setTimeout(() => {
           this.sample_loading = {
