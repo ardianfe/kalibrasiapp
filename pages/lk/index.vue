@@ -117,6 +117,7 @@
                       required
                       :rules="[v => !!v || 'Nama Alat harus diisi !']"
                       label="Nama Alat"
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.name"
                     ></v-text-field>
                   </v-flex>
@@ -125,6 +126,7 @@
                       required
                       :rules="[v => !!v || 'Kapasitas harus diisi !']"
                       label="Kapasitas" 
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.capacity"
                     ></v-text-field>
                   </v-flex>
@@ -133,6 +135,7 @@
                       required
                       :rules="[v => !!v || 'Tipe/Model harus diisi !']"
                       label="Tipe/Model"
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.model"
                     ></v-text-field>
                   </v-flex>
@@ -141,6 +144,7 @@
                       required
                       :rules="[v => !!v || 'Nomor Seri harus diisi !']"
                       label="Nomor Seri"
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.serial_number"
                     ></v-text-field>
                   </v-flex>
@@ -149,6 +153,7 @@
                       required
                       :rules="[v => !!v || 'Merk/Buatan harus diisi !']"
                       label="Merk/Buatan"
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.manufacture"
                     ></v-text-field>
                   </v-flex>
@@ -156,6 +161,7 @@
                     <v-text-field
                       label="Pengontrol Suhu"
                       required :rules="[v => !!v || 'Pengontrol Suhu harus diisi !']"
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.temperature"
                     ></v-text-field>
                   </v-flex>
@@ -163,6 +169,7 @@
                     <v-text-field
                       label="Ukuran Dalam"
                       required :rules="[v => !!v || 'Ukuran Dalam harus diisi !']"
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.internal_dimension"
                     ></v-text-field>
                   </v-flex>
@@ -170,6 +177,7 @@
                     <v-text-field
                       label="Lain-lain"
                       required :rules="[v => !!v || 'Lain-lain harus diisi !']"
+                      :readonly="certificate.status == 3"
                       v-model="certificate.equipment.others"
                     ></v-text-field>
                   </v-flex>
@@ -179,10 +187,10 @@
                 <p class="title mb-1">Pemilik</p>
                 <v-layout class="mb-2" row wrap>
                   <v-flex xs8 class="">
-                    <v-text-field required label="Nama" v-model="certificate.owner.name"></v-text-field>
+                    <v-text-field readonly required label="Nama" v-model="certificate.owner.name"></v-text-field>
                   </v-flex>
                   <v-flex xs8 class="">
-                    <v-text-field required label="Alamat" v-model="certificate.owner.address"></v-text-field>
+                    <v-text-field readonly required label="Alamat" v-model="certificate.owner.address"></v-text-field>
                   </v-flex>
                 </v-layout>
 
@@ -190,7 +198,7 @@
                 <v-layout class="mb-2" row wrap>
                   <v-flex xs8 class="">
                     <v-text-field 
-                      required 
+                      required :readonly="certificate.status == 3"
                       label="Nama"
                       :rules="[v => !!v || 'Nama Standar harus diisi !']"
                       v-model="certificate.standard.name">
@@ -198,7 +206,7 @@
                   </v-flex>
                   <v-flex xs8 class="">
                     <v-text-field 
-                      required 
+                      required :readonly="certificate.status == 3"
                       label="Ketelusuran" 
                       :rules="[v => !!v || 'Ketelusuran harus diisi !']"
                       v-model="certificate.standard.traceability">
@@ -211,7 +219,7 @@
                   <v-flex xs8 class="">
                     <v-text-field 
                       :rules="[v => !!v || 'Suhu Ruang harus diisi !']"
-                      required label="Suhu Ruang" 
+                      required label="Suhu Ruang" :readonly="certificate.status == 3"
                       suffix="°C"
                       v-model="certificate.env_cond.room_temp"
                     ></v-text-field>
@@ -221,6 +229,7 @@
                       :rules="[v => !!v || 'Kelembaban harus diisi !']"
                       required label="Kelembaban" 
                       v-model="certificate.env_cond.humidity"
+                      :readonly="certificate.status == 3"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -241,14 +250,14 @@
                 <p class="title mb-1">Lokasi Kalibrasi</p>
                 <v-layout class="mb-2" row wrap>
                   <v-flex xs8 class="">
-                    <v-text-field required label="Lokasi" v-model="certificate.calibration_loc"></v-text-field>
+                    <v-text-field :readonly="certificate.status == 3" required label="Lokasi" v-model="certificate.calibration_loc"></v-text-field>
                   </v-flex>
                 </v-layout>
                 
                 <p class="title mb-1">Metoda Kalibrasi</p>
                 <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.calibration_method" :key="index">
                   <v-flex xs8 class="">
-                    <v-text-field :rules="[v => !!v || 'Metoda Kalibrasi harus diisi !']" required label="Metoda" v-model="certificate.calibration_method[index]"></v-text-field>
+                    <v-text-field :readonly="certificate.status == 3" :rules="[v => !!v || 'Metoda Kalibrasi harus diisi !']" required label="Metoda" v-model="certificate.calibration_method[index]"></v-text-field>
                   </v-flex>
                   <v-flex xs2>
                     <v-btn small icon class="success" @click="certificate.calibration_method.push('')">
@@ -259,11 +268,11 @@
                     </v-btn>
                   </v-flex>
                 </v-layout>
-                
+                 
                 <p class="title mb-1">Acuan</p>
                 <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.reference" :key="index">
                   <v-flex xs8 class="">
-                    <v-text-field required label="Standar Acuan" v-model="certificate.reference[index]"></v-text-field>
+                    <v-text-field :rules="[v => !!v || 'Acuan harus diisi !']" :readonly="certificate.status == 3" required label="Standar Acuan" v-model="certificate.reference[index]"></v-text-field>
                   </v-flex>
                   <v-flex xs2>
                     <v-btn small icon class="success" @click="certificate.reference.push('')">

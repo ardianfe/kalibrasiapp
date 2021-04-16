@@ -636,6 +636,7 @@ export default {
     },
 
     async printWrapper() {
+      document.documentElement.scrollTop = 0
       this.print_loading.state = true
       this.print_loading.message = 'Menyiapkan Laporan...'
 
@@ -662,7 +663,7 @@ export default {
             // print_canvas.appendChild(canvas);
             //addImage(imageData, format, x, y, width(mm), height(mm), alias, compression, rotation)
             key > 0 ? doc.addPage() : ''
-            doc.addImage(canvas, 'JPEG', 8, 8, 210, 300, key, 'NONE', 0)
+            doc.addImage(canvas, 'JPEG', 8, 0, 210, 300, key, 'NONE', 0)
           });   
         }
       }
@@ -671,8 +672,8 @@ export default {
       
       this.cert_file = certificate_file
 
-      var fileURL = URL.createObjectURL(this.cert_file);
-      window.open(fileURL);
+      // var fileURL = URL.createObjectURL(this.cert_file);
+      // window.open(fileURL);
 
       if (this.certificate.uri_report) {
         alert('sudah ada laporan')
