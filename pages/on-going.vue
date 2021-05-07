@@ -66,8 +66,8 @@
               </td>
               <td>{{item.equipment.name}}</td>
               <td>{{item.owner.name}}</td>
-              <td>{{item.calibration_date}}</td>
-              <td>{{item.acceptance_date}}</td>
+              <td>{{convertDate(item.calibration_date)}}</td>
+              <td>{{convertDate(item.acceptance_date)}}</td>
               <td>{{verifications[item.status]}}</td>
             </tr>
           </template>
@@ -286,6 +286,12 @@ export default {
         alert('gagal mengambil nomor laporan')
         console.log(error);
       }
+    },
+
+    convertDate(date_string) {
+      // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date_string).toLocaleDateString('id-ID', options)
     },
 
     async createReport(id_sampel, nama_sample, no_laporan, order) {

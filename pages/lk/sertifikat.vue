@@ -32,7 +32,7 @@
       <v-layout justify-center>
         <v-card width="210mm" class="mt-3 v-main-card elevation-8">        
           <v-card-text style="height: 300mm" class="pt-0">
-            <div id="printable" class="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm;">
+            <div id="printable" class="printable" style="margin: auto; margin-top: 0px; min-width: 190mm; max-width: 190mm; height: 280mm; max-height: 280mm">
               <no-ssr>
                 <v-card-title style="z-index: 2; height: 75px; padding: 10mm 0 0 0">
                   <img contain src="/kemenperin.png" height="auto" width="133px" style="object-fit: contain; margin: 3mm 0 0 3mm">
@@ -40,13 +40,13 @@
                   <img v-if="kan" contain src="/kan.png" height="auto" width="95" style="object-fit: contain; margin: 3mm 5mm 0 0">
                 </v-card-title>
                 <div id="header" style="margin-top: -75px; padding-top: 10mm">
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 9pt; margin-top: 3mm">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</p>
-                  <p class="helve c b" style="margin-bottom: 1px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
-                  <p class="helve c" style="margin-bottom: 1px; font-size: 6.5pt">E-mail : b4t@b4t.go.id  Website : http://www.b4t.go.id</p>
+                  <p class="helve c" style="margin-bottom: -5px; font-size: 9pt; margin-top: 3mm">BADAN STANDARDISASI DAN KEBIJAKAN JASA INDUSTRI</p>
+                  <p class="helve c b" style="margin-bottom: 0px; font-size: 10pt;">BALAI BESAR BAHAN DAN BARANG TEKNIK</p>
+                  <p class="helve c" style="margin-bottom: 0px; font-size: 6.5pt">Jl. Sangkuriang No. 14 Bandung 40135 JAWA BARAT - INDONESIA</p>
+                  <p class="helve c" style="margin-bottom: 0px; font-size: 6.5pt">Telp. 022 - 2504088, 2510682, 2504828, 2507626 Fax. 022 - 2502027</p>
+                  <p class="helve c" style="margin-bottom: 0px; font-size: 6.5pt">E-mail : <a target="blank" href="mailto:b4t@b4t.go.id">b4t@b4t.go.id</a>  Website : <a href="http://www.b4t.go.id" target="blank">http://www.b4t.go.id</a></p>
                 </div>
-                <div id="body-content" style="border: 1px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm">
+                <div id="body-content" style="border: 2px solid black; background: white; margin-top: 2mm; padding: 2.7mm 4mm">
                   <p class="helve b c u" style="margin: 0; height: 4.2mm; font-size: 11pt;">SERTIFIKAT KALIBRASI</p>
                   <p class="helve i c" style="margin-bottom: 2mm; font-size: 10pt;">CALIBRATION CERTIFICATE</p>
                   <div style="margin: auto; width: 40mm;">
@@ -72,6 +72,12 @@
                           <p class="helve u b" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
                           <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
                         </div>
+                        <!-- <p class="helve" style="font-size: 9pt; margin: 7px 0;">: &nbsp;</p>
+                        <v-layout style="min-height: 9mm" align-center>
+                          <p class="roman" align-center style="font-size: 9pt; margin: 0;">
+                            {{certificate.standard.name}}
+                          </p>
+                        </v-layout> -->
                         <p class="roman" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: {{ certificate.equipment.name }}</p>
                       </v-layout>
 
@@ -172,17 +178,18 @@
                   <!-- Standard -->
                   <p class="helve u" style="margin: 2.5mm 0 0 0; height: 4.2mm; font-size: 9pt;">S T A N D A R</p>
                   <p class="helve i" style="margin-bottom: 1mm; font-size: 7.5pt;">Standard</p>
-                  <v-layout row>
+                  <v-layout row align-start>
                     <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">1.</p>
                     <div style="width: 32mm">
                       <p class="helve b u" style="font-size: 9pt; margin: 0; height: 4.2mm;">Nama</p>
                       <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
                     </div>
-                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
-                    <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 300px;">{{certificate.standard.name}}</p>
-                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">2. Thermocouple Wire Tipe K, S/N : K2</p> -->
-                    </div>
+                    <p class="helve" style="font-size: 9pt; margin: 7px 0;">: &nbsp;</p>
+                    <v-layout style="min-height: 9mm" align-center>
+                      <p class="roman" align-center style="font-size: 9pt; margin: 0;">
+                        {{certificate.standard.name}}
+                      </p>
+                    </v-layout>
                   </v-layout>
                   <v-layout>
                     <p class="helve" style="width: 5mm; font-size: 9pt; margin: 7px 0; height: 4.2mm;">2.</p>
@@ -191,10 +198,11 @@
                       <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Traceability</p>
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
-                    <div>
-                      <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm; width: 380px;">{{certificate.standard.traceability}}</p>
-                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">LK-032-IDN dan LK-172-IDN</p> -->
-                    </div>
+                    <v-layout style="min-height: 9mm" align-center>
+                      <p class="roman" align-center style="font-size: 9pt; margin: 0;">
+                        {{certificate.standard.traceability}}
+                      </p>
+                    </v-layout>
                   </v-layout>
 
                   <!-- Tanggal -->
@@ -233,7 +241,9 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Suhu Ruang</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_cond.room_temp}}</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">
+                          : <span contenteditable="true">{{certificate.env_cond.room_temp}} &plusmn; {{certificate.env_cond.corrected_room_temp ? certificate.env_cond.corrected_room_temp : '0'}} &deg;C</span>
+                        </p>
                       </v-layout>
                     </v-flex>
                     <v-flex xs6>
@@ -242,7 +252,7 @@
                         <div style="width: 32mm">
                           <p class="helve" style="font-size: 9pt; margin: 0; height: 4.2mm;">Kelembaban</p>
                         </div>
-                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_cond.humidity}}</span></p>
+                        <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">: <span contenteditable="true">{{certificate.env_cond.humidity}} &plusmn; {{certificate.env_cond.corrected_humidity ? certificate.env_cond.corrected_humidity : '0'}} %</span></p>
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -280,15 +290,20 @@
                       <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">ACUAN</p>
                       <p class="helve i" style="margin-bottom: 0; font-size: 7.5pt;">reference</p>
                     </div>
-                    <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
+                    <p class="helve" style="font-size: 9pt; margin: 7px 0;">: &nbsp;</p>
+                    <v-layout style="min-height: 8mm" align-center>
+                      <p class="roman" align-center style="font-size: 9pt; margin: 0;">
+                        {{certificate.reference[0]}}
+                      </p>
+                    </v-layout>
+                    <!-- <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <div>
                       <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">
                         <span v-for="(item, index) in certificate.reference" :key="index">
                           {{item}}<span v-if="index != certificate.reference.length -1">,</span>
                         </span>
                       </p>
-                      <!-- <p class="roman" style="font-size: 9pt; margin: 0; height: 4.2mm;">Enclosured Temperature Controlled Performance Testing and Grading</p> -->
-                    </div>
+                    </div> -->
                   </v-layout>
                   
                   <!-- Hasil -->
@@ -383,7 +398,7 @@
                 </div>
 
                 <!-- Keterangan -->
-                <div style="border-style: solid; border-width: 0 1px 1px 1px; background: white; margin-top: 0; padding: 1mm 4mm">
+                <div style="border-style: solid; border-width: 0 2px 2px 2px; background: white; margin-top: 0; padding: 1mm 4mm">
                   <v-layout row>
                     <v-flex style="width: 37px">
                       <p class="helve" style="font-size: 8pt;">Keterangan :</p>

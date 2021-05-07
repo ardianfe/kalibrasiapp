@@ -29,15 +29,15 @@ export default {
         _scheme: 'local',
         endpoints: {
           login: {
-            url: process.env.base + '/login/',
+            url: process.env.loginbase + '/token',
             method: 'post',
-            propertyName: 'token'
+            propertyName: 'access_token'
           },
           logout: false,
           user: {
-            url: process.env.base + '/protected/',
+            url: process.env.loginbase + '/users/me',
             method: 'get',
-            propertyName: 'logged_in_as'
+            propertyName: ''
           }
         },
         tokenRequired: true,

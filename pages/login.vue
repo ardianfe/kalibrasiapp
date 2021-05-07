@@ -53,12 +53,15 @@
               </v-btn>
             </v-card-actions>
             <v-card-actions>
-              <p class="text-xs-center grey--text ma-3" style="cursor: pointer" @click="reset_dialog = true">
-                By clicking here, you agree to our <a>Customer Agreement</a>
+              <p class="text-xs-center grey--text ma-3" style="cursor: pointer">
+                Belum memiliki akun? <a href="/register">daftar disini</a>
               </p>
+              <!-- <p class="text-xs-center grey--text ma-3" style="cursor: pointer" @click="reset_dialog = true">
+                By clicking here, you agree to our <a>Customer Agreement</a>
+              </p> -->
             </v-card-actions>
           </v-card>
-          <p class="text-xs-center primary--text ma-3" style="cursor: pointer" @click="reset_dialog = true">
+          <p class="text-xs-center primary--text ma-3" style="cursor: pointer">
             Forgot your password?
           </p>
         </v-flex>
@@ -97,11 +100,12 @@
       async login() {
         this.loading = true
         try {
+          const form = new FormData()
+
+          form.append("username", this.username)
+          form.append("password", this.password)
           const request = await this.$auth.loginWith('local1', {
-            data: {
-              email: this.username,
-              password: this.password
-            },
+            data: form,
           });
 
           console.log(request);

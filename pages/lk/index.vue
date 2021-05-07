@@ -13,6 +13,11 @@
                 <p class="b">No. Laporan : {{no_cert ? no_cert : 'Belum upload'}}</p>
                 <p><span class="b">Status Verifikasi :</span> {{verifications[certificate.status]}}</p>
               </v-flex>
+              <v-flex xs12 sm6 v-if="certificate.status == 3">
+                <v-layout align-right justify-end>
+                  <v-btn readonly large class="elevation-0 green white--text">Selesai</v-btn>
+                </v-layout>
+              </v-flex>
               <v-flex xs12 sm6 v-if="certificate.uri_attach && certificate.uri_lk">
                 <v-layout justify-end align-right>
                   <!-- {{$auth.$state}} -->
@@ -33,21 +38,34 @@
 
             <v-layout row wrap>
               <!-- upload file lampiran -->
-              <v-flex xs12>
-                <v-layout class="mb-0 pa-2" row wrap>
+              <v-flex xs12 v-if="certificate.status <= 2">
+                <v-layout class="mb-0 py-2" row wrap>
                   <v-flex xs12>
-                    <v-text-field 
-                      v-if="!certificate.uri_attach" 
-                      v-model="lampiran_file.name" 
-                      box readonly clearable 
-                      label="Pilih Berkas Lampiran" 
-                      append-icon="attach_file" 
-                      @click:append=" chooseLampiran"
-                      @click:clear="resetLampiran"
-                    ></v-text-field> <!-- only recieve .pdf file -->
+                    <v-layout row wrap v-if="!certificate.uri_attach">
+                      <v-flex xs12 sm10>
+                        <v-text-field 
+                          v-model="lampiran_file.name" 
+                          box readonly clearable 
+                          label="Pilih Berkas Lampiran" 
+                          append-icon="attach_file" 
+                          @click:append=" chooseLampiran"
+                          @click:clear="resetLampiran"
+                        ></v-text-field> <!-- only recieve .pdf file -->
+                      </v-flex>
+                      <v-flex xs12 sm2 class="px-2">
+                        <v-text-field 
+                          required
+                          :rules="[v => !!v || 'Jumlah Halaman Lampiran !']"
+                          label="Jumlah Halaman"
+                          value="0"
+                        ></v-text-field>
+                      </v-flex>
+                    </v-layout>
                     <div v-else>
                       <span class="b">File Lampiran :</span> <br>
-                      <v-btn class="primary" :href="certificate.uri_attach" target="_blank">Lihat File</v-btn>
+                      <v-btn class="primary" :href="certificate.uri_attach" target="_blank">
+                        <v-icon color="white" left>attachment</v-icon>Lihat File Lampiran
+                      </v-btn>
                       <v-btn class="success" v-if="certificate.status < 2" @click=" chooseLampiran">Edit</v-btn>
                     </div>
                   </v-flex>
@@ -57,7 +75,7 @@
 
               <!-- upload file lk -->
               <v-flex xs12>
-                <v-layout class="mb-0 pa-2" row wrap>
+                <v-layout class="mb-0 py-2" row wrap>
                   <v-flex xs12>
                     <v-text-field 
                       v-if="!certificate.uri_lk" 
@@ -70,7 +88,10 @@
                     ></v-text-field>
                     <div v-else>
                       <span class="b">File Lembar Kerja :</span> <br>
-                      <v-btn class="primary" :href="certificate.uri_lk" target="_blank">Lihat File</v-btn>
+                      
+                      <v-btn class="primary" :href="certificate.uri_lk" target="_blank">
+                        <v-img width="24px" height="24px" style="margin-right: 16px" src="/xlsx.png"></v-img> Lihat File Lembar Kerja
+                      </v-btn>
                       <v-btn class="success" v-if="certificate.status < 2">Edit</v-btn>
                     </div>
                   </v-flex>
@@ -79,19 +100,24 @@
                       <v-btn @click="upload('lembarkerja')" class="success" :loading="loading.lk">Upload {{filecount}}</v-btn>
                     </v-layout>
                   </v-flex>
-                  <input type="file" name="lk_file" id="lk_file" hidden @change="processLK">
+                  <input type="file" name="lk_file" id="lk_file" hidden @change="processLK" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                 </v-layout>
               </v-flex>
             </v-layout>
 
-            <!-- <v-layout>
+            <v-layout v-if="certificate.uri_report">
               <div>
                 <span class="b">File Laporan :</span> <br>
                 <v-btn class="primary" :href="certificate.uri_report" target="_blank">
-                  <v-icon color="white" left>attachment</v-icon> Lihat File Laporan
+                  <v-icon color="white" left>picture_as_pdf</v-icon> Lihat File Laporan
                 </v-btn>
               </div>
-            </v-layout> -->
+              <!-- <div>
+                <span class="b">File Lembar Kerja :</span> <br>
+                <v-btn class="primary" :href="certificate.uri_lk" target="_blank">Lihat File</v-btn>
+                <v-btn class="success" v-if="certificate.status < 2">Edit</v-btn>
+              </div> -->
+            </v-layout>
           </v-card-text>
         </v-card>
 
@@ -100,7 +126,7 @@
           <v-card-title class="pb-0">
             <p class="title mb-0">Data Alat</p>
             <v-spacer/>
-            <v-btn class="primary" small @click="validate">
+            <v-btn class="primary" small @click="validate" v-if="certificate.status <= 2">
               <v-icon small>save</v-icon> &nbsp; Simpan
             </v-btn>
           </v-card-title>
@@ -125,7 +151,7 @@
                     <v-text-field 
                       required
                       :rules="[v => !!v || 'Kapasitas harus diisi !']"
-                      label="Kapasitas" 
+                      label="Kapasitas"
                       :readonly="certificate.status == 3"
                       v-model="certificate.equipment.capacity"
                     ></v-text-field>
@@ -216,28 +242,72 @@
 
                 <p class="title mb-1">Kondisi Lingkungan</p>
                 <v-layout class="mb-2" row wrap>
-                  <v-flex xs8 class="">
+                  <v-flex xs4 class="pr-2">
                     <v-text-field 
                       :rules="[v => !!v || 'Suhu Ruang harus diisi !']"
                       required label="Suhu Ruang" :readonly="certificate.status == 3"
-                      suffix="°C"
                       v-model="certificate.env_cond.room_temp"
-                    ></v-text-field>
+                    >
+                      <template slot="append">&plusmn;</template>
+                    </v-text-field>
                   </v-flex>
-                  <v-flex xs8 class="">
+                  <v-flex xs4 class="">
+                    <v-text-field 
+                      :rules="[v => !!v || 'Suhu Ruang harus diisi !']"
+                      required label="Suhu Ruang" :readonly="certificate.status == 3"
+                      v-model="certificate.env_cond.corrected_room_temp"
+                    >
+                      <template slot="append">&deg;C</template>
+                    </v-text-field>
+                  </v-flex>
+                </v-layout>
+                <v-layout class="mb-2" row wrap>
+                  <v-flex xs4 class="pr-2">
                     <v-text-field 
                       :rules="[v => !!v || 'Kelembaban harus diisi !']"
                       required label="Kelembaban" 
                       v-model="certificate.env_cond.humidity"
                       :readonly="certificate.status == 3"
-                    ></v-text-field>
+                    >
+                      <template slot="append">&plusmn;</template>
+                    </v-text-field>
+                  </v-flex>
+                  <v-flex xs4>
+                    <v-text-field 
+                      :rules="[v => !!v || 'Kelembaban harus diisi !']"
+                      required label="Kelembaban" 
+                      v-model="certificate.env_cond.corrected_humidity"
+                      :readonly="certificate.status == 3"
+                    >
+                      <template slot="append">%</template>
+                    </v-text-field>
                   </v-flex>
                 </v-layout>
                 
                 <p class="title mb-1">Tanggal Kalibrasi</p>
                 <v-layout class="mb-2" row wrap>
                   <v-flex xs8 class="">
-                    <v-text-field required :value="convertDate(certificate.calibration_date)" readonly></v-text-field>
+                    <v-menu
+                      v-model="cal_date_picker"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      lazy
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="certificate.calibration_date"
+                          label="Tanggal Kalibrasi"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="certificate.calibration_date" @input="cal_date_picker = false"></v-date-picker>
+                    </v-menu>
+                    <!-- <v-text-field required :value="convertDate(certificate.calibration_date)" v-model="certificate.calibration_date"></v-text-field> -->
                   </v-flex>
                 </v-layout>
                 <p class="title mb-1">Tanggal Terima</p>
@@ -259,7 +329,7 @@
                   <v-flex xs8 class="">
                     <v-text-field :readonly="certificate.status == 3" :rules="[v => !!v || 'Metoda Kalibrasi harus diisi !']" required label="Metoda" v-model="certificate.calibration_method[index]"></v-text-field>
                   </v-flex>
-                  <v-flex xs2>
+                  <v-flex xs2 v-if="certificate.status <= 2">
                     <v-btn small icon class="success" @click="certificate.calibration_method.push('')">
                       <v-icon small>add</v-icon>
                     </v-btn>
@@ -274,17 +344,17 @@
                   <v-flex xs8 class="">
                     <v-text-field :rules="[v => !!v || 'Acuan harus diisi !']" :readonly="certificate.status == 3" required label="Standar Acuan" v-model="certificate.reference[index]"></v-text-field>
                   </v-flex>
-                  <v-flex xs2>
+                  <!-- <v-flex xs2 v-if="certificate.status <= 2">
                     <v-btn small icon class="success" @click="certificate.reference.push('')">
                       <v-icon small>add</v-icon>
                     </v-btn>
                     <v-btn v-if="index > 0" small icon class="warning" @click="certificate.reference.splice(index, 1)">
                       <v-icon small>delete</v-icon>
                     </v-btn>
-                  </v-flex>
+                  </v-flex> -->
                 </v-layout>
               </template>
-              <v-scroll-y-transition>
+              <v-scroll-y-transition v-if="certificate.status <= 2">
                 <v-btn
                   v-if="savebutton"
                   color="primary"
@@ -403,7 +473,8 @@ export default {
     },
 
     savebutton: false,
-    role: ''
+    role: '',
+    cal_date_picker: false
   }),
 
   computed: {
@@ -467,6 +538,7 @@ export default {
         console.log('cert : ', this.certificate);
         // console.log(this.certificate.calibration_method[0]);
         // console.log(this.certificate.reference[0]);
+        // this.certificate.calibration_date = convertDate(certificate.calibration_date) 
 
         if (!this.certificate.calibration_method[0]) {
           this.certificate.calibration_method.push('')  
@@ -609,9 +681,5 @@ export default {
     }
   },
 
-}
-
-function hideElement(id) {
-  document.getElementById(id).innerHTML = "Hello World";
 }
 </script>

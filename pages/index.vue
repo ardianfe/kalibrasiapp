@@ -5,7 +5,7 @@
         <v-list class="primary">
           <v-list-tile>
             <v-list-tile-title class="white--text title lato font-weight-bold">
-              Dashboard Admin
+              Dashboard {{roles[$auth.$state.user.role]}}
             </v-list-tile-title>
             <v-icon large class="white--text pointer">menu_open</v-icon>
           </v-list-tile>
@@ -42,6 +42,16 @@
             <v-list-tile-title>List Sertifikat</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        
+        <v-list-tile to="/users" v-if="this.$auth.$state.user.role == 0 ">
+          <v-list-tile-action>
+            <v-icon>person</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Users</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
         <!-- <v-list-group
           prepend-icon="folder"
@@ -75,7 +85,7 @@
             <v-card class="v-main-card elevation-9 primary">
               <v-card-text style="font-size: 26px; height: 80px;" class="px-5 text-xs-center white--text pt-sans">
                 <span>
-                  JUMLAH ORDER
+                  JUMLAH SAMPEL DIPROSES
                 </span>
               </v-card-text>
 
@@ -157,7 +167,7 @@
               <tr class="tr-head white--text pt-sans font-weight-bold">
                 <!-- <td class="primary td-header">No Sampel</td> -->
                 <td class="primary td-header">Nama <br> Sampel</td>
-                <td class="primary td-header">Tanggal Terbit</td>
+                <td class="primary td-header" width="30%">Tanggal Terbit</td>
                 <td class="primary td-header">Status</td>
               </tr>
 
@@ -223,6 +233,8 @@ export default {
   data: () => ({
     fields: [],
 
+    roles: ['Admin', 'Petugas', 'Kasi', 'Verifikasi 2'],
+
     companies: [],
 
     loading: {
@@ -248,6 +260,8 @@ export default {
     // this.companies = this.$slots
     this.getOnGoings()
     this.getLO()
+
+    console.log('storage?', this.$auth.$state.user);
   },
 
   methods: {

@@ -234,7 +234,7 @@ export default {
         console.log('open dialog', req);
 
         if (req._id) {
-          this.$router.push('/lk?id='+sample_number+'&order_id='+order.no_order)
+          this.$router.push('/lk?id='+sample_number)
           console.log('sampel sudah dibuat');
         } else {
           console.log('sampel belum dibuat');
