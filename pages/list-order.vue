@@ -38,8 +38,8 @@
           <tr class="tr-head white--text pt-sans font-weight-bold">
             <td class="primary td-header">No Order</td>
             <td class="primary td-header">Nama Pelanggan</td>
-            <td class="primary td-header">Tanggal Order</td>
-            <td class="primary td-header">Tanggal Kalibrasi</td>
+            <td class="primary td-header">Tanggal Diterima</td>
+            <td class="primary td-header">Tanggal Pengujian</td>
             <td class="primary td-header">Daftar Sample</td>
           </tr>
           
@@ -50,19 +50,19 @@
                   <div class="pointer"
                     :style="`${ hover ? 'color: blue' : 'color: black'}`" 
                     slot-scope="{ hover }"
-                    @click="$router.push('/detail_list_orders?id='+item.id)"
+                    @click="$router.push('/detail_list_orders?id='+item.id_sipeja)"
                   >
-                    <span>{{item.id}}</span>
+                    <span>{{item.id_sipeja}}</span>
                   </div>
                 </v-hover>
               </td>
-              <td class="td-body">{{item.nama_perusahaan}}</td>
-              <td class="td-body">{{item.tanggal_terima}}</td>
-              <td class="td-body">{{item.tanggal_kalibrasi}}</td>
+              <td class="td-body">{{item.dibuat_untuk}}</td>
+              <td class="td-body">{{item.diterima_tanggal}}</td>
+              <td class="td-body">{{item.tanggal_pengujian}}</td>
               <td class="td-body">
-                <p v-for="(data, x) in item.daftar_sampel" :key="x">
+                <p v-for="(data, x) in item.transaksi_item" :key="x">
                   <v-hover v-for="(no_sample) in data.no_sample" :key="no_sample">
-                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="getOrderDetails(item.id, data.sampel, no_sample)">{{data.sampel}} ({{no_sample}}) <br></span>
+                    <span slot-scope="{ hover }" :class="`${ hover ? 'primary--text pointer' : 'black--text'}`" @click="getOrderDetails(item.id_sipeja, data.sampel, no_sample)">{{data.sampel}} ({{no_sample}}) <br></span>
                   </v-hover>
                 </p>
               </td>
@@ -195,8 +195,8 @@ export default {
         })
 
         console.log('test cors', req);
-        this.lo = req.result
-        this.showed_item_count = req.result.length
+        this.lo = req
+        this.showed_item_count = req.length
         this.totalItems = req.total_order
 
         this.loading = false

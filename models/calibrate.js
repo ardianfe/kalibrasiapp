@@ -1,10 +1,11 @@
 let url = 'https://kalibarasi-b4t.appspot.com'
 let base_url = process.env.base
 let base_url2 = process.env.base2
+let masterbase = process.env.masterbase
 
 const model = $axios => ({
   getListOrders({perpage, page}) {
-    return $axios.$get(base_url2+'/orders/?per_page='+perpage+'&page='+page)
+    return $axios.$get(masterbase+'/order?n_per_page='+perpage+'&page_number='+page)
   },
 
   testCors() {

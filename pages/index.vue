@@ -138,13 +138,13 @@
                       <div class="pointer"
                         :style="`${ hover ? 'color: blue' : 'color: black'}`" 
                         slot-scope="{ hover }"
-                        @click="$router.push('/detail_list_orders?id='+item.id)"
+                        @click="$router.push('/detail_list_orders?id='+item.id_sipeja)"
                       >
-                        <span>{{item.id}}</span>
+                        <span>{{item.id_sipeja}}</span>
                       </div>
                     </v-hover>
                   </td>
-                  <td class="td-body">{{item.nama_perusahaan}}</td>
+                  <td class="td-body">{{item.dibuat_untuk}}</td>
                   <!-- <td class="td-body">
                     <a @click="$router.push('/detail_list_orders?id='+item.id)">lihat</a>
                   </td> -->
@@ -320,25 +320,7 @@ export default {
         const req = await this.$calibrate.getListOrders({page: 1, perpage: 10})
 
         // console.log('get lo', req.result);
-        this.lo = req.result
-
-        let sampel = []
-
-        for (const key in this.lo) {
-          if (this.lo.hasOwnProperty(key)) {
-            const element = this.lo[key];
-            // console.log('lo element', element);
-            sampel.push({
-              no: element.daftar_sampel[0].no_sample[0],
-              tanggal: element.tanggal_terima,
-              nama: element.daftar_sampel[0].sampel,
-              status: 'on-going',
-              no_order: element.id
-            })
-          }
-        }
-
-        // this.laporan = sampel
+        this.lo = req
 
         setTimeout(() => {
           this.loading.lo = false

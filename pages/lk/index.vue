@@ -23,12 +23,12 @@
                   <!-- {{$auth.$state}} -->
                   <!-- {{isNotEmpty}} -->
                   <template v-if="isNotEmpty">
-                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 'Petugas' && certificate.status == 0">Verifikasi</v-btn>
-                    <v-btn class="success" @click="changeStatus(2)" v-if="role == 'Kasi' && certificate.status == 1">Verifikasi</v-btn>
+                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 1 && certificate.status == 0">Verifikasi</v-btn>
+                    <v-btn class="success" @click="changeStatus(2)" v-if="role == 2 && certificate.status == 1">Verifikasi</v-btn>
 
                     <!-- verifikasi super admin -->
-                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 'Admin' && certificate.status == 0">Verifikasi (Petugas)</v-btn>
-                    <v-btn class="success" @click="changeStatus(2)" v-if="role == 'Admin' && certificate.status == 1">Verifikasi (Kasi)</v-btn>
+                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 0 && certificate.status == 0">Verifikasi (Petugas)</v-btn>
+                    <v-btn class="success" @click="changeStatus(2)" v-if="role == 0 && certificate.status == 1">Verifikasi (Kasi)</v-btn>
 
                     <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk">Buat Laporan</v-btn>
                   </template>
@@ -472,6 +472,8 @@ export default {
       status: 0
     },
 
+    roles: ['Admin', 'Petugas', 'Kasi', 'Verifikasi 2'],
+
     savebutton: false,
     role: '',
     cal_date_picker: false
@@ -510,7 +512,7 @@ export default {
   },
 
   mounted() {
-    this.role = this.$auth.$storage.getUniversal('role')
+    this.role = this.$auth.$state.user.role
     this.getLK()
 
     window.onscroll = () => { 
@@ -663,7 +665,7 @@ export default {
           certificate: this.certificate
         })
 
-        alert('Verifikasi '+this.role+' Berhasil.')
+        alert('Verifikasi '+this.roles[this.role]+' Berhasil.')
 
         console.log('berhasil mengubah status :', req);
 
