@@ -279,8 +279,8 @@ export default {
           acceptance_date: order.diterima_tanggal,
           calibration_date: order.tanggal_pengujian,
           standard: {
-            name: '',
-            traceability: ''
+            name: [''],
+            traceability: ['']
           },
           env_cond: {
             room_temp: '',

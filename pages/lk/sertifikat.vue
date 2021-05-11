@@ -187,7 +187,7 @@
                     <p class="helve" style="font-size: 9pt; margin: 7px 0;">: &nbsp;</p>
                     <v-layout style="min-height: 9mm" align-center>
                       <p class="roman" align-center style="font-size: 9pt; margin: 0;">
-                        {{certificate.standard.name}}
+                        {{certificate.standard.name[0]}}
                       </p>
                     </v-layout>
                   </v-layout>
@@ -200,7 +200,7 @@
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <v-layout style="min-height: 9mm" align-center>
                       <p class="roman" align-center style="font-size: 9pt; margin: 0;">
-                        {{certificate.standard.traceability}}
+                        <span v-for="(item, index) in certificate.standard.traceability" :key="index">{{item}} <br></span>
                       </p>
                     </v-layout>
                   </v-layout>

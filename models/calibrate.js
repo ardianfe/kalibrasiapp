@@ -225,6 +225,22 @@ const model = $axios => ({
     console.log(formData);
     return $axios.$post(process.env.basepdf + '/uploadpdf/' + id, formData)
   },
+
+  getStandard({nama_sample}) {
+    return $axios.$get(masterbase + '/standard', {
+      params: {
+        nama_sample
+      }
+    })
+  },
+
+  createStandard({name, tools, traceability}) {
+    return $axios.$post(masterbase + '/standard', {
+      standard_name: name,
+      alat_standard: tools,
+      ketertelusuran: traceability
+    })
+  }
 });
 
 export default ({

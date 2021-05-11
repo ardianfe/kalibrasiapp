@@ -2,6 +2,50 @@
   <v-layout column>
     <v-flex xs12 sm8 md6>
       <mainHeader></mainHeader>
+
+      <v-dialog v-model="standard_dialog" max-width="500px" width="100%" persistent>
+        <v-card>
+          <v-card-title class="pb-0">
+            <span class="title">Tambah Standard</span>
+            <v-spacer />
+            <v-btn icon small class="transparent" @click="standard_dialog = false">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-card-title>
+          <v-card-text class="pb-0">
+            <label for="standard_name">Nama Standard</label>
+            <v-text-field 
+              id="standard_name" solo autofocus
+              background-color="lighten-3 grey"
+              placeholder="Nama Standard" flat
+              v-model="standard.standard_name"
+            ></v-text-field>
+
+            <template>
+              <label>Ketelusuran</label>
+              <v-layout align-top justify-space-between fill-height v-for="(item, index) in standard.ketelusuran" :key="index">
+                <v-text-field 
+                  :id="`ketelusuran${index}`" solo autofocus
+                  background-color="lighten-3 grey"
+                  :placeholder="`Ketelusuran ${index + 1}`" flat
+                  v-model="standard.ketelusuran[index]"
+                ></v-text-field>
+                <v-btn icon small class="success" v-if="index < 9" @click="standard.ketelusuran.push('')">
+                  <v-icon small>add</v-icon>
+                </v-btn>
+                <v-btn icon small class="error" v-if="index >= 1" @click="standard.ketelusuran.splice(index, 1)">
+                  <v-icon small>delete</v-icon>
+                </v-btn>
+              </v-layout>
+            </template>
+          </v-card-text>
+          <v-card-actions class="px-4 pb-4 pt-0">
+            <v-spacer/>
+            <v-btn class="success" @click="createStandard">Simpan</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-layout justify-center column>
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-progress-linear class="ma-0" indeterminate v-if="isLoading"></v-progress-linear>
@@ -220,23 +264,41 @@
                   </v-flex>
                 </v-layout>
 
-                <p class="title mb-1">Standar</p>
                 <v-layout class="mb-2" row wrap>
-                  <v-flex xs8 class="">
-                    <v-text-field 
-                      required :readonly="certificate.status == 3"
-                      label="Nama"
-                      :rules="[v => !!v || 'Nama Standar harus diisi !']"
-                      v-model="certificate.standard.name">
-                    </v-text-field>
+                  <v-flex xs8>
+                    <v-layout align-center justify-space-between fill-height>
+                      <p class="title mb-0">
+                        Standar
+                      </p>
+                      <v-btn small class="success" @click="standard_dialog = true">
+                        <v-icon small>add</v-icon>&nbsp;standard baru
+                      </v-btn>
+                    </v-layout>
                   </v-flex>
-                  <v-flex xs8 class="">
-                    <v-text-field 
-                      required :readonly="certificate.status == 3"
-                      label="Ketelusuran" 
-                      :rules="[v => !!v || 'Ketelusuran harus diisi !']"
-                      v-model="certificate.standard.traceability">
-                    </v-text-field>
+                  <v-flex xs8>
+                    <v-layout row wrap>
+                      <v-flex xs12>
+                        <v-select
+                          :items="list_standard"
+                          required :readonly="certificate.status == 3"
+                          label="Nama"
+                          item-text="standard_name"
+                          return-object
+                          :rules="[v => !!v || 'Pilih Standard !']"
+                          v-model="selected_standard">
+                        </v-select>
+                      </v-flex>
+                      <v-flex xs12>
+                        <template v-for="(item, index) in selected_standard.ketertelusuran">
+                          <v-text-field
+                            :key="index" dense
+                            :id="`selketelusuran${index}`"
+                            :label="`Ketelusuran ${index + 1}`" flat
+                            v-model="selected_standard.ketertelusuran[index]"
+                          ></v-text-field>
+                        </template>
+                      </v-flex>
+                    </v-layout>
                   </v-flex>
                 </v-layout>
 
@@ -414,6 +476,7 @@ export default {
     title: '',
     no_cert: '',
     isLoading: true,
+    standard_dialog: false,
 
     verification_dialog: false,
     verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi', 'Selesai'],
@@ -452,7 +515,7 @@ export default {
       },
       standard: {
         name: '',
-        traceability: ''
+        traceability: []
       },
       acceptance_date: '',
       calibration_date: '',
@@ -470,6 +533,18 @@ export default {
       director_name: '',
       director_nip: '',
       status: 0
+    },
+
+    list_standard: [],
+    selected_standard: {
+      _id: '',
+      standard_name: '',
+      alat_standard: [''],
+      ketertelusuran: ['']
+    },
+    standard: {
+      standard_name: '',
+      ketelusuran: ['']
     },
 
     roles: ['Admin', 'Petugas', 'Kasi', 'Verifikasi 2'],
@@ -538,6 +613,7 @@ export default {
         this.title = req.equipment.name + ' - ' + 'Form Lembar Kerja '
 
         console.log('cert : ', this.certificate);
+        this.getStandard(req.equipment.name)
         // console.log(this.certificate.calibration_method[0]);
         // console.log(this.certificate.reference[0]);
         // this.certificate.calibration_date = convertDate(certificate.calibration_date) 
@@ -550,10 +626,48 @@ export default {
           this.certificate.reference.push('')  
         }
 
+        if (this.certificate.standard.name[0] != '') {
+          this.selected_standard = {
+            _id: '',
+            standard_name: this.certificate.standard.name[0],
+            alat_standard: [''],
+            ketertelusuran: this.certificate.standard.traceability
+          }
+        }
+
         this.isLoading = false
       } catch (error) {
         console.log('get LK err: ', error.response);
         this.isLoading = false
+      }
+    },
+
+    async getStandard(name) {
+      try {
+        const req = await this.$calibrate.getStandard({
+          nama_sample: name.toLowerCase()
+        })
+
+        this.list_standard = req
+      } catch (error) {
+        alert('')
+        console.log('error when getting standard', error.response);
+      }
+    },
+
+    async createStandard() {
+      try {
+        const req = await this.$calibrate.createStandard({
+          name: this.standard.standard_name, 
+          tools: [this.certificate.equipment.name.toLowerCase()], 
+          traceability: this.standard.ketelusuran
+        })
+
+        this.standard_dialog = false
+        this.getLK()
+      } catch (error) {
+        alert('gagal membuat standard')
+        console.log(error.response);
       }
     },
 
@@ -641,7 +755,8 @@ export default {
 
     async submitForm() {
       // this.certificate.calibration_method = [this.certificate.calibration_method]
-      
+      this.certificate.standard.name = [this.selected_standard.standard_name]
+      this.certificate.standard.traceability = this.selected_standard.ketertelusuran
       try {
         const req = await this.$calibrate.saveForm({
           sample_id: this.$route.query.id,
