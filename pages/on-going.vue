@@ -9,6 +9,33 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog v-model="dialog_edit" max-width="500px" width="100%" persistent>
+        <v-card>
+          <v-card-title class="pb-0">
+            <span class="title">Edit Status Laporan</span>
+            <v-spacer />
+            <v-btn icon small class="transparent" @click="dialog_edit = false">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-card-title>
+          <v-card-text class="pb-0">
+            <p>No Laporan : {{edit_data.no_laporan}}</p>
+
+            <v-select  
+              background-color="white" 
+              :items="statuses2" 
+              v-model="edit_data.status"
+              label="Ubah Status Verifikasi"
+            ></v-select>
+          </v-card-text>
+          <v-card-actions class="px-4 pb-4 pt-0">
+            <v-spacer/>
+            <v-btn class="success elevation-0" @click="submit">Simpan</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-card-title>
         <!-- <v-hover>
           <v-icon
@@ -49,6 +76,7 @@
             <td class="primary td-header">Tanggal Kalibrasi</td>
             <td class="primary td-header">Tanggal Cetak</td>
             <td class="primary td-header">Status</td>
+            <td class="primary td-header">Action</td>
           </tr>
           
           <template v-if="!loading">
@@ -69,11 +97,14 @@
               <td>{{convertDate(item.calibration_date)}}</td>
               <td>{{convertDate(item.acceptance_date)}}</td>
               <td>{{verifications[item.status]}}</td>
+              <td>
+                <v-btn :disabled="item.status == 3" small icon class="warning elevation-0" @click="editDialog(item)"><v-icon small>edit</v-icon></v-btn>
+              </td>
             </tr>
           </template>
 
           <tr class="tr-body" v-else>
-            <td class="td-body" colspan="6">
+            <td class="td-body" colspan="7">
               <v-progress-linear indeterminate color="primary"></v-progress-linear>
             </td>
           </tr>
@@ -169,9 +200,17 @@ export default {
       {value: 3, text: 'Sudah Cetak'}
     ],
 
+    statuses2: [
+      {value: 0, text: 'Belum Terverifikasi'}, 
+      {value: 1, text: 'Verifikasi Petugas'}, 
+      {value: 2, text: 'Sudah Terverifikasi'},
+    ],
     status: 99,
 
-    verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi', 'Sudah Cetak']
+    verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi', 'Sudah Cetak'],
+
+    dialog_edit: false,
+    edit_data: {}
   }),
 
   mounted() {
@@ -206,190 +245,34 @@ export default {
       }
     },
 
-    select_order(order_number, sample_number, sample_name) {
-      this.dialog = true
-      this.sample_name = sample_name
-      this.order_number = order_number
-      this.sample_number = sample_number
-
-      console.log(this.dialog, this.order_number, this.sample_name, this.sample_number);
-    },
-
-    async getOrderDetails(order_id, sample_name, sample_number) {
-      this.sample_loading = {
-        state: true,
-        message: 'Mengambil detail order '+ order_id
-      }
-      try {
-        const req = await this.$calibrate.getOrderDetails({id: order_id})
-
-        this.getReportDetail(sample_name, sample_number, req)
-
-      } catch (error) {
-        alert('gagal, tidak bisa mengambil detail order')
-        console.log('failed when get order details', error.response);
-      }
-    },
-
-    async getReportDetail(sample_name, sample_number, order,) {
-      this.sample_loading = {
-        state: true,
-        message: 'Memuat laporan '+ sample_name +' ('+sample_number+')'
-      }
-      try {
-        const req = await this.$calibrate.getLembarKerja({id: sample_number})
-
-        console.log('open dialog', req);
-
-        if (req._id) {
-          this.$router.push('/lk?id='+sample_number)
-          console.log('sampel sudah dibuat');
-        } else {
-          console.log('sampel belum dibuat');
-          this.getNoLaporan(sample_number, order)
-        }
-  
-        // this.getNoLaporan(sample_number, order)
-      } catch (error) {
-        // alert('error while checking sample_id');
-        this.getNoLaporan(sample_number, order)
-        console.log('error while checking sample_id', error);
-      }
-    },
-
-    async getNoLaporan(no_sampel, order) {
-      try {
-        const req = await this.$calibrate.getNomorLaporan({
-          id_order: order.no_order, no_sample: no_sampel
-        })
-
-        if (req.error == true) {
-          alert(req.message)
-
-          setTimeout(() => {
-            this.sample_loading = {
-              state: false,
-              message: ''
-            }
-          }, 300);
-        } else {
-          this.createReport(req.laporan[0].no_sample, req.laporan[0].Nama_sample, req.laporan[0].no_laporan, order)
-        }
-        console.log('getNoLaporan :', req);
-      } catch (error) {
-        setTimeout(() => {
-          this.sample_loading = {
-            state: false,
-            message: ''
-          }
-        }, 300);
-        alert('gagal mengambil nomor laporan')
-        console.log(error);
-      }
-    },
-
     convertDate(date_string) {
       // const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(date_string).toLocaleDateString('id-ID', options)
     },
 
-    async createReport(id_sampel, nama_sample, no_laporan, order) {
-      try {
-        const req = await this.$calibrate.createReport({
-          _id: id_sampel,
-          nama_sample,
-          no_laporan,
-          equipment: {
-            name: nama_sample,
-            capacity: "",
-            model: "",
-            serial_number: "",
-            manufacture: "",
-            internal_dimension: '',
-            temperature: '',
-            others: '-',
-          },
-          owner: {
-            name: order.dibuat_untuk,
-            address: order.alamat
-          },
-          acceptance_date: order.diterima_tanggal,
-          calibration_date: order.tanggal_pengujian,
-          standard: {
-            name: '',
-            traceability: ''
-          },
-          env_cond: {
-            room_temp: '',
-            corrected_room_temp: '',
-            humidity: '',
-            corrected_humidity: ''
-          },
-          calibration_location: '',
-          calibration_method: [],
-          reference: [],
-          result: '',
-          published_date: '',
-          director_name: '',
-          director_nip: '',
-        })
-
-        // console.log('createreport :', req);
-        setTimeout(() => {
-          this.sample_loading = {
-            state: false,
-            message: ''
-          }
-        }, 300);
-        alert('Berhasil membuat laporan')
-        this.$router.push('/lk?id='+id_sampel)
-      } catch (error) {
-        setTimeout(() => {
-          this.sample_loading = {
-            state: false,
-            message: ''
-          }
-        }, 300);
-        alert('gagal membuat report')
-        console.log(error.response);
-      }
-    },
-
-    chooseFile() {
-      document.getElementById('file').click()
-    },
-
-    processFile(e) {
-      this.file = e.target.files[0]
-      console.log(e.target.files[0]);
+    editDialog(data) {
+      this.dialog_edit = true
+      this.edit_data = data
     },
 
     async submit() {
-      this.is_uploading = true
       try {
-        const req = await this.$calibrate.upload({
-          file: this.file,
-          cat: this.cat,
-          sample: this.sample_name,
-
-          order_id: this.order_number,
-          sample_number: this.sample_number
+        console.log(this.edit_data);
+        const req = await this.$calibrate.saveForm({
+          sample_id: this.edit_data._id,
+          certificate: this.edit_data
         })
 
-        setTimeout(() => {
-          this.is_uploading = false
-          this.file = {}
-          this.cat = ''
-          this.sample_name = ''
-          this.order_number = ''
-          this.sample_number = ''
-
-          alert('Upload Berhasil')
-        }, 500);
-
+        this.dialog_edit = false
+        this.edit_data = {}
+        this.getOnGoings()
       } catch (error) {
-        console.log('submit error : ', error.response);
+        alert('error when editing laporan status')
+        console.log('error when editing laporan status :', error);
+
+        this.dialog_edit = false
+        this.edit_data = {}
       }
     }
   },

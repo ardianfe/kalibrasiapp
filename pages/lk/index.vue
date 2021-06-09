@@ -20,20 +20,28 @@
               placeholder="Nama Standard" flat
               v-model="standard.standard_name"
             ></v-text-field>
+            
+            <label for="no_seri">Nomor Seri</label>
+            <v-text-field 
+              id="no_seri" solo
+              background-color="lighten-3 grey"
+              placeholder="Nomor Seri" flat
+              v-model="standard.no_seri"
+            ></v-text-field>
 
             <template>
               <label>Ketelusuran</label>
-              <v-layout align-top justify-space-between fill-height v-for="(item, index) in standard.ketelusuran" :key="index">
+              <v-layout align-top justify-space-between fill-height v-for="(item, index) in standard.ketertelusuran" :key="index">
                 <v-text-field 
-                  :id="`ketelusuran${index}`" solo autofocus
+                  :id="`ketertelusuran${index}`" solo
                   background-color="lighten-3 grey"
                   :placeholder="`Ketelusuran ${index + 1}`" flat
-                  v-model="standard.ketelusuran[index]"
+                  v-model="standard.ketertelusuran[index]"
                 ></v-text-field>
-                <v-btn icon small class="success" v-if="index < 9" @click="standard.ketelusuran.push('')">
+                <v-btn icon small class="success" v-if="index < 9" @click="standard.ketertelusuran.push('')">
                   <v-icon small>add</v-icon>
                 </v-btn>
-                <v-btn icon small class="error" v-if="index >= 1" @click="standard.ketelusuran.splice(index, 1)">
+                <v-btn icon small class="error" v-if="index >= 1" @click="standard.ketertelusuran.splice(index, 1)">
                   <v-icon small>delete</v-icon>
                 </v-btn>
               </v-layout>
@@ -47,6 +55,7 @@
       </v-dialog>
 
       <v-layout justify-center column>
+        <!-- input file section -->
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm">
           <v-progress-linear class="ma-0" indeterminate v-if="isLoading"></v-progress-linear>
           <v-card-text v-if="!isLoading">
@@ -67,14 +76,14 @@
                   <!-- {{$auth.$state}} -->
                   <!-- {{isNotEmpty}} -->
                   <template v-if="isNotEmpty">
-                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 1 && certificate.status == 0">Verifikasi</v-btn>
+                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 3 && certificate.status == 0">Verifikasi</v-btn>
                     <v-btn class="success" @click="changeStatus(2)" v-if="role == 2 && certificate.status == 1">Verifikasi</v-btn>
 
                     <!-- verifikasi super admin -->
-                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 0 && certificate.status == 0">Verifikasi (Petugas)</v-btn>
+                    <v-btn class="success" @click="changeStatus(1)" v-if="role == 0 && certificate.status == 0">Verifikasi (Koordinator)</v-btn>
                     <v-btn class="success" @click="changeStatus(2)" v-if="role == 0 && certificate.status == 1">Verifikasi (Kasi)</v-btn>
 
-                    <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk">Buat Laporan</v-btn>
+                    <v-btn class="primary" @click="$router.push('/lk/sertifikat?id='+$route.query.id+'&order_id='+$route.query.order_id)" v-if="certificate.status == 2" :disabled="!certificate.uri_attach || !certificate.uri_lk || role == 1">Buat Laporan</v-btn>
                   </template>
                 </v-layout>
               </v-flex>
@@ -92,14 +101,13 @@
                           box readonly clearable 
                           label="Pilih Berkas Lampiran" 
                           append-icon="attach_file" 
-                          @click:append=" chooseLampiran"
+                          @click:append="chooseLampiran"
                           @click:clear="resetLampiran"
                         ></v-text-field> <!-- only recieve .pdf file -->
                       </v-flex>
                       <v-flex xs12 sm2 class="px-2">
                         <v-text-field 
-                          required
-                          :rules="[v => !!v || 'Jumlah Halaman Lampiran !']"
+                          v-model="certificate.report_pages"
                           label="Jumlah Halaman"
                           value="0"
                         ></v-text-field>
@@ -108,7 +116,7 @@
                     <div v-else>
                       <span class="b">File Lampiran :</span> <br>
                       <v-btn class="primary" :href="certificate.uri_attach" target="_blank">
-                        <v-icon color="white" left>attachment</v-icon>Lihat File Lampiran
+                        <v-icon color="white" left>attachment</v-icon>Lihat File Lampiran ({{certificate.report_pages ? certificate.report_pages : '-'}} halaman )
                       </v-btn>
                       <v-btn class="success" v-if="certificate.status < 2" @click=" chooseLampiran">Edit</v-btn>
                     </div>
@@ -165,6 +173,7 @@
           </v-card-text>
         </v-card>
 
+        <!-- form section -->
         <v-card class="elevation-8 v-main-card mt-4" style="margin: auto" width="210mm" v-if="!isLoading">
           <!-- <v-progress-linear class="ma-0" indeterminate v-if="isLoading"></v-progress-linear> -->
           <v-card-title class="pb-0">
@@ -281,21 +290,52 @@
                         <v-select
                           :items="list_standard"
                           required :readonly="certificate.status == 3"
-                          label="Nama"
+                          label="Nama" multiple
+                          item-value="_id"
                           item-text="standard_name"
-                          return-object
+                          chips deletable-chips
                           :rules="[v => !!v || 'Pilih Standard !']"
-                          v-model="selected_standard">
-                        </v-select>
+                          v-model="selected_ids"
+                          @change="pushStandard"
+                        ></v-select>
                       </v-flex>
-                      <v-flex xs12>
-                        <template v-for="(item, index) in selected_standard.ketertelusuran">
+                      <!-- {{selected_standard}} -->
+                      <v-flex xs12 class="pa-3 grey lighten-4 mb-3" style="border-radius: 10px">
+                        <span class="font-weight-bold">Nama Standard</span>
+                        <template v-for="(item, index) in selected_standard.standard_name">
                           <v-text-field
-                            :key="index" dense
-                            :id="`selketelusuran${index}`"
-                            :label="`Ketelusuran ${index + 1}`" flat
-                            v-model="selected_standard.ketertelusuran[index]"
+                            :key="'sel_name'+index" dense
+                            :id="`sel_name${index}`"
+                            :label="`Nama Standard ${index + 1}`" flat
+                            v-model="selected_standard.standard_name[index]"
                           ></v-text-field>
+                          <v-text-field
+                            :key="'sel_seri'+index" dense
+                            :id="`sel_seri${index}`"
+                            :label="`Nomor Seri ${index + 1}`" flat
+                            v-model="selected_standard.no_seri"
+                          ></v-text-field>
+                        </template>
+                        {{selected_standard.no_seri}}
+                      </v-flex>
+                      <v-flex xs12 class="pa-3 grey lighten-4" style="border-radius: 10px">
+                        <span class="font-weight-bold">Ketertelusuran</span>
+                        <template v-for="(item, index) in selected_standard.ketertelusuran">
+                          <v-layout justify-space-between row wrap :key="'sel-ket-layout-'+index">
+                            <v-text-field
+                              dense
+                              :id="`selketelusuran${index}`"
+                              :label="`Ketertelusuran ${index + 1}`" flat
+                              v-model="selected_standard.ketertelusuran[index]"
+                            ></v-text-field>
+
+                            <v-btn 
+                              icon small class="error"
+                              @click="selected_standard.ketertelusuran.splice(index, 1)"
+                            >
+                              <v-icon small>delete</v-icon>
+                            </v-btn>
+                          </v-layout>
                         </template>
                       </v-flex>
                     </v-layout>
@@ -387,14 +427,14 @@
                 </v-layout>
                 
                 <p class="title mb-1">Metoda Kalibrasi</p>
-                <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.calibration_method" :key="index">
+                <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.calibration_method" :key="'cal_method'+index">
                   <v-flex xs8 class="">
                     <v-text-field :readonly="certificate.status == 3" :rules="[v => !!v || 'Metoda Kalibrasi harus diisi !']" required label="Metoda" v-model="certificate.calibration_method[index]"></v-text-field>
                   </v-flex>
                   <v-flex xs2 v-if="certificate.status <= 2">
-                    <v-btn small icon class="success" @click="certificate.calibration_method.push('')">
+                    <!-- <v-btn small icon class="success" @click="certificate.calibration_method.push('')">
                       <v-icon small>add</v-icon>
-                    </v-btn>
+                    </v-btn> -->
                     <v-btn v-if="index > 0" small icon class="warning" @click="certificate.calibration_method.splice(index, 1)">
                       <v-icon small>delete</v-icon>
                     </v-btn>
@@ -402,18 +442,18 @@
                 </v-layout>
                  
                 <p class="title mb-1">Acuan</p>
-                <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.reference" :key="index">
+                <v-layout class="mb-2" row wrap v-for="(item, index) in certificate.reference" :key="'acuan'+index">
                   <v-flex xs8 class="">
                     <v-text-field :rules="[v => !!v || 'Acuan harus diisi !']" :readonly="certificate.status == 3" required label="Standar Acuan" v-model="certificate.reference[index]"></v-text-field>
                   </v-flex>
-                  <!-- <v-flex xs2 v-if="certificate.status <= 2">
+                  <v-flex xs2 v-if="certificate.status <= 2">
                     <v-btn small icon class="success" @click="certificate.reference.push('')">
                       <v-icon small>add</v-icon>
                     </v-btn>
                     <v-btn v-if="index > 0" small icon class="warning" @click="certificate.reference.splice(index, 1)">
                       <v-icon small>delete</v-icon>
                     </v-btn>
-                  </v-flex> -->
+                  </v-flex>
                 </v-layout>
               </template>
               <v-scroll-y-transition v-if="certificate.status <= 2">
@@ -479,7 +519,7 @@ export default {
     standard_dialog: false,
 
     verification_dialog: false,
-    verifications: ['Belum Terverifikasi', 'Verifikasi Petugas', 'Sudah Terverifikasi', 'Selesai'],
+    verifications: ['Belum Terverifikasi', 'Verifikasi Koordinator', 'Sudah Terverifikasi', 'Selesai'],
 
     lampiran_file: {
       name: ''
@@ -532,22 +572,27 @@ export default {
       published_date: '',
       director_name: '',
       director_nip: '',
-      status: 0
+      status: 0,
+      report_pages: null
     },
 
     list_standard: [],
+    selected_ids: [],
     selected_standard: {
       _id: '',
       standard_name: '',
       alat_standard: [''],
+      no_seri: [''],
       ketertelusuran: ['']
     },
     standard: {
       standard_name: '',
-      ketelusuran: ['']
+      ketertelusuran: [''],
+      no_seri: '',
+      alat_standard: [''],
     },
 
-    roles: ['Admin', 'Petugas', 'Kasi', 'Verifikasi 2'],
+    roles: ['Admin', 'Petugas', 'Kasi', 'Koordinator'],
 
     savebutton: false,
     role: '',
@@ -631,6 +676,7 @@ export default {
             _id: '',
             standard_name: this.certificate.standard.name[0],
             alat_standard: [''],
+            no_seri: this.certificate.standard.no_seri,
             ketertelusuran: this.certificate.standard.traceability
           }
         }
@@ -640,6 +686,32 @@ export default {
         console.log('get LK err: ', error.response);
         this.isLoading = false
       }
+    },
+
+    pushStandard() {
+      this.selected_standard.standard_name = []
+      this.selected_standard.ketertelusuran = []
+      this.selected_standard.no_seri = []
+      for (let x = 0; x < this.selected_ids.length; x++) {
+        const element = this.selected_ids[x];
+        var index = this.list_standard.findIndex(std=> std._id === element);
+
+        var std = this.list_standard[index]
+
+        console.log('index', std);
+        console.log('element', element);
+        this.selected_standard.standard_name.push(std.standard_name)
+        this.selected_standard.no_seri.push(std.no_seri)
+
+        for (const key in std.ketertelusuran) {
+          if (Object.hasOwnProperty.call(std.ketertelusuran, key)) {
+            const element = std.ketertelusuran[key];
+            this.selected_standard.ketertelusuran.push(element)
+          }
+        }
+      }
+
+      console.log(this.selected_standard);
     },
 
     async getStandard(name) {
@@ -660,7 +732,8 @@ export default {
         const req = await this.$calibrate.createStandard({
           name: this.standard.standard_name, 
           tools: [this.certificate.equipment.name.toLowerCase()], 
-          traceability: this.standard.ketelusuran
+          traceability: this.standard.ketertelusuran,
+          serial_number: this.standard.no_seri
         })
 
         this.standard_dialog = false
@@ -678,13 +751,24 @@ export default {
 
     resetLampiran() {
       this.lampiran_file = {
-        name: 'wkwkw'
+        name: ''
       }
+
+      this.certificate.report_pages = 0
     },
 
     processLampiran(e) {
       this.lampiran_file = e.target.files[0]
       console.log('Lampiran File : ', e.target.files[0]);
+
+      var input = this.lampiran_file
+      var reader = new FileReader();
+      reader.readAsBinaryString(input);
+      reader.onloadend = ()=> {
+          var count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
+          console.log('Number of Pages:',count );
+          this.certificate.report_pages = count
+      }
     },
 
     chooseLK(e) {
@@ -720,6 +804,7 @@ export default {
         if (this.lampiran_file.name) {
           console.log('upload report :' + this.lampiran_file.name);
           const req = await this.$calibrate.uploadReport({id: this.$route.query.id, file: this.lampiran_file, cat: 'report'})
+          this.submitForm()
         }
 
         if (this.lk_file.name) {
@@ -756,6 +841,7 @@ export default {
     async submitForm() {
       // this.certificate.calibration_method = [this.certificate.calibration_method]
       this.certificate.standard.name = [this.selected_standard.standard_name]
+      this.certificate.standard.no_seri = [this.selected_standard.no_seri]
       this.certificate.standard.traceability = this.selected_standard.ketertelusuran
       try {
         const req = await this.$calibrate.saveForm({

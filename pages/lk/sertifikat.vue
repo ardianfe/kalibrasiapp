@@ -22,8 +22,11 @@
           </v-card-text>
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-btn class="primary elevation-0" @click="printWrapper">
-              cetak <v-icon right>print</v-icon>
+            <v-btn class="success elevation-0" @click="printWrapper" :disabled="!allow_create_report">
+              Buat Laporan <v-icon right>print</v-icon>
+            </v-btn> &nbsp;
+            <v-btn class="primary elevation-0" @click="uploadSipeja" :disabled="!allow_upload_sipeja">
+              Upload ke Sipeja <v-icon right>upload</v-icon>
             </v-btn> &nbsp;
           </v-card-title>
         </v-card>
@@ -185,9 +188,18 @@
                       <p class="helve i" style="font-size: 7pt; margin: 0; height: 18px;">Name</p>
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0;">: &nbsp;</p>
-                    <v-layout style="min-height: 9mm" align-center>
+                    <v-layout style="min-height: 9mm;" align-center>
                       <p class="roman" align-center style="font-size: 9pt; margin: 0;">
-                        {{certificate.standard.name[0]}}
+                        <v-layout row wrap>
+                          <!-- {{certificate.standard.name}} -->
+                          <v-flex v-for="(item, index) in certificate.standard.name[0]" :key="'std_name'+index"
+                            :xs4="certificate.standard.name[0].length > 5" 
+                            :xs6="certificate.standard.name[0].length < 5" 
+                            :xs12="certificate.standard.name[0].length <= 3"
+                          >
+                            {{item}} No. {{certificate.standard.no_seri[0][index]}} <br>
+                          </v-flex>
+                        </v-layout>
                       </p>
                     </v-layout>
                   </v-layout>
@@ -199,8 +211,14 @@
                     </div>
                     <p class="helve" style="font-size: 9pt; margin: 7px 0; height: 4.2mm;">: &nbsp;</p>
                     <v-layout style="min-height: 9mm" align-center>
-                      <p class="roman" align-center style="font-size: 9pt; margin: 0;">
-                        <span v-for="(item, index) in certificate.standard.traceability" :key="index">{{item}} <br></span>
+                      <p class="roman" align-center style="font-size: 9pt; margin: 0; max-width: 500px">
+                        <!-- <v-layout row wrap> -->
+                          <!-- {{certificate.standard.traceability.length}} -->
+                          Hasil kalibrasi yang dilaporkan tertelusur ke satuan pengukuran SI melalui
+                          <span v-for="(item, index) in certificate.standard.traceability" :key="'trace'+index">
+                            {{item}},
+                          </span>
+                        <!-- </v-layout> -->
                       </p>
                     </v-layout>
                   </v-layout>
@@ -326,7 +344,7 @@
                       </v-layout>
                     </v-flex>
                     <v-flex xs4>
-                      <div style="height: 32mm;"></div>
+                      <div style="height: 25mm;"></div>
                       <!-- <p class="helve c" style="font-size: 8pt; margin: 0; height: 4.2mm;">Bidang Standarisasi</p> -->
 
                       <!-- {{signatory}} -->
@@ -430,7 +448,7 @@
                         <p class="helve u" style="margin: 0; height: 4.2mm; font-size: 9pt;">Dari</p>
                         <p class="helve i" style="margin-bottom: 0; font-size: 8pt;">of</p>
                       </div>
-                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">2</p>
+                      <p class="helve" style="margin: 7px 8mm; height: 4.2mm; font-size: 9pt;">{{certificate.report_pages ? certificate.report_pages +1 : '-'}}</p>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -457,7 +475,7 @@
     <v-scroll-y-transition>
       <v-btn
         v-if="printbutton"
-        color="primary"
+        color="success"
         large
         fixed
         bottom
@@ -539,6 +557,8 @@ export default {
 
   data: () => ({
     active: null,
+    allow_upload_sipeja: false,
+    allow_create_report: true,
     certificate_number: '',
     certificate: {
       equipment: {
@@ -612,6 +632,11 @@ export default {
         this.printbutton = false
       }
     }
+
+    if (this.$auth.$state.user.role == 1) {
+      alert("Unauthorized")
+      this.$router.go(-1)
+    }
   },
 
   methods: {
@@ -639,6 +664,11 @@ export default {
         this.json_sipeja = jsonVariable
         this.certificate_number = req_data.no_laporan
         this.certificate = req
+
+        if (req.uri_report) {
+          this.allow_upload_sipeja = true
+          this.allow_create_report = false
+        }
         console.log('LK file: ', this.attachment);
 
       } catch (error) {
@@ -719,7 +749,14 @@ export default {
             console.log('uri', blob);
         });
 
-        this.uploadSipeja()
+        this.allow_upload_sipeja = true
+
+        setTimeout(() => {
+          this.print_loading.state = false
+          this.print_loading.message = 'Error when Merging'
+        }, 500);
+
+        // this.uploadSipeja()
       } catch (error) {
         setTimeout(() => {
           this.print_loading.state = false

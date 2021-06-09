@@ -142,7 +142,8 @@ const model = $axios => ({
       "published_date": published_date,
       "director_name": director_name,
       "director_nip": director_nip,
-      "id_sipeja": id_sipeja
+      "id_sipeja": id_sipeja,
+      "report_pages": 0
     }
     // console.log('create report:', createdata);
     return $axios.$post(process.env.basenew, {
@@ -234,9 +235,10 @@ const model = $axios => ({
     })
   },
 
-  createStandard({name, tools, traceability}) {
+  createStandard({name, tools, traceability, serial_number}) {
     return $axios.$post(masterbase + '/standard', {
       standard_name: name,
+      no_seri: serial_number,
       alat_standard: tools,
       ketertelusuran: traceability
     })

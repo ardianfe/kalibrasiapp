@@ -155,12 +155,12 @@ export default {
 
     loading: false,
 
-    roles: ['Admin', 'Petugas', 'Kasi', 'Verifikasi 2'],
+    roles: ['Admin', 'Petugas', 'Kasi', 'Koordinator'],
     role_data: [
       {id: 0, text: 'Admin'},
       {id: 1, text: 'Petugas'},
+      {id: 3, text: 'Koordinator'},
       {id: 2, text: 'Kasi'},
-      {id: 3, text: 'Verifikasi 2'},
     ],
 
     edit_dialog: false,
